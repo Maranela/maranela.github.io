@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "app.revanced.android.fenix",
-    "sha256_cert_fingerprints": ["D2:AD:3C:D5:3D:F3:2D:A6:5A:76:59:CB:3C:4F:3A:9A:4C:4F:47:3B:00:E5:D7:5E:4E:6F:47:3F:74:C3"]
+    "package_name": "io.github.maranela.twa",
+    "sha256_cert_fingerprints": ["4E:29:88:BD:BE:08:61:1E:8A:A1:0A:B1:D3:F7:04:01:A1:5B:E7:32:59:8E:65:38:B6:10:CA:16:34:13:21:1D"]
   }
 }]
