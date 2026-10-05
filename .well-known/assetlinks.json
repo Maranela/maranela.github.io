@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.revanced.android.fenix",
+    "sha256_cert_fingerprints": ["D2:AD:3C:D5:3D:F3:2D:A6:5A:76:59:CB:3C:4F:3A:9A:4C:4F:47:3B:00:E5:D7:5E:4E:6F:47:3F:74:C3"]
+  }
+}]
