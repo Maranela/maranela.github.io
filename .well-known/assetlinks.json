@@ -1,8 +1,8 @@
 [{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "io.github.maranela.twa",
-    "sha256_cert_fingerprints": ["4E:29:88:BD:BE:08:61:1E:8A:A1:0A:B1:D3:F7:04:01:A1:5B:E7:32:59:8E:65:38:B6:10:CA:16:34:13:21:1D"]
-  }
-}]
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.maranela.twa",
+        "sha256_cert_fingerprints": ["07:D2:47:F4:B5:07:B1:FB:F3:5F:18:1C:04:45:05:BB:70:4E:AB:0F:38:7B:55:24:13:6C:6A:5F:4D:21:65:15"]
+      }
+    }]
