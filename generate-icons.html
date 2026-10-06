@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><body>
+<h2>Tap buttons to download REAL PNGs</h2>
+<button onclick="make(192)">Download icon192.png (REAL PNG)</button><br><br>
+<button onclick="make(512)">Download icon512.png (REAL PNG)</button>
+<canvas id="c" style="display:none"></canvas>
+<script>
+function make(size){
+  const c=document.getElementById('c');
+  c.width=size; c.height=size;
+  const ctx=c.getContext('2d');
+  // Background #2d1b2e
+  ctx.fillStyle='#2d1b2e';
+  ctx.fillRect(0,0,size,size);
+  // Rounded corners
+  ctx.fillStyle='#2d1b2e';
+  // Shield
+  ctx.strokeStyle='#FFF8E7';
+  ctx.lineWidth=size*0.06;
+  ctx.lineJoin='round';
+  ctx.beginPath();
+  const pad=size*0.12;
+  ctx.moveTo(pad, size*0.25);
+  ctx.lineTo(size/2, pad);
+  ctx.lineTo(size-pad, size*0.25);
+  ctx.lineTo(size-pad, size*0.55);
+  ctx.quadraticCurveTo(size-pad, size*0.85, size/2, size-pad);
+  ctx.quadraticCurveTo(pad, size*0.85, pad, size*0.55);
+  ctx.closePath();
+  ctx.stroke();
+  // Female symbol
+  ctx.fillStyle='#FFF8E7';
+  const cx=size/2, cy=size*0.52, r=size*0.18;
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+  ctx.lineWidth=size*0.04;
+  ctx.beginPath(); ctx.arc(cx, cy, r-size*0.08, 0, Math.PI*2); ctx.stroke();
+  ctx.fillRect(cx-size*0.02, cy+r, size*0.04, size*0.18);
+  ctx.fillRect(cx-size*0.10, cy+r+size*0.06, size*0.20, size*0.04);
+  // Download as REAL PNG
+  const a=document.createElement('a');
+  a.download='icon'+size+'.png';
+  a.href=c.toDataURL('image/png');
+  a.click();
+}
+</script>
+</body></html>
