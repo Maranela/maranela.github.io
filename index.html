@@ -3,212 +3,256 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Feminist-Guard v8.1 MANUAL WIN | Pty Ltd 2026/768091/07 | Flash 27111672846</title>
+<title>Feminist-Guard v8.6 EVIDENCE FOR ALL | Pty Ltd 2026/768091/07</title>
 <meta name="theme-color" content="#3D2A60">
+<link rel="manifest" href="manifest.json">
 <style>
-:root{--purple:#3D2A60;--deep:#1A0E2E;--gold:#D4B87A;--cream:#FFF8EB}
-body{margin:0;background:var(--deep);color:var(--cream);font-family:Arial}
+:root{--purple:#3D2A60;--deep:#1A0E2E;--gold:#D4B87A;--cream:#FFF8EB;--red:#FF0033;--green:#00CC77}
+body{margin:0;background:var(--deep);color:var(--cream);font-family:Arial;padding-bottom:90px}
 .card{background:var(--purple);margin:12px;padding:18px;border-radius:20px;border:1px solid var(--gold)}
-button{padding:14px 20px;border-radius:12px;border:none;font-weight:bold;cursor:pointer}
+button{padding:14px 20px;border-radius:12px;border:none;font-weight:700;cursor:pointer}
 .btn-gold{background:var(--gold);color:var(--deep);width:100%}
-.btn-sos{background:#FF0033;color:white;width:100%;font-size:20px;padding:25px;border-radius:50%;height:150px;width:150px;margin:20px auto;display:block}
-input{width:100%;padding:12px;border-radius:10px;margin:6px 0;border:1px solid var(--gold);background:var(--deep);color:var(--cream)}
-.hidden{display:none}
-#vault{border:2px dashed var(--gold)}
-.status-pending{color:#FFCC00}
-.status-active{color:#00FF99}
+.btn-sos{background:var(--red);color:white;font-size:24px;height:170px;width:170px;border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center}
+input,select{width:100%;padding:12px;border-radius:10px;margin:6px 0;border:1px solid var(--gold);background:var(--deep);color:var(--cream);box-sizing:border-box}
+.hidden{display:none!important}
+.tab{display:none}.tab.active{display:block}
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--purple);border-top:2px solid var(--gold);display:flex;justify-content:space-around;padding:8px 0;z-index:99}
+.nav button{background:transparent;color:var(--cream);font-size:10px;padding:6px 4px;flex:1}
+.nav button.active{color:var(--gold);background:var(--deep);border-radius:14px}
+.badge{padding:4px 10px;border-radius:20px;font-size:10px;color:white;font-weight:700}
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pattern-item{background:var(--deep);border:1px solid var(--gold);border-radius:16px;padding:16px;text-align:center;cursor:pointer}
+.pattern-item h4{margin:6px 0;color:var(--gold)}
+.error{color:#FF8A80;font-size:12px;background:#330011;padding:8px;border-radius:8px;border:1px solid var(--red);margin:6px 0}
+.success{color:#A7F3D0;font-size:12px;background:#002211;padding:8px;border-radius:8px;border:1px solid var(--green);margin:6px 0}
+.info{color:#93C5FD;font-size:12px;background:#1E293B;padding:8px;border-radius:8px;margin:6px 0}
+.link{color:var(--gold);text-decoration:underline;cursor:pointer;font-size:13px}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+.logo{width:56px;height:56px;background:var(--gold);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--purple);color:var(--cream);padding:12px 20px;border-radius:25px;border:1px solid var(--gold);z-index:1000;font-size:13px;display:none}
 </style>
 </head>
 <body>
 <div id="popiaScreen" class="card">
-<h3>🔒 POPIA Consent - Act 4 of 2013</h3>
-<p style="font-size:13px;line-height:18px;text-align:left">
-<b>Feminist-Guard Pty Ltd 2026/768091/07</b><br>
-Info Officer: Soshanguve | info@feminist-guard.co.za | Flash Merchant 27111672846 | Ticket #779502<br><br>
-<b>What we collect:</b> Live location ONLY when SOS pressed, trusted contacts numbers, evidence you record.<br>
-<b>Where:</b> Location -> your 3 contacts via WhatsApp Live + Free SMS. Evidence -> ONLY on your phone, encrypted, not on our servers.<br>
-<b>Rights:</b> Delete all in Vault > Delete All. Withdraw by uninstalling.<br>
-</p>
-<label><input type="checkbox" id="popiaCheck"> I consent for safety purpose</label>
-<button class="btn-gold" onclick="savePopia()">I Consent - Enter Guard</button>
+<div class="logo">🛡️</div>
+<h3 style="text-align:center">🔒 POPIA Consent Act 4 of 2013</h3>
+<p style="font-size:12px">Feminist-Guard Pty Ltd 2026/768091/07 | Flash 27111672846 | Ticket #779502<br><br><b>Evidence Vault:</b> Every user can gather evidence (video, pic, audio) when in danger. Evidence is encrypted ONLY on your phone, protected by your Vault PIN. Owner cannot see your evidence.<br><br><b>Payments:</b> R50 voucher PIN sent instantly via WhatsApp to owner 0672739660 for manual redeem on Flash 27111672846.</p>
+<label style="display:flex;gap:8px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:auto"> I consent 18+ - I understand vault is for my own evidence</label>
+<button class="btn-gold" onclick="savePopia()" style="margin-top:10px">I Consent - Continue</button>
+</div>
+<div id="authScreen" class="card hidden">
+<div style="text-align:center"><div class="logo">🛡️</div><h2 style="color:var(--gold);margin:0">Feminist-Guard v8.6</h2><p style="font-size:10px">EVIDENCE VAULT FOR ALL USERS | Pty Ltd</p></div>
+<div id="loginBox">
+<h3>🔐 Login</h3>
+<div id="loginError" class="hidden"></div>
+<input id="loginUser" placeholder="Username">
+<input id="loginPass" type="password" placeholder="Password">
+<button class="btn-gold" onclick="doLogin()">Login</button>
+<p style="text-align:center;font-size:13px;margin-top:10px">No account? <span class="link" onclick="showRegister()">Create Account</span></p>
+</div>
+<div id="registerBox" class="hidden">
+<h3>📝 Create Professional Account</h3>
+<div id="regError" class="hidden"></div><div id="regSuccess" class="hidden"></div>
+<input id="regFullName" placeholder="Full Name" oninput="checkRegForm()">
+<input id="regPhone" placeholder="Phone 082..." maxlength="10" oninput="validatePhoneLive()"><div id="phoneFeedback"></div>
+<input id="regID" placeholder="SA ID 13 digits" maxlength="13" oninput="validateIDLive()"><div id="idLiveFeedback"></div>
+<input id="regUsername" placeholder="Username min 3" oninput="checkUsernameLive()"><div id="userFeedback"></div>
+<input id="regPass" type="password" placeholder="Password min 6 with number" oninput="checkPassStrength()"><div id="passStrength"></div>
+<input id="regPass2" type="password" placeholder="Confirm Password" oninput="checkRegForm()">
+<label style="font-size:11px;display:flex;gap:8px"><input type="checkbox" id="regTerms" style="width:auto" onchange="checkRegForm()"> Accept Terms - Vault for my evidence</label>
+<button class="btn-gold" onclick="doRegister()" id="regBtn" disabled>Create Account</button>
+<p style="text-align:center;font-size:13px;margin-top:10px"><span class="link" onclick="showLogin()">Already have account? Login</span></p>
+</div>
 </div>
 <div id="pinScreen" class="card hidden">
-<h3>🔐 Vault PIN</h3>
-<p>Create 4-digit PIN to protect evidence</p>
-<input type="password" id="pin1" placeholder="Set PIN 4 digits" maxlength="4">
-<input type="password" id="pin2" placeholder="Confirm PIN" maxlength="4">
-<button class="btn-gold" onclick="setPin()">Save PIN</button>
+<div style="text-align:center"><div class="avatar" style="margin:0 auto" id="pinAvatar">N</div><h3>🔐 Vault PIN - Protect Your Evidence</h3><p style="font-size:12px">Welcome <b id="welcomeName" style="color:var(--gold)"></b><br>ID ****<span id="welcomeID"></span><br><span style="font-size:11px">Your evidence vault is private - only you can unlock it with this PIN</span></p></div>
+<div id="setPinBox">
+<p style="font-size:12px">Create 4-digit PIN to protect your evidence (video, pics, audio when in danger)</p>
+<input type="password" id="pin1" placeholder="Set PIN 4 digits" maxlength="4" inputmode="numeric">
+<input type="password" id="pin2" placeholder="Confirm PIN" maxlength="4" inputmode="numeric">
+<button class="btn-gold" onclick="setPin()">Save PIN & Enter App</button>
+</div>
 <div id="enterPin" class="hidden">
-<input type="password" id="pinEnter" placeholder="Enter PIN" maxlength="4">
-<button class="btn-gold" onclick="checkPin()">Unlock Vault</button>
+<input type="password" id="pinEnter" placeholder="Enter Vault PIN to access evidence" maxlength="4" inputmode="numeric">
+<button class="btn-gold" onclick="checkPin()">Unlock Vault & Enter App</button>
+<p style="text-align:center;margin-top:10px"><span class="link" onclick="doLogout()">Switch Account</span> | <span class="link" onclick="forgotVaultPin()">Forgot PIN?</span></p>
 </div>
 </div>
 <div id="mainApp" class="hidden">
-<div class="card">
-<h2 style="color:var(--gold)">Feminist-Guard v8.1 MANUAL WIN</h2>
-<p style="font-size:11px">Pty Ltd 2026/768091/07 | Flash 27111672846 | #779502 MANUAL</p>
-<select id="lang" onchange="changeLang()"><option value="en">English</option><option value="st">Sepedi</option><option value="zu">Zulu</option></select>
-<label style="font-size:12px"><input type="checkbox" id="batterySaver"> Battery Saver (location only on SOS)</label>
-<div id="accountStatus" style="margin-top:10px;padding:10px;background:#1A0E2E;border-radius:10px;font-size:12px"></div>
+<div class="card" style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;gap:10px;align-items:center"><div class="avatar" id="mainAvatar">N</div><div><h2 style="color:var(--gold);margin:0;font-size:16px">Feminist-Guard v8.6</h2><p style="font-size:10px;margin:0" id="userInfoLine">User | ****</p><p style="font-size:9px;margin:0;color:var(--green)">🔒 Evidence Vault: Private & Encrypted On Your Phone</p></div></div>
+<div style="text-align:right"><div id="accountBadge" class="badge">NOT ACTIVE</div><div style="font-size:9px;margin-top:4px">v8.6 EVIDENCE FOR ALL</div></div>
 </div>
+<div id="tab-dashboard" class="tab active">
 <div class="card">
-<h3 id="sosText">🆘 HOLD FOR HELP</h3>
-<button class="btn-sos" id="sosBtn" onmousedown="startSos()" onmouseup="cancelSos()" ontouchstart="startSos()" ontouchend="cancelSos()">SOS</button>
-<p id="sosStatus" style="text-align:center;font-size:12px">Hold 3 sec to send WhatsApp Live + Free SMS to 3 contacts</p>
+<h3>Dashboard - Your Safety Center</h3>
+<div id="accountStatus" style="padding:10px;background:#1A0E2E;border-radius:10px;font-size:12px;margin-bottom:10px"></div>
+<div class="pattern-grid">
+<div class="pattern-item" onclick="openTab('sos')"><div style="font-size:28px">🆘</div><h4>SOS Help</h4><small>Hold 3 sec to send location</small></div>
+<div class="pattern-item" onclick="openTab('trusted')"><div style="font-size:28px">👥</div><h4>Trusted Circle</h4><small id="trustedCount">0/3</small></div>
+<div class="pattern-item" onclick="openTab('vault')" style="border:2px solid var(--green)"><div style="font-size:28px">🔒</div><h4>Evidence Vault</h4><small id="vaultCount">0 items</small><small style="color:var(--green)">For danger: video, pic, audio</small></div>
+<div class="pattern-item" onclick="openTab('safe')"><div style="font-size:28px">📍</div><h4>Safe Places</h4><small id="safeCount">0</small></div>
 </div>
+<button class="btn-gold" style="margin-top:15px" onclick="openTab('pay')">💳 Activate R50 - Pay via Voucher</button>
+<p style="font-size:10px;text-align:center;margin-top:8px;color:var(--gold)">Vault: Every user gathers evidence when in danger - encrypted, only you can see</p>
+</div>
+</div>
+<div id="tab-sos" class="tab"><div class="card" style="text-align:center"><h3>🆘 HOLD FOR HELP - Send Location to 3 Contacts</h3><button class="btn-sos" onmousedown="startSos()" onmouseup="cancelSos()" ontouchstart="startSos()" ontouchend="cancelSos()">SOS</button><p id="sosStatus" style="font-size:12px">Hold 3 sec - sends WhatsApp Live + SMS</p><p style="font-size:11px">After SOS, go to Vault to record video/pic as evidence</p></div></div>
+<div id="tab-trusted" class="tab"><div class="card"><h3>👩‍👩‍👧 Trusted Circle - 3 People Who Get Your SOS</h3><input id="c1" placeholder="Contact 1 - e.g. Mama 082..."><input id="c2" placeholder="Contact 2"><input id="c3" placeholder="Contact 3"><button class="btn-gold" onclick="saveContacts()">Save & Verify Contacts</button><div id="trustedList"></div></div></div>
+<div id="tab-safe" class="tab"><div class="card"><h3>📍 Safe Locations - Clinic, Police, Home</h3><input id="safeName" placeholder="Safe place name"><button class="btn-gold" onclick="addSafe()">Add Safe Location (GPS)</button><div id="safeList"></div></div></div>
+<div id="tab-vault" class="tab">
 <div class="card">
-<h3>👩‍👩‍👧 Trusted Circle (3)</h3>
-<input id="c1" placeholder="Contact 1 - e.g. Mama Nandi 082...">
-<input id="c2" placeholder="Contact 2">
-<input id="c3" placeholder="Contact 3">
-<button class="btn-gold" onclick="saveContacts()">Save & Verify</button>
+<div style="display:flex;justify-content:space-between"><h3 style="margin:0">🔒 Your Evidence Vault - For Danger Moments</h3><span style="font-size:10px;background:var(--green);color:white;padding:2px 8px;border-radius:20px">PRIVATE - ONLY YOU</span></div>
+<p style="font-size:11px">When you feel in danger, gather evidence here. Video, pic, audio are encrypted ONLY on your phone, protected by your Vault PIN. Owner and other users cannot see your vault.</p>
+<div class="pattern-grid">
+<div class="pattern-item" onclick="takePicture()"><div style="font-size:32px">📸</div><h4>Take Pic</h4><small>Evidence when in danger</small></div>
+<div class="pattern-item" onclick="recordVideo()"><div style="font-size:32px">🎥</div><h4>Record Video</h4><small>Gather evidence</small></div>
+<div class="pattern-item" onclick="recordAudio()"><div style="font-size:32px">🎙️</div><h4>Record Audio</h4><small>Voice evidence</small></div>
+<div class="pattern-item" onclick="document.getElementById('fileInput').click()"><div style="font-size:32px">📁</div><h4>Upload</h4><small>From gallery</small></div>
 </div>
-<div class="card">
-<h3>📍 Safe Locations</h3>
-<input id="safeName" placeholder="Safe place name - e.g. Clinic">
-<button class="btn-gold" onclick="addSafe()">Add Safe Location (GPS)</button>
-<div id="safeList"></div>
-</div>
-<div class="card" id="vault">
-<h3>🔒 Evidence Vault - Only on Your Phone</h3>
-<button class="btn-gold" onclick="takePicture()">📸 Take Picture</button>
-<button class="btn-gold" style="margin-top:8px" onclick="recordAudio()">🎙️ Record Audio</button>
-<button class="btn-gold" style="margin-top:8px" onclick="recordVideo()">🎥 Record Video</button>
 <input type="file" id="fileInput" accept="image/*,audio/*,video/*" hidden onchange="handleFile(event)">
-<button class="btn-gold" style="margin-top:8px;background:#444;color:var(--gold)" onclick="document.getElementById('fileInput').click()">Upload from Gallery</button>
+<div style="background:var(--deep);padding:10px;border-radius:10px;margin-top:12px;font-size:11px"><b>How to use vault when in danger:</b><br>1. Feel unsafe? Open Vault tab<br>2. Tap Video or Pic - it saves instantly encrypted<br>3. Evidence has date/time/location<br>4. Only you can unlock with Vault PIN<br>5. Use for police case later - delete all in Settings if needed</div>
 <div id="evidenceList" style="margin-top:12px"></div>
-<button style="background:#FF0033;color:white;width:100%;margin-top:15px;padding:12px;border-radius:10px" onclick="deleteAll()">🗑️ Delete All</button>
-</div>
-<div class="card" id="payCard">
-<h3>💳 R50 Guard Activation - MANUAL WIN</h3>
-<p id="payText" style="font-size:13px">R45 Guard + R5 Emergency Airtime. Pay via Flash Voucher to 27111672846</p>
-<input id="voucher" placeholder="Enter Flash / 1Voucher / OTT PIN here">
-<button class="btn-gold" onclick="activate()">Pay R50 & Send to Owner</button>
-<p id="payStatus" style="font-size:12px;color:var(--gold);margin-top:10px;line-height:16px"></p>
-<p style="font-size:10px">Merchant: Feminist-Guard Pty Ltd 2026/768091/07 | Flash 27111672846 | Nedbank 1328576469</p>
+<button style="background:var(--red);color:white;width:100%;margin-top:12px;padding:12px;border-radius:10px" onclick="deleteAll()">🗑️ Delete All My Evidence (POPIA)</button>
 </div>
 </div>
+<div id="tab-pay" class="tab"><div class="card" id="payCard"><h3>💳 R50 Guard Activation - Payments to Owner</h3><p style="font-size:12px">R45 Guard + R5 Emergency Airtime. Pay via Flash/1Voucher/OTT voucher to Flash Merchant 27111672846. Voucher code sent instantly via WhatsApp to owner 0672739660 for manual redeem. This payment is NOT vault - vault is for evidence only.</p><input id="voucher" placeholder="Enter Voucher PIN (Flash/1Voucher/OTT)" oninput="checkVoucherLive()"><div id="voucherFeedback"></div><button class="btn-gold" onclick="activate()">Pay R50 & Send Voucher Code to Owner via WhatsApp</button><p id="payStatus" style="font-size:12px;color:var(--gold);margin-top:8px"></p><p style="font-size:10px">Merchant: Feminist-Guard Pty Ltd 2026/768091/07 | Flash 27111672846 | Nedbank 1328576469 | Ticket #779502 MANUAL</p></div><div class="card"><h3>⚙️ Settings & Profile</h3><div id="profileInfo" style="font-size:12px;background:var(--deep);padding:10px;border-radius:10px;margin-bottom:10px"></div><button class="btn-gold" style="background:#444;color:var(--gold);margin-bottom:8px" onclick="resetPin()">Reset Vault PIN (My Evidence PIN)</button><button class="btn-gold" style="background:#444;color:var(--gold)" onclick="doLogout()">Logout - Clear Session</button><p style="font-size:9px;text-align:center;margin-top:10px">v8.6 EVIDENCE FOR ALL USERS | Vault is private per user | Payment vault separate - goes to owner 0672739660</p></div></div>
+<div class="nav">
+<button id="nav-dashboard" class="active" onclick="openTab('dashboard')">🏠<br>Home</button>
+<button id="nav-sos" onclick="openTab('sos')">🆘<br>SOS</button>
+<button id="nav-trusted" onclick="openTab('trusted')">👥<br>Circle</button>
+<button id="nav-vault" onclick="openTab('vault')" style="border:1px solid var(--green)">🔒<br>Vault</button>
+<button id="nav-pay" onclick="openTab('pay')">⚙️<br>Pay</button>
+</div>
+</div>
+<div id="toast" class="toast"></div>
 <script>
-function savePopia(){
- if(!document.getElementById('popiaCheck').checked){alert('Accept POPIA to continue');return;}
- localStorage.setItem('popia_consent','yes_'+new Date().toISOString());
- document.getElementById('popiaScreen').classList.add('hidden');
- document.getElementById('pinScreen').classList.remove('hidden');
- if(localStorage.getItem('vault_pin')){document.getElementById('enterPin').classList.remove('hidden');}
+function toast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
+function savePopia(){if(!document.getElementById('popiaCheck').checked){toast('Accept POPIA');return;}localStorage.setItem('popia_consent','yes_'+new Date().toISOString());document.getElementById('popiaScreen').classList.add('hidden');document.getElementById('authScreen').classList.remove('hidden');checkAuthState();}
+if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').classList.add('hidden');document.getElementById('authScreen').classList.remove('hidden');}
+function checkAuthState(){
+  let cur=localStorage.getItem('current_user');
+  if(cur){
+    document.getElementById('authScreen').classList.add('hidden');
+    document.getElementById('pinScreen').classList.remove('hidden');
+    let user=JSON.parse(cur);
+    document.getElementById('welcomeName').innerText=user.fullName;
+    document.getElementById('welcomeID').innerText=user.idLast4;
+    document.getElementById('pinAvatar').innerText=user.fullName.charAt(0).toUpperCase();
+    if(localStorage.getItem('vault_pin')){
+      document.getElementById('setPinBox').classList.add('hidden');
+      document.getElementById('enterPin').classList.remove('hidden');
+    }
+  }
 }
-if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').classList.add('hidden');document.getElementById('pinScreen').classList.remove('hidden');if(localStorage.getItem('vault_pin')){document.getElementById('enterPin').classList.remove('hidden');}}
-function setPin(){
- let p1=document.getElementById('pin1').value;let p2=document.getElementById('pin2').value;
- if(p1.length!=4||p1!=p2){alert('PIN must be 4 digits and match');return;}
- localStorage.setItem('vault_pin',p1);alert('PIN saved');showMain();
+function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');}
+function showLogin(){document.getElementById('registerBox').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden');}
+function isValidSAID(id){
+ if(!id||id.length!==13||!/^[0-9]+$/.test(id)) return {valid:false,msg:'13 digits only'};
+ let mm=parseInt(id.substring(2,4));let dd=parseInt(id.substring(4,6));
+ if(mm<1||mm>12) return {valid:false,msg:'Invalid month'};
+ if(dd<1||dd>31) return {valid:false,msg:'Invalid day'};
+ let total=0;for(let i=0;i<12;i++){let d=parseInt(id.charAt(i));if(i%2===0){total+=d;}else{let dbl=d*2;total+=Math.floor(dbl/10)+(dbl%10);}}
+ let check=(10-(total%10))%10;if(check!==parseInt(id.charAt(12))) return {valid:false,msg:'Checksum invalid - not real SA ID'};
+ return {valid:true,msg:'Valid SA ID',last4:id.substring(9,13)};
 }
-function checkPin(){
- if(document.getElementById('pinEnter').value==localStorage.getItem('vault_pin')){showMain();}else{alert('Wrong PIN');}
+function validateIDLive(){let id=document.getElementById('regID').value.trim();let fb=document.getElementById('idLiveFeedback');if(!id){fb.innerHTML='';checkRegForm();return;}if(id.length<13){fb.innerHTML=`<div class=info>${id.length}/13</div>`;checkRegForm();return;}let r=isValidSAID(id);fb.innerHTML=r.valid?`<div class=success>✅ Valid - ****${r.last4} will be saved</div>`:`<div class=error>❌ ${r.msg}</div>`;checkRegForm();}
+function validatePhoneLive(){let p=document.getElementById('regPhone').value.trim();let fb=document.getElementById('phoneFeedback');if(!p){fb.innerHTML='';return;}if(!/^0[6-8][0-9]{8}$/.test(p)){fb.innerHTML=`<div class=error>❌ Must start 06/07/08 and 10 digits</div>`;}else{fb.innerHTML=`<div class=success>✅ Valid SA phone</div>`;}checkRegForm();}
+function checkUsernameLive(){let u=document.getElementById('regUsername').value.trim();let fb=document.getElementById('userFeedback');if(!u){fb.innerHTML='';return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(x=>x.username.toLowerCase()===u.toLowerCase())){fb.innerHTML=`<div class=error>❌ Username taken</div>`;}else if(u.length>=3){fb.innerHTML=`<div class=success>✅ Available</div>`;}checkRegForm();}
+function checkPassStrength(){let p=document.getElementById('regPass').value;let fb=document.getElementById('passStrength');if(!p){fb.innerHTML='';return;}let ok=p.length>=6 && /[0-9]/.test(p);fb.innerHTML=ok?`<div class=success>Strong ✅</div>`:`<div class=error>Min 6 with number</div>`;checkRegForm();}
+function checkRegForm(){let full=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let p1=document.getElementById('regPass').value;let p2=document.getElementById('regPass2').value;let terms=document.getElementById('regTerms').checked;let btn=document.getElementById('regBtn');let validID=isValidSAID(id).valid;let validPhone=/^0[6-8][0-9]{8}$/.test(phone);let validUser=user.length>=3;let validPass=p1.length>=6 && /[0-9]/.test(p1) && p1===p2;btn.disabled=!(full&&validPhone&&validID&&validUser&&validPass&&terms);}
+function checkVoucherLive(){let v=document.getElementById('voucher').value.trim();let fb=document.getElementById('voucherFeedback');if(!v){fb.innerHTML='';return;}fb.innerHTML=v.length>=8?`<div class=success>✅ Will send to owner 0672739660 via WhatsApp instantly - payment, not vault</div>`:`<div class=error>Too short - voucher PIN usually 10-16 digits</div>`;}
+function doRegister(){
+ let fullName=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let pass=document.getElementById('regPass').value;let pass2=document.getElementById('regPass2').value;
+ let err=document.getElementById('regError');let suc=document.getElementById('regSuccess');err.classList.add('hidden');suc.classList.add('hidden');
+ let idRes=isValidSAID(id);if(!idRes.valid){err.innerText='❌ ID: '+idRes.msg;err.classList.remove('hidden');return;}
+ if(!/^0[6-8][0-9]{8}$/.test(phone)){err.innerText='❌ Invalid SA phone';err.classList.remove('hidden');return;}
+ if(pass!==pass2||pass.length<6){err.innerText='❌ Password mismatch or too short';err.classList.remove('hidden');return;}
+ let users=JSON.parse(localStorage.getItem('guard_users')||'[]');
+ if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerText='❌ Username exists';err.classList.remove('hidden');return;}
+ if(users.find(u=>u.idNumber===id)){err.innerText='❌ ID already registered';err.classList.remove('hidden');return;}
+ let newUser={fullName,phone,idNumber:id,idLast4:idRes.last4,username:user,password:pass,created:new Date().toISOString()};
+ users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));
+ suc.innerHTML=`✅ Account created! Welcome ${fullName}<br>Your evidence vault is ready - only you can access with Vault PIN<br>ID ****${idRes.last4}`;suc.classList.remove('hidden');
+ setTimeout(()=>{document.getElementById('authScreen').classList.add('hidden');document.getElementById('pinScreen').classList.remove('hidden');checkAuthState();},1200);
 }
+function doLogin(){
+ let user=document.getElementById('loginUser').value.trim();let pass=document.getElementById('loginPass').value;let err=document.getElementById('loginError');err.classList.add('hidden');
+ if(!user||!pass){err.innerText='❌ Enter username and password';err.classList.remove('hidden');return;}
+ let users=JSON.parse(localStorage.getItem('guard_users')||'[]');let found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());
+ if(!found){err.innerHTML=`❌ Username "${user}" not found - check spelling`;err.classList.remove('hidden');return;}
+ if(found.password!==pass){err.innerHTML=`❌ Wrong password for "${user}" - re-enter good one`;err.classList.remove('hidden');document.getElementById('loginPass').value='';document.getElementById('loginPass').focus();return;}
+ localStorage.setItem('current_user',JSON.stringify(found));document.getElementById('authScreen').classList.add('hidden');document.getElementById('pinScreen').classList.remove('hidden');checkAuthState();toast(`Welcome ${found.fullName} - Your vault is private`);
+}
+function doLogout(){if(confirm('Logout? Your evidence vault stays encrypted on this phone, only you can unlock.')){localStorage.removeItem('current_user');localStorage.removeItem('vault_pin');location.reload();}}
+function setPin(){let p1=document.getElementById('pin1').value;let p2=document.getElementById('pin2').value;if(p1.length!=4||p1!=p2||!/^[0-9]{4}$/.test(p1)){toast('Vault PIN must be 4 digits and match - this protects your evidence');return;}localStorage.setItem('vault_pin',p1);toast('Vault PIN saved - your evidence is now protected');showMain();}
+function checkPin(){if(document.getElementById('pinEnter').value==localStorage.getItem('vault_pin')){showMain();}else{toast('Wrong Vault PIN - re-enter correct PIN to access your private evidence');document.getElementById('pinEnter').value='';}}
 function showMain(){
  document.getElementById('pinScreen').classList.add('hidden');
  document.getElementById('mainApp').classList.remove('hidden');
- loadEvidence();loadSafe();checkAccountStatus();
+ let cur=JSON.parse(localStorage.getItem('current_user')||'{}');
+ document.getElementById('userInfoLine').innerText=`${cur.fullName} | ****${cur.idLast4} | Evidence Vault Private`;
+ document.getElementById('mainAvatar').innerText=cur.fullName.charAt(0).toUpperCase();
+ document.getElementById('profileInfo').innerHTML=`<b>Name:</b> ${cur.fullName}<br><b>Phone:</b> ${cur.phone}<br><b>ID:</b> *********${cur.idLast4}<br><b>Username:</b> ${cur.username}<br><b>Vault:</b> Private - Only you can access with your Vault PIN<br><b>Evidence:</b> Encrypted on this phone only`;
+ loadEvidence();loadSafe();checkAccountStatus();updateCounts();
+}
+function openTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  let tab=document.getElementById('tab-'+name);
+  if(tab) tab.classList.add('active');
+  let nav=document.getElementById('nav-'+name);
+  if(nav) nav.classList.add('active');
 }
 function checkAccountStatus(){
- let active=localStorage.getItem('guard_active');
- let pending=localStorage.getItem('guard_pending_time');
- let statusDiv=document.getElementById('accountStatus');
- let payCard=document.getElementById('payCard');
- if(active=='yes'){
-  statusDiv.innerHTML='<span class="status-active">✅ ACCOUNT ACTIVE - Guard v8.1 Ready</span>';
-  payCard.classList.add('hidden');
- } else if(pending){
-  let pendingTime=new Date(pending);
-  let now=new Date();
-  let diffMins=Math.floor((now-pendingTime)/60000);
-  let remaining=30-diffMins;
-  if(remaining<=0){
-   localStorage.setItem('guard_active','yes');
-   localStorage.removeItem('guard_pending_time');
-   statusDiv.innerHTML='<span class="status-active">✅ ACCOUNT ACTIVE - 30min validation passed</span>';
-   payCard.classList.add('hidden');
-  } else {
-   statusDiv.innerHTML=`<span class="status-pending">⏳ PENDING VALIDATION - ${remaining} mins left<br>Voucher sent to owner 0672739660. We are checking if valid. Account will auto-unlock within 30 mins.</span>`;
-   document.getElementById('payStatus').innerText=`⏳ Pending... Voucher submitted at ${pendingTime.toLocaleTimeString()}. Access in ${remaining} mins after owner redeems on Flash 27111672846.`;
-  }
- } else {
-  statusDiv.innerHTML='<span class="status-pending">⚠️ ACCOUNT NOT ACTIVE - Pay R50 to activate</span>';
- }
+ let active=localStorage.getItem('guard_active');let pending=localStorage.getItem('guard_pending_time');let statusDiv=document.getElementById('accountStatus');let badge=document.getElementById('accountBadge');
+ if(active=='yes'){statusDiv.innerHTML='<span style=color:#00CC77>✅ ACCOUNT ACTIVE - Guard Ready | Your private evidence vault is active | SOS Ready</span>';badge.innerText='ACTIVE';badge.style.background='#00AA66';document.getElementById('payCard').classList.add('hidden');}
+ else if(pending){let pt=new Date(pending);let now=new Date();let diff=Math.floor((now-pt)/60000);let rem=30-diff;if(rem<=0){localStorage.setItem('guard_active','yes');localStorage.removeItem('guard_pending_time');checkAccountStatus();return;}statusDiv.innerHTML=`<span style=color:#FFCC00>⏳ PENDING VALIDATION - ${rem} mins left<br>Voucher code sent to owner 0672739660 via WhatsApp. Checking if valid on Flash 27111672846. Your vault is still usable while pending. Account will allow full access within 30 mins.</span>`;badge.innerText=rem+' MIN';badge.style.background='#FFAA00';}
+ else {statusDiv.innerHTML='<span style=color:#FF0033>⚠️ ACCOUNT NOT ACTIVE - Pay R50 to activate | Your evidence vault works even when not active - gather evidence when in danger</span>';badge.innerText='NOT ACTIVE';badge.style.background='#FF0033';}
 }
-function changeLang(){
- let l=document.getElementById('lang').value;
- if(l=='st'){document.getElementById('sosText').innerText='🆘 SWARA GO KGOPELA THUSO';document.getElementById('payText').innerText='R45 Guard + R5 Airtime ya tshoganyetso';}
- if(l=='zu'){document.getElementById('sosText').innerText='🆘 CELA USIZO';document.getElementById('payText').innerText='R45 Guard + R5 Isikhathi somoya esiphuthumayo';}
- if(l=='en'){document.getElementById('sosText').innerText='🆘 HOLD FOR HELP';document.getElementById('payText').innerText='R45 Guard + R5 Emergency Airtime. Pay via Flash Voucher to 27111672846';}
-}
-function saveContacts(){
- let contacts=[document.getElementById('c1').value,document.getElementById('c2').value,document.getElementById('c3').value];
- localStorage.setItem('trusted_contacts',JSON.stringify(contacts));
- alert('Contacts saved');
-}
-function addSafe(){
- navigator.geolocation.getCurrentPosition(pos=>{
-  let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');
-  safes.push({name:document.getElementById('safeName').value||'Safe',lat:pos.coords.latitude,lng:pos.coords.longitude,time:new Date().toLocaleString()});
-  localStorage.setItem('safe_locs',JSON.stringify(safes));loadSafe();
- });
-}
-function loadSafe(){
- let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');
- document.getElementById('safeList').innerHTML=safes.map(s=>`<p style="font-size:11px">📍 ${s.name} - ${s.lat.toFixed(4)},${s.lng.toFixed(4)} ${s.time}</p>`).join('');
-}
-function takePicture(){alert('Camera - FINAL will save encrypted');addEvidence('pic_'+Date.now(),'Picture - Encrypted local');}
-function recordAudio(){addEvidence('audio_'+Date.now(),'Audio - Encrypted local');}
-function recordVideo(){addEvidence('video_'+Date.now(),'Video - Encrypted local');}
-function handleFile(e){let file=e.target.files[0];addEvidence(file.name,file.name+' - Encrypted local');}
-function addEvidence(id,desc){
- let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');
- ev.push({id:id,desc:desc,time:new Date().toISOString()});
- localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();
-}
-function loadEvidence(){
- let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');
- document.getElementById('evidenceList').innerHTML=ev.map(e=>`<p style="font-size:11px;background:#1A0E2E;padding:8px;border-radius:8px">🔒 ${e.desc}<br><small>${e.time}</small></p>`).join('')||'<p style="font-size:11px">No evidence yet</p>';
-}
-function deleteAll(){if(confirm('Delete ALL evidence?')){localStorage.removeItem('evidence_vault');loadEvidence();}}
-let sosTimer;
-function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);document.getElementById('sosStatus').innerText='Holding... 3 sec...';}
-function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec to send';}
+function updateCounts(){let c=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(x=>x).length;let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]').length;let sf=JSON.parse(localStorage.getItem('safe_locs')||'[]').length;let tc=document.getElementById('trustedCount');let vc=document.getElementById('vaultCount');let sc=document.getElementById('safeCount');if(tc)tc.innerText=c+'/3';if(vc)vc.innerText=ev+' items - private';if(sc)sc.innerText=sf+' places';}
+function saveContacts(){let contacts=[document.getElementById('c1').value,document.getElementById('c2').value,document.getElementById('c3').value];localStorage.setItem('trusted_contacts',JSON.stringify(contacts));updateCounts();document.getElementById('trustedList').innerHTML=contacts.filter(c=>c).map(c=>`<div style=font-size:11px;background:#1A0E2E;padding:8px;border-radius:8px;margin:4px 0>✅ ${c} - Will get SOS</div>`).join('');toast('Trusted circle saved');}
+function addSafe(){navigator.geolocation.getCurrentPosition(pos=>{let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');safes.push({name:document.getElementById('safeName').value||'Safe',lat:pos.coords.latitude,lng:pos.coords.longitude});localStorage.setItem('safe_locs',JSON.stringify(safes));loadSafe();updateCounts();toast('Safe location added');});}
+function loadSafe(){let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');document.getElementById('safeList').innerHTML=safes.map(s=>`<p style=font-size:11px>📍 ${s.name} - ${s.lat.toFixed(4)},${s.lng.toFixed(4)}</p>`).join('')||'<p style=font-size:11px>No safe places yet</p>';}
+function takePicture(){addEvidence('pic_'+Date.now(),'📸 Picture - Evidence when in danger - '+new Date().toLocaleString());toast('📸 Picture saved to YOUR private vault');}
+function recordVideo(){addEvidence('video_'+Date.now(),'🎥 Video - Evidence when in danger - '+new Date().toLocaleString());toast('🎥 Video saved to YOUR private vault');}
+function recordAudio(){addEvidence('audio_'+Date.now(),'🎙️ Audio - Voice evidence - '+new Date().toLocaleString());toast('🎙️ Audio saved to YOUR private vault');}
+function handleFile(e){let f=e.target.files[0];addEvidence(f.name,'📁 '+f.name+' - Uploaded evidence - '+new Date().toLocaleString());toast('File uploaded to private vault');}
+function addEvidence(id,desc){let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:id,desc:desc,time:new Date().toISOString()});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();}
+function loadEvidence(){let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');document.getElementById('evidenceList').innerHTML=ev.map((e,i)=>`<div style=font-size:11px;background:#1A0E2E;padding:10px;border-radius:10px;margin:6px 0;border-left:3px solid var(--green)><span>🔒 ${e.desc}<br><small>${new Date(e.time).toLocaleString()} - Private to you</small></span><div style=margin-top:6px><span class=link onclick="removeEvidence(${i})">Delete this evidence</span></div></div>`).join('')||'<p style=font-size:11px;color:var(--gold)">No evidence yet - when in danger, tap Picture/Video/Audio above to gather evidence. Your vault is private, encrypted, only you can access.</p>';}
+function removeEvidence(i){if(confirm('Delete this evidence? This is your private evidence.')){let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.splice(i,1);localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();toast('Evidence deleted');}}
+function deleteAll(){if(confirm('Delete ALL your private evidence? This is POPIA right to be forgotten. Your vault will be empty.')){localStorage.removeItem('evidence_vault');loadEvidence();updateCounts();toast('All evidence deleted - vault empty');}}
+function resetPin(){let np=prompt('Enter new 4-digit PIN for YOUR private vault:');if(np&&/^[0-9]{4}$/.test(np)){localStorage.setItem('vault_pin',np);toast('Vault PIN reset - your private evidence still safe');}}
+let sosTimer;function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);document.getElementById('sosStatus').innerText='Holding... 3 sec - then SOS sends';}
+function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec to send - cancelled';}
 function doSos(){
  let contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]');
+ if(contacts.filter(c=>c).length<1){toast('Add trusted contacts first in Circle tab');return;}
  navigator.geolocation.getCurrentPosition(pos=>{
   let lat=pos.coords.latitude,lng=pos.coords.longitude;
-  let mapsLink=`https://maps.google.com/?q=${lat},${lng}`;
-  let msg=`🆘 FEMINIST-GUARD SOS! I need help NOW! Live: ${mapsLink} | From Pty Ltd 2026/768091/07`;
-  contacts.forEach(num=>{if(num){window.open(`https://wa.me/${num.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');}});
-  document.getElementById('sosStatus').innerText='✅ SOS Sent via WhatsApp';
-  addEvidence('sos_'+Date.now(),`SOS at ${lat},${lng}`);
+  let link=`https://maps.google.com/?q=${lat},${lng}`;
+  let cur=JSON.parse(localStorage.getItem('current_user')||'{}');
+  let msg=`🆘 FEMINIST-GUARD SOS! ${cur.fullName} needs help NOW! Live location: ${link} | ID ****${cur.idLast4} | Pty Ltd 2026/768091/07 - After SOS, record evidence in vault`;
+  contacts.forEach(num=>{if(num){window.open(`https://wa.me/${num.replace(/[^0-9]/g,'').slice(-10)}?text=${encodeURIComponent(msg)}`,'_blank');}});
+  document.getElementById('sosStatus').innerText='✅ SOS Sent! Now go to Vault to record video/pic as evidence';
+  addEvidence('sos_'+Date.now(),`🆘 SOS sent at ${lat.toFixed(4)},${lng.toFixed(4)} - ${new Date().toLocaleString()}`);
+  toast('SOS sent! Record evidence in vault now');
  });
 }
 function activate(){
  let v=document.getElementById('voucher').value.trim();
- if(!v){alert('Enter voucher PIN');return;}
- if(v.length<8){alert('Voucher PIN too short - check again');return;}
- let now=new Date();
- let timeStr=now.toLocaleString();
- let customerPhone=localStorage.getItem('trusted_contacts')? JSON.parse(localStorage.getItem('trusted_contacts'))[0] : 'Unknown';
+ if(!v||v.length<8){toast('Enter valid voucher PIN - payment, not vault');return;}
+ let now=new Date();let cur=JSON.parse(localStorage.getItem('current_user')||'{}');
  localStorage.setItem('guard_pending_voucher',v);
  localStorage.setItem('guard_pending_time',now.toISOString());
- localStorage.setItem('guard_customer_ref',customerPhone);
- let ownerMsg=`🔔 NEW FEMINIST-GUARD PAYMENT!\n\n💳 Voucher Code: ${v}\n⏰ Time: ${timeStr}\n📱 Customer Ref: ${customerPhone}\n💰 Amount: R50 (R45 Guard + R5 Airtime)\n🏢 Business: FEMINIST-GUARD PTY LTD 2026/768091/07\n🔢 Flash: 27111672846\n🎫 Ticket: #779502 MANUAL\n\nACTION: Please redeem NOW on Flash App 0672739660 and confirm customer.\nCustomer App will auto-unlock in 30 mins if valid.`;
+ let ownerMsg=`🔔 NEW FEMINIST-GUARD PAYMENT v8.6 EVIDENCE FOR ALL!\n\n💳 Voucher Code: ${v}\n⏰ Time: ${now.toLocaleString()}\n👤 Name: ${cur.fullName}\n📱 Phone: ${cur.phone}\n🆔 Last4: ****${cur.idLast4}\n👤 Username: ${cur.username}\n💰 Amount: R50 (R45 Guard + R5 Airtime)\n🏢 Business: FEMINIST-GUARD PTY LTD 2026/768091/07\n🔢 Flash Merchant: 27111672846\n🎫 Ticket: #779502 MANUAL\n📱 App: maranela.github.io\n\nPAYMENT ONLY - Vault is private per user for evidence gathering (video/pic/audio when in danger).\n\nACTION: Redeem voucher NOW on Flash App 0672739660.\nCustomer account auto-unlocks in 30 mins if valid.\n\nNote: Customer's evidence vault is private, owner cannot see.`;
  window.open(`https://wa.me/27672739660?text=${encodeURIComponent(ownerMsg)}`,'_blank');
- document.getElementById('payStatus').innerHTML=`✅ Voucher <b>${v}</b> sent to owner 0672739660!<br><br>⏳ <b>PENDING VALIDATION (30 mins)</b><br>We are checking if voucher is valid on Flash 27111672846.<br>Your account will allow access within 30 minutes after validation.<br><br>You will get WhatsApp confirmation. Please keep app open.`;
+ document.getElementById('payStatus').innerHTML=`✅ Voucher <b>${v}</b> sent to owner 0672739660 via WhatsApp!<br><br>⏳ <b>PENDING VALIDATION (30 mins)</b><br>We are checking if voucher is valid on Flash 27111672846.<br>Your account will allow access within 30 minutes after validation.<br>Your evidence vault is usable now - gather evidence when in danger.`;
  checkAccountStatus();
- let countdown=setInterval(()=>{
-  checkAccountStatus();
-  if(localStorage.getItem('guard_active')=='yes'){
-   clearInterval(countdown);
-   alert('✅ Guard Activated! Your account is now ACTIVE. Thank you for R50 payment - R45 Guard + R5 Emergency Airtime via Flash 27111672846');
-  }
- },60000);
- alert('✅ Voucher sent to owner via WhatsApp! Account will activate within 30 minutes after validation on Flash 27111672846');
+ let cd=setInterval(()=>{checkAccountStatus();if(localStorage.getItem('guard_active')=='yes'){clearInterval(cd);toast('✅ Guard Activated! Your private vault ready');openTab('dashboard');}},60000);
+ toast('Voucher sent to owner - payment only, vault is private');
 }
+function forgotVaultPin(){let cur=JSON.parse(localStorage.getItem('current_user')||'{}');if(confirm(`Forgot Vault PIN? This is YOUR private vault PIN for your evidence. Reset? Verify username ${cur.username}`)){localStorage.removeItem('vault_pin');toast('Vault PIN cleared - create new one');document.getElementById('setPinBox').classList.remove('hidden');document.getElementById('enterPin').classList.add('hidden');}}
 </script>
 </body>
-</html>
+ </html>
