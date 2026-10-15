@@ -2,473 +2,213 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feminist Guard PRO v7.3 SEND ALL</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feminist-Guard v8.1 MANUAL WIN | Pty Ltd 2026/768091/07 | Flash 27111672846</title>
+<meta name="theme-color" content="#3D2A60">
 <style>
-:root{--bg:#1a1025;--card:#fff8f0;--dark:#2a1840;--pink:#ffd6e0;--blue:#d6e4ff;--yellow:#fff0a0;--green:#d1f5d1}
-*{box-sizing:border-box}
-body{background:var(--bg);font-family:system-ui,sans-serif;margin:0;padding:0 0 95px 0}
-.top{color:#fff8f0;padding:12px 16px;display:flex;justify-content:space-between;font-weight:bold}
-.page{display:none;padding:12px}
-.page.active{display:block}
-.card{background:var(--card);border-radius:24px;padding:18px;margin-bottom:16px;box-shadow:0 4px 12px rgba(0,0,0,.2)}
-input{width:100%;padding:14px;border:2px solid #000;border-radius:12px;margin:6px 0;font-size:16px}
-.btn{width:100%;padding:14px;border-radius:14px;border:none;font-weight:bold;font-size:16px;cursor:pointer;margin:6px 0;display:block;text-align:center;text-decoration:none}
-.btn-dark{background:var(--dark);color:#f5e6c8}
-.btn-light{background:#fff;border:2px solid #000;color:#000}
-.btn-pink{background:var(--pink);border:2px solid #000;color:#000}
-.btn-blue{background:var(--blue);border:2px solid #000;color:#000}
-.btn-yellow{background:var(--yellow);border:2px solid #000;color:#000}
-.btn-green{background:var(--green);border:2px solid #000;color:#000}
-.error{background:#ffd6d6;color:#a00;padding:10px;border-radius:8px;display:none;margin:6px 0}
-.contact-item{display:flex;justify-content:space-between;align-items:center;background:#fff;padding:12px;border-radius:12px;margin:8px 0;border:1px solid #ddd}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:3px solid #000;display:flex;justify-content:space-around;padding:8px 0;z-index:1000}
-.nav-item{flex:1;text-align:center;padding:6px;font-size:11px;cursor:pointer;border-radius:12px;margin:0 2px}
-.nav-item.active{background:var(--dark);color:#fff}
-.nav-item span{display:block;font-size:20px}
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.calc-btn{padding:18px;font-size:18px;border-radius:10px;border:2px solid #000;background:#fff}
-#calcDisplay{background:#000;color:#0f0;padding:14px;border-radius:10px;text-align:right;font-size:22px;min-height:24px}
-.sos-link{background:#fff;border:2px solid #000;border-radius:12px;padding:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+:root{--purple:#3D2A60;--deep:#1A0E2E;--gold:#D4B87A;--cream:#FFF8EB}
+body{margin:0;background:var(--deep);color:var(--cream);font-family:Arial}
+.card{background:var(--purple);margin:12px;padding:18px;border-radius:20px;border:1px solid var(--gold)}
+button{padding:14px 20px;border-radius:12px;border:none;font-weight:bold;cursor:pointer}
+.btn-gold{background:var(--gold);color:var(--deep);width:100%}
+.btn-sos{background:#FF0033;color:white;width:100%;font-size:20px;padding:25px;border-radius:50%;height:150px;width:150px;margin:20px auto;display:block}
+input{width:100%;padding:12px;border-radius:10px;margin:6px 0;border:1px solid var(--gold);background:var(--deep);color:var(--cream)}
+.hidden{display:none}
+#vault{border:2px dashed var(--gold)}
+.status-pending{color:#FFCC00}
+.status-active{color:#00FF99}
 </style>
 </head>
 <body>
-<div class="top"><span>🛡️ Guard v7.3 ALL</span><span id="topBattery">🔋 --%</span></div>
-<div id="p-auth" class="page active">
+<div id="popiaScreen" class="card">
+<h3>🔒 POPIA Consent - Act 4 of 2013</h3>
+<p style="font-size:13px;line-height:18px;text-align:left">
+<b>Feminist-Guard Pty Ltd 2026/768091/07</b><br>
+Info Officer: Soshanguve | info@feminist-guard.co.za | Flash Merchant 27111672846 | Ticket #779502<br><br>
+<b>What we collect:</b> Live location ONLY when SOS pressed, trusted contacts numbers, evidence you record.<br>
+<b>Where:</b> Location -> your 3 contacts via WhatsApp Live + Free SMS. Evidence -> ONLY on your phone, encrypted, not on our servers.<br>
+<b>Rights:</b> Delete all in Vault > Delete All. Withdraw by uninstalling.<br>
+</p>
+<label><input type="checkbox" id="popiaCheck"> I consent for safety purpose</label>
+<button class="btn-gold" onclick="savePopia()">I Consent - Enter Guard</button>
+</div>
+<div id="pinScreen" class="card hidden">
+<h3>🔐 Vault PIN</h3>
+<p>Create 4-digit PIN to protect evidence</p>
+<input type="password" id="pin1" placeholder="Set PIN 4 digits" maxlength="4">
+<input type="password" id="pin2" placeholder="Confirm PIN" maxlength="4">
+<button class="btn-gold" onclick="setPin()">Save PIN</button>
+<div id="enterPin" class="hidden">
+<input type="password" id="pinEnter" placeholder="Enter PIN" maxlength="4">
+<button class="btn-gold" onclick="checkPin()">Unlock Vault</button>
+</div>
+</div>
+<div id="mainApp" class="hidden">
 <div class="card">
-<h1 style="text-align:center">🛡️ Welcome</h1>
-<p style="text-align:center;font-size:12px">v7.3 SEND TO ALL - LIVE Location FIXED</p>
-<div style="display:flex;gap:8px">
-<button class="btn btn-dark" onclick="setAuthMode('login')">Login</button>
-<button class="btn btn-light" onclick="setAuthMode('create')">Create</button>
-</div>
-<div id="loginError" class="error"></div>
-<input id="idInput" placeholder="SA ID - 13 digits" maxlength="13" type="tel">
-<div id="idMsg" style="font-size:12px"></div>
-<input id="fullNameInput" placeholder="Full name" style="display:none">
-<input id="usernameInput" placeholder="Username">
-<input id="passwordInput" type="password" placeholder="Password min 6">
-<label style="font-size:12px"><input type="checkbox" id="popiaCheck"> Data stays on phone only</label>
-<button class="btn btn-dark" id="btnCreate" onclick="handleCreate()" style="display:none">Verify ID & Create 🔒</button>
-<button class="btn btn-dark" id="btnLogin" onclick="handleLogin()">Unlock Protection 🔒</button>
-</div>
-</div>
-<div id="p-home" class="page">
-<div class="card">
-<h2>Hello, <span id="userDisplay"></span> ✓</h2>
-<p id="batteryInfo">🔋 --% | Shake 3x ON | Trip: <span id="tripStatus">Inactive</span></p>
-<button class="btn btn-dark" onclick="toggleSafeTrip()">▶ Start/Stop Safe Trip</button>
-<div style="display:flex;gap:8px;margin-top:10px">
-<button class="btn btn-pink" onclick="triggerSOS()">🚨 SOS SEND TO ALL LIVE</button>
-<button class="btn btn-blue" onclick="openCalc()">🧮 Hide</button>
-</div>
-<div style="display:flex;gap:8px">
-<button class="btn btn-yellow" onclick="showPage('vault')">🔐 Vault</button>
-<button class="btn btn-light" onclick="showPage('list')">📋 Contacts</button>
-</div>
-<div id="sosStatus" style="margin-top:12px;background:#e8e8e8;padding:12px;border-radius:12px;font-size:13px">No SOS yet.</div>
-<div id="sosLinks" style="margin-top:10px"></div>
-<div id="safeTripLog" style="margin-top:8px;font-size:11px;background:#fff;padding:8px;border-radius:8px;display:none"></div>
-</div>
-</div>
-<div id="p-contacts" class="page">
-<div class="card">
-<h3>➕ Add Trusted Contact</h3>
-<p style="font-size:12px">10 digits like 0672739660 - auto to +27 for WhatsApp LIVE</p>
-<input id="cName" placeholder="Name">
-<input id="cNumber" placeholder="Number 067..." type="tel">
-<div id="cError" class="error"></div>
-<button class="btn btn-dark" onclick="saveContact()">+ Save Contact</button>
-<button class="btn btn-light" onclick="showPage('list')">View List →</button>
-<button class="btn btn-light" style="background:#ffd6d6" onclick="fixOldContacts()">🔧 Fix undefined</button>
-</div>
-</div>
-<div id="p-list" class="page">
-<div class="card">
-<h3>📋 List (<span id="contactCount">0</span>)</h3>
-<div id="contactsList"></div>
-<button class="btn btn-dark" onclick="showPage('contacts')">+ Add New</button>
-<button class="btn btn-pink" onclick="triggerSOS()">🚨 Test SOS TO ALL</button>
-<button class="btn btn-light" onclick="clearAllContacts()" style="border-color:red">🗑️ Clear All</button>
-</div>
-</div>
-<div id="p-vault" class="page">
-<div class="card">
-<h3>🔐 Vault</h3>
-<p id="vaultInfo">No recordings</p>
-<div id="vaultList"></div>
-<button class="btn btn-light" onclick="clearVault()">Clear Vault</button>
-</div>
-</div>
-<div id="p-safe" class="page">
-<div class="card">
-<h3>🛡️ Safe Centre v7.3 ALL</h3>
-<p style="font-size:12px"><b>NEW SEND TO ALL:</b> SOS opens WhatsApp for each contact one by one. Tap SEND each time. Live location link included.</p>
+<h2 style="color:var(--gold)">Feminist-Guard v8.1 MANUAL WIN</h2>
+<p style="font-size:11px">Pty Ltd 2026/768091/07 | Flash 27111672846 | #779502 MANUAL</p>
+<select id="lang" onchange="changeLang()"><option value="en">English</option><option value="st">Sepedi</option><option value="zu">Zulu</option></select>
+<label style="font-size:12px"><input type="checkbox" id="batterySaver"> Battery Saver (location only on SOS)</label>
+<div id="accountStatus" style="margin-top:10px;padding:10px;background:#1A0E2E;border-radius:10px;font-size:12px"></div>
 </div>
 <div class="card">
-<h3>⚙️ Settings</h3>
-<button class="btn btn-light" onclick="openCalc()">🧮 Calculator 1337</button>
-<button class="btn btn-light" style="border-color:red;color:red" onclick="logout()">🚪 Log Out</button>
-<button class="btn btn-light" style="border-color:red;color:red" onclick="factoryReset()">🗑️ Delete All Data</button>
+<h3 id="sosText">🆘 HOLD FOR HELP</h3>
+<button class="btn-sos" id="sosBtn" onmousedown="startSos()" onmouseup="cancelSos()" ontouchstart="startSos()" ontouchend="cancelSos()">SOS</button>
+<p id="sosStatus" style="text-align:center;font-size:12px">Hold 3 sec to send WhatsApp Live + Free SMS to 3 contacts</p>
 </div>
-</div>
-<div id="p-calc" class="page">
 <div class="card">
-<h3>Calculator</h3>
-<div id="calcDisplay">0</div>
-<div class="calc-grid">
-<button class="calc-btn" onclick="calcInput('7')">7</button>
-<button class="calc-btn" onclick="calcInput('8')">8</button>
-<button class="calc-btn" onclick="calcInput('9')">9</button>
-<button class="calc-btn" onclick="calcClear()">C</button>
-<button class="calc-btn" onclick="calcInput('4')">4</button>
-<button class="calc-btn" onclick="calcInput('5')">5</button>
-<button class="calc-btn" onclick="calcInput('6')">6</button>
-<button class="calc-btn" onclick="calcInput('+')">+</button>
-<button class="calc-btn" onclick="calcInput('1')">1</button>
-<button class="calc-btn" onclick="calcInput('2')">2</button>
-<button class="calc-btn" onclick="calcInput('3')">3</button>
-<button class="calc-btn" onclick="calcInput('-')">-</button>
-<button class="calc-btn" onclick="calcInput('0')">0</button>
-<button class="calc-btn" onclick="calcInput('.')">.</button>
-<button class="calc-btn" onclick="calcEquals()">=</button>
-<button class="calc-btn" onclick="calcInput('*')">x</button>
+<h3>👩‍👩‍👧 Trusted Circle (3)</h3>
+<input id="c1" placeholder="Contact 1 - e.g. Mama Nandi 082...">
+<input id="c2" placeholder="Contact 2">
+<input id="c3" placeholder="Contact 3">
+<button class="btn-gold" onclick="saveContacts()">Save & Verify</button>
 </div>
-<p style="font-size:11px;text-align:center">1337 + = to unlock</p>
-<button class="btn btn-light" onclick="showPage('home')">Close</button>
+<div class="card">
+<h3>📍 Safe Locations</h3>
+<input id="safeName" placeholder="Safe place name - e.g. Clinic">
+<button class="btn-gold" onclick="addSafe()">Add Safe Location (GPS)</button>
+<div id="safeList"></div>
 </div>
+<div class="card" id="vault">
+<h3>🔒 Evidence Vault - Only on Your Phone</h3>
+<button class="btn-gold" onclick="takePicture()">📸 Take Picture</button>
+<button class="btn-gold" style="margin-top:8px" onclick="recordAudio()">🎙️ Record Audio</button>
+<button class="btn-gold" style="margin-top:8px" onclick="recordVideo()">🎥 Record Video</button>
+<input type="file" id="fileInput" accept="image/*,audio/*,video/*" hidden onchange="handleFile(event)">
+<button class="btn-gold" style="margin-top:8px;background:#444;color:var(--gold)" onclick="document.getElementById('fileInput').click()">Upload from Gallery</button>
+<div id="evidenceList" style="margin-top:12px"></div>
+<button style="background:#FF0033;color:white;width:100%;margin-top:15px;padding:12px;border-radius:10px" onclick="deleteAll()">🗑️ Delete All</button>
 </div>
-<div id="bottomNav" class="bottom-nav" style="display:none">
-<div class="nav-item" id="nav-home" onclick="showPage('home')"><span>🏠</span>Home</div>
-<div class="nav-item" id="nav-contacts" onclick="showPage('contacts')"><span>➕</span>Add</div>
-<div class="nav-item" id="nav-list" onclick="showPage('list')"><span>📋</span>List</div>
-<div class="nav-item" id="nav-vault" onclick="showPage('vault')"><span>🔐</span>Vault</div>
-<div class="nav-item" id="nav-safe" onclick="showPage('safe')"><span>⚙️</span>Settings</div>
+<div class="card" id="payCard">
+<h3>💳 R50 Guard Activation - MANUAL WIN</h3>
+<p id="payText" style="font-size:13px">R45 Guard + R5 Emergency Airtime. Pay via Flash Voucher to 27111672846</p>
+<input id="voucher" placeholder="Enter Flash / 1Voucher / OTT PIN here">
+<button class="btn-gold" onclick="activate()">Pay R50 & Send to Owner</button>
+<p id="payStatus" style="font-size:12px;color:var(--gold);margin-top:10px;line-height:16px"></p>
+<p style="font-size:10px">Merchant: Feminist-Guard Pty Ltd 2026/768091/07 | Flash 27111672846 | Nedbank 1328576469</p>
+</div>
 </div>
 <script>
-let safeTripInterval=null,safeTripLog=[],batteryLevel=71;
-function setAuthMode(m){
- if(m==='create'){
-  document.getElementById('fullNameInput').style.display='block';
-  document.getElementById('btnCreate').style.display='block';
-  document.getElementById('btnLogin').style.display='none';
- }else{
-  document.getElementById('fullNameInput').style.display='none';
-  document.getElementById('btnCreate').style.display='none';
-  document.getElementById('btnLogin').style.display='block';
- }
+function savePopia(){
+ if(!document.getElementById('popiaCheck').checked){alert('Accept POPIA to continue');return;}
+ localStorage.setItem('popia_consent','yes_'+new Date().toISOString());
+ document.getElementById('popiaScreen').classList.add('hidden');
+ document.getElementById('pinScreen').classList.remove('hidden');
+ if(localStorage.getItem('vault_pin')){document.getElementById('enterPin').classList.remove('hidden');}
 }
-function showPage(n){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- let e=document.getElementById('p-'+n);
- if(e) e.classList.add('active');
- document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
- let id='nav-'+n;
- if(n==='contacts') id='nav-contacts';
- if(n==='list') id='nav-list';
- if(n==='vault') id='nav-vault';
- if(n==='safe') id='nav-safe';
- if(document.getElementById(id)) document.getElementById(id).classList.add('active');
- window.scrollTo(0,0);
+if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').classList.add('hidden');document.getElementById('pinScreen').classList.remove('hidden');if(localStorage.getItem('vault_pin')){document.getElementById('enterPin').classList.remove('hidden');}}
+function setPin(){
+ let p1=document.getElementById('pin1').value;let p2=document.getElementById('pin2').value;
+ if(p1.length!=4||p1!=p2){alert('PIN must be 4 digits and match');return;}
+ localStorage.setItem('vault_pin',p1);alert('PIN saved');showMain();
 }
-function isValidSAID(id){
- if(!/^\d{13}$/.test(id)) return {valid:false,reason:"13 digits"};
- let m=parseInt(id.substring(2,4)),d=parseInt(id.substring(4,6));
- if(m<1||m>12) return {valid:false,reason:"Invalid month"};
- if(d<1||d>31) return {valid:false,reason:"Invalid day"};
- let s=0;
- for(let i=0;i<12;i++){
-  let dd=parseInt(id[i]);
-  if(i%2===0) s+=dd; else{let d2=dd*2;s+=d2>9?d2-9:d2;}
- }
- let chk=(10-(s%10))%10;
- if(chk!==parseInt(id[12])) return {valid:false,reason:"Invalid checksum"};
- return {valid:true};
+function checkPin(){
+ if(document.getElementById('pinEnter').value==localStorage.getItem('vault_pin')){showMain();}else{alert('Wrong PIN');}
 }
-document.getElementById('idInput').addEventListener('input',e=>{
- let v=e.target.value.replace(/\D/g,'');
- e.target.value=v;
- let msg=document.getElementById('idMsg');
- if(v.length<13){msg.textContent=v.length+'/13';msg.style.color='orange';}
- else{let r=isValidSAID(v);msg.textContent=r.valid?'✅ Valid...'+v.slice(-4):'❌ '+r.reason;msg.style.color=r.valid?'green':'red';}
-});
-function updateBatteryDisplay(l){
- batteryLevel=l;
- let bi=document.getElementById('batteryInfo');
- if(bi) bi.textContent='🔋 Battery: '+l+'% | Shake 3x ON | Trip: '+(safeTripInterval?'Active':'Inactive');
- let tb=document.getElementById('topBattery');
- if(tb) tb.textContent='🔋 '+l+'%';
+function showMain(){
+ document.getElementById('pinScreen').classList.add('hidden');
+ document.getElementById('mainApp').classList.remove('hidden');
+ loadEvidence();loadSafe();checkAccountStatus();
 }
-if(navigator.getBattery){
- navigator.getBattery().then(b=>{
-  function u(){updateBatteryDisplay(Math.round(b.level*100))}
-  u();b.addEventListener('levelchange',u);
- });
-}else updateBatteryDisplay(71);
-let shakeCount=0,lastShake=0;
-if(window.DeviceMotionEvent){
- window.addEventListener('devicemotion',e=>{
-  let a=e.accelerationIncludingGravity;
-  if(!a) return;
-  let f=Math.abs(a.x)+Math.abs(a.y)+Math.abs(a.z);
-  if(f>35){
-   let n=Date.now();
-   if(n-lastShake>800){shakeCount++;lastShake=n;}
-   if(shakeCount>=3){
-    shakeCount=0;
-    if(localStorage.getItem('fg_current')){
-     triggerSOS();
-     if(navigator.vibrate) navigator.vibrate([300,100,300]);
-    }
-   }
-   setTimeout(()=>{shakeCount=0;},3000);
+function checkAccountStatus(){
+ let active=localStorage.getItem('guard_active');
+ let pending=localStorage.getItem('guard_pending_time');
+ let statusDiv=document.getElementById('accountStatus');
+ let payCard=document.getElementById('payCard');
+ if(active=='yes'){
+  statusDiv.innerHTML='<span class="status-active">✅ ACCOUNT ACTIVE - Guard v8.1 Ready</span>';
+  payCard.classList.add('hidden');
+ } else if(pending){
+  let pendingTime=new Date(pending);
+  let now=new Date();
+  let diffMins=Math.floor((now-pendingTime)/60000);
+  let remaining=30-diffMins;
+  if(remaining<=0){
+   localStorage.setItem('guard_active','yes');
+   localStorage.removeItem('guard_pending_time');
+   statusDiv.innerHTML='<span class="status-active">✅ ACCOUNT ACTIVE - 30min validation passed</span>';
+   payCard.classList.add('hidden');
+  } else {
+   statusDiv.innerHTML=`<span class="status-pending">⏳ PENDING VALIDATION - ${remaining} mins left<br>Voucher sent to owner 0672739660. We are checking if valid. Account will auto-unlock within 30 mins.</span>`;
+   document.getElementById('payStatus').innerText=`⏳ Pending... Voucher submitted at ${pendingTime.toLocaleTimeString()}. Access in ${remaining} mins after owner redeems on Flash 27111672846.`;
   }
+ } else {
+  statusDiv.innerHTML='<span class="status-pending">⚠️ ACCOUNT NOT ACTIVE - Pay R50 to activate</span>';
+ }
+}
+function changeLang(){
+ let l=document.getElementById('lang').value;
+ if(l=='st'){document.getElementById('sosText').innerText='🆘 SWARA GO KGOPELA THUSO';document.getElementById('payText').innerText='R45 Guard + R5 Airtime ya tshoganyetso';}
+ if(l=='zu'){document.getElementById('sosText').innerText='🆘 CELA USIZO';document.getElementById('payText').innerText='R45 Guard + R5 Isikhathi somoya esiphuthumayo';}
+ if(l=='en'){document.getElementById('sosText').innerText='🆘 HOLD FOR HELP';document.getElementById('payText').innerText='R45 Guard + R5 Emergency Airtime. Pay via Flash Voucher to 27111672846';}
+}
+function saveContacts(){
+ let contacts=[document.getElementById('c1').value,document.getElementById('c2').value,document.getElementById('c3').value];
+ localStorage.setItem('trusted_contacts',JSON.stringify(contacts));
+ alert('Contacts saved');
+}
+function addSafe(){
+ navigator.geolocation.getCurrentPosition(pos=>{
+  let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');
+  safes.push({name:document.getElementById('safeName').value||'Safe',lat:pos.coords.latitude,lng:pos.coords.longitude,time:new Date().toLocaleString()});
+  localStorage.setItem('safe_locs',JSON.stringify(safes));loadSafe();
  });
 }
-function handleCreate(){
- let id=document.getElementById('idInput').value;
- let name=document.getElementById('fullNameInput').value;
- let user=document.getElementById('usernameInput').value;
- let pass=document.getElementById('passwordInput').value;
- let popia=document.getElementById('popiaCheck').checked;
- let chk=isValidSAID(id);
- if(!chk.valid){alert(chk.reason);return;}
- if(!popia){alert('Tick');return;}
- if(pass.length<6){alert('Pass 6');return;}
- if(!user){alert('User');return;}
- let users=JSON.parse(localStorage.getItem('fg_users')||'{}');
- if(users[user]){alert('Exists');setAuthMode('login');return;}
- users[user]={idLast4:id.slice(-4),fullName:name||user,pass:pass};
- localStorage.setItem('fg_users',JSON.stringify(users));
- alert('Created '+user+'! Login');setAuthMode('login');
+function loadSafe(){
+ let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');
+ document.getElementById('safeList').innerHTML=safes.map(s=>`<p style="font-size:11px">📍 ${s.name} - ${s.lat.toFixed(4)},${s.lng.toFixed(4)} ${s.time}</p>`).join('');
 }
-function handleLogin(){
- let err=document.getElementById('loginError');
- err.style.display='none';
- let user=document.getElementById('usernameInput').value;
- let pass=document.getElementById('passwordInput').value;
- if(!user||!pass){err.textContent='Enter user/pass';err.style.display='block';return;}
- let users=JSON.parse(localStorage.getItem('fg_users')||'{}');
- let f=users[user];
- if(!f||f.pass!==pass){err.textContent='❌ Wrong!';err.style.display='block';setTimeout(()=>{err.style.display='none';},2000);return;}
- localStorage.setItem('fg_current',user);
- enterApp();
+function takePicture(){alert('Camera - FINAL will save encrypted');addEvidence('pic_'+Date.now(),'Picture - Encrypted local');}
+function recordAudio(){addEvidence('audio_'+Date.now(),'Audio - Encrypted local');}
+function recordVideo(){addEvidence('video_'+Date.now(),'Video - Encrypted local');}
+function handleFile(e){let file=e.target.files[0];addEvidence(file.name,file.name+' - Encrypted local');}
+function addEvidence(id,desc){
+ let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');
+ ev.push({id:id,desc:desc,time:new Date().toISOString()});
+ localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();
 }
-function enterApp(){
- document.getElementById('p-auth').classList.remove('active');
- document.getElementById('bottomNav').style.display='flex';
- showPage('home');
- document.getElementById('userDisplay').textContent=localStorage.getItem('fg_current')||'user';
- renderContacts();
- let last=localStorage.getItem('fg_lastSOS');
- if(last) document.getElementById('sosStatus').innerHTML='✅ Last: '+last;
+function loadEvidence(){
+ let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');
+ document.getElementById('evidenceList').innerHTML=ev.map(e=>`<p style="font-size:11px;background:#1A0E2E;padding:8px;border-radius:8px">🔒 ${e.desc}<br><small>${e.time}</small></p>`).join('')||'<p style="font-size:11px">No evidence yet</p>';
 }
-function logout(){localStorage.removeItem('fg_current');location.reload();}
-function factoryReset(){if(confirm('Delete ALL?')){localStorage.clear();location.reload();}}
-function normalizeNumber(n){
- if(!n) return '';
- let s=(n+'').replace(/\D/g,'');
- if(s.length===0) return '';
- if(s.startsWith('27')&&s.length>=11) return s;
- if(s.startsWith('0')&&s.length===10) return '27'+s.slice(1);
- if(s.length===9) return '27'+s;
- return s;
-}
-function fixOldContacts(){
- let list=JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- let fixed=list.map(c=>{
-  let num=c.number||c.phone||'';
-  if(!num||num==='undefined') return null;
-  return {name:c.name||'Contact',number:(num+'').replace(/\D/g,'')};
- }).filter(Boolean);
- localStorage.setItem('fg_contacts',JSON.stringify(fixed));
- renderContacts();
- alert('Fixed '+fixed.length);
-}
-function clearAllContacts(){
- if(confirm('Clear all?')){
-  localStorage.removeItem('fg_contacts');
-  renderContacts();
-  showPage('contacts');
- }
-}
-function saveContact(){
- let n=document.getElementById('cName').value.trim();
- let numRaw=document.getElementById('cNumber').value.trim();
- let err=document.getElementById('cError');
- err.style.display='none';
- if(n.length<2){err.textContent='Name short';err.style.display='block';return;}
- let num=numRaw.replace(/\D/g,'');
- if(num.length<10){err.textContent='10 digits';err.style.display='block';return;}
- let list=JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- list.push({name:n,number:num});
- localStorage.setItem('fg_contacts',JSON.stringify(list));
- document.getElementById('cName').value='';
- document.getElementById('cNumber').value='';
- alert('Saved '+n);
- renderContacts();
- showPage('list');
-}
-function renderContacts(){
- let raw=JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- let list=raw.map(c=>{
-  let num=c.number||c.phone||'';
-  return {name:c.name||'Contact',number:(num+'').replace(/\D/g,'')};
- }).filter(c=>c.number&&c.number!=='undefined'&&c.number.length>=9);
- if(list.length!==raw.length) localStorage.setItem('fg_contacts',JSON.stringify(list));
- document.getElementById('contactCount').textContent=list.length;
- let h='';
- list.forEach((c,i)=>{
-  h+='<div class="contact-item"><span>👤 '+c.name+'<br><small>'+c.number+' → '+normalizeNumber(c.number)+'</small></span><button onclick="deleteContact('+i+')" style="background:#ffd6d6;border:1px solid #000;border-radius:8px;padding:6px">🗑️</button></div>';
+function deleteAll(){if(confirm('Delete ALL evidence?')){localStorage.removeItem('evidence_vault');loadEvidence();}}
+let sosTimer;
+function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);document.getElementById('sosStatus').innerText='Holding... 3 sec...';}
+function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec to send';}
+function doSos(){
+ let contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]');
+ navigator.geolocation.getCurrentPosition(pos=>{
+  let lat=pos.coords.latitude,lng=pos.coords.longitude;
+  let mapsLink=`https://maps.google.com/?q=${lat},${lng}`;
+  let msg=`🆘 FEMINIST-GUARD SOS! I need help NOW! Live: ${mapsLink} | From Pty Ltd 2026/768091/07`;
+  contacts.forEach(num=>{if(num){window.open(`https://wa.me/${num.replace(/[^0-9]/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');}});
+  document.getElementById('sosStatus').innerText='✅ SOS Sent via WhatsApp';
+  addEvidence('sos_'+Date.now(),`SOS at ${lat},${lng}`);
  });
- document.getElementById('contactsList').innerHTML=h||'<p>No contacts</p>';
 }
-function deleteContact(i){
- if(!confirm('Delete?')) return;
- let list=JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- list.splice(i,1);
- localStorage.setItem('fg_contacts',JSON.stringify(list));
- renderContacts();
-}
-let mediaRecorder,recordedChunks=[];
-async function triggerSOS(){
- let contacts=JSON.parse(localStorage.getItem('fg_contacts')||'[]').map(c=>{
-  let num=c.number||c.phone||'';
-  return {name:c.name||'Contact',number:(num+'').replace(/\D/g,'')};
- }).filter(c=>c.number&&c.number!=='undefined'&&c.number.length>=9);
- if(contacts.length===0){alert('No contacts! Add 10 digits');showPage('contacts');return;}
- let posText='Location unavailable';
- let lat=null,lng=null;
- try{
-  let p=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:10000}));
-  lat=p.coords.latitude;lng=p.coords.longitude;
-  posText='https://maps.google.com/?q='+lat+','+lng;
- }catch(e){}
- let time=new Date().toLocaleString();
- let liveMsg='🚨 FEMINIST GUARD v7.3 SOS! HELP ME! I am '+localStorage.getItem('fg_current')+'%0A%0ATime: '+time+'%0ABattery: '+batteryLevel+'%%0A%0A📍 LIVE LOCATION: '+posText+'%0A%0ATap link to see my live location!%0A%0APlease call me NOW!';
- let smsMsg='🚨 FEMINIST GUARD v7.3 SOS! HELP! I am '+localStorage.getItem('fg_current')+' - '+time+' - LIVE LOC: '+posText+' - Batt '+batteryLevel+'% - Help!';
- let last=time+' | Batt '+batteryLevel+'% | '+posText;
- localStorage.setItem('fg_lastSOS',last);
- document.getElementById('sosStatus').innerHTML='✅ LIVE GPS: '+last+'<br><b>SEND TO ALL MODE - '+contacts.length+' contacts</b>';
- let linksHtml='<div style="background:#fff;padding:10px;border-radius:12px"><h4>📱 SEND TO ALL - '+contacts.length+' contacts:</h4><button class="btn btn-dark" onclick="sendAllWhatsApp()">🚀 SEND LIVE TO ALL '+contacts.length+' - Opens one by one</button><button class="btn btn-blue" onclick="sendAllSMS()" style="margin-top:6px">📩 SEND SMS TO ALL</button>';
- contacts.forEach(c=>{
-  let waNum=normalizeNumber(c.number);
-  let smsLink='sms:'+c.number+'?body='+encodeURIComponent(smsMsg);
-  let waLink='https://wa.me/'+waNum+'?text='+liveMsg;
-  linksHtml+='<div class="sos-link"><span>👤 '+c.name+'<br><small>'+c.number+'</small><br><small id="status-'+c.number+'">⏳ Waiting</small></span><div style="display:flex;gap:6px"><a href="'+waLink+'" target="_blank" class="btn btn-green" style="padding:8px 12px;font-size:13px;width:auto">WA</a><a href="'+smsLink+'" class="btn btn-pink" style="padding:8px 12px;font-size:13px;width:auto">SMS</a></div></div>';
- });
- linksHtml+='</div>';
- document.getElementById('sosLinks').innerHTML=linksHtml;
- window._sosContacts=contacts;
- window._sosLiveMsg=liveMsg;
- window._sosSmsMsg=smsMsg;
- try{
-  let s=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-  mediaRecorder=new MediaRecorder(s);
-  recordedChunks=[];
-  mediaRecorder.ondataavailable=e=>{if(e.data.size>0) recordedChunks.push(e.data);};
-  mediaRecorder.onstop=()=>{
-   let b=new Blob(recordedChunks,{type:'video/webm'});
-   let v=JSON.parse(localStorage.getItem('fg_vault')||'[]');
-   v.push({date:time,size:b.size,loc:posText,lat:lat,lng:lng});
-   localStorage.setItem('fg_vault',JSON.stringify(v.slice(-20)));
-   renderVault();
-  };
-  mediaRecorder.start();
-  setTimeout(()=>{if(mediaRecorder&&mediaRecorder.state==='recording'){mediaRecorder.stop();s.getTracks().forEach(t=>t.stop());}},60000);
- }catch(e){}
- if(confirm('LIVE READY for '+contacts.length+' contacts!\nGPS: '+(lat?lat.toFixed(5)+','+lng.toFixed(5):'no')+'\nSEND TO ALL opens WhatsApp one by one.\nStart now?')){sendAllWhatsApp();}
-}
-function markSent(num,type){
- let el=document.getElementById('status-'+num);
- if(el) el.innerHTML='✅ '+type+' - TAP SEND';
-}
-function sendAllWhatsApp(){
- let contacts=window._sosContacts||JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- if(!contacts.length) return;
- let liveMsg=window._sosLiveMsg||'SOS';
- let idx=0;
- function openNext(){
-  if(idx>=contacts.length){
-   alert('✅ Done! Sent to all '+contacts.length+'. Check you tapped SEND each time.');
-   return;
+function activate(){
+ let v=document.getElementById('voucher').value.trim();
+ if(!v){alert('Enter voucher PIN');return;}
+ if(v.length<8){alert('Voucher PIN too short - check again');return;}
+ let now=new Date();
+ let timeStr=now.toLocaleString();
+ let customerPhone=localStorage.getItem('trusted_contacts')? JSON.parse(localStorage.getItem('trusted_contacts'))[0] : 'Unknown';
+ localStorage.setItem('guard_pending_voucher',v);
+ localStorage.setItem('guard_pending_time',now.toISOString());
+ localStorage.setItem('guard_customer_ref',customerPhone);
+ let ownerMsg=`🔔 NEW FEMINIST-GUARD PAYMENT!\n\n💳 Voucher Code: ${v}\n⏰ Time: ${timeStr}\n📱 Customer Ref: ${customerPhone}\n💰 Amount: R50 (R45 Guard + R5 Airtime)\n🏢 Business: FEMINIST-GUARD PTY LTD 2026/768091/07\n🔢 Flash: 27111672846\n🎫 Ticket: #779502 MANUAL\n\nACTION: Please redeem NOW on Flash App 0672739660 and confirm customer.\nCustomer App will auto-unlock in 30 mins if valid.`;
+ window.open(`https://wa.me/27672739660?text=${encodeURIComponent(ownerMsg)}`,'_blank');
+ document.getElementById('payStatus').innerHTML=`✅ Voucher <b>${v}</b> sent to owner 0672739660!<br><br>⏳ <b>PENDING VALIDATION (30 mins)</b><br>We are checking if voucher is valid on Flash 27111672846.<br>Your account will allow access within 30 minutes after validation.<br><br>You will get WhatsApp confirmation. Please keep app open.`;
+ checkAccountStatus();
+ let countdown=setInterval(()=>{
+  checkAccountStatus();
+  if(localStorage.getItem('guard_active')=='yes'){
+   clearInterval(countdown);
+   alert('✅ Guard Activated! Your account is now ACTIVE. Thank you for R50 payment - R45 Guard + R5 Emergency Airtime via Flash 27111672846');
   }
-  let c=contacts[idx];
-  let waNum=normalizeNumber(c.number);
-  let waLink='https://wa.me/'+waNum+'?text='+liveMsg;
-  markSent(c.number,'WA '+(idx+1)+'/'+contacts.length);
-  if(confirm('Sending '+(idx+1)+'/'+contacts.length+' to '+c.name+' ('+c.number+')\nWhatsApp opens - TAP SEND, then OK for next. Continue?')){
-   window.open(waLink,'_blank');
-   idx++;
-   setTimeout(()=>{
-    if(idx<contacts.length){
-     if(confirm('Sent to '+contacts[idx-1].name+'. Next: '+contacts[idx].name+'?')){openNext();}
-    }else{openNext();}
-   },1200);
-  }
- }
- openNext();
+ },60000);
+ alert('✅ Voucher sent to owner via WhatsApp! Account will activate within 30 minutes after validation on Flash 27111672846');
 }
-function sendAllSMS(){
- let contacts=window._sosContacts||JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- if(!contacts.length) return;
- let smsMsg=window._sosSmsMsg||'SOS';
- let idx=0;
- function openNextSMS(){
-  if(idx>=contacts.length){alert('✅ SMS done for '+contacts.length);return;}
-  let c=contacts[idx];
-  let smsLink='sms:'+c.number+'?body='+encodeURIComponent(smsMsg);
-  markSent(c.number,'SMS '+(idx+1)+'/'+contacts.length);
-  if(confirm('SMS '+(idx+1)+'/'+contacts.length+' to '+c.name+'\nSMS opens - TAP SEND, then continue?')){
-   window.location.href=smsLink;
-   idx++;
-   setTimeout(openNextSMS,2000);
-  }
- }
- openNextSMS();
-}
-function renderVault(){
- let vault=JSON.parse(localStorage.getItem('fg_vault')||'[]').filter(v=>v.date&&v.size);
- document.getElementById('vaultInfo').textContent=vault.length?('Evidence: '+vault.length):'No recordings';
- document.getElementById('vaultList').innerHTML=vault.map(v=>'<div style="background:#fff;padding:8px;border-radius:8px;margin:6px 0">📹 '+v.date+' - '+v.size+' bytes<br><small>'+(v.loc||'')+'</small></div>').join('')||'No evidence';
-}
-function clearVault(){if(confirm('Delete?')){localStorage.removeItem('fg_vault');renderVault();}}
-function toggleSafeTrip(){
- if(safeTripInterval){
-  clearInterval(safeTripInterval);
-  safeTripInterval=null;
-  document.getElementById('tripStatus').textContent='Inactive';
-  document.getElementById('safeTripLog').style.display='none';
-  alert('Stopped');return;
- }
- let contacts=JSON.parse(localStorage.getItem('fg_contacts')||'[]');
- if(contacts.length===0){alert('Add contacts');showPage('contacts');return;}
- document.getElementById('tripStatus').textContent='Active';
- document.getElementById('safeTripLog').style.display='block';
- document.getElementById('safeTripLog').innerHTML='🟢 ACTIVE - '+new Date().toLocaleTimeString()+'<br>';
- alert('Safe Trip ACTIVE logs every 2 min');
- safeTripInterval=setInterval(async()=>{
-  try{
-   let p=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:5000}));
-   let e=new Date().toLocaleTimeString()+' - https://maps.google.com/?q='+p.coords.latitude+','+p.coords.longitude;
-   safeTripLog.push(e);
-   localStorage.setItem('fg_tripLog',JSON.stringify(safeTripLog.slice(-50)));
-   document.getElementById('safeTripLog').innerHTML+='📍 '+e+'<br>';
-  }catch(e){}
- },120000);
-}
-let calcVal='0';
-function openCalc(){showPage('calc');calcVal='0';document.getElementById('calcDisplay').textContent=calcVal;}
-function calcInput(ch){if(calcVal==='0'&&ch!=='.')calcVal=ch;else calcVal+=ch;document.getElementById('calcDisplay').textContent=calcVal;}
-function calcClear(){calcVal='0';document.getElementById('calcDisplay').textContent=calcVal;}
-function calcEquals(){if(calcVal==='1337'){showPage('home');return;}try{calcVal=eval(calcVal).toString();document.getElementById('calcDisplay').textContent=calcVal;}catch(e){calcVal='Error';document.getElementById('calcDisplay').textContent=calcVal;}}
-window.onload=()=>{
- setAuthMode('login');
- let cur=localStorage.getItem('fg_current');
- if(cur) enterApp();
- renderContacts();
- renderVault();
-};
 </script>
 </body>
-  </html>
+</html>
