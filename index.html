@@ -1,4 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feminist-Guard v15.7 Privacy Login Logout</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feminist-Guard v15.7 Privacy Login Logout</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#FFD88A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Guard">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon192.png">
+<link rel="apple-touch-icon" href="./icon192.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 <style>:root{--gold:#FFD88A;--border:rgba(255,216,138,0.2)}*{box-sizing:border-box}body{margin:0;background:#0F0A1E;color:#FFF9EF;font-family:'Outfit',sans-serif;padding-bottom:110px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));margin:14px;border-radius:28px;border:1px solid var(--border);padding:22px}
@@ -58,7 +70,6 @@ input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px so
 
 <div id="paywall-modal" class="modal"><div class="modal-inner"><div style="font-size:48px">🔒</div><h2 style="color:#FFD88A">Locked</h2><p>Pay R50 for 31 days</p><button onclick="closePaywall()" style="background:transparent;color:#FFD88A;border:1px solid var(--border);padding:10px 18px;border-radius:12px">Close</button></div></div>
 <div id="toast" class="toast"></div>
-
 <script>
 function acceptPopia(){localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';var a=document.getElementById('authScreen');a.style.display='block';a.classList.remove('hidden');}
 function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');}
@@ -201,4 +212,10 @@ function talkComp(){
 handleUrlParams();
 if(localStorage.getItem('current_user')){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();}else{document.getElementById('popiaScreen').style.display=localStorage.getItem('popia_consent')?'none':'block';}
 </script>
-</body></html>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').then(()=>console.log('Guard SW OK')).catch(e=>console.log('SW fail',e));
+}
+</script>
+</body>
+                                                                           </html>
