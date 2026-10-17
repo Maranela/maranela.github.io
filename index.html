@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feminist-Guard — Approval System v15.4</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feminist-Guard v15.5 Fix Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 <style>:root{--deep:#0F0A1E;--gold:#FFD88A;--border:rgba(255,216,138,0.18)}*{box-sizing:border-box}body{margin:0;background:#0F0A1E;color:#FFF9EF;font-family:'Outfit',sans-serif;padding-bottom:110px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));margin:14px;border-radius:28px;border:1px solid var(--border);padding:22px}
@@ -23,13 +23,28 @@ input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px so
 .modal-inner{background:#2D204F;border:1.5px solid var(--border);border-radius:28px;padding:24px;max-width:420px;width:100%;text-align:center}
 .approve-card{background:linear-gradient(135deg,rgba(0,230,160,0.15),rgba(0,196,138,0.08));border:2px solid #00E6A0;border-radius:20px;padding:18px;margin:12px 0}
 .reject-card{background:linear-gradient(135deg,rgba(255,90,130,0.15),rgba(255,8,68,0.08));border:2px solid #FF5A82;border-radius:20px;padding:18px;margin:12px 0}
+.error{color:#FF8A9E;font-size:12px;background:rgba(255,46,99,0.18);padding:10px;border-radius:12px;margin:6px 0}
+.success{color:#7CFFC8;font-size:12px;background:rgba(0,230,160,0.18);padding:10px;border-radius:12px;margin:6px 0}
 </style></head><body>
 
-<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center">Your Safety, Your Privacy</h3><p style="font-size:12px">Your data stays only on your phone. No cloud. Vault PIN protects your private sight. Private AI companion listens on your phone only.</p><label style="display:flex;gap:10px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label><button class="btn-gold" style="margin-top:16px" onclick="localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');">I Consent — Continue →</button></div>
+<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center">Your Safety, Your Privacy</h3><p style="font-size:12px">Your data stays only on your phone. No cloud. Vault PIN protects your private sight.</p><label style="display:flex;gap:10px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label><button class="btn-gold" style="margin-top:16px" onclick="localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');">I Consent — Continue →</button></div>
 
 <div id="authScreen" class="card hidden" style="margin-top:24px"><div style="text-align:center"><div class="logo">🛡️</div><h2 style="color:#FFD88A;margin:0">Feminist-Guard</h2><p style="font-size:11px;opacity:0.7">Luxury Protection — Private & Secure — 31 Days</p></div>
-<div id="loginBox" style="margin-top:18px"><h3>Login</h3><div id="loginError" class="hidden"></div><input id="loginUser" placeholder="Username"><input id="loginPass" type="password" placeholder="Password"><button class="btn-gold" onclick="doLogin()" style="margin-top:8px">Login →</button><p style="text-align:center;font-size:13px;margin-top:14px">No account? <span class="link" onclick="showRegister()">Create Account</span></p></div>
-<div id="registerBox" class="hidden"><h3>Create Account</h3><div id="regError" class="hidden"></div><div id="regSuccess" class="hidden"></div><input id="regFullName" placeholder="Full Name" oninput="checkRegForm()"><input id="regPhone" placeholder="Phone 082... 10 digits" maxlength="10"><input id="regID" placeholder="SA ID 13 digits" maxlength="13" oninput="validateIDLive()"><div id="idLiveFeedback"></div><input id="regUsername" placeholder="Username min 3" oninput="checkUsernameLive()"><div id="userFeedback"></div><input id="regPass" type="password" placeholder="Password min 6 + number" oninput="checkPassStrength()"><div id="passStrength"></div><input id="regPass2" type="password" placeholder="Confirm Password" oninput="checkRegForm()"><label style="font-size:11px;display:flex;gap:8px;margin-top:8px"><input type="checkbox" id="regTerms" style="width:20px;height:20px" onchange="checkRegForm()"> Accept Terms</label><button class="btn-gold" onclick="doRegister()" id="regBtn" disabled>Create Account →</button><p style="text-align:center;font-size:13px;margin-top:12px"><span class="link" onclick="showLogin()">Already have account? Login</span></p></div></div>
+
+<div id="loginBox" style="margin-top:18px"><h3>Login</h3><div id="loginError"></div><input id="loginUser" placeholder="Username"><input id="loginPass" type="password" placeholder="Password"><button class="btn-gold" onclick="doLogin()" style="margin-top:8px">Login →</button><p style="text-align:center;font-size:13px;margin-top:14px">No account? <span class="link" onclick="showRegister()">Create Account</span></p></div>
+
+<div id="registerBox" class="hidden" style="margin-top:18px"><h3>Create Account</h3><div id="regError"></div><div id="regSuccess"></div>
+<input id="regFullName" placeholder="Full Name — e.g. Nhlanhla Maranela">
+<input id="regPhone" placeholder="Phone 082... 10 digits" maxlength="10">
+<input id="regID" placeholder="SA ID 13 digits" maxlength="13">
+<div id="idFeedback" style="font-size:11px"></div>
+<input id="regUsername" placeholder="Username min 3 — e.g. ndlovu123">
+<div id="userFeedback" style="font-size:11px"></div>
+<input id="regPass" type="password" placeholder="Password min 6 with number">
+<input id="regPass2" type="password" placeholder="Confirm Password">
+<label style="font-size:11px;display:flex;gap:8px;margin-top:8px"><input type="checkbox" id="regTerms" style="width:20px;height:20px" checked> Accept Terms — I am 18+</label>
+<button class="btn-gold" onclick="doRegister()" id="regBtn" style="margin-top:12px">Create Account →</button>
+<p style="text-align:center;font-size:13px;margin-top:12px"><span class="link" onclick="showLogin()">Already have account? Login</span></p></div></div>
 
 <div id="mainApp" class="hidden"><div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:14px;align-items:center"><div class="avatar" id="mainAvatar">F</div><div><h2 style="color:#FFD88A;margin:0;font-size:20px">Feminist-Guard</h2><p style="font-size:11px;margin:2px 0;opacity:0.7" id="userInfoLine">Welcome</p><p id="subTimer" style="font-size:10px;color:#FFD88A;font-weight:800"></p></div></div><div id="accountBadge" class="badge inactive">NOT ACTIVE</div></div>
 
@@ -51,133 +66,101 @@ input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px so
 
 <div id="tab-ai" class="tab"><div class="card"><h3 style="color:#FFD88A">💜 Guard Companion — Smart Private</h3><p style="font-size:11px;opacity:.8">3 free chats, then R50 for 31 days. GBV 0800 428 428. SOS free.</p><div id="comp-chat" style="height:300px;overflow-y:auto;background:rgba(0,0,0,0.35);border-radius:18px;padding:14px;margin:12px 0;font-size:13px;border:1px solid var(--border)"></div><div style="display:flex;gap:8px"><input id="comp-input" placeholder="How are you feeling?..." style="flex:1"><button onclick="talkComp()" style="background:#FFD88A;color:#1A0E2E;padding:16px 20px;border-radius:18px;border:none;font-weight:900">Send</button></div><p id="comp-limit" style="font-size:10px;opacity:.6;margin-top:8px"></p></div></div>
 
-<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days Subscription</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;border:1px solid var(--border);font-size:12px"></div>
-<div id="payPendingNotice" class="hidden" style="background:rgba(255,216,138,0.15);border:1px solid var(--border);border-radius:16px;padding:14px;margin:12px 0;font-size:12px"></div>
-<input id="voucher-pin" placeholder="Flash PIN R50 — 10 digits"><input id="voucher-user" placeholder="Your username — e.g. ndlovu123"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send to Owner →</button>
-<div id="devArea" style="display:none;margin-top:12px"><button class="btn-ghost" onclick="devActivate()">Owner Test — Unlock 31 Days (Hidden from customers)</button></div>
-<p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div>
-
-<div class="card"><h3>Settings</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div>
-<div class="settings-section"><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Subscription</span><span id="sub-status" style="font-weight:800"></span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Free AI</span><span id="freeChatsDisplay">0/3</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div>
-
-<!-- APPROVAL SYSTEM — OWNER ONLY -->
-<div id="admin-secret" class="card" style="display:none;border:2px dashed #FFD88A;margin:12px 0 0"><h4 style="color:#FFD88A;margin:0 0 10px">🔐 OWNER APPROVAL CENTER — v15.4</h4>
-<div id="approveFromLink" class="hidden"></div>
-<p style="font-size:11px;opacity:0.8">When customer pays, you get WhatsApp with Approve/Reject links. Tap link → comes here → Approve in 1 click → sends unlock code to customer.</p>
-<div style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0"><h5 style="margin:0 0 8px;color:#FFD88A">Manual Approve / Reject</h5><input id="cust-user" placeholder="Customer username — e.g. ndlovu123"><input id="cust-pin" placeholder="Flash PIN customer sent"><input id="cust-phone" placeholder="Customer phone 0... (for WhatsApp)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Send Unlock</button><button class="btn-red" onclick="ownerReject()">❌ REJECT — Wrong PIN</button></div></div>
-<div id="out" style="background:rgba(0,0,0,0.6);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-family:monospace;font-size:11px;min-height:50px;border:1px solid var(--border);white-space:pre-wrap">Waiting for customer payment...</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-ghost" onclick="copyCode()">📋 Copy Code</button><button class="btn-ghost" onclick="sendUnlockWhatsApp()">📲 Send WhatsApp to Customer</button></div>
-<div style="margin-top:14px;background:rgba(0,230,160,0.1);border-radius:14px;padding:12px"><h5 style="margin:0 0 6px;color:#00E6A0">How Approve Works:</h5><p style="font-size:10px;line-height:14px">1. Customer enters Flash PIN → You get WhatsApp with link<br>2. Tap Approve link → Opens this page with customer filled<br>3. Check Flash balance on your phone — If R50 there → Tap ✅ APPROVE<br>4. Tap 📲 Send WhatsApp to Customer → Sends unlock link<br>5. Customer taps link → Auto ACTIVE 31 days! No typing!<br><br><span style="color:#FF5A82">If fake voucher → Tap ❌ REJECT → Sends wrong PIN message to customer</span></p></div>
-</div>
-<div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div>
-<p style="font-size:9px;text-align:center;opacity:0.5;margin-top:16px">Feminist-Guard v15.4 Approval System — 31 Days — Stealth Pro<br><span style="font-size:8px">FEMINIST GUARD PROTECTION SERVICES (Pty) Ltd 2026/768091/07</span></p>
-</div></div>
+<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days Subscription</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;border:1px solid var(--border);font-size:12px"></div><div id="payPendingNotice" class="hidden" style="background:rgba(255,216,138,0.15);border:1px solid var(--border);border-radius:16px;padding:14px;margin:12px 0;font-size:12px"></div><input id="voucher-pin" placeholder="Flash PIN R50 — 10 digits"><input id="voucher-user" placeholder="Your username"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send to Owner →</button><div id="devArea" style="display:none;margin-top:12px"><button class="btn-ghost" onclick="devActivate()">Owner Test — Unlock 31 Days</button></div><p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div><div class="card"><h3>Settings</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div><div class="settings-section"><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Subscription</span><span id="sub-status" style="font-weight:800"></span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Free AI</span><span id="freeChatsDisplay">0/3</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div><div id="admin-secret" class="card" style="display:none;border:2px dashed #FFD88A"><h4 style="color:#FFD88A">🔐 OWNER APPROVAL CENTER — v15.5</h4><div id="approveFromLink" class="hidden"></div><input id="cust-user" placeholder="Customer username"><input id="cust-pin" placeholder="Flash PIN"><input id="cust-phone" placeholder="Customer phone"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Send Unlock</button><button class="btn-red" onclick="ownerReject()">❌ REJECT</button></div><div id="out" style="background:rgba(0,0,0,0.6);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-family:monospace;font-size:11px;min-height:50px;border:1px solid var(--border);white-space:pre-wrap">Waiting...</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-ghost" onclick="copyCode()">📋 Copy</button><button class="btn-ghost" onclick="sendUnlockWhatsApp()">📲 Send WhatsApp</button></div></div><div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div></div></div>
 
 <div class="nav"><button id="nav-dashboard" class="active" onclick="openTab('dashboard')">🏠<br>Home</button><button id="nav-sos" onclick="openTab('sos')">🆘<br>SOS</button><button id="nav-trusted" onclick="openTab('trusted')">👥<br>Circle</button><button id="nav-vault" onclick="openTab('vault')">🔒<br>Vault</button><button id="nav-ai" onclick="openTab('ai')">💜<br>AI</button><button id="nav-pay" onclick="openTab('pay')">⚙️<br>Pay</button></div></div>
 
 <div id="paywall-modal" class="modal"><div class="modal-inner"><div style="font-size:48px">🔒</div><h2 style="color:#FFD88A">Locked — 31 Days Ended</h2><p style="font-size:13px">Your <span id="paywall-feature" style="color:#FFD88A;font-weight:900">Private Vault</span> is locked.<br><span id="paywall-expiry"></span><br><br>Pay R50 for 31 days.</p><a href="https://wa.me/27672739660?text=Hi%20Feminist%20Guard%20I%20paid%20R50%20PIN:%20" style="display:block;background:#25D366;color:white;padding:14px;border-radius:16px;text-decoration:none;font-weight:900;margin:10px 0">📲 WhatsApp — 0672739660</a><button onclick="closePaywall()" style="background:transparent;color:#FFD88A;border:1px solid var(--border);padding:10px 18px;border-radius:12px">Close</button></div></div>
-
-<div id="approval-modal" class="modal"><div class="modal-inner"><div style="font-size:48px" id="approval-icon">✅</div><h2 style="color:#FFD88A" id="approval-title">Pending Approval</h2><p style="font-size:13px" id="approval-msg"></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px"><button class="btn-green" id="approval-yes" onclick="confirmApprove()">✅ Approve</button><button class="btn-ghost" onclick="document.getElementById('approval-modal').style.display='none'">Close</button></div></div></div>
-
 <div id="toast" class="toast"></div>
 
 <script>
-// GLOBAL STATE FOR APPROVAL
-let pendingApproveData = {user:'', pin:'', phone:'', expiry:0};
-let lastGeneratedUnlockLink = '';
-
+let pendingApproveData={};let lastGeneratedUnlockLink='';
 function toast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',4000);}
 function getExpiryTime(){let exp=localStorage.getItem('fg_expiry');if(exp) return parseInt(exp);return 0;}
 function isPaid(){let exp=getExpiryTime();if(!exp) return false;if(Date.now()>exp){localStorage.setItem('fg_last_expiry',exp.toString());localStorage.removeItem('fg_paid');localStorage.removeItem('guard_active');return false;}return localStorage.getItem('fg_paid')==='true'||localStorage.getItem('guard_active')==='yes';}
 function getDaysLeft(){let exp=getExpiryTime();if(!exp) return 0;let diff=exp-Date.now();if(diff<=0) return 0;return Math.ceil(diff/(1000*60*60*24));}
 function getFreeChats(){return parseInt(localStorage.getItem('fg_free_chats')||'0');}
-function updateBadge(){let badge=document.getElementById('accountBadge');let status=document.getElementById('accountStatus');let subTimer=document.getElementById('subTimer');let subInfo=document.getElementById('subInfo');let pendingNotice=document.getElementById('payPendingNotice');let daysLeft=getDaysLeft();if(isPaid()){let expDate=new Date(getExpiryTime()).toLocaleDateString();if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}if(status)status.innerHTML=`✅ ACTIVE • ${daysLeft} days left — Expires ${expDate}`;if(subTimer)subTimer.innerText=`✅ Active — ${daysLeft} days — Expires ${expDate}`;if(subInfo)subInfo.innerHTML=`<b style=color:#00E6A0>✅ ACTIVE</b> — ${daysLeft} days<br>Expires: ${expDate}`;document.getElementById('currentPlan').innerText=`ACTIVE — ${daysLeft} days`;document.getElementById('payCount').innerText=daysLeft+' days';document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';document.getElementById('sub-status').innerText=daysLeft+' days left';document.getElementById('freeChatsDisplay').innerText=getFreeChats()+'/3 — Unlimited';if(pendingNotice){pendingNotice.classList.add('hidden');}}else{let used=getFreeChats();let expText='';let lastExp=localStorage.getItem('fg_last_expiry');if(lastExp){expText='Expired on '+new Date(parseInt(lastExp)).toLocaleDateString();}let pending=localStorage.getItem('fg_pending_payment');if(pending&&pendingNotice){let p=JSON.parse(pending);pendingNotice.classList.remove('hidden');pendingNotice.innerHTML=`⏳ <b>PENDING VERIFICATION</b><br>Username: ${p.user}<br>Flash PIN: ${p.pin}<br>Sent to owner 0672739660 — Waiting for approval. You will get WhatsApp with unlock link.`;}if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}if(status)status.innerHTML=`⚠️ NOT ACTIVE • Pay R50 for 31 days • ${expText}<br>Free AI: ${used}/3 — SOS FREE`;if(subTimer)subTimer.innerText=expText?`🔒 ${expText} — Renew R50`:`🔒 Not Active`;if(subInfo)subInfo.innerHTML=`<b style=color:#FF8A9E>🔒 NOT ACTIVE</b><br>${expText||'No sub'}<br>Pay R50 for 31 days`;document.getElementById('currentPlan').innerText='NOT ACTIVE — R50';document.getElementById('payCount').innerText='NOT ACTIVE';document.getElementById('daysLeftDisplay').innerText='0 — Expired';document.getElementById('sub-status').innerText='Expired';document.getElementById('freeChatsDisplay').innerText=used+'/3';}}
-function showPaywall(feat){document.getElementById('paywall-feature').innerText=feat;document.getElementById('paywall-expiry').innerText='Pay R50 to unlock '+feat+' for 31 days. After 31 days pay again.';document.getElementById('paywall-modal').style.display='flex';}
+function updateBadge(){let badge=document.getElementById('accountBadge');let status=document.getElementById('accountStatus');let subTimer=document.getElementById('subTimer');let subInfo=document.getElementById('subInfo');let pendingNotice=document.getElementById('payPendingNotice');let daysLeft=getDaysLeft();if(isPaid()){let expDate=new Date(getExpiryTime()).toLocaleDateString();if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}if(status)status.innerHTML=`✅ ACTIVE • ${daysLeft} days — Expires ${expDate}`;if(subTimer)subTimer.innerText=`✅ Active — ${daysLeft} days`;if(subInfo)subInfo.innerHTML=`<b style=color:#00E6A0>✅ ACTIVE</b> — ${daysLeft} days — Expires ${expDate}`;document.getElementById('currentPlan').innerText=`ACTIVE — ${daysLeft} days`;document.getElementById('payCount').innerText=daysLeft+' days';document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';document.getElementById('sub-status').innerText=daysLeft+' days left';document.getElementById('freeChatsDisplay').innerText=getFreeChats()+'/3 — Unlimited';if(pendingNotice)pendingNotice.classList.add('hidden');}else{let used=getFreeChats();let pending=localStorage.getItem('fg_pending_payment');if(pending&&pendingNotice){let p=JSON.parse(pending);pendingNotice.classList.remove('hidden');pendingNotice.innerHTML=`⏳ <b>PENDING</b> — User: ${p.user} — PIN: ${p.pin}<br>Waiting approval from 0672739660`;}if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}if(status)status.innerHTML=`⚠️ NOT ACTIVE • Pay R50 • Free AI: ${used}/3`;if(subTimer)subTimer.innerText=`🔒 Not Active`;if(subInfo)subInfo.innerHTML=`<b style=color:#FF8A9E>🔒 NOT ACTIVE</b><br>Pay R50 for 31 days`;document.getElementById('currentPlan').innerText='NOT ACTIVE — R50';document.getElementById('payCount').innerText='NOT ACTIVE';document.getElementById('daysLeftDisplay').innerText='0 — Expired';document.getElementById('sub-status').innerText='Expired';document.getElementById('freeChatsDisplay').innerText=used+'/3';}}
+function showPaywall(feat){document.getElementById('paywall-feature').innerText=feat;document.getElementById('paywall-expiry').innerText='Pay R50 to unlock '+feat+' for 31 days.';document.getElementById('paywall-modal').style.display='flex';}
 function closePaywall(){document.getElementById('paywall-modal').style.display='none';}
 if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');}
 if(window.location.search.includes('owner=1')||localStorage.getItem('owner_mode')==='yes'){let dev=document.getElementById('devArea');if(dev) dev.style.display='block';}
 
-// HANDLE URL PARAMS — APPROVE / REJECT / UNLOCK
 function handleUrlParams(){
   let params=new URLSearchParams(window.location.search);
-  let unlock=params.get('unlock');
-  let approve=params.get('approve');
-  let reject=params.get('reject');
-  let pin=params.get('pin');
-  let phone=params.get('phone');
-
+  let unlock=params.get('unlock');let approve=params.get('approve');let reject=params.get('reject');let pin=params.get('pin');let phone=params.get('phone');
   if(unlock){
     try{
-      let decoded=atob(unlock);
-      let parts=decoded.split('|');
-      let user=parts[0];
-      let expiry=parseInt(parts[1]);
-      let pinCode=parts[2]||'';
+      let decoded=atob(unlock);let parts=decoded.split('|');let user=parts[0];let expiry=parseInt(parts[1]);let pinCode=parts[2]||'';
       if(expiry>Date.now()){
-        localStorage.setItem('fg_paid','true');
-        localStorage.setItem('guard_active','yes');
-        localStorage.setItem('fg_expiry',expiry.toString());
-        localStorage.setItem('fg_paid_date',new Date().toISOString());
-        localStorage.setItem('fg_paid_user',user);
-        localStorage.setItem('fg_paid_pin',pinCode);
-        localStorage.removeItem('fg_pending_payment');
-        let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
-        history.push({voucher:pinCode,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user});
-        localStorage.setItem('pay_history',JSON.stringify(history));
-        setTimeout(()=>{alert('✅ '+user+' UNLOCKED! — 31 Days ACTIVE until '+new Date(expiry).toLocaleDateString()+' 💜 Stay safe!');location.href=location.origin+location.pathname;},500);
-      }else{
-        alert('❌ Unlock link expired — Contact owner 0672739660');
-      }
-    }catch(e){console.log('Unlock decode failed',e);}
+        localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');localStorage.setItem('fg_expiry',expiry.toString());localStorage.setItem('fg_paid_date',new Date().toISOString());localStorage.removeItem('fg_pending_payment');
+        let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:pinCode,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user});localStorage.setItem('pay_history',JSON.stringify(history));
+        setTimeout(()=>{alert('✅ '+user+' UNLOCKED! — 31 Days ACTIVE until '+new Date(expiry).toLocaleDateString());location.href=location.origin+location.pathname;},500);
+      }else{alert('❌ Unlock link expired');}
+    }catch(e){}
   }
-
   if(approve){
-    document.getElementById('authScreen').classList.add('hidden');
-    document.getElementById('authScreen').style.display='none';
-    document.getElementById('popiaScreen').style.display='none';
-    document.getElementById('mainApp').classList.remove('hidden');
-    showMain();
-    openTab('pay');
-    document.getElementById('admin-secret').style.display='block';
-    localStorage.setItem('owner_mode','yes');
-    document.getElementById('cust-user').value=approve;
-    if(pin) document.getElementById('cust-pin').value=pin;
-    if(phone) document.getElementById('cust-phone').value=phone;
-    pendingApproveData={user:approve,pin:pin||'',phone:phone||''};
-    let div=document.getElementById('approveFromLink');
-    div.classList.remove('hidden');
-    div.innerHTML=`<div class="approve-card"><h4 style="margin:0;color:#00E6A0">🔔 NEW PAYMENT — TAP TO VERIFY</h4><p style="font-size:13px;margin:8px 0"><b>User:</b> ${approve}<br><b>Flash PIN:</b> ${pin||'—'}<br><b>Phone:</b> ${phone||'—'}<br><br>Check Flash balance — If R50 received → Tap ✅ APPROVE</p><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Generate Unlock Link</button></div>`;
-    toast('Owner Approval — Verify '+approve);
+    document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('pay');document.getElementById('admin-secret').style.display='block';localStorage.setItem('owner_mode','yes');
+    document.getElementById('cust-user').value=approve;if(pin)document.getElementById('cust-pin').value=pin;if(phone)document.getElementById('cust-phone').value=phone;pendingApproveData={user:approve,pin:pin||'',phone:phone||''};
+    let div=document.getElementById('approveFromLink');div.classList.remove('hidden');div.innerHTML=`<div class="approve-card"><h4 style="margin:0;color:#00E6A0">🔔 NEW PAYMENT — ${approve}</h4><p style="font-size:13px"><b>Flash PIN:</b> ${pin||'—'}<br><b>Phone:</b> ${phone||'—'}<br>Check Flash balance → Approve</p><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Generate Link</button></div>`;
   }
-
   if(reject){
-    document.getElementById('authScreen').classList.add('hidden');
-    document.getElementById('authScreen').style.display='none';
-    document.getElementById('popiaScreen').style.display='none';
-    document.getElementById('mainApp').classList.remove('hidden');
-    showMain();
-    openTab('pay');
-    document.getElementById('admin-secret').style.display='block';
-    document.getElementById('cust-user').value=reject;
-    if(pin) document.getElementById('cust-pin').value=pin;
-    if(phone) document.getElementById('cust-phone').value=phone;
-    let div=document.getElementById('approveFromLink');
-    div.classList.remove('hidden');
-    div.innerHTML=`<div class="reject-card"><h4 style="margin:0;color:#FF5A82">❌ REJECT REQUEST</h4><p style="font-size:13px;margin:8px 0"><b>User:</b> ${reject}<br><b>Flash PIN:</b> ${pin||'—'}<br>Mark as fake / not received</p><button class="btn-red" onclick="ownerReject()">❌ REJECT & Send Message to Customer</button></div>`;
+    document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('pay');document.getElementById('admin-secret').style.display='block';
+    document.getElementById('cust-user').value=reject;if(pin)document.getElementById('cust-pin').value=pin;if(phone)document.getElementById('cust-phone').value=phone;
+    let div=document.getElementById('approveFromLink');div.classList.remove('hidden');div.innerHTML=`<div class="reject-card"><h4 style="margin:0;color:#FF5A82">❌ REJECT — ${reject}</h4><button class="btn-red" onclick="ownerReject()">❌ REJECT & Send Message</button></div>`;
   }
 }
 handleUrlParams();
 
-function checkAuthState(){let cur=localStorage.getItem('current_user');if(cur){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');let user=JSON.parse(cur);document.getElementById('userInfoLine').innerText=`Welcome, ${user.fullName}`;document.getElementById('mainAvatar').innerText=user.avatar||user.fullName.charAt(0).toUpperCase();document.getElementById('vaultWelcomeName').innerText=user.fullName;showMain();}}
 function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');}
 function showLogin(){document.getElementById('registerBox').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden');}
-function isValidSAID(id){if(!id||id.length!==13||!/^[0-9]+$/.test(id)) return {valid:false,msg:'13 digits'};let mm=parseInt(id.substring(2,4));let dd=parseInt(id.substring(4,6));if(mm<1||mm>12) return {valid:false,msg:'Invalid month'};if(dd<1||dd>31) return {valid:false,msg:'Invalid day'};let total=0;for(let i=0;i<12;i++){let d=parseInt(id.charAt(i));if(i%2===0){total+=d;}else{let dbl=d*2;total+=Math.floor(dbl/10)+(dbl%10);}}let check=(10-(total%10))%10;if(check!==parseInt(id.charAt(12))) return {valid:false,msg:'Checksum invalid'};return {valid:true,last4:id.substring(9,13)};}
-function validateIDLive(){let id=document.getElementById('regID').value.trim();let fb=document.getElementById('idLiveFeedback');if(!id){fb.innerHTML='';checkRegForm();return;}if(id.length<13){fb.innerHTML=`<div style=color:#A8C4FF>${id.length}/13</div>`;checkRegForm();return;}let r=isValidSAID(id);fb.innerHTML=r.valid?`<div style=color:#7CFFC8>✅ Valid ****${r.last4}</div>`:`<div style=color:#FF8A9E>❌ ${r.msg}</div>`;checkRegForm();}
-function checkUsernameLive(){let u=document.getElementById('regUsername').value.trim();let fb=document.getElementById('userFeedback');if(!u){fb.innerHTML='';return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(x=>x.username.toLowerCase()===u.toLowerCase())){fb.innerHTML=`<div style=color:#FF8A9E>❌ Taken</div>`;}else if(u.length>=3){fb.innerHTML=`<div style=color:#7CFFC8>✅ Available</div>`;}checkRegForm();}
-function checkPassStrength(){let p=document.getElementById('regPass').value;let fb=document.getElementById('passStrength');if(!p){fb.innerHTML='';return;}let ok=p.length>=6 && /[0-9]/.test(p);fb.innerHTML=ok?`<div style=color:#7CFFC8>Strong</div>`:`<div style=color:#FF8A9E>Min 6 with number</div>`;checkRegForm();}
-function checkRegForm(){let full=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let p1=document.getElementById('regPass').value;let p2=document.getElementById('regPass2').value;let terms=document.getElementById('regTerms').checked;let btn=document.getElementById('regBtn');let validID=isValidSAID(id).valid;let validPhone=/^0[6-8][0-9]{8}$/.test(phone);let validUser=user.length>=3;let validPass=p1.length>=6 && /[0-9]/.test(p1) && p1===p2;btn.disabled=!(full&&validPhone&&validID&&validUser&&validPass&&terms);}
-function doRegister(){let fullName=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let pass=document.getElementById('regPass').value;let err=document.getElementById('regError');let suc=document.getElementById('regSuccess');err.classList.add('hidden');suc.classList.add('hidden');let idRes=isValidSAID(id);if(!idRes.valid){err.innerHTML=`<div style=color:#FF8A9E>❌ ID: ${idRes.msg}</div>`;err.classList.remove('hidden');return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML=`<div style=color:#FF8A9E>❌ Username exists</div>`;err.classList.remove('hidden');return;}let newUser={fullName,phone,idNumber:id,idLast4:idRes.last4,username:user,password:pass,avatar:fullName.charAt(0).toUpperCase(),created:new Date().toISOString()};users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));suc.innerHTML=`<div style=color:#7CFFC8>✅ Account created!</div>`;suc.classList.remove('hidden');setTimeout(()=>{document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('dashboard');},1000);}
-function doLogin(){let user=document.getElementById('loginUser').value.trim();let pass=document.getElementById('loginPass').value;let err=document.getElementById('loginError');err.classList.add('hidden');let users=JSON.parse(localStorage.getItem('guard_users')||'[]');let found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());if(!found||found.password!==pass){err.innerHTML=`<div style=color:#FF8A9E>❌ Wrong username or password</div>`;err.classList.remove('hidden');return;}localStorage.setItem('current_user',JSON.stringify(found));document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();}
+
+// FIXED — SIMPLE VALIDATION — NO BLOCKING
+function doRegister(){
+  let fullName=document.getElementById('regFullName').value.trim();
+  let phone=document.getElementById('regPhone').value.trim();
+  let id=document.getElementById('regID').value.trim();
+  let user=document.getElementById('regUsername').value.trim();
+  let pass=document.getElementById('regPass').value;
+  let pass2=document.getElementById('regPass2').value;
+  let terms=document.getElementById('regTerms').checked;
+  let err=document.getElementById('regError');
+  let suc=document.getElementById('regSuccess');
+  err.innerHTML='';suc.innerHTML='';
+
+  if(!fullName||fullName.length<2){err.innerHTML='<div class=error>❌ Enter full name</div>';return;}
+  if(!phone||!/^0[0-9]{9}$/.test(phone)){err.innerHTML='<div class=error>❌ Phone must be 10 digits starting with 0 — e.g. 0821234567</div>';return;}
+  if(!id||id.length!==13||!/^[0-9]{13}$/.test(id)){err.innerHTML='<div class=error>❌ SA ID must be 13 digits</div>';return;}
+  if(!user||user.length<3){err.innerHTML='<div class=error>❌ Username min 3 letters</div>';return;}
+  if(!pass||pass.length<6){err.innerHTML='<div class=error>❌ Password min 6 characters</div>';return;}
+  if(pass!==pass2){err.innerHTML='<div class=error>❌ Passwords do not match</div>';return;}
+  if(!terms){err.innerHTML='<div class=error>❌ Accept Terms</div>';return;}
+
+  let users=JSON.parse(localStorage.getItem('guard_users')||'[]');
+  if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML='<div class=error>❌ Username taken — try another</div>';return;}
+
+  let newUser={fullName,phone,idNumber:id,idLast4:id.substring(9,13),username:user,password:pass,avatar:fullName.charAt(0).toUpperCase(),created:new Date().toISOString()};
+  users.push(newUser);
+  localStorage.setItem('guard_users',JSON.stringify(users));
+  localStorage.setItem('current_user',JSON.stringify(newUser));
+  suc.innerHTML='<div class=success>✅ Account created! Logging in...</div>';
+  setTimeout(()=>{document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('dashboard');toast('Welcome '+fullName);},800);
+}
+
+function doLogin(){
+  let user=document.getElementById('loginUser').value.trim();
+  let pass=document.getElementById('loginPass').value;
+  let err=document.getElementById('loginError');
+  err.innerHTML='';
+  if(!user||!pass){err.innerHTML='<div class=error>❌ Enter username and password</div>';return;}
+  let users=JSON.parse(localStorage.getItem('guard_users')||'[]');
+  let found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());
+  if(!found){err.innerHTML='<div class=error>❌ Username not found — Create Account first<br>Found users: '+users.map(u=>u.username).join(', ')+'</div>';return;}
+  if(found.password!==pass){err.innerHTML='<div class=error>❌ Wrong password</div>';return;}
+  localStorage.setItem('current_user',JSON.stringify(found));
+  document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();toast('Welcome '+found.fullName);
+}
+
 function showMain(){let cur=JSON.parse(localStorage.getItem('current_user')||'{}');document.getElementById('userInfoLine').innerText=`Welcome, ${cur.fullName}`;document.getElementById('mainAvatar').innerText=cur.avatar||cur.fullName.charAt(0).toUpperCase();document.getElementById('vaultWelcomeName').innerText=cur.fullName;document.getElementById('profileInfo').innerHTML=`<b>Name:</b> ${cur.fullName}<br><b>Phone:</b> ${cur.phone}<br><b>ID:</b> *********${cur.idLast4}<br><b>Username:</b> ${cur.username}`;loadEvidence();loadSafe();updateCounts();loadPayHistory();checkVaultPinState();updateBadge();initAIChat();}
 function checkVaultPinState(){let pin=localStorage.getItem('vault_pin');let setup=document.getElementById('vaultPinSetup');let enter=document.getElementById('vaultPinEnter');let content=document.getElementById('vaultContent');if(!pin){setup.classList.remove('hidden');enter.classList.add('hidden');content.classList.add('hidden');}else{if(sessionStorage.getItem('vault_unlocked')==='yes'){enter.classList.add('hidden');content.classList.remove('hidden');loadEvidence();}else{enter.classList.remove('hidden');content.classList.add('hidden');setup.classList.add('hidden');}}}
 function createVaultPin(){let p1=document.getElementById('vaultPin1').value.trim();let p2=document.getElementById('vaultPin2').value.trim();if(p1.length!==4||!/^[0-9]{4}$/.test(p1)||p1!==p2){toast('PIN must be 4 digits and match');return;}localStorage.setItem('vault_pin',p1);sessionStorage.setItem('vault_unlocked','yes');toast('✅ PIN created');checkVaultPinState();}
@@ -189,8 +172,6 @@ function updateCounts(){let c=JSON.parse(localStorage.getItem('trusted_contacts'
 function saveContacts(){if(!isPaid()){showPaywall('Trusted Circle');return;}let contacts=[{name:document.getElementById('c1Name').value.trim(),phone:document.getElementById('c1Phone').value.trim()},{name:document.getElementById('c2Name').value.trim(),phone:document.getElementById('c2Phone').value.trim()},{name:document.getElementById('c3Name').value.trim(),phone:document.getElementById('c3Phone').value.trim()}];if(!contacts[0].name||!contacts[0].phone){alert('Contact 1 needs Name AND Number');return;}localStorage.setItem('trusted_contacts',JSON.stringify(contacts));updateCounts();document.getElementById('trustedList').innerHTML=contacts.filter(c=>c.phone).map(c=>`<div style=background:rgba(255,255,255,0.08);padding:12px;border-radius:14px;margin:6px 0>✅ ${c.name} — ${c.phone}</div>`).join('');toast('Saved');}
 function addSafe(){if(!isPaid()){showPaywall('Safe');return;}navigator.geolocation.getCurrentPosition(pos=>{let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');safes.push({name:document.getElementById('safeName').value||'Safe',lat:pos.coords.latitude,lng:pos.coords.longitude});localStorage.setItem('safe_locs',JSON.stringify(safes));loadSafe();updateCounts();});}
 function loadSafe(){let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');document.getElementById('safeList').innerHTML=safes.map(s=>`<div style=background:rgba(255,255,255,0.06);padding:12px;border-radius:14px;margin:6px 0>📍 ${s.name} — ${s.lat.toFixed(4)}</div>`).join('')||'<p style=opacity:0.6>No safe places</p>';}
-
-// STEALTH VAULT
 let cameraStream=null,mediaRecorder=null,recordedChunks=[],isRecordingVideo=false,audioRecorder=null,audioChunks=[],isRecordingAudio=false;
 async function openCamera(){if(!isPaid()){showPaywall('Vault');return;}if(sessionStorage.getItem('vault_unlocked')!=='yes'){toast('Unlock vault first');return;}try{let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});cameraStream=stream;let v=document.getElementById('cameraPreview');v.srcObject=stream;v.muted=true;v.volume=0;v.style.display='block';toast('📸 Stealth silent');}catch(e){toast('Camera denied');}}
 function closeCamera(){let v=document.getElementById('cameraPreview');v.style.display='none';if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}}
@@ -210,179 +191,40 @@ let sosTimer;function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);docume
 function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec — FREE';}
 function doSos(){let contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(c=>c.phone);if(contacts.length<1){toast('Add contacts first');return;}navigator.geolocation.getCurrentPosition(pos=>{let link=`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;let cur=JSON.parse(localStorage.getItem('current_user')||'{}');let msg=`🆘 FEMINIST-GUARD SOS! ${cur.fullName} needs help! Live: ${link}`;contacts.forEach(c=>{window.open(`https://wa.me/${c.phone}?text=${encodeURIComponent(msg)}`,'_blank');});document.getElementById('sosStatus').innerText='✅ SOS Sent — FREE';});}
 
-// PAYMENT + APPROVAL SYSTEM v15.4
 function activatePay(){
   let pin=document.getElementById('voucher-pin').value.trim();
   let user=document.getElementById('voucher-user').value.trim();
   let cur=JSON.parse(localStorage.getItem('current_user')||'{}');
-  if(!pin||!user||pin.length<8){toast('Enter valid Flash PIN (10 digits) and username');return;}
-  if(user.length<3){toast('Username too short');return;}
-  
-  // Save pending locally
+  if(!pin||!user||pin.length<8){toast('Enter valid Flash PIN and username');return;}
   let pending={user:user,pin:pin,phone:cur.phone||'',fullName:cur.fullName||user,time:new Date().toISOString()};
   localStorage.setItem('fg_pending_payment',JSON.stringify(pending));
-  let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
-  history.push({voucher:pin,time:new Date().toISOString(),status:'pending',amount:50,days:31,user:user,phone:cur.phone});
-  localStorage.setItem('pay_history',JSON.stringify(history));
-  
-  // Build Approve/Reject links for owner
+  let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:pin,time:new Date().toISOString(),status:'pending',amount:50,days:31,user:user,phone:cur.phone});localStorage.setItem('pay_history',JSON.stringify(history));
   let baseUrl=location.origin+location.pathname;
   let approveLink=`${baseUrl}?owner=1&approve=${encodeURIComponent(user)}&pin=${encodeURIComponent(pin)}&phone=${encodeURIComponent(cur.phone||'')}`;
   let rejectLink=`${baseUrl}?owner=1&reject=${encodeURIComponent(user)}&pin=${encodeURIComponent(pin)}&phone=${encodeURIComponent(cur.phone||'')}`;
-  
-  let ownerMsg=`🔔 NEW PAYMENT — PENDING VERIFICATION — v15.4 APPROVAL
-———————————————
-👤 User: ${user}
-📛 Name: ${cur.fullName||user}
-📞 Phone: ${cur.phone||'—'}
-💳 Flash PIN: ${pin}
-💰 Amount: R50 — 31 Days
-🕒 Time: ${new Date().toLocaleString()}
-
-⚠️ CHECK FLASH BALANCE — If R50 received:
-👉 TAP TO APPROVE:
-${approveLink}
-
-❌ If fake / not received:
-${rejectLink}
-
-Customer is waiting for unlock link.`;
-
+  let ownerMsg=`🔔 NEW PAYMENT PENDING — v15.5\nUser: ${user}\nName: ${cur.fullName||user}\nPhone: ${cur.phone||'—'}\nFlash PIN: ${pin}\nR50 — 31 Days\n\nAPPROVE: ${approveLink}\nREJECT: ${rejectLink}`;
   window.open(`https://wa.me/27672739660?text=${encodeURIComponent(ownerMsg)}`,'_blank');
-  document.getElementById('payStatus').innerHTML=`✅ Sent to owner! PENDING — Waiting for owner to verify Flash PIN ${pin}. You will get WhatsApp with unlock link when approved.`;
-  document.getElementById('payPendingNotice').classList.remove('hidden');
-  document.getElementById('payPendingNotice').innerHTML=`⏳ <b>PENDING</b> — Username: ${user} — PIN: ${pin}<br>Sent to 0672739660 — Wait for approval WhatsApp with unlock link`;
-  loadPayHistory();updateBadge();
+  document.getElementById('payStatus').innerHTML=`✅ Sent! PENDING — Waiting approval`;document.getElementById('payPendingNotice').classList.remove('hidden');document.getElementById('payPendingNotice').innerHTML=`⏳ PENDING — User: ${user} — PIN: ${pin}`;loadPayHistory();updateBadge();
 }
-
-function generateUnlockCode(user,pin){
-  let now=Date.now();
-  let expiry=now+(31*24*60*60*1000);
-  let raw=`${user}|${expiry}|${pin}`;
-  let code=btoa(raw); // base64
-  let link=`${location.origin+location.pathname}?unlock=${encodeURIComponent(code)}`;
-  return {code,link,expiry,raw};
-}
-
-function ownerApprove(){
-  let user=document.getElementById('cust-user').value.trim();
-  let pin=document.getElementById('cust-pin').value.trim();
-  let phone=document.getElementById('cust-phone').value.trim();
-  if(!user||!pin){alert('Enter customer username and Flash PIN');return;}
-  let gen=generateUnlockCode(user,pin);
-  lastGeneratedUnlockLink=gen.link;
-  pendingApproveData={user:user,pin:pin,phone:phone,expiry:gen.expiry};
-  document.getElementById('out').innerText=`✅ APPROVED — ${user}
-Flash PIN: ${pin}
-Expires: ${new Date(gen.expiry).toLocaleDateString()} — 31 Days
-Unlock Link (send to customer):
-${gen.link}
-
-WhatsApp Message Ready Below — Tap 📲 Send WhatsApp to Customer`;
-  toast('✅ Approved — Now send WhatsApp to customer');
-}
-
-function ownerReject(){
-  let user=document.getElementById('cust-user').value.trim();
-  let pin=document.getElementById('cust-pin').value.trim();
-  let phone=document.getElementById('cust-phone').value.trim();
-  if(!user){alert('Enter customer username');return;}
-  let msg=`Hi ${user} — ❌ We could not verify your Flash PIN ${pin}.
-
-Please check:
-1. Flash PIN is correct (10 digits)
-2. You sent R50 to correct number
-3. Resend correct PIN in Feminist-Guard app
-
-Your account is still NOT ACTIVE — Pay R50 for 31 days.
-
-Owner: 0672739660 — Feminist-Guard 💜`;
-  document.getElementById('out').innerText=`❌ REJECTED — ${user}
-Reason: Flash PIN ${pin} not verified / not received
-
-Message to send to customer:
-${msg}
-
-Tap 📲 Send WhatsApp to Customer to notify them.`;
-  lastGeneratedUnlockLink=''; // no unlock
-  pendingApproveData={user:user,pin:pin,phone:phone,expiry:0,reject:true,msg:msg};
-  toast('❌ Rejected — Notify customer');
-}
-
-function sendUnlockWhatsApp(){
-  let user=document.getElementById('cust-user').value.trim();
-  let pin=document.getElementById('cust-pin').value.trim();
-  let phone=document.getElementById('cust-phone').value.trim();
-  let outText=document.getElementById('out').innerText;
-  if(!outText||outText.includes('Waiting')){alert('Generate Approve or Reject first');return;}
-  
-  if(pendingApproveData.reject){
-    // Send reject message
-    let msg=pendingApproveData.msg;
-    let waPhone=phone?phone.replace(/[^0-9]/g,''):''; // if customer phone provided
-    let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;
-    if(!waPhone){
-      // If no phone, open owner WhatsApp selector with message
-      url=`https://wa.me/?text=${encodeURIComponent(msg)}`;
-    }
-    window.open(url,'_blank');
-    toast('❌ Reject message sent');
-  }else{
-    // Send approve unlock link
-    let gen=generateUnlockCode(user,pin);
-    let expiryDate=new Date(gen.expiry).toLocaleDateString();
-    let msg=`Hi ${user}! ✅ Your R50 Flash PIN ${pin} is VERIFIED! 🎉
-
-Your Feminist-Guard is now ACTIVE for 31 Days!
-
-👉 TAP TO UNLOCK:
-${gen.link}
-
-Expires: ${expiryDate} — 31 Days
-Stay safe 💜 — Feminist-Guard
-Owner: 0672739660`;
-    let waPhone=phone?phone.replace(/[^0-9]/g,''):''; 
-    let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;
-    window.open(url,'_blank');
-    toast('✅ Unlock link sent to '+user);
-    // Save as active in history for owner
-    let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
-    history.push({voucher:pin,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user,phone:phone});
-    localStorage.setItem('pay_history',JSON.stringify(history));
-    loadPayHistory();
-  }
-}
-
-function devActivate(){
-  let now=Date.now();let expiry=now+(31*24*60*60*1000);
-  localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');
-  localStorage.setItem('fg_start',now.toString());localStorage.setItem('fg_expiry',expiry.toString());
-  localStorage.setItem('fg_paid_date',new Date().toISOString());localStorage.removeItem('fg_pending_payment');
-  let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:'OWNER-TEST'+Date.now(),time:new Date().toISOString(),status:'active',amount:50,days:31});localStorage.setItem('pay_history',JSON.stringify(history));
-  updateBadge();loadPayHistory();alert('✅ Owner Test — ACTIVE 31 Days until '+new Date(expiry).toLocaleDateString());closePaywall();openTab('dashboard');
-}
+function generateUnlockCode(user,pin){let now=Date.now();let expiry=now+(31*24*60*60*1000);let raw=`${user}|${expiry}|${pin}`;let code=btoa(raw);let link=`${location.origin+location.pathname}?unlock=${encodeURIComponent(code)}`;return {code,link,expiry,raw};}
+function ownerApprove(){let user=document.getElementById('cust-user').value.trim();let pin=document.getElementById('cust-pin').value.trim();let phone=document.getElementById('cust-phone').value.trim();if(!user||!pin){alert('Enter username and PIN');return;}let gen=generateUnlockCode(user,pin);lastGeneratedUnlockLink=gen.link;pendingApproveData={user:user,pin:pin,phone:phone,expiry:gen.expiry};document.getElementById('out').innerText=`✅ APPROVED — ${user}\nFlash PIN: ${pin}\nExpires: ${new Date(gen.expiry).toLocaleDateString()}\nUnlock Link:\n${gen.link}`;toast('✅ Approved');}
+function ownerReject(){let user=document.getElementById('cust-user').value.trim();let pin=document.getElementById('cust-pin').value.trim();let phone=document.getElementById('cust-phone').value.trim();if(!user){alert('Enter username');return;}let msg=`Hi ${user} — ❌ Could not verify Flash PIN ${pin}. Please resend correct PIN. Account NOT ACTIVE.`;document.getElementById('out').innerText=`❌ REJECTED — ${user}\nMessage:\n${msg}`;pendingApproveData={user:user,pin:pin,phone:phone,reject:true,msg:msg};toast('❌ Rejected');}
+function sendUnlockWhatsApp(){let user=document.getElementById('cust-user').value.trim();let pin=document.getElementById('cust-pin').value.trim();let phone=document.getElementById('cust-phone').value.trim();let outText=document.getElementById('out').innerText;if(!outText||outText.includes('Waiting')){alert('Approve or Reject first');return;}if(pendingApproveData.reject){let msg=pendingApproveData.msg;let waPhone=phone.replace(/[^0-9]/g,'');let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;window.open(url,'_blank');}else{let gen=generateUnlockCode(user,pin);let expiryDate=new Date(gen.expiry).toLocaleDateString();let msg=`Hi ${user}! ✅ Your R50 PIN ${pin} VERIFIED!\nACTIVE 31 Days!\n👉 TAP TO UNLOCK:\n${gen.link}\nExpires: ${expiryDate} — Feminist-Guard`;let waPhone=phone.replace(/[^0-9]/g,'');let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;window.open(url,'_blank');let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:pin,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user,phone:phone});localStorage.setItem('pay_history',JSON.stringify(history));loadPayHistory();}}
+function devActivate(){let now=Date.now();let expiry=now+(31*24*60*60*1000);localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');localStorage.setItem('fg_start',now.toString());localStorage.setItem('fg_expiry',expiry.toString());localStorage.setItem('fg_paid_date',new Date().toISOString());localStorage.removeItem('fg_pending_payment');let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:'OWNER-TEST'+Date.now(),time:new Date().toISOString(),status:'active',amount:50,days:31});localStorage.setItem('pay_history',JSON.stringify(history));updateBadge();loadPayHistory();alert('✅ Owner Test — ACTIVE 31 Days until '+new Date(expiry).toLocaleDateString());closePaywall();openTab('dashboard');}
 function openAdmin(){let pass=prompt("Owner PIN — Hint: 2026");if(pass==="2026"||pass==="768091"){localStorage.setItem('owner_mode','yes');document.getElementById('admin-secret').style.display='block';document.getElementById('devArea').style.display='block';toast('Owner mode ON');}else{alert("Wrong PIN");}}
-function genCode(){ownerApprove();}
-function copyCode(){navigator.clipboard.writeText(document.getElementById('out').innerText).then(()=>toast('Copied!')).catch(()=>{let t=document.getElementById('out');let r=document.createRange();r.selectNode(t);window.getSelection().removeAllRanges();window.getSelection().addRange(r);});}
-function confirmApprove(){document.getElementById('approval-modal').style.display='none';ownerApprove();}
-
-// SMART AI v15.4
-function initAIChat(){let chat=document.getElementById('comp-chat');if(!chat) return;chat.innerHTML=`<div style="color:#FFD88A">💜 Hey, I'm your Guard Companion — private on your phone only — no cloud<br>How are you feeling today?<br><br><span style="font-size:10px;opacity:.7">GBV 0800 428 428 *120*7867#, SADAG 0800 567 567, Lifeline 0861 322 322, 112<br>Free: 3 chats, then R50 for 31 days. SOS always free.</span></div>`;}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('out').innerText).then(()=>toast('Copied!'));}
+function initAIChat(){let chat=document.getElementById('comp-chat');chat.innerHTML=`<div style="color:#FFD88A">💜 Hey, I'm your Guard Companion — private on your phone only<br>How are you feeling today?<br><span style="font-size:10px;opacity:.7">GBV 0800 428 428, SADAG 0800 567 567, Lifeline 0861 322 322, 112<br>Free: 3 chats, then R50 for 31 days. SOS always free.</span></div>`;}
 function talkComp(){
   let input=document.getElementById('comp-input');let text=input.value.trim();if(!text) return;
   let chat=document.getElementById('comp-chat');let freeUsed=parseInt(localStorage.getItem('fg_free_chats')||'0');let paid=isPaid();
-  if(!paid&&freeUsed>=3){showPaywall('Unlimited AI');chat.innerHTML+=`<div style=color:#FFD88A;margin:8px 0>🔒 3 free used — Pay R50 for 31 days — SOS still free</div>`;chat.scrollTop=chat.scrollHeight;return;}
+  if(!paid&&freeUsed>=3){showPaywall('Unlimited AI');chat.innerHTML+=`<div style=color:#FFD88A;margin:8px 0>🔒 3 free used — Pay R50</div>`;return;}
   chat.innerHTML+=`<div style="margin:8px 0;color:#FFD88A"><b>You:</b> ${text}</div>`;input.value='';if(!paid){localStorage.setItem('fg_free_chats',(freeUsed+1).toString());updateBadge();}
   let lower=text.toLowerCase();let reply='';
-  if(/^(hi|hey|hello|helo|hola|hey there|hi there|good morning|good afternoon|yo|sawubona|dumela)$/i.test(lower.trim())){
-    reply=`Hey 💜 — I'm here. How are you feeling right now? Do you want to talk, or just have company for a moment?`;
-  } else if(lower.includes('sad')||lower.includes('down')||lower.includes('depressed')||lower.includes('cry')){
-    reply=`I'm really sorry you're feeling sad — that makes sense, and you didn't deserve to feel this way. You're strong for telling me. If you want, try grounding: name 5 things you see, 4 you touch, 3 you hear. Do you want to keep talking, or would a private note in your Vault help? 💜`;
-  } else if(lower.includes('scared')||lower.includes('afraid')||lower.includes('fear')||lower.includes('unsafe')||lower.includes('he is here')||lower.includes('he will')){
-    reply=`It's understandable to feel scared — your safety matters most. If you are unsafe right now, can you get to a safe place or call someone you trust? GBV Command Centre is 0800 428 428 *120*7867# (free). Your Vault is private on this phone only. Do you want help planning safe contacts?`;
-  } else if(lower.includes('thank')){reply=`You're welcome 💜 I'm always here on your phone, private. You deserve support. How are you feeling now?`;}
-  else if(lower.includes('who to call')||lower.includes('who can i call')||lower.includes('help number')||lower.includes('number to call')){reply=`Here for you — If you need immediate help: GBV 0800 428 428 *120*7867# (please call 24/7), SADAG 0800 567 567, Lifeline 0861 322 322, or 112 for emergency. Your trusted circle in the app can also get your SOS location. Want me to open your Circle?`;}
-  else{reply=`Thank you for sharing "${text}" — I hear you. That sounds really tough, and you deserve support and safety. You are not alone. If you want, we can try a small grounding step, write a private note in your Vault, or check your safe contacts. What would feel a little safer right now? 💜`;}
+  if(/^(hi|hey|hello|yo|sawubona|dumela)$/i.test(lower.trim())){reply=`Hey 💜 — I'm here. How are you feeling right now?`;}
+  else if(lower.includes('sad')||lower.includes('cry')){reply=`I'm sorry you're feeling sad — you didn't deserve that. Want to try grounding: 5 things you see, 4 you touch, 3 you hear? 💜`;}
+  else if(lower.includes('scared')||lower.includes('unsafe')){reply=`Your safety matters most — If unsafe, can you get to safe place? GBV 0800 428 428 *120*7867#. Vault is private on this phone only.`;}
+  else if(lower.includes('thank')){reply=`You're welcome 💜 I'm always here, private on your phone. How are you feeling now?`;}
+  else{reply=`Thank you for sharing "${text}" — I hear you. You deserve support and safety. What would feel a little safer right now? 💜`;}
   chat.innerHTML+=`<div style="margin:8px 0;background:rgba(255,255,255,0.08);padding:12px;border-radius:16px"><b>Companion:</b> ${reply}</div>`;chat.scrollTop=chat.scrollHeight;
 }
 window.talkComp=talkComp;
