@@ -1,7 +1,8 @@
-self.addEventListener('install', e => { self.skipWaiting(); });
-self.addEventListener('activate', e => { self.clients.claim(); });
+self.addEventListener('install', e => {
+  e.waitUntil(
+    caches.open('guard-v16').then(cache => cache.addAll(['./','./index.html','./manifest.json','./icon192.png','./icon512.png']))
+  );
+});
 self.addEventListener('fetch', e => {
-  e.respondWith(fetch(e.request).catch(() => {
-    return new Response('Offline - Feminist Guard PRO - BO:60014295069 - Safety First');
-  }));
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
 });
