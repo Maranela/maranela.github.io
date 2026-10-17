@@ -1,120 +1,390 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feminist-Guard</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Feminist-Guard — Approval System v15.4</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800&display=swap" rel="stylesheet">
 <style>:root{--deep:#0F0A1E;--gold:#FFD88A;--border:rgba(255,216,138,0.18)}*{box-sizing:border-box}body{margin:0;background:#0F0A1E;color:#FFF9EF;font-family:'Outfit',sans-serif;padding-bottom:110px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));margin:14px;border-radius:28px;border:1px solid var(--border);padding:22px}
 .btn-gold{background:linear-gradient(135deg,#FFD88A,#FFC857);color:#1A0E2E;width:100%;padding:16px;border-radius:18px;border:none;font-weight:800;font-size:15px}
 .btn-ghost{background:rgba(255,255,255,0.08);color:#FFD88A;border:1px solid var(--border);width:100%;padding:16px;border-radius:18px}
-.btn-sos{background:#FF2E63;color:white;font-size:26px;font-weight:900;height:184px;width:184px;border-radius:50%;margin:22px auto;display:flex;align-items:center;justify-content:center}
+.btn-green{background:linear-gradient(135deg,#00E6A0,#00C48A);color:white;width:100%;padding:16px;border-radius:18px;border:none;font-weight:800}
+.btn-red{background:linear-gradient(135deg,#FF5A82,#FF0844);color:white;width:100%;padding:14px;border-radius:18px;border:none;font-weight:800}
+.btn-sos{background:#FF2E63;color:white;font-size:26px;font-weight:900;height:184px;width:184px;border-radius:50%;margin:22px auto;display:flex;align-items:center;justify-content:center;border:none}
 input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px solid var(--border);background:rgba(255,255,255,0.07);color:white}
 .hidden{display:none!important}.tab{display:none}.tab.active{display:block}
 .nav{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:min(560px,calc(100% - 20px));background:#2D204F;border:1px solid var(--border);display:flex;justify-content:space-around;padding:10px 8px;z-index:99;border-radius:26px}
-.nav button{background:transparent;color:rgba(255,255,255,0.6);font-size:10px;padding:10px 4px;flex:1;border:none}
-.nav button.active{color:#FFD88A;background:rgba(255,216,138,0.18);border-radius:18px}.badge{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;background:#FFD88A;color:#1A0E2E}
-.badge.active{background:#00E6A0;color:white}.badge.inactive{background:#FF2E63;color:white}
+.nav button{background:transparent;color:rgba(255,255,255,0.6);font-size:10px;padding:10px 4px;flex:1;border:none}.nav button.active{color:#FFD88A;background:rgba(255,216,138,0.18);border-radius:18px}
+.badge{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:800;background:#FFD88A;color:#1A0E2E}.badge.active{background:#00E6A0;color:white}.badge.inactive{background:#FF2E63;color:white}
 .pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pattern-item{background:rgba(255,255,255,0.09);border:1px solid var(--border);border-radius:22px;padding:18px;text-align:center;cursor:pointer}
 .link{color:#FFC857;font-weight:700;cursor:pointer}.avatar{width:56px;height:56px;border-radius:20px;background:#FFD88A;color:#1A0E2E;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px}
 .logo{width:64px;height:64px;background:#FFD88A;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 14px}
-.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#2D204F;color:white;padding:14px 22px;border-radius:22px;z-index:1000;display:none}
+.toast{position:fixed;bottom:110px;left:50%;transform:translateX(-50%);background:#2D204F;color:white;padding:14px 22px;border-radius:22px;z-index:1000;display:none;max-width:90%;text-align:center}
 #cameraPreview{width:100%;max-height:320px;border-radius:20px;background:#000;display:none;margin:14px 0}
 #canvasCapture{display:none}.contact-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .settings-section{background:rgba(255,255,255,0.07);border-radius:20px;padding:16px;margin:12px 0;border:1px solid var(--border)}
 .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,10,30,0.92);z-index:9999;align-items:center;justify-content:center;padding:20px}
-.modal-inner{background:#2D204F;border:1.5px solid var(--border);border-radius:28px;padding:24px;max-width:380px;width:100%;text-align:center}
+.modal-inner{background:#2D204F;border:1.5px solid var(--border);border-radius:28px;padding:24px;max-width:420px;width:100%;text-align:center}
+.approve-card{background:linear-gradient(135deg,rgba(0,230,160,0.15),rgba(0,196,138,0.08));border:2px solid #00E6A0;border-radius:20px;padding:18px;margin:12px 0}
+.reject-card{background:linear-gradient(135deg,rgba(255,90,130,0.15),rgba(255,8,68,0.08));border:2px solid #FF5A82;border-radius:20px;padding:18px;margin:12px 0}
 </style></head><body>
 
-<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center;margin:0 0 8px">Your Safety, Your Privacy</h3>
-<p style="font-size:12px;opacity:0.9">Your data stays only on your phone. No cloud. Vault PIN protects your private sight. Private AI companion listens on your phone only.</p>
-<label style="display:flex;gap:10px;font-size:13px;margin-top:12px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label>
-<button class="btn-gold" style="margin-top:16px" onclick="localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');alert('Welcome to Feminist-Guard — Clean Professional — 31 Days');">I Consent — Continue →</button>
-<p style="font-size:10px;text-align:center;margin-top:10px"><span class="link" onclick="localStorage.setItem('popia_consent','yes');document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');">If stuck tap here: FORCE CONTINUE →</span></p></div>
+<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center">Your Safety, Your Privacy</h3><p style="font-size:12px">Your data stays only on your phone. No cloud. Vault PIN protects your private sight. Private AI companion listens on your phone only.</p><label style="display:flex;gap:10px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label><button class="btn-gold" style="margin-top:16px" onclick="localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');">I Consent — Continue →</button></div>
 
 <div id="authScreen" class="card hidden" style="margin-top:24px"><div style="text-align:center"><div class="logo">🛡️</div><h2 style="color:#FFD88A;margin:0">Feminist-Guard</h2><p style="font-size:11px;opacity:0.7">Luxury Protection — Private & Secure — 31 Days</p></div>
 <div id="loginBox" style="margin-top:18px"><h3>Login</h3><div id="loginError" class="hidden"></div><input id="loginUser" placeholder="Username"><input id="loginPass" type="password" placeholder="Password"><button class="btn-gold" onclick="doLogin()" style="margin-top:8px">Login →</button><p style="text-align:center;font-size:13px;margin-top:14px">No account? <span class="link" onclick="showRegister()">Create Account</span></p></div>
-<div id="registerBox" class="hidden" style="margin-top:18px"><h3>Create Account</h3><div id="regError" class="hidden"></div><div id="regSuccess" class="hidden"></div><input id="regFullName" placeholder="Full Name" oninput="checkRegForm()"><input id="regPhone" placeholder="Phone 082... 10 digits" maxlength="10"><div id="phoneFeedback"></div><input id="regID" placeholder="SA ID 13 digits" maxlength="13" oninput="validateIDLive()"><div id="idLiveFeedback"></div><input id="regUsername" placeholder="Username min 3" oninput="checkUsernameLive()"><div id="userFeedback"></div><input id="regPass" type="password" placeholder="Password min 6 + number" oninput="checkPassStrength()"><div id="passStrength"></div><input id="regPass2" type="password" placeholder="Confirm Password" oninput="checkRegForm()"><label style="font-size:11px;display:flex;gap:8px;margin-top:8px"><input type="checkbox" id="regTerms" style="width:20px;height:20px" onchange="checkRegForm()"> Accept Terms</label><button class="btn-gold" onclick="doRegister()" id="regBtn" disabled>Create Account →</button><p style="text-align:center;font-size:13px;margin-top:12px"><span class="link" onclick="showLogin()">Already have account? Login</span></p></div></div>
+<div id="registerBox" class="hidden"><h3>Create Account</h3><div id="regError" class="hidden"></div><div id="regSuccess" class="hidden"></div><input id="regFullName" placeholder="Full Name" oninput="checkRegForm()"><input id="regPhone" placeholder="Phone 082... 10 digits" maxlength="10"><input id="regID" placeholder="SA ID 13 digits" maxlength="13" oninput="validateIDLive()"><div id="idLiveFeedback"></div><input id="regUsername" placeholder="Username min 3" oninput="checkUsernameLive()"><div id="userFeedback"></div><input id="regPass" type="password" placeholder="Password min 6 + number" oninput="checkPassStrength()"><div id="passStrength"></div><input id="regPass2" type="password" placeholder="Confirm Password" oninput="checkRegForm()"><label style="font-size:11px;display:flex;gap:8px;margin-top:8px"><input type="checkbox" id="regTerms" style="width:20px;height:20px" onchange="checkRegForm()"> Accept Terms</label><button class="btn-gold" onclick="doRegister()" id="regBtn" disabled>Create Account →</button><p style="text-align:center;font-size:13px;margin-top:12px"><span class="link" onclick="showLogin()">Already have account? Login</span></p></div></div>
 
-<div id="mainApp" class="hidden"><div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:14px"><div style="display:flex;gap:14px;align-items:center"><div class="avatar" id="mainAvatar">F</div><div><h2 style="color:#FFD88A;margin:0;font-size:20px">Feminist-Guard</h2><p style="font-size:11px;margin:2px 0;opacity:0.7" id="userInfoLine">Welcome</p><p id="subTimer" style="font-size:10px;margin:2px 0;color:#FFD88A;font-weight:800"></p></div></div><div style="text-align:right"><div id="accountBadge" class="badge inactive">NOT ACTIVE</div></div></div>
+<div id="mainApp" class="hidden"><div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:14px;align-items:center"><div class="avatar" id="mainAvatar">F</div><div><h2 style="color:#FFD88A;margin:0;font-size:20px">Feminist-Guard</h2><p style="font-size:11px;margin:2px 0;opacity:0.7" id="userInfoLine">Welcome</p><p id="subTimer" style="font-size:10px;color:#FFD88A;font-weight:800"></p></div></div><div id="accountBadge" class="badge inactive">NOT ACTIVE</div></div>
 
-<div id="tab-dashboard" class="tab active"><div class="card"><h3 style="margin:0;font-size:18px">Dashboard — 31 Days</h3><div id="accountStatus" style="padding:14px 16px;background:rgba(0,0,0,0.35);border-radius:18px;font-size:12px;margin:12px 0;border:1px solid var(--border)"></div>
-<div class="pattern-grid"><div class="pattern-item" onclick="openTab('sos')"><div style="font-size:34px">🆘</div><h4>SOS</h4><small>FREE</small></div><div class="pattern-item" onclick="openTab('trusted')"><div style="font-size:34px">👥</div><h4>Circle</h4><small id="trustedCount">0/3</small></div><div class="pattern-item" onclick="openTab('vault')"><div style="font-size:34px">🔒</div><h4>Vault</h4><small id="vaultCount">0</small></div><div class="pattern-item" onclick="openTab('safe')"><div style="font-size:34px">📍</div><h4>Safe</h4><small id="safeCount">0</small></div><div class="pattern-item" onclick="openTab('ai')"><div style="font-size:34px">💜</div><h4>AI Companion</h4><small id="ai-lock">3 FREE</small></div><div class="pattern-item" onclick="openTab('pay')"><div style="font-size:34px">💳</div><h4>Pay R50</h4><small id="payCount">Not Active</small></div></div><button class="btn-gold" style="margin-top:18px" onclick="openTab('pay')">💳 Activate 31 Days →</button></div></div>
+<div id="tab-dashboard" class="tab active"><div class="card"><h3 style="margin:0">Dashboard — 31 Days</h3><div id="accountStatus" style="padding:14px;background:rgba(0,0,0,0.35);border-radius:18px;font-size:12px;margin:12px 0;border:1px solid var(--border)"></div>
+<div class="pattern-grid"><div class="pattern-item" onclick="openTab('sos')"><div style="font-size:34px">🆘</div><h4>SOS</h4><small>FREE</small></div><div class="pattern-item" onclick="openTab('trusted')"><div style="font-size:34px">👥</div><h4>Circle</h4><small id="trustedCount">0/3</small></div><div class="pattern-item" onclick="openTab('vault')"><div style="font-size:34px">🔒</div><h4>Vault</h4><small id="vaultCount">0</small></div><div class="pattern-item" onclick="openTab('safe')"><div style="font-size:34px">📍</div><h4>Safe</h4><small id="safeCount">0</small></div><div class="pattern-item" onclick="openTab('ai')"><div style="font-size:34px">💜</div><h4>AI</h4><small id="ai-lock">3 FREE</small></div><div class="pattern-item" onclick="openTab('pay')"><div style="font-size:34px">💳</div><h4>Pay R50</h4><small id="payCount">Not Active</small></div></div><button class="btn-gold" style="margin-top:18px" onclick="openTab('pay')">💳 Activate 31 Days →</button></div></div>
 
-<div id="tab-sos" class="tab"><div class="card" style="text-align:center"><h3 style="margin:14px 0 6px">HOLD FOR HELP — FREE</h3><button class="btn-sos" onmousedown="startSos()" onmouseup="cancelSos()" ontouchstart="startSos()" ontouchend="cancelSos()">SOS</button><p id="sosStatus">Hold 3 sec — FREE</p></div></div>
+<div id="tab-sos" class="tab"><div class="card" style="text-align:center"><h3>HOLD FOR HELP — FREE</h3><button class="btn-sos" ontouchstart="startSos()" ontouchend="cancelSos()" onmousedown="startSos()" onmouseup="cancelSos()">SOS</button><p id="sosStatus">Hold 3 sec — FREE</p></div></div>
 
-<div id="tab-trusted" class="tab"><div class="card"><h3>Trusted Circle — R50 Locked</h3><div id="trustedError" class="hidden"></div><div class="contact-row"><input id="c1Name" placeholder="Name"><input id="c1Phone" placeholder="082..." maxlength="10"></div><div class="contact-row"><input id="c2Name" placeholder="Name"><input id="c2Phone" placeholder="Number" maxlength="10"></div><div class="contact-row"><input id="c3Name" placeholder="Name"><input id="c3Phone" placeholder="Number" maxlength="10"></div><button class="btn-gold" onclick="saveContacts()" style="margin-top:14px">Save Circle ✓</button><div id="trustedList" style="margin-top:14px"></div></div></div>
+<div id="tab-trusted" class="tab"><div class="card"><h3>Trusted Circle — R50</h3><div class="contact-row"><input id="c1Name" placeholder="Name"><input id="c1Phone" placeholder="082..." maxlength="10"></div><div class="contact-row"><input id="c2Name" placeholder="Name"><input id="c2Phone" placeholder="Number" maxlength="10"></div><div class="contact-row"><input id="c3Name" placeholder="Name"><input id="c3Phone" placeholder="Number" maxlength="10"></div><button class="btn-gold" onclick="saveContacts()" style="margin-top:14px">Save Circle ✓</button><div id="trustedList"></div></div></div>
 
-<div id="tab-safe" class="tab"><div class="card"><h3>Safe Locations — R50 Locked</h3><input id="safeName" placeholder="Safe place name"><button class="btn-gold" onclick="addSafe()" style="margin-top:8px">📍 Add Safe (GPS) →</button><div id="safeList" style="margin-top:14px"></div></div></div>
+<div id="tab-safe" class="tab"><div class="card"><h3>Safe Locations — R50</h3><input id="safeName" placeholder="Safe place name"><button class="btn-gold" onclick="addSafe()">📍 Add Safe (GPS) →</button><div id="safeList"></div></div></div>
 
-<div id="tab-vault" class="tab"><div class="card"><h3>Evidence Vault — R50 Locked</h3>
-<div id="vaultPinSetup" class="card" style="border:2px dashed var(--border);margin:16px 0 0"><h4 style="margin:0 0 8px;color:#FFD88A">Create PIN</h4><input type="password" id="vaultPin1" placeholder="4-digit PIN" maxlength="4" inputmode="numeric"><input type="password" id="vaultPin2" placeholder="Confirm PIN" maxlength="4" inputmode="numeric"><button class="btn-gold" onclick="createVaultPin()" style="margin-top:8px">Create PIN →</button></div>
-<div id="vaultPinEnter" class="card hidden" style="border:2px dashed var(--border);margin:16px 0 0"><h4 style="margin:0 0 8px;color:#FFD88A">Enter PIN</h4><p>Welcome <b id="vaultWelcomeName"></b></p><input type="password" id="vaultPinEnterInput" placeholder="Enter PIN" maxlength="4"><button class="btn-gold" onclick="enterVaultPin()" style="margin-top:8px">Unlock →</button><p style="text-align:center;margin-top:10px"><span class="link" onclick="forgotVaultPin()">Forgot PIN? Reset</span></p></div>
-<div id="vaultContent" class="hidden" style="margin-top:16px"><div style="display:flex;justify-content:space-between;margin-bottom:14px"><h4 style="margin:0;color:#00E6A0">✅ Vault Unlocked</h4><button style="background:rgba(255,255,255,0.08);color:#FFD88A;padding:8px 14px;font-size:11px;border:1px solid var(--border);border-radius:14px" onclick="lockVault()">🔒 Lock</button></div>
-<video id="cameraPreview" autoplay playsinline></video><canvas id="canvasCapture"></canvas><div class="pattern-grid"><div class="pattern-item" onclick="openCamera()"><div style="font-size:34px">📸</div><h4>Open Camera</h4></div><div class="pattern-item" onclick="takePicture()"><div style="font-size:34px">📷</div><h4>Take Pic</h4></div><div class="pattern-item" onclick="toggleVideo()"><div style="font-size:34px">🎥</div><h4 id="videoBtn">Video</h4></div><div class="pattern-item" onclick="toggleAudio()"><div style="font-size:34px">🎙️</div><h4 id="audioBtn">Audio</h4></div></div>
+<div id="tab-vault" class="tab"><div class="card"><h3>Evidence Vault — STEALTH — R50</h3><p style="font-size:10px;color:#00E6A0">🔇 Stealth — Silent, Muted Preview, No Shutter</p>
+<div id="vaultPinSetup" class="card" style="border:2px dashed var(--border);margin:16px 0 0"><h4 style="color:#FFD88A">Create PIN</h4><input type="password" id="vaultPin1" placeholder="4-digit PIN" maxlength="4" inputmode="numeric"><input type="password" id="vaultPin2" placeholder="Confirm PIN" maxlength="4" inputmode="numeric"><button class="btn-gold" onclick="createVaultPin()" style="margin-top:8px">Create PIN →</button></div>
+<div id="vaultPinEnter" class="card hidden"><h4 style="color:#FFD88A">Enter PIN</h4><p>Welcome <b id="vaultWelcomeName"></b></p><input type="password" id="vaultPinEnterInput" placeholder="Enter PIN" maxlength="4"><button class="btn-gold" onclick="enterVaultPin()">Unlock →</button><p style="text-align:center"><span class="link" onclick="forgotVaultPin()">Forgot PIN? Reset</span></p></div>
+<div id="vaultContent" class="hidden" style="margin-top:16px"><div style="display:flex;justify-content:space-between"><h4 style="color:#00E6A0">✅ Vault Unlocked — Stealth</h4><button style="background:rgba(255,255,255,0.08);color:#FFD88A;padding:8px 14px;font-size:11px;border:1px solid var(--border);border-radius:14px" onclick="lockVault()">🔒 Lock</button></div>
+<video id="cameraPreview" autoplay playsinline muted></video><canvas id="canvasCapture"></canvas><div class="pattern-grid"><div class="pattern-item" onclick="openCamera()"><div style="font-size:34px">📸</div><h4>Open Camera</h4><small style="font-size:9px;color:#00E6A0">Silent</small></div><div class="pattern-item" onclick="takePicture()"><div style="font-size:34px">📷</div><h4>Take Pic</h4><small style="font-size:9px;color:#00E6A0">No Sound</small></div><div class="pattern-item" onclick="toggleVideo()"><div style="font-size:34px">🎥</div><h4 id="videoBtn">Video</h4><small style="font-size:9px">Muted Preview</small></div><div class="pattern-item" onclick="toggleAudio()"><div style="font-size:34px">🎙️</div><h4 id="audioBtn">Audio</h4></div></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><button class="btn-ghost" onclick="document.getElementById('fileInput').click()">📁 Upload</button><button class="btn-ghost" onclick="closeCamera()">❌ Close</button></div><input type="file" id="fileInput" accept="image/*,audio/*,video/*" hidden onchange="handleFile(event)"><div id="evidenceList" style="margin-top:16px"></div></div></div></div>
 
-<div id="tab-ai" class="tab"><div class="card"><h3 style="color:#FFD88A">💜 Guard Companion — Private</h3><p style="font-size:11px;opacity:.8">3 free chats, then R50 for 31 days. GBV 0800 428 428. SOS free.</p><div id="comp-chat" style="height:300px;overflow-y:auto;background:rgba(0,0,0,0.35);border-radius:18px;padding:14px;margin:12px 0;font-size:13px;border:1px solid var(--border)">Hi, I'm your Guard Companion — private on phone only. How are you feeling? I'm here to listen 💜<br><br>If unsafe: GBV 0800 428 428 *120*7867#, SADAG 0800 567 567, Lifeline 0861 322 322, 112</div><div style="display:flex;gap:8px"><input id="comp-input" placeholder="How are you feeling?..." style="flex:1"><button onclick="talkComp()" style="background:#FFD88A;color:#1A0E2E;padding:16px 20px;border-radius:18px;border:none;font-weight:900">Send</button></div><p id="comp-limit" style="font-size:10px;opacity:.6;margin-top:8px"></p></div></div>
+<div id="tab-ai" class="tab"><div class="card"><h3 style="color:#FFD88A">💜 Guard Companion — Smart Private</h3><p style="font-size:11px;opacity:.8">3 free chats, then R50 for 31 days. GBV 0800 428 428. SOS free.</p><div id="comp-chat" style="height:300px;overflow-y:auto;background:rgba(0,0,0,0.35);border-radius:18px;padding:14px;margin:12px 0;font-size:13px;border:1px solid var(--border)"></div><div style="display:flex;gap:8px"><input id="comp-input" placeholder="How are you feeling?..." style="flex:1"><button onclick="talkComp()" style="background:#FFD88A;color:#1A0E2E;padding:16px 20px;border-radius:18px;border:none;font-weight:900">Send</button></div><p id="comp-limit" style="font-size:10px;opacity:.6;margin-top:8px"></p></div></div>
 
-<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days Subscription</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;border:1px solid var(--border);font-size:12px"></div><input id="voucher-pin" placeholder="Flash PIN R50"><input id="voucher-user" placeholder="Your username"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send →</button><button class="btn-ghost" style="margin-top:10px" onclick="devActivate()">I Paid — Unlock 31 Days (Test)</button><p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div><div class="card"><h3>Settings</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div><div class="settings-section"><div style="display:flex;justify-content:space-between"><span>Subscription</span><span id="sub-status" style="font-weight:800"></span></div><div style="display:flex;justify-content:space-between"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between"><span>Free AI</span><span id="freeChatsDisplay">0/3</span></div><div style="display:flex;justify-content:space-between"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div><div id="admin-secret" class="card" style="display:none;border:2px dashed var(--border);margin:12px 0 0"><h4 style="color:#FFD88A">Admin — 31 Days</h4><input id="cust-user" placeholder="Customer username"><input id="cust-pin" placeholder="Flash PIN"><button class="btn-gold" onclick="genCode()">Generate Code</button><div id="out" style="background:rgba(0,0,0,0.4);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-family:monospace;font-size:11px;min-height:40px"></div><button class="btn-ghost" style="margin-top:10px" onclick="copyCode()">Copy</button></div><div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div></div></div>
+<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days Subscription</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;border:1px solid var(--border);font-size:12px"></div>
+<div id="payPendingNotice" class="hidden" style="background:rgba(255,216,138,0.15);border:1px solid var(--border);border-radius:16px;padding:14px;margin:12px 0;font-size:12px"></div>
+<input id="voucher-pin" placeholder="Flash PIN R50 — 10 digits"><input id="voucher-user" placeholder="Your username — e.g. ndlovu123"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send to Owner →</button>
+<div id="devArea" style="display:none;margin-top:12px"><button class="btn-ghost" onclick="devActivate()">Owner Test — Unlock 31 Days (Hidden from customers)</button></div>
+<p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div>
+
+<div class="card"><h3>Settings</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div>
+<div class="settings-section"><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Subscription</span><span id="sub-status" style="font-weight:800"></span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Free AI</span><span id="freeChatsDisplay">0/3</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div>
+
+<!-- APPROVAL SYSTEM — OWNER ONLY -->
+<div id="admin-secret" class="card" style="display:none;border:2px dashed #FFD88A;margin:12px 0 0"><h4 style="color:#FFD88A;margin:0 0 10px">🔐 OWNER APPROVAL CENTER — v15.4</h4>
+<div id="approveFromLink" class="hidden"></div>
+<p style="font-size:11px;opacity:0.8">When customer pays, you get WhatsApp with Approve/Reject links. Tap link → comes here → Approve in 1 click → sends unlock code to customer.</p>
+<div style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0"><h5 style="margin:0 0 8px;color:#FFD88A">Manual Approve / Reject</h5><input id="cust-user" placeholder="Customer username — e.g. ndlovu123"><input id="cust-pin" placeholder="Flash PIN customer sent"><input id="cust-phone" placeholder="Customer phone 0... (for WhatsApp)"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Send Unlock</button><button class="btn-red" onclick="ownerReject()">❌ REJECT — Wrong PIN</button></div></div>
+<div id="out" style="background:rgba(0,0,0,0.6);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-family:monospace;font-size:11px;min-height:50px;border:1px solid var(--border);white-space:pre-wrap">Waiting for customer payment...</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-ghost" onclick="copyCode()">📋 Copy Code</button><button class="btn-ghost" onclick="sendUnlockWhatsApp()">📲 Send WhatsApp to Customer</button></div>
+<div style="margin-top:14px;background:rgba(0,230,160,0.1);border-radius:14px;padding:12px"><h5 style="margin:0 0 6px;color:#00E6A0">How Approve Works:</h5><p style="font-size:10px;line-height:14px">1. Customer enters Flash PIN → You get WhatsApp with link<br>2. Tap Approve link → Opens this page with customer filled<br>3. Check Flash balance on your phone — If R50 there → Tap ✅ APPROVE<br>4. Tap 📲 Send WhatsApp to Customer → Sends unlock link<br>5. Customer taps link → Auto ACTIVE 31 days! No typing!<br><br><span style="color:#FF5A82">If fake voucher → Tap ❌ REJECT → Sends wrong PIN message to customer</span></p></div>
+</div>
+<div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div>
+<p style="font-size:9px;text-align:center;opacity:0.5;margin-top:16px">Feminist-Guard v15.4 Approval System — 31 Days — Stealth Pro<br><span style="font-size:8px">FEMINIST GUARD PROTECTION SERVICES (Pty) Ltd 2026/768091/07</span></p>
+</div></div>
 
 <div class="nav"><button id="nav-dashboard" class="active" onclick="openTab('dashboard')">🏠<br>Home</button><button id="nav-sos" onclick="openTab('sos')">🆘<br>SOS</button><button id="nav-trusted" onclick="openTab('trusted')">👥<br>Circle</button><button id="nav-vault" onclick="openTab('vault')">🔒<br>Vault</button><button id="nav-ai" onclick="openTab('ai')">💜<br>AI</button><button id="nav-pay" onclick="openTab('pay')">⚙️<br>Pay</button></div></div>
 
 <div id="paywall-modal" class="modal"><div class="modal-inner"><div style="font-size:48px">🔒</div><h2 style="color:#FFD88A">Locked — 31 Days Ended</h2><p style="font-size:13px">Your <span id="paywall-feature" style="color:#FFD88A;font-weight:900">Private Vault</span> is locked.<br><span id="paywall-expiry"></span><br><br>Pay R50 for 31 days.</p><a href="https://wa.me/27672739660?text=Hi%20Feminist%20Guard%20I%20paid%20R50%20PIN:%20" style="display:block;background:#25D366;color:white;padding:14px;border-radius:16px;text-decoration:none;font-weight:900;margin:10px 0">📲 WhatsApp — 0672739660</a><button onclick="closePaywall()" style="background:transparent;color:#FFD88A;border:1px solid var(--border);padding:10px 18px;border-radius:12px">Close</button></div></div>
+
+<div id="approval-modal" class="modal"><div class="modal-inner"><div style="font-size:48px" id="approval-icon">✅</div><h2 style="color:#FFD88A" id="approval-title">Pending Approval</h2><p style="font-size:13px" id="approval-msg"></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px"><button class="btn-green" id="approval-yes" onclick="confirmApprove()">✅ Approve</button><button class="btn-ghost" onclick="document.getElementById('approval-modal').style.display='none'">Close</button></div></div></div>
+
 <div id="toast" class="toast"></div>
 
 <script>
-function toast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
-function getExpiryTime(){let exp=localStorage.getItem('fg_expiry');if(exp) return parseInt(exp);let pd=localStorage.getItem('fg_paid_date');if(pd){let d=new Date(pd);return d.getTime()+(31*24*60*60*1000);}return 0;}
+// GLOBAL STATE FOR APPROVAL
+let pendingApproveData = {user:'', pin:'', phone:'', expiry:0};
+let lastGeneratedUnlockLink = '';
+
+function toast(m){let t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(()=>t.style.display='none',4000);}
+function getExpiryTime(){let exp=localStorage.getItem('fg_expiry');if(exp) return parseInt(exp);return 0;}
 function isPaid(){let exp=getExpiryTime();if(!exp) return false;if(Date.now()>exp){localStorage.setItem('fg_last_expiry',exp.toString());localStorage.removeItem('fg_paid');localStorage.removeItem('guard_active');return false;}return localStorage.getItem('fg_paid')==='true'||localStorage.getItem('guard_active')==='yes';}
 function getDaysLeft(){let exp=getExpiryTime();if(!exp) return 0;let diff=exp-Date.now();if(diff<=0) return 0;return Math.ceil(diff/(1000*60*60*24));}
 function getFreeChats(){return parseInt(localStorage.getItem('fg_free_chats')||'0');}
-function updateBadge(){let badge=document.getElementById('accountBadge');let status=document.getElementById('accountStatus');let subTimer=document.getElementById('subTimer');let subInfo=document.getElementById('subInfo');let daysLeft=getDaysLeft();if(isPaid()){let expDate=new Date(getExpiryTime()).toLocaleDateString();if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}if(status)status.innerHTML=`✅ ACTIVE • ${daysLeft} days left — Expires ${expDate}`;if(subTimer)subTimer.innerText=`✅ Active — ${daysLeft} days — Expires ${expDate}`;if(subInfo)subInfo.innerHTML=`<b style=color:#00E6A0>✅ ACTIVE</b> — ${daysLeft} days<br>Expires: ${expDate}`;document.getElementById('currentPlan').innerText=`ACTIVE — ${daysLeft} days`;document.getElementById('payCount').innerText=daysLeft+' days';document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';document.getElementById('sub-status').innerText=daysLeft+' days left';document.getElementById('freeChatsDisplay').innerText=getFreeChats()+'/3 — Unlimited';}else{let used=getFreeChats();let expText='';let lastExp=localStorage.getItem('fg_last_expiry');if(lastExp){expText='Expired on '+new Date(parseInt(lastExp)).toLocaleDateString();}if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}if(status)status.innerHTML=`⚠️ NOT ACTIVE • Pay R50 for 31 days • ${expText}<br>Free AI: ${used}/3 — SOS FREE`;if(subTimer)subTimer.innerText=expText?`🔒 ${expText} — Renew R50`:`🔒 Not Active`;if(subInfo)subInfo.innerHTML=`<b style=color:#FF8A9E>🔒 NOT ACTIVE</b><br>${expText||'No sub'}<br>Pay R50 for 31 days`;document.getElementById('currentPlan').innerText='NOT ACTIVE — R50';document.getElementById('payCount').innerText='NOT ACTIVE';document.getElementById('daysLeftDisplay').innerText='0 — Expired';document.getElementById('sub-status').innerText='Expired';document.getElementById('freeChatsDisplay').innerText=used+'/3';}}
+function updateBadge(){let badge=document.getElementById('accountBadge');let status=document.getElementById('accountStatus');let subTimer=document.getElementById('subTimer');let subInfo=document.getElementById('subInfo');let pendingNotice=document.getElementById('payPendingNotice');let daysLeft=getDaysLeft();if(isPaid()){let expDate=new Date(getExpiryTime()).toLocaleDateString();if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}if(status)status.innerHTML=`✅ ACTIVE • ${daysLeft} days left — Expires ${expDate}`;if(subTimer)subTimer.innerText=`✅ Active — ${daysLeft} days — Expires ${expDate}`;if(subInfo)subInfo.innerHTML=`<b style=color:#00E6A0>✅ ACTIVE</b> — ${daysLeft} days<br>Expires: ${expDate}`;document.getElementById('currentPlan').innerText=`ACTIVE — ${daysLeft} days`;document.getElementById('payCount').innerText=daysLeft+' days';document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';document.getElementById('sub-status').innerText=daysLeft+' days left';document.getElementById('freeChatsDisplay').innerText=getFreeChats()+'/3 — Unlimited';if(pendingNotice){pendingNotice.classList.add('hidden');}}else{let used=getFreeChats();let expText='';let lastExp=localStorage.getItem('fg_last_expiry');if(lastExp){expText='Expired on '+new Date(parseInt(lastExp)).toLocaleDateString();}let pending=localStorage.getItem('fg_pending_payment');if(pending&&pendingNotice){let p=JSON.parse(pending);pendingNotice.classList.remove('hidden');pendingNotice.innerHTML=`⏳ <b>PENDING VERIFICATION</b><br>Username: ${p.user}<br>Flash PIN: ${p.pin}<br>Sent to owner 0672739660 — Waiting for approval. You will get WhatsApp with unlock link.`;}if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}if(status)status.innerHTML=`⚠️ NOT ACTIVE • Pay R50 for 31 days • ${expText}<br>Free AI: ${used}/3 — SOS FREE`;if(subTimer)subTimer.innerText=expText?`🔒 ${expText} — Renew R50`:`🔒 Not Active`;if(subInfo)subInfo.innerHTML=`<b style=color:#FF8A9E>🔒 NOT ACTIVE</b><br>${expText||'No sub'}<br>Pay R50 for 31 days`;document.getElementById('currentPlan').innerText='NOT ACTIVE — R50';document.getElementById('payCount').innerText='NOT ACTIVE';document.getElementById('daysLeftDisplay').innerText='0 — Expired';document.getElementById('sub-status').innerText='Expired';document.getElementById('freeChatsDisplay').innerText=used+'/3';}}
 function showPaywall(feat){document.getElementById('paywall-feature').innerText=feat;document.getElementById('paywall-expiry').innerText='Pay R50 to unlock '+feat+' for 31 days. After 31 days pay again.';document.getElementById('paywall-modal').style.display='flex';}
 function closePaywall(){document.getElementById('paywall-modal').style.display='none';}
 if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');}
+if(window.location.search.includes('owner=1')||localStorage.getItem('owner_mode')==='yes'){let dev=document.getElementById('devArea');if(dev) dev.style.display='block';}
+
+// HANDLE URL PARAMS — APPROVE / REJECT / UNLOCK
+function handleUrlParams(){
+  let params=new URLSearchParams(window.location.search);
+  let unlock=params.get('unlock');
+  let approve=params.get('approve');
+  let reject=params.get('reject');
+  let pin=params.get('pin');
+  let phone=params.get('phone');
+
+  if(unlock){
+    try{
+      let decoded=atob(unlock);
+      let parts=decoded.split('|');
+      let user=parts[0];
+      let expiry=parseInt(parts[1]);
+      let pinCode=parts[2]||'';
+      if(expiry>Date.now()){
+        localStorage.setItem('fg_paid','true');
+        localStorage.setItem('guard_active','yes');
+        localStorage.setItem('fg_expiry',expiry.toString());
+        localStorage.setItem('fg_paid_date',new Date().toISOString());
+        localStorage.setItem('fg_paid_user',user);
+        localStorage.setItem('fg_paid_pin',pinCode);
+        localStorage.removeItem('fg_pending_payment');
+        let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
+        history.push({voucher:pinCode,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user});
+        localStorage.setItem('pay_history',JSON.stringify(history));
+        setTimeout(()=>{alert('✅ '+user+' UNLOCKED! — 31 Days ACTIVE until '+new Date(expiry).toLocaleDateString()+' 💜 Stay safe!');location.href=location.origin+location.pathname;},500);
+      }else{
+        alert('❌ Unlock link expired — Contact owner 0672739660');
+      }
+    }catch(e){console.log('Unlock decode failed',e);}
+  }
+
+  if(approve){
+    document.getElementById('authScreen').classList.add('hidden');
+    document.getElementById('authScreen').style.display='none';
+    document.getElementById('popiaScreen').style.display='none';
+    document.getElementById('mainApp').classList.remove('hidden');
+    showMain();
+    openTab('pay');
+    document.getElementById('admin-secret').style.display='block';
+    localStorage.setItem('owner_mode','yes');
+    document.getElementById('cust-user').value=approve;
+    if(pin) document.getElementById('cust-pin').value=pin;
+    if(phone) document.getElementById('cust-phone').value=phone;
+    pendingApproveData={user:approve,pin:pin||'',phone:phone||''};
+    let div=document.getElementById('approveFromLink');
+    div.classList.remove('hidden');
+    div.innerHTML=`<div class="approve-card"><h4 style="margin:0;color:#00E6A0">🔔 NEW PAYMENT — TAP TO VERIFY</h4><p style="font-size:13px;margin:8px 0"><b>User:</b> ${approve}<br><b>Flash PIN:</b> ${pin||'—'}<br><b>Phone:</b> ${phone||'—'}<br><br>Check Flash balance — If R50 received → Tap ✅ APPROVE</p><button class="btn-green" onclick="ownerApprove()">✅ APPROVE & Generate Unlock Link</button></div>`;
+    toast('Owner Approval — Verify '+approve);
+  }
+
+  if(reject){
+    document.getElementById('authScreen').classList.add('hidden');
+    document.getElementById('authScreen').style.display='none';
+    document.getElementById('popiaScreen').style.display='none';
+    document.getElementById('mainApp').classList.remove('hidden');
+    showMain();
+    openTab('pay');
+    document.getElementById('admin-secret').style.display='block';
+    document.getElementById('cust-user').value=reject;
+    if(pin) document.getElementById('cust-pin').value=pin;
+    if(phone) document.getElementById('cust-phone').value=phone;
+    let div=document.getElementById('approveFromLink');
+    div.classList.remove('hidden');
+    div.innerHTML=`<div class="reject-card"><h4 style="margin:0;color:#FF5A82">❌ REJECT REQUEST</h4><p style="font-size:13px;margin:8px 0"><b>User:</b> ${reject}<br><b>Flash PIN:</b> ${pin||'—'}<br>Mark as fake / not received</p><button class="btn-red" onclick="ownerReject()">❌ REJECT & Send Message to Customer</button></div>`;
+  }
+}
+handleUrlParams();
+
 function checkAuthState(){let cur=localStorage.getItem('current_user');if(cur){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');let user=JSON.parse(cur);document.getElementById('userInfoLine').innerText=`Welcome, ${user.fullName}`;document.getElementById('mainAvatar').innerText=user.avatar||user.fullName.charAt(0).toUpperCase();document.getElementById('vaultWelcomeName').innerText=user.fullName;showMain();}}
 function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');}
 function showLogin(){document.getElementById('registerBox').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden');}
 function isValidSAID(id){if(!id||id.length!==13||!/^[0-9]+$/.test(id)) return {valid:false,msg:'13 digits'};let mm=parseInt(id.substring(2,4));let dd=parseInt(id.substring(4,6));if(mm<1||mm>12) return {valid:false,msg:'Invalid month'};if(dd<1||dd>31) return {valid:false,msg:'Invalid day'};let total=0;for(let i=0;i<12;i++){let d=parseInt(id.charAt(i));if(i%2===0){total+=d;}else{let dbl=d*2;total+=Math.floor(dbl/10)+(dbl%10);}}let check=(10-(total%10))%10;if(check!==parseInt(id.charAt(12))) return {valid:false,msg:'Checksum invalid'};return {valid:true,last4:id.substring(9,13)};}
 function validateIDLive(){let id=document.getElementById('regID').value.trim();let fb=document.getElementById('idLiveFeedback');if(!id){fb.innerHTML='';checkRegForm();return;}if(id.length<13){fb.innerHTML=`<div style=color:#A8C4FF>${id.length}/13</div>`;checkRegForm();return;}let r=isValidSAID(id);fb.innerHTML=r.valid?`<div style=color:#7CFFC8>✅ Valid ****${r.last4}</div>`:`<div style=color:#FF8A9E>❌ ${r.msg}</div>`;checkRegForm();}
-function validatePhoneLive(){let p=document.getElementById('regPhone').value.trim();let fb=document.getElementById('phoneFeedback');if(!p){fb.innerHTML='';return;}if(!/^0[6-8][0-9]{8}$/.test(p)){fb.innerHTML=`<div style=color:#FF8A9E>❌ Must start 06/07/08</div>`;}else{fb.innerHTML=`<div style=color:#7CFFC8>✅ Valid</div>`;}checkRegForm();}
 function checkUsernameLive(){let u=document.getElementById('regUsername').value.trim();let fb=document.getElementById('userFeedback');if(!u){fb.innerHTML='';return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(x=>x.username.toLowerCase()===u.toLowerCase())){fb.innerHTML=`<div style=color:#FF8A9E>❌ Taken</div>`;}else if(u.length>=3){fb.innerHTML=`<div style=color:#7CFFC8>✅ Available</div>`;}checkRegForm();}
 function checkPassStrength(){let p=document.getElementById('regPass').value;let fb=document.getElementById('passStrength');if(!p){fb.innerHTML='';return;}let ok=p.length>=6 && /[0-9]/.test(p);fb.innerHTML=ok?`<div style=color:#7CFFC8>Strong</div>`:`<div style=color:#FF8A9E>Min 6 with number</div>`;checkRegForm();}
 function checkRegForm(){let full=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let p1=document.getElementById('regPass').value;let p2=document.getElementById('regPass2').value;let terms=document.getElementById('regTerms').checked;let btn=document.getElementById('regBtn');let validID=isValidSAID(id).valid;let validPhone=/^0[6-8][0-9]{8}$/.test(phone);let validUser=user.length>=3;let validPass=p1.length>=6 && /[0-9]/.test(p1) && p1===p2;btn.disabled=!(full&&validPhone&&validID&&validUser&&validPass&&terms);}
-function doRegister(){let fullName=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let pass=document.getElementById('regPass').value;let err=document.getElementById('regError');let suc=document.getElementById('regSuccess');err.classList.add('hidden');suc.classList.add('hidden');let idRes=isValidSAID(id);if(!idRes.valid){err.innerHTML=`<div style=color:#FF8A9E>❌ ID: ${idRes.msg}</div>`;err.classList.remove('hidden');return;}if(!/^0[6-8][0-9]{8}$/.test(phone)){err.innerHTML=`<div style=color:#FF8A9E>❌ Invalid phone</div>`;err.classList.remove('hidden');return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML=`<div style=color:#FF8A9E>❌ Username exists</div>`;err.classList.remove('hidden');return;}let newUser={fullName,phone,idNumber:id,idLast4:idRes.last4,username:user,password:pass,avatar:fullName.charAt(0).toUpperCase(),created:new Date().toISOString()};users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));suc.innerHTML=`<div style=color:#7CFFC8>✅ Account created!</div>`;suc.classList.remove('hidden');setTimeout(()=>{document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('dashboard');},1000);}
+function doRegister(){let fullName=document.getElementById('regFullName').value.trim();let phone=document.getElementById('regPhone').value.trim();let id=document.getElementById('regID').value.trim();let user=document.getElementById('regUsername').value.trim();let pass=document.getElementById('regPass').value;let err=document.getElementById('regError');let suc=document.getElementById('regSuccess');err.classList.add('hidden');suc.classList.add('hidden');let idRes=isValidSAID(id);if(!idRes.valid){err.innerHTML=`<div style=color:#FF8A9E>❌ ID: ${idRes.msg}</div>`;err.classList.remove('hidden');return;}let users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML=`<div style=color:#FF8A9E>❌ Username exists</div>`;err.classList.remove('hidden');return;}let newUser={fullName,phone,idNumber:id,idLast4:idRes.last4,username:user,password:pass,avatar:fullName.charAt(0).toUpperCase(),created:new Date().toISOString()};users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));suc.innerHTML=`<div style=color:#7CFFC8>✅ Account created!</div>`;suc.classList.remove('hidden');setTimeout(()=>{document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('dashboard');},1000);}
 function doLogin(){let user=document.getElementById('loginUser').value.trim();let pass=document.getElementById('loginPass').value;let err=document.getElementById('loginError');err.classList.add('hidden');let users=JSON.parse(localStorage.getItem('guard_users')||'[]');let found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());if(!found||found.password!==pass){err.innerHTML=`<div style=color:#FF8A9E>❌ Wrong username or password</div>`;err.classList.remove('hidden');return;}localStorage.setItem('current_user',JSON.stringify(found));document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();}
-function showMain(){let cur=JSON.parse(localStorage.getItem('current_user')||'{}');document.getElementById('userInfoLine').innerText=`Welcome, ${cur.fullName}`;document.getElementById('mainAvatar').innerText=cur.avatar||cur.fullName.charAt(0).toUpperCase();document.getElementById('vaultWelcomeName').innerText=cur.fullName;document.getElementById('profileInfo').innerHTML=`<b>Name:</b> ${cur.fullName}<br><b>Phone:</b> ${cur.phone}<br><b>ID:</b> *********${cur.idLast4}<br><b>Username:</b> ${cur.username}`;loadEvidence();loadSafe();updateCounts();loadPayHistory();checkVaultPinState();updateBadge();}
+function showMain(){let cur=JSON.parse(localStorage.getItem('current_user')||'{}');document.getElementById('userInfoLine').innerText=`Welcome, ${cur.fullName}`;document.getElementById('mainAvatar').innerText=cur.avatar||cur.fullName.charAt(0).toUpperCase();document.getElementById('vaultWelcomeName').innerText=cur.fullName;document.getElementById('profileInfo').innerHTML=`<b>Name:</b> ${cur.fullName}<br><b>Phone:</b> ${cur.phone}<br><b>ID:</b> *********${cur.idLast4}<br><b>Username:</b> ${cur.username}`;loadEvidence();loadSafe();updateCounts();loadPayHistory();checkVaultPinState();updateBadge();initAIChat();}
 function checkVaultPinState(){let pin=localStorage.getItem('vault_pin');let setup=document.getElementById('vaultPinSetup');let enter=document.getElementById('vaultPinEnter');let content=document.getElementById('vaultContent');if(!pin){setup.classList.remove('hidden');enter.classList.add('hidden');content.classList.add('hidden');}else{if(sessionStorage.getItem('vault_unlocked')==='yes'){enter.classList.add('hidden');content.classList.remove('hidden');loadEvidence();}else{enter.classList.remove('hidden');content.classList.add('hidden');setup.classList.add('hidden');}}}
 function createVaultPin(){let p1=document.getElementById('vaultPin1').value.trim();let p2=document.getElementById('vaultPin2').value.trim();if(p1.length!==4||!/^[0-9]{4}$/.test(p1)||p1!==p2){toast('PIN must be 4 digits and match');return;}localStorage.setItem('vault_pin',p1);sessionStorage.setItem('vault_unlocked','yes');toast('✅ PIN created');checkVaultPinState();}
 function enterVaultPin(){let entered=document.getElementById('vaultPinEnterInput').value.trim();let saved=localStorage.getItem('vault_pin');if(entered===saved){sessionStorage.setItem('vault_unlocked','yes');checkVaultPinState();}else{toast('❌ Wrong PIN');}}
-function lockVault(){sessionStorage.removeItem('vault_unlocked');checkVaultPinState();}
+function lockVault(){sessionStorage.removeItem('vault_unlocked');checkVaultPinState();closeCamera();}
 function forgotVaultPin(){if(confirm('Reset PIN?')){localStorage.removeItem('vault_pin');sessionStorage.removeItem('vault_unlocked');checkVaultPinState();}}
-function openTab(name){if(!isPaid()){if(name==='vault'||name==='trusted'||name==='safe'){showPaywall(name);return;}}if(name==='ai'&&!isPaid()){if(getFreeChats()>=3){showPaywall('Unlimited AI');return;}}document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');document.getElementById('nav-'+name).classList.add('active');if(name==='vault')checkVaultPinState();}
+function openTab(name){if(!isPaid()){if(name==='vault'||name==='trusted'||name==='safe'){showPaywall(name);return;}}if(name==='ai'&&!isPaid()){if(getFreeChats()>=3){showPaywall('Unlimited AI');return;}}document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');document.getElementById('nav-'+name).classList.add('active');if(name==='vault')checkVaultPinState();else closeCamera();}
 function updateCounts(){let c=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(x=>x.phone).length;let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]').length;let sf=JSON.parse(localStorage.getItem('safe_locs')||'[]').length;document.getElementById('trustedCount').innerText=c+'/3';document.getElementById('vaultCount').innerText=ev+' items';document.getElementById('safeCount').innerText=sf+' places';}
 function saveContacts(){if(!isPaid()){showPaywall('Trusted Circle');return;}let contacts=[{name:document.getElementById('c1Name').value.trim(),phone:document.getElementById('c1Phone').value.trim()},{name:document.getElementById('c2Name').value.trim(),phone:document.getElementById('c2Phone').value.trim()},{name:document.getElementById('c3Name').value.trim(),phone:document.getElementById('c3Phone').value.trim()}];if(!contacts[0].name||!contacts[0].phone){alert('Contact 1 needs Name AND Number');return;}localStorage.setItem('trusted_contacts',JSON.stringify(contacts));updateCounts();document.getElementById('trustedList').innerHTML=contacts.filter(c=>c.phone).map(c=>`<div style=background:rgba(255,255,255,0.08);padding:12px;border-radius:14px;margin:6px 0>✅ ${c.name} — ${c.phone}</div>`).join('');toast('Saved');}
 function addSafe(){if(!isPaid()){showPaywall('Safe');return;}navigator.geolocation.getCurrentPosition(pos=>{let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');safes.push({name:document.getElementById('safeName').value||'Safe',lat:pos.coords.latitude,lng:pos.coords.longitude});localStorage.setItem('safe_locs',JSON.stringify(safes));loadSafe();updateCounts();});}
 function loadSafe(){let safes=JSON.parse(localStorage.getItem('safe_locs')||'[]');document.getElementById('safeList').innerHTML=safes.map(s=>`<div style=background:rgba(255,255,255,0.06);padding:12px;border-radius:14px;margin:6px 0>📍 ${s.name} — ${s.lat.toFixed(4)}</div>`).join('')||'<p style=opacity:0.6>No safe places</p>';}
+
+// STEALTH VAULT
 let cameraStream=null,mediaRecorder=null,recordedChunks=[],isRecordingVideo=false,audioRecorder=null,audioChunks=[],isRecordingAudio=false;
-async function openCamera(){if(!isPaid()){showPaywall('Vault');return;}if(sessionStorage.getItem('vault_unlocked')!=='yes'){toast('Unlock vault first');return;}try{let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:true});cameraStream=stream;document.getElementById('cameraPreview').srcObject=stream;document.getElementById('cameraPreview').style.display='block';}catch(e){toast('Camera denied');}}
-function closeCamera(){document.getElementById('cameraPreview').style.display='none';if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}}
-function takePicture(){if(!isPaid()){showPaywall('Vault');return;}let video=document.getElementById('cameraPreview');if(!cameraStream){openCamera();return;}let canvas=document.getElementById('canvasCapture');canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);let dataUrl=canvas.toDataURL('image/jpeg',0.85);let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'pic_'+Date.now(),desc:`📸 Picture — ${new Date().toLocaleString()}`,data:dataUrl,time:new Date().toISOString(),type:'image'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();toast('📸 Saved');}
+async function openCamera(){if(!isPaid()){showPaywall('Vault');return;}if(sessionStorage.getItem('vault_unlocked')!=='yes'){toast('Unlock vault first');return;}try{let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});cameraStream=stream;let v=document.getElementById('cameraPreview');v.srcObject=stream;v.muted=true;v.volume=0;v.style.display='block';toast('📸 Stealth silent');}catch(e){toast('Camera denied');}}
+function closeCamera(){let v=document.getElementById('cameraPreview');v.style.display='none';if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());cameraStream=null;}}
+function takePicture(){if(!isPaid()){showPaywall('Vault');return;}let video=document.getElementById('cameraPreview');if(!cameraStream||video.style.display==='none'){toast('Open camera first');return;}let canvas=document.getElementById('canvasCapture');canvas.width=video.videoWidth;canvas.height=video.videoHeight;canvas.getContext('2d').drawImage(video,0,0);let dataUrl=canvas.toDataURL('image/jpeg',0.85);let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'pic_'+Date.now(),desc:`📸 Stealth Picture — ${new Date().toLocaleString()}`,data:dataUrl,[STRIPPED] Date().toISOString(),type:'image'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();toast('📸 Saved silently');}
 function toggleVideo(){if(isRecordingVideo){stopVideoRecording();return;}startVideoRecording();}
-async function startVideoRecording(){if(!isPaid()){showPaywall('Vault');return;}if(!cameraStream){await openCamera();}recordedChunks=[];mediaRecorder=new MediaRecorder(cameraStream);mediaRecorder.ondataavailable=e=>{if(e.data.size>0)recordedChunks.push(e.data);};mediaRecorder.onstop=()=>{let blob=new Blob(recordedChunks,{type:'video/webm'});let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'video_'+Date.now(),desc:`🎥 Video — ${new Date().toLocaleString()}`,data:reader.result,time:new Date().toISOString(),type:'video'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(blob);};mediaRecorder.start();isRecordingVideo=true;document.getElementById('videoBtn').innerText='Stop Video';}
-function stopVideoRecording(){if(mediaRecorder){mediaRecorder.stop();}isRecordingVideo=false;document.getElementById('videoBtn').innerText='Video';}
+async function startVideoRecording(){if(!isPaid()){showPaywall('Vault');return;}if(cameraStream){cameraStream.getTracks().forEach(t=>t.stop());}try{let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:true});cameraStream=stream;let v=document.getElementById('cameraPreview');v.srcObject=stream;v.muted=true;v.style.display='block';recordedChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>{if(e.data.size>0)recordedChunks.push(e.data);};mediaRecorder.onstop=()=>{let blob=new Blob(recordedChunks,{type:'video/webm'});let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'video_'+Date.now(),desc:`🎥 Stealth Video — ${new Date().toLocaleString()}`,data:reader.result,[STRIPPED] Date().toISOString(),type:'video'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(blob);};mediaRecorder.start();isRecordingVideo=true;document.getElementById('videoBtn').innerText='Stop Video';toast('🎥 Recording muted');}catch(e){toast('Video denied');}}
+function stopVideoRecording(){if(mediaRecorder&&mediaRecorder.state!=='inactive'){mediaRecorder.stop();}isRecordingVideo=false;document.getElementById('videoBtn').innerText='Video';}
 function toggleAudio(){if(isRecordingAudio){stopAudioRecording();return;}startAudioRecording();}
-async function startAudioRecording(){try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});audioChunks=[];audioRecorder=new MediaRecorder(stream);audioRecorder.ondataavailable=e=>{if(e.data.size>0)audioChunks.push(e.data);};audioRecorder.onstop=()=>{let blob=new Blob(audioChunks,{type:'audio/webm'});let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'audio_'+Date.now(),desc:`🎙️ Audio — ${new Date().toLocaleString()}`,data:reader.result,time:new Date().toISOString(),type:'audio'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());};audioRecorder.start();isRecordingAudio=true;document.getElementById('audioBtn').innerText='Stop Audio';}catch(e){toast('Mic denied');}}
-function stopAudioRecording(){if(audioRecorder){audioRecorder.stop();}isRecordingAudio=false;document.getElementById('audioBtn').innerText='Audio';}
-function handleFile(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:f.name+'_'+Date.now(),desc:`📁 ${f.name}`,data:reader.result,time:new Date().toISOString(),type:'file',fileName:f.name});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(f);}
-function loadEvidence(){if(sessionStorage.getItem('vault_unlocked')!=='yes'){document.getElementById('evidenceList').innerHTML='<p style=color:#FFD88A>🔒 Locked — enter PIN</p>';return;}let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');document.getElementById('evidenceList').innerHTML=ev.map((e,i)=>{let preview='';if(e.type==='image')preview=`<img src="${e.data}" style="width:100%;max-height:240px;border-radius:16px;margin:10px 0">`;if(e.type==='video')preview=`<video src="${e.data}" controls style="width:100%;max-height:260px;border-radius:16px;margin:10px 0"></video>`;if(e.type==='audio')preview=`<audio src="${e.data}" controls style="width:100%;margin:10px 0"></audio>`;return `<div style=background:rgba(255,255,255,0.08);padding:16px;border-radius:20px;margin:10px 0><span>${e.desc}</span>${preview}<div style=margin-top:10px><span class=link onclick="removeEvidence(${i})">Delete</span> | <span class=link onclick="downloadEvidence(${i})">Download</span></div></div>`;}).join('')||'<p style=color:#FFD88A>No evidence yet</p>';}
+async function startAudioRecording(){try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});audioChunks=[];audioRecorder=new MediaRecorder(stream);audioRecorder.ondataavailable=e=>{if(e.data.size>0)audioChunks.push(e.data);};audioRecorder.onstop=()=>{let blob=new Blob(audioChunks,{type:'audio/webm'});let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:'audio_'+Date.now(),desc:`🎙️ Audio — ${new Date().toLocaleString()}`,data:reader.result,[STRIPPED] Date().toISOString(),type:'audio'});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(blob);stream.getTracks().forEach(t=>t.stop());};audioRecorder.start();isRecordingAudio=true;document.getElementById('audioBtn').innerText='Stop Audio';}catch(e){toast('Mic denied');}}
+function stopAudioRecording(){if(audioRecorder&&audioRecorder.state!=='inactive'){audioRecorder.stop();}isRecordingAudio=false;document.getElementById('audioBtn').innerText='Audio';}
+function handleFile(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onloadend=()=>{let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.push({id:f.name+'_'+Date.now(),desc:`📁 ${f.name}`,data:reader.result,[STRIPPED] Date().toISOString(),type:'file',fileName:f.name});localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();};reader.readAsDataURL(f);}
+function loadEvidence(){if(sessionStorage.getItem('vault_unlocked')!=='yes'){document.getElementById('evidenceList').innerHTML='<p style=color:#FFD88A>🔒 Locked — enter PIN</p>';return;}let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');document.getElementById('evidenceList').innerHTML=ev.map((e,i)=>{let preview='';if(e.type==='image')preview=`<img src="${e.data}" style="width:100%;max-height:240px;border-radius:16px;margin:10px 0">`;if(e.type==='video')preview=`<video src="${e.data}" controls muted style="width:100%;max-height:260px;border-radius:16px;margin:10px 0"></video>`;if(e.type==='audio')preview=`<audio src="${e.data}" controls style="width:100%;margin:10px 0"></audio>`;return `<div style=background:rgba(255,255,255,0.08);padding:16px;border-radius:20px;margin:10px 0><span>${e.desc}</span>${preview}<div style=margin-top:10px><span class=link onclick="removeEvidence(${i})">Delete</span> | <span class=link onclick="downloadEvidence(${i})">Download</span></div></div>`;}).join('')||'<p style=color:#FFD88A>No evidence yet — stealth silent</p>';}
 function removeEvidence(i){let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');ev.splice(i,1);localStorage.setItem('evidence_vault',JSON.stringify(ev));loadEvidence();updateCounts();}
 function downloadEvidence(i){let ev=JSON.parse(localStorage.getItem('evidence_vault')||'[]');let e=ev[i];let a=document.createElement('a');a.href=e.data;a.download=e.fileName||e.id;a.click();}
-function loadPayHistory(){let history=JSON.parse(localStorage.getItem('pay_history')||'[]');document.getElementById('payHistory').innerHTML=history.length?history.slice(-5).reverse().map(h=>`<div style=background:rgba(255,255,255,0.07);padding:12px;border-radius:14px;margin:6px 0;display:flex;justify-content:space-between><span>R${h.amount} — ${h.days||31}d</span><span style=color:${h.status==='active'?'#00E6A0':'#FFD36A'}>${h.status.toUpperCase()}</span></div>`).join(''):'<p style=opacity:0.6>No payments</p>';}
+function loadPayHistory(){let history=JSON.parse(localStorage.getItem('pay_history')||'[]');document.getElementById('payHistory').innerHTML=history.length?history.slice(-5).reverse().map(h=>`<div style=background:rgba(255,255,255,0.07);padding:12px;border-radius:14px;margin:6px 0;display:flex;justify-content:space-between><span>R${h.amount} — ${h.days||31}d — ${h.user||''}</span><span style=color:${h.status==='active'?'#00E6A0':'#FFD36A'}>${h.status.toUpperCase()}</span></div>`).join(''):'<p style=opacity:0.6>No payments</p>';}
 let sosTimer;function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);document.getElementById('sosStatus').innerText='Holding... 3 sec';}
 function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec — FREE';}
 function doSos(){let contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(c=>c.phone);if(contacts.length<1){toast('Add contacts first');return;}navigator.geolocation.getCurrentPosition(pos=>{let link=`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`;let cur=JSON.parse(localStorage.getItem('current_user')||'{}');let msg=`🆘 FEMINIST-GUARD SOS! ${cur.fullName} needs help! Live: ${link}`;contacts.forEach(c=>{window.open(`https://wa.me/${c.phone}?text=${encodeURIComponent(msg)}`,'_blank');});document.getElementById('sosStatus').innerText='✅ SOS Sent — FREE';});}
-function activatePay(){let v=document.getElementById('voucher-pin').value.trim();let user=document.getElementById('voucher-user').value.trim();if(!v||!user){toast('Enter voucher and username');return;}let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:v,time:new Date().toISOString(),status:'pending',amount:50,days:31});localStorage.setItem('pay_history',JSON.stringify(history));let cur=JSON.parse(localStorage.getItem('current_user')||'{}');let ownerMsg=`🔔 NEW PAYMENT v15.2 FIXED 31 DAYS! Voucher: ${v} User: ${cur.fullName} (${cur.username}) R50 — 31 Days`;window.open(`https://wa.me/27672739660?text=${encodeURIComponent(ownerMsg)}`,'_blank');document.getElementById('payStatus').innerHTML=`✅ Sent to owner!`;loadPayHistory();}
-function devActivate(){let now=Date.now();let expiry=now+(31*24*60*60*1000);localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');localStorage.setItem('fg_start',now.toString());localStorage.setItem('fg_expiry',expiry.toString());localStorage.setItem('fg_paid_date',new Date().toISOString());let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:'TEST'+Date.now(),time:new Date().toISOString(),status:'active',amount:50,days:31});localStorage.setItem('pay_history',JSON.stringify(history));updateBadge();loadPayHistory();alert('✅ Activated — 31 Days! — Expires '+new Date(expiry).toLocaleDateString());closePaywall();openTab('dashboard');}
-function openAdmin(){let pass=prompt("Owner PIN — Hint: 2026");if(pass==="2026"||pass==="768091"){document.getElementById('admin-secret').style.display='block';}else{alert("Wrong PIN");}}
-function genCode(){let user=document.getElementById('cust-user').value;let pin=document.getElementById('cust-pin').value;if(!user||!pin){alert('Enter user and pin');return;}let now=Date.now();let expiry=now+(31*24*60*60*1000);let code=`localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');localStorage.setItem('fg_start','${now}');localStorage.setItem('fg_expiry','${expiry}');localStorage.setItem('fg_paid_date','${new Date().toISOString()}');alert('✅ ${user} unlocked — 31 Days until ${new Date(expiry).toLocaleDateString()}');location.reload();`;document.getElementById('out').innerText=code;}
-function copyCode(){navigator.clipboard.writeText(document.getElementById('out').innerText);alert('Copied!');}
-function talkComp(){let input=document.getElementById('comp-input');let text=input.value.trim();if(!text) return;let chat=document.getElementById('comp-chat');let freeUsed=parseInt(localStorage.getItem('fg_free_chats')||'0');let paid=isPaid();if(!paid&&freeUsed>=3){showPaywall('Unlimited AI');chat.innerHTML+=`<div style=color:#FFD88A>🔒 3 free used — Pay R50 for 31 days</div>`;return;}chat.innerHTML+=`<div style=color:#FFD88A><b>You:</b> ${text}</div>`;input.value='';if(!paid){localStorage.setItem('fg_free_chats',(freeUsed+1).toString());updateBadge();}let reply=`I hear you — that sounds really hard. You didn't deserve that. You are strong for reaching out. If you can, try grounding: 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste. You deserve support — GBV Command Centre 0800 428 428 *120*7867#. Would you like to write in your private vault, see your safe contacts, or keep talking? 💜`;chat.innerHTML+=`<div style=background:rgba(255,255,255,0.08);padding:12px;border-radius:16px;margin:8px 0><b>Companion:</b> ${reply}</div>`;chat.scrollTop=chat.scrollHeight;}
+
+// PAYMENT + APPROVAL SYSTEM v15.4
+function activatePay(){
+  let pin=document.getElementById('voucher-pin').value.trim();
+  let user=document.getElementById('voucher-user').value.trim();
+  let cur=JSON.parse(localStorage.getItem('current_user')||'{}');
+  if(!pin||!user||pin.length<8){toast('Enter valid Flash PIN (10 digits) and username');return;}
+  if(user.length<3){toast('Username too short');return;}
+  
+  // Save pending locally
+  let pending={user:user,pin:pin,phone:cur.phone||'',fullName:cur.fullName||user,time:new Date().toISOString()};
+  localStorage.setItem('fg_pending_payment',JSON.stringify(pending));
+  let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
+  history.push({voucher:pin,time:new Date().toISOString(),status:'pending',amount:50,days:31,user:user,phone:cur.phone});
+  localStorage.setItem('pay_history',JSON.stringify(history));
+  
+  // Build Approve/Reject links for owner
+  let baseUrl=location.origin+location.pathname;
+  let approveLink=`${baseUrl}?owner=1&approve=${encodeURIComponent(user)}&pin=${encodeURIComponent(pin)}&phone=${encodeURIComponent(cur.phone||'')}`;
+  let rejectLink=`${baseUrl}?owner=1&reject=${encodeURIComponent(user)}&pin=${encodeURIComponent(pin)}&phone=${encodeURIComponent(cur.phone||'')}`;
+  
+  let ownerMsg=`🔔 NEW PAYMENT — PENDING VERIFICATION — v15.4 APPROVAL
+———————————————
+👤 User: ${user}
+📛 Name: ${cur.fullName||user}
+📞 Phone: ${cur.phone||'—'}
+💳 Flash PIN: ${pin}
+💰 Amount: R50 — 31 Days
+🕒 Time: ${new Date().toLocaleString()}
+
+⚠️ CHECK FLASH BALANCE — If R50 received:
+👉 TAP TO APPROVE:
+${approveLink}
+
+❌ If fake / not received:
+${rejectLink}
+
+Customer is waiting for unlock link.`;
+
+  window.open(`https://wa.me/27672739660?text=${encodeURIComponent(ownerMsg)}`,'_blank');
+  document.getElementById('payStatus').innerHTML=`✅ Sent to owner! PENDING — Waiting for owner to verify Flash PIN ${pin}. You will get WhatsApp with unlock link when approved.`;
+  document.getElementById('payPendingNotice').classList.remove('hidden');
+  document.getElementById('payPendingNotice').innerHTML=`⏳ <b>PENDING</b> — Username: ${user} — PIN: ${pin}<br>Sent to 0672739660 — Wait for approval WhatsApp with unlock link`;
+  loadPayHistory();updateBadge();
+}
+
+function generateUnlockCode(user,pin){
+  let now=Date.now();
+  let expiry=now+(31*24*60*60*1000);
+  let raw=`${user}|${expiry}|${pin}`;
+  let code=btoa(raw); // base64
+  let link=`${location.origin+location.pathname}?unlock=${encodeURIComponent(code)}`;
+  return {code,link,expiry,raw};
+}
+
+function ownerApprove(){
+  let user=document.getElementById('cust-user').value.trim();
+  let pin=document.getElementById('cust-pin').value.trim();
+  let phone=document.getElementById('cust-phone').value.trim();
+  if(!user||!pin){alert('Enter customer username and Flash PIN');return;}
+  let gen=generateUnlockCode(user,pin);
+  lastGeneratedUnlockLink=gen.link;
+  pendingApproveData={user:user,pin:pin,phone:phone,expiry:gen.expiry};
+  document.getElementById('out').innerText=`✅ APPROVED — ${user}
+Flash PIN: ${pin}
+Expires: ${new Date(gen.expiry).toLocaleDateString()} — 31 Days
+Unlock Link (send to customer):
+${gen.link}
+
+WhatsApp Message Ready Below — Tap 📲 Send WhatsApp to Customer`;
+  toast('✅ Approved — Now send WhatsApp to customer');
+}
+
+function ownerReject(){
+  let user=document.getElementById('cust-user').value.trim();
+  let pin=document.getElementById('cust-pin').value.trim();
+  let phone=document.getElementById('cust-phone').value.trim();
+  if(!user){alert('Enter customer username');return;}
+  let msg=`Hi ${user} — ❌ We could not verify your Flash PIN ${pin}.
+
+Please check:
+1. Flash PIN is correct (10 digits)
+2. You sent R50 to correct number
+3. Resend correct PIN in Feminist-Guard app
+
+Your account is still NOT ACTIVE — Pay R50 for 31 days.
+
+Owner: 0672739660 — Feminist-Guard 💜`;
+  document.getElementById('out').innerText=`❌ REJECTED — ${user}
+Reason: Flash PIN ${pin} not verified / not received
+
+Message to send to customer:
+${msg}
+
+Tap 📲 Send WhatsApp to Customer to notify them.`;
+  lastGeneratedUnlockLink=''; // no unlock
+  pendingApproveData={user:user,pin:pin,phone:phone,expiry:0,reject:true,msg:msg};
+  toast('❌ Rejected — Notify customer');
+}
+
+function sendUnlockWhatsApp(){
+  let user=document.getElementById('cust-user').value.trim();
+  let pin=document.getElementById('cust-pin').value.trim();
+  let phone=document.getElementById('cust-phone').value.trim();
+  let outText=document.getElementById('out').innerText;
+  if(!outText||outText.includes('Waiting')){alert('Generate Approve or Reject first');return;}
+  
+  if(pendingApproveData.reject){
+    // Send reject message
+    let msg=pendingApproveData.msg;
+    let waPhone=phone?phone.replace(/[^0-9]/g,''):''; // if customer phone provided
+    let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;
+    if(!waPhone){
+      // If no phone, open owner WhatsApp selector with message
+      url=`https://wa.me/?text=${encodeURIComponent(msg)}`;
+    }
+    window.open(url,'_blank');
+    toast('❌ Reject message sent');
+  }else{
+    // Send approve unlock link
+    let gen=generateUnlockCode(user,pin);
+    let expiryDate=new Date(gen.expiry).toLocaleDateString();
+    let msg=`Hi ${user}! ✅ Your R50 Flash PIN ${pin} is VERIFIED! 🎉
+
+Your Feminist-Guard is now ACTIVE for 31 Days!
+
+👉 TAP TO UNLOCK:
+${gen.link}
+
+Expires: ${expiryDate} — 31 Days
+Stay safe 💜 — Feminist-Guard
+Owner: 0672739660`;
+    let waPhone=phone?phone.replace(/[^0-9]/g,''):''; 
+    let url=`https://wa.me/${waPhone?waPhone:''}?text=${encodeURIComponent(msg)}`;
+    window.open(url,'_blank');
+    toast('✅ Unlock link sent to '+user);
+    // Save as active in history for owner
+    let history=JSON.parse(localStorage.getItem('pay_history')||'[]');
+    history.push({voucher:pin,time:new Date().toISOString(),status:'active',amount:50,days:31,user:user,phone:phone});
+    localStorage.setItem('pay_history',JSON.stringify(history));
+    loadPayHistory();
+  }
+}
+
+function devActivate(){
+  let now=Date.now();let expiry=now+(31*24*60*60*1000);
+  localStorage.setItem('fg_paid','true');localStorage.setItem('guard_active','yes');
+  localStorage.setItem('fg_start',now.toString());localStorage.setItem('fg_expiry',expiry.toString());
+  localStorage.setItem('fg_paid_date',new Date().toISOString());localStorage.removeItem('fg_pending_payment');
+  let history=JSON.parse(localStorage.getItem('pay_history')||'[]');history.push({voucher:'OWNER-TEST'+Date.now(),time:new Date().toISOString(),status:'active',amount:50,days:31});localStorage.setItem('pay_history',JSON.stringify(history));
+  updateBadge();loadPayHistory();alert('✅ Owner Test — ACTIVE 31 Days until '+new Date(expiry).toLocaleDateString());closePaywall();openTab('dashboard');
+}
+function openAdmin(){let pass=prompt("Owner PIN — Hint: 2026");if(pass==="2026"||pass==="768091"){localStorage.setItem('owner_mode','yes');document.getElementById('admin-secret').style.display='block';document.getElementById('devArea').style.display='block';toast('Owner mode ON');}else{alert("Wrong PIN");}}
+function genCode(){ownerApprove();}
+function copyCode(){navigator.clipboard.writeText(document.getElementById('out').innerText).then(()=>toast('Copied!')).catch(()=>{let t=document.getElementById('out');let r=document.createRange();r.selectNode(t);window.getSelection().removeAllRanges();window.getSelection().addRange(r);});}
+function confirmApprove(){document.getElementById('approval-modal').style.display='none';ownerApprove();}
+
+// SMART AI v15.4
+function initAIChat(){let chat=document.getElementById('comp-chat');if(!chat) return;chat.innerHTML=`<div style="color:#FFD88A">💜 Hey, I'm your Guard Companion — private on your phone only — no cloud<br>How are you feeling today?<br><br><span style="font-size:10px;opacity:.7">GBV 0800 428 428 *120*7867#, SADAG 0800 567 567, Lifeline 0861 322 322, 112<br>Free: 3 chats, then R50 for 31 days. SOS always free.</span></div>`;}
+function talkComp(){
+  let input=document.getElementById('comp-input');let text=input.value.trim();if(!text) return;
+  let chat=document.getElementById('comp-chat');let freeUsed=parseInt(localStorage.getItem('fg_free_chats')||'0');let paid=isPaid();
+  if(!paid&&freeUsed>=3){showPaywall('Unlimited AI');chat.innerHTML+=`<div style=color:#FFD88A;margin:8px 0>🔒 3 free used — Pay R50 for 31 days — SOS still free</div>`;chat.scrollTop=chat.scrollHeight;return;}
+  chat.innerHTML+=`<div style="margin:8px 0;color:#FFD88A"><b>You:</b> ${text}</div>`;input.value='';if(!paid){localStorage.setItem('fg_free_chats',(freeUsed+1).toString());updateBadge();}
+  let lower=text.toLowerCase();let reply='';
+  if(/^(hi|hey|hello|helo|hola|hey there|hi there|good morning|good afternoon|yo|sawubona|dumela)$/i.test(lower.trim())){
+    reply=`Hey 💜 — I'm here. How are you feeling right now? Do you want to talk, or just have company for a moment?`;
+  } else if(lower.includes('sad')||lower.includes('down')||lower.includes('depressed')||lower.includes('cry')){
+    reply=`I'm really sorry you're feeling sad — that makes sense, and you didn't deserve to feel this way. You're strong for telling me. If you want, try grounding: name 5 things you see, 4 you touch, 3 you hear. Do you want to keep talking, or would a private note in your Vault help? 💜`;
+  } else if(lower.includes('scared')||lower.includes('afraid')||lower.includes('fear')||lower.includes('unsafe')||lower.includes('he is here')||lower.includes('he will')){
+    reply=`It's understandable to feel scared — your safety matters most. If you are unsafe right now, can you get to a safe place or call someone you trust? GBV Command Centre is 0800 428 428 *120*7867# (free). Your Vault is private on this phone only. Do you want help planning safe contacts?`;
+  } else if(lower.includes('thank')){reply=`You're welcome 💜 I'm always here on your phone, private. You deserve support. How are you feeling now?`;}
+  else if(lower.includes('who to call')||lower.includes('who can i call')||lower.includes('help number')||lower.includes('number to call')){reply=`Here for you — If you need immediate help: GBV 0800 428 428 *120*7867# (please call 24/7), SADAG 0800 567 567, Lifeline 0861 322 322, or 112 for emergency. Your trusted circle in the app can also get your SOS location. Want me to open your Circle?`;}
+  else{reply=`Thank you for sharing "${text}" — I hear you. That sounds really tough, and you deserve support and safety. You are not alone. If you want, we can try a small grounding step, write a private note in your Vault, or check your safe contacts. What would feel a little safer right now? 💜`;}
+  chat.innerHTML+=`<div style="margin:8px 0;background:rgba(255,255,255,0.08);padding:12px;border-radius:16px"><b>Companion:</b> ${reply}</div>`;chat.scrollTop=chat.scrollHeight;
+}
 window.talkComp=talkComp;
 </script>
 </body></html>
