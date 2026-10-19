@@ -3,16 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<title>Feminist-Guard v17.8 STANDALONE</title>
-<link rel="manifest" href="./manifest.json?v=17.8">
+<title>Feminist-Guard v17.9 FIXED</title>
+<link rel="manifest" href="./manifest.json?v=17.9">
 <meta name="theme-color" content="#FFD88A">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="display" content="standalone">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" href="./icon192.png">
-<link rel="apple-touch-icon" href="./icon512.png">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
 <style>:root{--gold:#FFD88A;--border:rgba(255,216,138,0.2)}*{box-sizing:border-box}body{margin:0;background:#0F0A1E;color:#FFF9EF;font-family:'Outfit',sans-serif;padding-bottom:110px}
 .card{background:linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03));margin:14px;border-radius:28px;border:1px solid var(--border);padding:22px}
@@ -41,37 +37,27 @@ input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px so
 .stat-card{background:linear-gradient(135deg,#2D204F,#1A0E2E);border:1.5px solid #FFD88A;border-radius:20px;padding:16px;text-align:center}
 .stat-number{font-size:28px;font-weight:900;color:#FFD88A}
 </style></head><body>
-<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center">Your Safety, Your Privacy</h3><p style="font-size:12px">Data stays on YOUR phone only. POPIA safe.</p><label style="display:flex;gap:10px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label><button class="btn-gold" style="margin-top:16px" onclick="acceptPopia()">I Consent — Continue →</button></div>
-<div id="authScreen" class="card hidden" style="margin-top:24px"><div style="text-align:center"><div class="logo">🛡️</div><h2 style="color:#FFD88A;margin:0">Feminist-Guard</h2><p style="font-size:11px;opacity:0.7">Private — v17.8</p></div>
+<div id="popiaScreen" class="card" style="margin-top:28px"><div class="logo">🛡️</div><h3 style="text-align:center">Your Safety, Your Privacy</h3><p style="font-size:12px">Data stays on YOUR phone only. POPIA safe.</p><label style="display:flex;gap:10px;font-size:13px"><input type="checkbox" id="popiaCheck" style="width:20px;height:20px" checked> I consent 18+ — POPIA</label><button id="consentBtn" class="btn-gold" style="margin-top:16px">I Consent — Continue →</button></div>
+<div id="authScreen" class="card hidden" style="margin-top:24px"><div style="text-align:center"><div class="logo">🛡️</div><h2 style="color:#FFD88A;margin:0">Feminist-Guard</h2><p style="font-size:11px;opacity:0.7">Private — v17.9</p></div>
 <div id="loginBox" style="margin-top:18px"><h3>Login — Private</h3><div id="loginError"></div><input id="loginUser" placeholder="Username"><input id="loginPass" type="password" placeholder="Password"><button class="btn-gold" onclick="doLogin()" style="margin-top:8px">Login →</button><p style="text-align:center;margin-top:14px">No account? <span class="link" onclick="showRegister()">Create Account</span></p></div>
 <div id="registerBox" class="hidden" style="margin-top:18px"><h3>Create Account — Private</h3><div id="regError"></div><div id="regSuccess"></div>
 <input id="regFullName" placeholder="Full Name"><input id="regPhone" placeholder="Phone 082... 10 digits" maxlength="10"><input id="regID" placeholder="SA ID 13 digits" maxlength="13"><input id="regUsername" placeholder="Username min 3"><input id="regPass" type="password" placeholder="Password min 6"><input id="regPass2" type="password" placeholder="Confirm Password"><button class="btn-gold" onclick="doRegister()" style="margin-top:12px">Create Private Account →</button><p style="text-align:center;margin-top:12px"><span class="link" onclick="showLogin()">Already have account? Login</span></p></div></div>
 <div id="mainApp" class="hidden"><div class="card" style="margin-top:14px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:14px;align-items:center"><div class="avatar" id="mainAvatar">F</div><div><h2 style="color:#FFD88A;margin:0;font-size:20px">Feminist-Guard</h2><p style="font-size:11px;opacity:0.7" id="userInfoLine">Welcome</p><p id="subTimer" style="font-size:10px;color:#FFD88A;font-weight:800"></p></div></div><div id="accountBadge" class="badge inactive">NOT ACTIVE</div></div>
 <div id="admin-stats" class="card hidden" style="border:2px solid #FFD88A;background:linear-gradient(135deg,#2D204F,#1A0E2E)"><h3 style="color:#FFD88A;text-align:center">🔐 OWNER ONLY — 0672739660 — RECORDS</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0">
-<div class="stat-card"><div class="stat-number" id="stat-total">0</div><div style="font-size:11px">Total Visitors (All Time)</div></div>
-<div class="stat-card"><div class="stat-number" id="stat-month">0</div><div style="font-size:11px">Visitors This Month</div></div>
-<div class="stat-card" style="border-color:#00E6A0"><div class="stat-number" id="stat-paid" style="color:#00E6A0">0</div><div style="font-size:11px">PAID R50 — Active</div></div>
-<div class="stat-card" style="border-color:#FF5A82"><div class="stat-number" id="stat-unpaid" style="color:#FF5A82">0</div><div style="font-size:11px">NOT PAID — Offline</div></div>
-</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0">
-<div class="stat-card"><div class="stat-number" id="stat-paid-month">0</div><div style="font-size:11px">Paid This Month</div></div>
-<div class="stat-card"><div class="stat-number" id="stat-income">R0</div><div style="font-size:11px">Income This Month</div></div>
+<div class="stat-card"><div class="stat-number" id="stat-total">0</div><div style="font-size:11px">Total Visitors</div></div>
+<div class="stat-card"><div class="stat-number" id="stat-month">0</div><div style="font-size:11px">This Month</div></div>
+<div class="stat-card" style="border-color:#00E6A0"><div class="stat-number" id="stat-paid" style="color:#00E6A0">0</div><div style="font-size:11px">PAID R50</div></div>
+<div class="stat-card" style="border-color:#FF5A82"><div class="stat-number" id="stat-unpaid" style="color:#FF5A82">0</div><div style="font-size:11px">NOT PAID</div></div>
 </div>
 <div id="admin-user-list" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin-top:12px;font-size:11px;max-height:400px;overflow-y:auto"></div>
-<button class="btn-ghost" style="margin-top:10px" onclick="refreshAdminStats()">🔄 Refresh Records</button>
-<button class="btn-ghost" style="margin-top:6px" onclick="exportAdminCSV()">📥 Export CSV Records</button>
-</div>
+<button class="btn-ghost" style="margin-top:10px" onclick="refreshAdminStats()">🔄 Refresh</button></div>
 <div id="tab-dashboard" class="tab active"><div class="card"><h3>Dashboard — Private — 31 Days</h3>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0">
 <a href="tel:10111" class="emergency-btn" style="background:#FF2E63;color:white">🚔 SAPS 10111</a>
 <a href="tel:112" class="emergency-btn" style="background:#FF5A82;color:white">🆘 112 FREE</a>
 </div>
 <div id="accountStatus" style="padding:14px;background:rgba(0,0,0,0.35);border-radius:18px;font-size:12px;margin:12px 0"></div><div class="pattern-grid"><div class="pattern-item" onclick="openTab('sos')"><div style="font-size:34px">🆘</div><h4>SOS</h4><small>FREE 1x then R50</small></div><div class="pattern-item" onclick="openTab('trusted')"><div style="font-size:34px">👥</div><h4>Circle</h4><small id="trustedCount">0/7</small></div><div class="pattern-item" onclick="openTab('vault')"><div style="font-size:34px">🔒</div><h4>Vault</h4><small id="vaultCount">0</small></div><div class="pattern-item" onclick="openTab('safe')"><div style="font-size:34px">📍</div><h4>Safe</h4><small id="safeCount">0</small></div><div class="pattern-item" onclick="openTab('ai')"><div style="font-size:34px">💜</div><h4>AI</h4><small>3 FREE</small></div><div class="pattern-item" onclick="openTab('pay')"><div style="font-size:34px">💳</div><h4>Pay R50</h4><small id="payCount">Not Active</small></div></div><button class="btn-gold" style="margin-top:18px" onclick="openTab('pay')">💳 Activate 31 Days →</button><button class="logout-btn" onclick="doLogout()">🚪 Logout</button></div></div>
-<div id="tab-sos" class="tab"><div class="card" style="text-align:center"><h3>HOLD FOR HELP — 1 FREE then R50</h3><button class="btn-sos" ontouchstart="startSos()" ontouchend="cancelSos()" onmousedown="startSos()" onmouseup="cancelSos()">SOS</button><p id="sosStatus">Hold 3 sec — 1 FREE if NOT ACTIVE, then R50</p><p id="sosFreeCounter" style="font-size:10px;color:#FFD88A;font-weight:800;margin-top:4px"></p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px">
-<a href="tel:10111" class="emergency-btn" style="background:#FF2E63;color:white;padding:18px">🚔 CALL SAPS 10111</a>
-<a href="tel:112" class="emergency-btn" style="background:#1A0E2E;border:2px solid #FF2E63;color:#FF5A82;padding:18px">🆘 CALL 112 — NO AIRTIME</a>
-</div></div></div>
+<div id="tab-sos" class="tab"><div class="card" style="text-align:center"><h3>HOLD FOR HELP — 1 FREE then R50</h3><button class="btn-sos" ontouchstart="startSos()" ontouchend="cancelSos()" onmousedown="startSos()" onmouseup="cancelSos()">SOS</button><p id="sosStatus">Hold 3 sec — 1 FREE if NOT ACTIVE, then R50</p><p id="sosFreeCounter" style="font-size:10px;color:#FFD88A;font-weight:800;margin-top:4px"></p></div></div>
 <div id="tab-trusted" class="tab"><div class="card"><h3>Trusted Circle — 7 People — Private</h3>
 <div class="contact-row"><input id="c1Name" placeholder="1. Name"><input id="c1Phone" placeholder="082..."></div>
 <div class="contact-row"><input id="c2Name" placeholder="2. Name"><input id="c2Phone" placeholder="Number"></div>
@@ -88,53 +74,18 @@ input{width:100%;padding:16px 18px;border-radius:18px;margin:8px 0;border:1px so
 <div id="vaultContent" class="hidden"><div style="display:flex;justify-content:space-between"><h4 style="color:#00E6A0">✅ Private Vault Unlocked</h4><button style="background:rgba(255,255,255,0.08);color:#FFD88A;padding:8px 14px;border-radius:14px" onclick="lockVault()">🔒 Lock</button></div>
 <video id="cameraPreview" autoplay playsinline muted></video><canvas id="canvasCapture"></canvas><div class="pattern-grid"><div class="pattern-item" onclick="openCamera()"><div style="font-size:34px">📸</div><h4>Open Camera</h4></div><div class="pattern-item" onclick="takePicture()"><div style="font-size:34px">📷</div><h4>Take Pic</h4></div><div class="pattern-item" onclick="toggleVideo()"><div style="font-size:34px">🎥</div><h4 id="videoBtn">Video</h4></div><div class="pattern-item" onclick="toggleAudio()"><div style="font-size:34px">🎙️</div><h4 id="audioBtn">Audio</h4></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><button class="btn-ghost" onclick="document.getElementById('fileInput').click()">📁 Upload</button><button class="btn-ghost" onclick="closeCamera()">❌ Close</button></div><input type="file" id="fileInput" accept="image/*,audio/*,video/*" hidden onchange="handleFile(event)"><div id="evidenceList" style="margin-top:16px"></div></div></div></div>
 <div id="tab-ai" class="tab"><div class="card"><h3 style="color:#FFD88A">💜 Guard Companion — Private</h3><div id="comp-chat" style="height:300px;overflow-y:auto;background:rgba(0,0,0,0.35);border-radius:18px;padding:14px;margin:12px 0;font-size:13px"></div><div style="display:flex;gap:8px"><input id="comp-input" placeholder="How are you feeling?..." style="flex:1"><button onclick="talkComp()" style="background:#FFD88A;color:#1A0E2E;padding:16px 20px;border-radius:18px;border:none;font-weight:900">Send</button></div></div></div>
-<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days — Private</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;font-size:12px"></div><div id="payPendingNotice" class="hidden" style="background:rgba(255,216,138,0.15);border-radius:16px;padding:14px;margin:12px 0;font-size:12px"></div><input id="voucher-pin" placeholder="Flash PIN"><input id="voucher-user" placeholder="Your username"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send to Owner →</button>
-<div id="devArea" style="display:none;margin-top:12px;border:1px dashed #00E6A0;border-radius:16px;padding:10px"><p style="font-size:11px;color:#00E6A0">Owner Test Mode ON</p><button class="btn-ghost" onclick="devActivate()">Owner Test — Unlock 31 Days</button></div>
-<p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div><div class="card"><h3>Settings — Private Account</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div><div style="background:rgba(255,255,255,0.07);border-radius:20px;padding:16px;margin:12px 0"><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div><button class="logout-btn" onclick="doLogout()">🚪 Logout</button><div id="admin-secret" class="card" style="display:none;border:2px dashed #FFD88A;margin-top:14px"><h4 style="color:#FFD88A">🔐 OWNER APPROVAL CENTER</h4><div id="approveFromLink" class="hidden"></div><input id="cust-user" placeholder="Customer username"><input id="cust-pin" placeholder="Flash PIN"><input id="cust-phone" placeholder="Customer phone"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-green" onclick="ownerApprove()">✅ APPROVE</button><button class="btn-red" onclick="ownerReject()">❌ REJECT</button></div><div id="out" style="background:rgba(0,0,0,0.6);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-size:11px;white-space:pre-wrap">Waiting...</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-ghost" onclick="copyCode()">📋 Copy</button><button class="btn-ghost" onclick="sendUnlockWhatsApp()">📲 WhatsApp Unlock</button></div></div><div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div></div></div>
+<div id="tab-pay" class="tab"><div class="card"><h3>R50 — 31 Days — Private</h3><div id="subInfo" style="background:rgba(0,0,0,0.35);border-radius:16px;padding:12px;margin:10px 0;font-size:12px"></div><input id="voucher-pin" placeholder="Flash PIN"><input id="voucher-user" placeholder="Your username"><button class="btn-gold" onclick="activatePay()" style="margin-top:8px">Pay R50 & Send to Owner →</button><div id="devArea" style="display:none;margin-top:12px;border:1px dashed #00E6A0;border-radius:16px;padding:10px"><button class="btn-ghost" onclick="devActivate()">Owner Test — Unlock 31 Days</button></div><p id="payStatus" style="font-size:12px;color:#FFD88A;margin-top:10px"></p></div><div class="card"><h3>Settings</h3><div id="profileInfo" style="font-size:12px;background:rgba(0,0,0,0.25);padding:14px;border-radius:16px;margin-bottom:12px"></div><div style="background:rgba(255,255,255,0.07);border-radius:20px;padding:16px;margin:12px 0"><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Plan</span><span id="currentPlan">Checking...</span></div><div style="display:flex;justify-content:space-between;padding:6px 0"><span>Days Left</span><span id="daysLeftDisplay">0</span></div><div id="payHistory" style="font-size:11px;margin-top:8px"></div></div><button class="logout-btn" onclick="doLogout()">🚪 Logout</button><div id="admin-secret" class="card" style="display:none;border:2px dashed #FFD88A;margin-top:14px"><h4 style="color:#FFD88A">🔐 OWNER APPROVAL</h4><input id="cust-user" placeholder="Customer username"><input id="cust-pin" placeholder="Flash PIN"><input id="cust-phone" placeholder="Customer phone"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-green" onclick="ownerApprove()">✅ APPROVE</button><button class="btn-red" onclick="ownerReject()">❌ REJECT</button></div><div id="out" style="background:rgba(0,0,0,0.6);padding:12px;border-radius:14px;margin-top:12px;word-break:break-all;font-size:11px;white-space:pre-wrap">Waiting...</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px"><button class="btn-ghost" onclick="copyCode()">📋 Copy</button><button class="btn-ghost" onclick="sendUnlockWhatsApp()">📲 WhatsApp Unlock</button></div></div><div style="text-align:center;margin-top:14px"><button onclick="openAdmin()" style="background:transparent;color:#FFD88A;border:1px dashed var(--border);padding:8px 14px;border-radius:20px;font-size:10px">Owner Admin Login</button></div></div></div>
 <div class="nav"><button id="nav-dashboard" class="active" onclick="openTab('dashboard')">🏠<br>Home</button><button id="nav-sos" onclick="openTab('sos')">🆘<br>SOS</button><button id="nav-trusted" onclick="openTab('trusted')">👥<br>Circle</button><button id="nav-vault" onclick="openTab('vault')">🔒<br>Vault</button><button id="nav-ai" onclick="openTab('ai')">💜<br>AI</button><button id="nav-pay" onclick="openTab('pay')">⚙️<br>Pay</button></div></div>
 <div id="paywall-modal" class="modal"><div class="modal-inner"><div style="font-size:48px">🔒</div><h2 style="color:#FFD88A">Locked</h2><p>Pay R50 for 31 days — 1 FREE SOS only</p><button onclick="closePaywall()" style="background:transparent;color:#FFD88A;border:1px solid var(--border);padding:10px 18px;border-radius:12px">Close</button></div></div>
 <div id="toast" class="toast"></div>
 <script>
-function acceptPopia(){if(!document.getElementById('popiaCheck').checked){alert('Please tick consent');return;}localStorage.setItem('popia_consent','yes_'+Date.now());var p=document.getElementById('popiaScreen');var a=document.getElementById('authScreen');if(p){p.style.display='none';p.classList.add('hidden');}if(a){a.classList.remove('hidden');a.style.display='block';}document.getElementById('loginBox').classList.remove('hidden');document.getElementById('registerBox').classList.add('hidden');toast('✅ Consent saved');window.scrollTo(0,0);}
+var consentBtn=document.getElementById('consentBtn');
+if(consentBtn){consentBtn.addEventListener('click',function(){var check=document.getElementById('popiaCheck');if(!check.checked){alert('Please tick consent');return;}localStorage.setItem('popia_consent','yes_'+Date.now());document.getElementById('popiaScreen').style.display='none';document.getElementById('popiaScreen').classList.add('hidden');var auth=document.getElementById('authScreen');auth.classList.remove('hidden');auth.style.display='block';auth.style.visibility='visible';document.getElementById('loginBox').classList.remove('hidden');document.getElementById('registerBox').classList.add('hidden');var t=document.getElementById('toast');if(t){t.innerText='✅ Consent saved';t.style.display='block';setTimeout(function(){t.style.display='none';},3000);}window.scrollTo(0,0);});}
 function showRegister(){document.getElementById('loginBox').classList.add('hidden');document.getElementById('registerBox').classList.remove('hidden');}
 function showLogin(){document.getElementById('registerBox').classList.add('hidden');document.getElementById('loginBox').classList.remove('hidden');}
-function trackVisit(username){var visits=JSON.parse(localStorage.getItem('app_visits')||'[]');visits.push({user:username||'guest',time:new Date().toISOString(),month:new Date().toISOString().substring(0,7)});localStorage.setItem('app_visits',JSON.stringify(visits));}
-function doRegister(){
-var full=document.getElementById('regFullName').value.trim();
-var phone=document.getElementById('regPhone').value.trim();
-var id=document.getElementById('regID').value.trim();
-var user=document.getElementById('regUsername').value.trim();
-var p1=document.getElementById('regPass').value;
-var p2=document.getElementById('regPass2').value;
-var err=document.getElementById('regError');var suc=document.getElementById('regSuccess');err.innerHTML='';suc.innerHTML='';
-if(full.length<2){err.innerHTML='<div class=error>Enter full name</div>';return;}
-if(!/^0[0-9]{9}$/.test(phone)){err.innerHTML='<div class=error>Phone 10 digits 0...</div>';return;}
-if(!/^[0-9]{13}$/.test(id)){err.innerHTML='<div class=error>SA ID 13 digits</div>';return;}
-var mm=id.substring(2,4), dd=id.substring(4,6);
-if(parseInt(mm)<1||parseInt(mm)>12||parseInt(dd)<1||parseInt(dd)>31){err.innerHTML='<div class=error>Invalid SA ID</div>';return;}
-var sum=0;for(var i=0;i<12;i++){var d=parseInt(id[i]);if(i%2==1){d*=2;if(d>9)d-=9;}sum+=d;}var check=(10-(sum%10))%10;
-if(check!==parseInt(id[12])){err.innerHTML='<div class=error>Invalid SA ID checksum</div>';return;}
-if(user.length<3){err.innerHTML='<div class=error>Username min 3</div>';return;}
-if(p1.length<6){err.innerHTML='<div class=error>Password min 6</div>';return;}
-if(p1!==p2){err.innerHTML='<div class=error>Passwords no match</div>';return;}
-var users=JSON.parse(localStorage.getItem('guard_users')||'[]');
-if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML='<div class=error>Username taken</div>';return;}
-var newUser={fullName:full,phone:phone,idNumber:id,username:user,password:p1,avatar:full.charAt(0).toUpperCase(),created:new Date().toISOString(),createdMonth:new Date().toISOString().substring(0,7)};
-users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));
-trackVisit(user);
-suc.innerHTML='<div class=success>✅ Private account created!</div>';
-setTimeout(function(){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();},800);
-}
-function doLogin(){
-var user=document.getElementById('loginUser').value.trim();var pass=document.getElementById('loginPass').value;var err=document.getElementById('loginError');err.innerHTML='';
-if(!user||!pass){err.innerHTML='<div class=error>Enter username and password</div>';return;}
-var users=JSON.parse(localStorage.getItem('guard_users')||'[]');
-var found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());
-if(!found){err.innerHTML='<div class=error>Username not found</div>';return;}
-if(found.password!==pass){err.innerHTML='<div class=error>Wrong password</div>';return;}
-localStorage.setItem('current_user',JSON.stringify(found));trackVisit(found.username);
-document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();toast('Welcome '+found.fullName);
-}
+function trackVisit(u){var v=JSON.parse(localStorage.getItem('app_visits')||'[]');v.push({user:u||'guest',time:new Date().toISOString(),month:new Date().toISOString().substring(0,7)});localStorage.setItem('app_visits',JSON.stringify(v));}
+function doRegister(){var full=document.getElementById('regFullName').value.trim();var phone=document.getElementById('regPhone').value.trim();var id=document.getElementById('regID').value.trim();var user=document.getElementById('regUsername').value.trim();var p1=document.getElementById('regPass').value;var p2=document.getElementById('regPass2').value;var err=document.getElementById('regError');var suc=document.getElementById('regSuccess');err.innerHTML='';suc.innerHTML='';if(full.length<2){err.innerHTML='<div class=error>Enter full name</div>';return;}if(!/^0[0-9]{9}$/.test(phone)){err.innerHTML='<div class=error>Phone 10 digits 0...</div>';return;}if(!/^[0-9]{13}$/.test(id)){err.innerHTML='<div class=error>SA ID 13 digits</div>';return;}var mm=id.substring(2,4),dd=id.substring(4,6);if(parseInt(mm)<1||parseInt(mm)>12||parseInt(dd)<1||parseInt(dd)>31){err.innerHTML='<div class=error>Invalid SA ID</div>';return;}var sum=0;for(var i=0;i<12;i++){var d=parseInt(id[i]);if(i%2==1){d*=2;if(d>9)d-=9;}sum+=d;}var check=(10-(sum%10))%10;if(check!==parseInt(id[12])){err.innerHTML='<div class=error>Invalid SA ID checksum</div>';return;}if(user.length<3){err.innerHTML='<div class=error>Username min 3</div>';return;}if(p1.length<6){err.innerHTML='<div class=error>Password min 6</div>';return;}if(p1!==p2){err.innerHTML='<div class=error>Passwords no match</div>';return;}var users=JSON.parse(localStorage.getItem('guard_users')||'[]');if(users.find(u=>u.username.toLowerCase()===user.toLowerCase())){err.innerHTML='<div class=error>Username taken</div>';return;}var newUser={fullName:full,phone:phone,idNumber:id,username:user,password:p1,avatar:full.charAt(0).toUpperCase(),created:new Date().toISOString(),createdMonth:new Date().toISOString().substring(0,7)};users.push(newUser);localStorage.setItem('guard_users',JSON.stringify(users));localStorage.setItem('current_user',JSON.stringify(newUser));trackVisit(user);suc.innerHTML='<div class=success>✅ Private account created!</div>';setTimeout(function(){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();},800);}
+function doLogin(){var user=document.getElementById('loginUser').value.trim();var pass=document.getElementById('loginPass').value;var err=document.getElementById('loginError');err.innerHTML='';if(!user||!pass){err.innerHTML='<div class=error>Enter username and password</div>';return;}var users=JSON.parse(localStorage.getItem('guard_users')||'[]');var found=users.find(u=>u.username.toLowerCase()===user.toLowerCase());if(!found){err.innerHTML='<div class=error>Username not found</div>';return;}if(found.password!==pass){err.innerHTML='<div class=error>Wrong password</div>';return;}localStorage.setItem('current_user',JSON.stringify(found));trackVisit(found.username);document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();toast('Welcome '+found.fullName);}
 function doLogout(){if(confirm('Logout?')){sessionStorage.removeItem('vault_unlocked');localStorage.removeItem('current_user');document.getElementById('mainApp').classList.add('hidden');document.getElementById('authScreen').classList.remove('hidden');document.getElementById('authScreen').style.display='block';showLogin();toast('🔒 Logged out');}}
 function toast(m){var t=document.getElementById('toast');t.innerText=m;t.style.display='block';setTimeout(function(){t.style.display='none';},4000);}
 function getCurrentUsername(){try{var cur=JSON.parse(localStorage.getItem('current_user')||'{}');return cur.username||'';}catch(e){return '';}}
@@ -142,109 +93,13 @@ function getExpiryTime(){var u=getCurrentUsername();if(!u)return 0;var exp=local
 function isPaid(){var u=getCurrentUsername();if(!u)return false;var exp=localStorage.getItem('fg_expiry_'+u);if(!exp)return false;if(Date.now()>parseInt(exp)){localStorage.removeItem('fg_paid_'+u);localStorage.removeItem('guard_active_'+u);localStorage.removeItem('fg_expiry_'+u);return false;}return localStorage.getItem('fg_paid_'+u)==='true'||localStorage.getItem('guard_active_'+u)==='yes';}
 function getDaysLeft(){var exp=getExpiryTime();if(!exp)return 0;var diff=exp-Date.now();if(diff<=0)return 0;return Math.ceil(diff/(1000*60*60*24));}
 function getFreeChats(){return parseInt(localStorage.getItem('fg_free_chats')||'0');}
-function updateBadge(){
-var badge=document.getElementById('accountBadge');var status=document.getElementById('accountStatus');var subTimer=document.getElementById('subTimer');var subInfo=document.getElementById('subInfo');var daysLeft=getDaysLeft();
-if(isPaid()){
-var expDate=new Date(getExpiryTime()).toLocaleDateString();
-if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}
-if(status)status.innerHTML='✅ ACTIVE — '+daysLeft+' days — Expires '+expDate;
-if(subTimer)subTimer.innerText='✅ Active — '+daysLeft+' days';
-if(subInfo)subInfo.innerHTML='✅ ACTIVE — '+daysLeft+' days';
-document.getElementById('currentPlan').innerText='ACTIVE '+daysLeft+' days';
-document.getElementById('payCount').innerText=daysLeft+' days';
-document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';
-}else{
-if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}
-if(status)status.innerHTML='⚠️ NOT ACTIVE — Pay R50 — 1 FREE SOS only';
-if(subTimer)subTimer.innerText='🔒 Not Active — 1 FREE SOS';
-if(subInfo)subInfo.innerHTML='🔒 NOT ACTIVE — 1 FREE SOS then R50';
-document.getElementById('currentPlan').innerText='NOT ACTIVE';
-document.getElementById('payCount').innerText='NOT ACTIVE';
-document.getElementById('daysLeftDisplay').innerText='0 — Expired';
-}
-var sosCounter=document.getElementById('sosFreeCounter');
-if(sosCounter){
-var used=parseInt(localStorage.getItem('fg_sos_free_used')||'0');
-if(!isPaid()){sosCounter.innerText=used>=1?'🔒 FREE SOS used (1/1) — Pay R50':'💜 FREE SOS left: '+(1-used)+'/1';}
-else{sosCounter.innerText='✅ UNLIMITED SOS — ACTIVE — 7 contacts';}
-}
-}
+function updateBadge(){var badge=document.getElementById('accountBadge');var status=document.getElementById('accountStatus');var subTimer=document.getElementById('subTimer');var subInfo=document.getElementById('subInfo');var daysLeft=getDaysLeft();if(isPaid()){var expDate=new Date(getExpiryTime()).toLocaleDateString();if(badge){badge.innerText='ACTIVE '+daysLeft+'d';badge.className='badge active';}if(status)status.innerHTML='✅ ACTIVE — '+daysLeft+' days — Expires '+expDate;if(subTimer)subTimer.innerText='✅ Active — '+daysLeft+' days';if(subInfo)subInfo.innerHTML='✅ ACTIVE — '+daysLeft+' days';document.getElementById('currentPlan').innerText='ACTIVE '+daysLeft+' days';document.getElementById('payCount').innerText=daysLeft+' days';document.getElementById('daysLeftDisplay').innerText=daysLeft+' days';}else{if(badge){badge.innerText='NOT ACTIVE';badge.className='badge inactive';}if(status)status.innerHTML='⚠️ NOT ACTIVE — Pay R50 — 1 FREE SOS only';if(subTimer)subTimer.innerText='🔒 Not Active — 1 FREE SOS';if(subInfo)subInfo.innerHTML='🔒 NOT ACTIVE — 1 FREE SOS then R50';document.getElementById('currentPlan').innerText='NOT ACTIVE';document.getElementById('payCount').innerText='NOT ACTIVE';document.getElementById('daysLeftDisplay').innerText='0 — Expired';}var sosCounter=document.getElementById('sosFreeCounter');if(sosCounter){var used=parseInt(localStorage.getItem('fg_sos_free_used')||'0');if(!isPaid()){sosCounter.innerText=used>=1?'🔒 FREE SOS used (1/1) — Pay R50':'💜 FREE SOS left: '+(1-used)+'/1';}else{sosCounter.innerText='✅ UNLIMITED SOS — ACTIVE — 7 contacts';}}}
 function showPaywall(){document.getElementById('paywall-modal').style.display='flex';}
 function closePaywall(){document.getElementById('paywall-modal').style.display='none';}
-if(localStorage.getItem('popia_consent')){document.getElementById('popiaScreen').style.display='none';document.getElementById('popiaScreen').classList.add('hidden');document.getElementById('authScreen').style.display='block';document.getElementById('authScreen').classList.remove('hidden');}
-var pendingApproveData={};
-function handleUrlParams(){
-var params=new URLSearchParams(window.location.search);
-var unlock=params.get('unlock');var approve=params.get('approve');var reject=params.get('reject');var pin=params.get('pin');var phone=params.get('phone');
-if(unlock){try{var decoded=atob(unlock);var parts=decoded.split('|');var user=parts[0];var expiry=parseInt(parts[1]);if(expiry>Date.now()){localStorage.setItem('fg_paid_'+user,'true');localStorage.setItem('guard_active_'+user,'yes');localStorage.setItem('fg_expiry_'+user,expiry.toString());localStorage.removeItem('fg_pending_payment');setTimeout(function(){alert('UNLOCKED '+user+' 31 Days');location.href=location.origin+location.pathname;},500);}}catch(e){}}
-if(approve||reject){document.getElementById('popiaScreen').style.display='none';document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();openTab('pay');document.getElementById('admin-secret').style.display='block';localStorage.setItem('owner_mode','yes');if(approve){document.getElementById('cust-user').value=approve;if(pin)document.getElementById('cust-pin').value=pin;if(phone)document.getElementById('cust-phone').value=phone;pendingApproveData={user:approve,pin:pin||'',phone:phone||''};var div=document.getElementById('approveFromLink');div.classList.remove('hidden');div.innerHTML='<div style=background:rgba(0,230,160,0.15);border:2px solid #00E6A0;border-radius:16px;padding:14px>NEW PAYMENT '+approve+' PIN '+pin+'</div>';}}
-}
-function isAdminUser(){
-try{
-var cur=JSON.parse(localStorage.getItem('current_user')||'{}');
-var phone=(cur.phone||'').replace(/[^0-9]/g,'');
-return phone==='0672739660' || phone==='27672739660' || phone==='672739660';
-}catch(e){return false;}
-}
-function refreshAdminStats(){
-var users=JSON.parse(localStorage.getItem('guard_users')||'[]');
-var now=new Date();
-var thisMonth=now.toISOString().substring(0,7);
-var total=users.length;
-var thisMonthUsers=users.filter(u=> (u.createdMonth|| (u.created||'').substring(0,7))===thisMonth).length;
-var paidCount=0; var paidThisMonth=0; var userListHtml='';
-users.forEach(u=>{
-var exp=localStorage.getItem('fg_expiry_'+u.username);
-var isPaidUser=false;
-if(exp && parseInt(exp)>Date.now() && (localStorage.getItem('fg_paid_'+u.username)==='true'||localStorage.getItem('guard_active_'+u.username)==='yes')){isPaidUser=true;}
-if(isPaidUser){paidCount++; 
-var expDate=new Date(parseInt(exp));
-if(expDate.toISOString().substring(0,7)>=thisMonth){paidThisMonth++;}
-}
-var status=isPaidUser?'✅ PAID R50 — '+new Date(parseInt(exp||0)).toLocaleDateString():'❌ NOT PAID — Offline';
-var createdDate=u.created?new Date(u.created).toLocaleDateString():'';
-userListHtml+='<div style=display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.1)><span>'+u.fullName+' ('+u.username+')<br><small>'+u.phone+' — '+createdDate+'</small></span><span style=color:'+(isPaidUser?'#00E6A0':'#FF5A82')+';font-weight:800>'+status+'</span></div>';
-});
-var unpaid=total-paidCount;
-document.getElementById('stat-total').innerText=total;
-document.getElementById('stat-month').innerText=thisMonthUsers;
-document.getElementById('stat-paid').innerText=paidCount;
-document.getElementById('stat-unpaid').innerText=unpaid;
-document.getElementById('stat-paid-month').innerText=paidThisMonth;
-document.getElementById('stat-income').innerText='R'+(paidThisMonth*50);
-document.getElementById('admin-user-list').innerHTML=userListHtml||'<p>No users yet</p>';
-}
-function exportAdminCSV(){
-var users=JSON.parse(localStorage.getItem('guard_users')||'[]');
-var csv='FullName,Username,Phone,ID,Created,Status,Expiry\n';
-users.forEach(u=>{
-var exp=localStorage.getItem('fg_expiry_'+u.username);
-var isPaidUser=exp && parseInt(exp)>Date.now() && (localStorage.getItem('fg_paid_'+u.username)==='true');
-var status=isPaidUser?'PAID':'NOT PAID';
-var expiryStr=exp?new Date(parseInt(exp)).toLocaleDateString():'';
-csv+= '"'+u.fullName+'","'+u.username+'","'+u.phone+'","'+u.idNumber+'","'+(u.created||'')+'","'+status+'","'+expiryStr+'"\n';
-});
-var blob=new Blob([csv],{type:'text/csv'});
-var url=URL.createObjectURL(blob);
-var a=document.createElement('a');a.href=url;a.download='guard-records-'+new Date().toISOString().substring(0,10)+'.csv';a.click();
-}
-function showMain(){
-var cur=JSON.parse(localStorage.getItem('current_user')||'{}');
-document.getElementById('userInfoLine').innerText='Welcome, '+(cur.fullName||'');
-document.getElementById('mainAvatar').innerText=cur.avatar||'F';
-document.getElementById('vaultWelcomeName').innerText=cur.fullName||'';
-document.getElementById('profileInfo').innerHTML='Name: '+(cur.fullName||'')+'<br>Phone: '+(cur.phone||'')+'<br>Username: '+(cur.username||'');
-loadEvidence();loadSafe();updateCounts();loadPayHistory();checkVaultPinState();updateBadge();initAIChat();loadTrustedInputs();
-if(isAdminUser()){
-document.getElementById('admin-stats').classList.remove('hidden');
-document.getElementById('admin-stats').style.display='block';
-refreshAdminStats();
-document.getElementById('admin-secret').style.display='block';
-document.getElementById('devArea').style.display='block';
-}else{
-document.getElementById('admin-stats').classList.add('hidden');
-}
-}
+function handleUrlParams(){var params=new URLSearchParams(window.location.search);var unlock=params.get('unlock');if(unlock){try{var decoded=atob(unlock);var parts=decoded.split('|');var user=parts[0];var expiry=parseInt(parts[1]);if(expiry>Date.now()){localStorage.setItem('fg_paid_'+user,'true');localStorage.setItem('guard_active_'+user,'yes');localStorage.setItem('fg_expiry_'+user,expiry.toString());localStorage.removeItem('fg_pending_payment');setTimeout(function(){alert('UNLOCKED '+user+' 31 Days');location.href=location.origin+location.pathname;},500);}}catch(e){}}}
+function isAdminUser(){try{var cur=JSON.parse(localStorage.getItem('current_user')||'{}');var phone=(cur.phone||'').replace(/[^0-9]/g,'');return phone==='0672739660'||phone==='27672739660'||phone==='672739660';}catch(e){return false;}}
+function refreshAdminStats(){var users=JSON.parse(localStorage.getItem('guard_users')||'[]');var now=new Date();var thisMonth=now.toISOString().substring(0,7);var total=users.length;var thisMonthUsers=users.filter(u=> (u.createdMonth|| (u.created||'').substring(0,7))===thisMonth).length;var paidCount=0;users.forEach(u=>{var exp=localStorage.getItem('fg_expiry_'+u.username);if(exp&&parseInt(exp)>Date.now()&&(localStorage.getItem('fg_paid_'+u.username)==='true'||localStorage.getItem('guard_active_'+u.username)==='yes'))paidCount++;});document.getElementById('stat-total').innerText=total;document.getElementById('stat-month').innerText=thisMonthUsers;document.getElementById('stat-paid').innerText=paidCount;document.getElementById('stat-unpaid').innerText=total-paidCount;var list=users.map(u=>{var exp=localStorage.getItem('fg_expiry_'+u.username);var paid=exp&&parseInt(exp)>Date.now();return '<div style=display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.1)><span>'+u.fullName+' ('+u.username+')</span><span style=color:'+(paid?'#00E6A0':'#FF5A82')+'>'+(paid?'PAID':'NOT PAID')+'</span></div>';}).join('');document.getElementById('admin-user-list').innerHTML=list||'No users';}
+function showMain(){var cur=JSON.parse(localStorage.getItem('current_user')||'{}');document.getElementById('userInfoLine').innerText='Welcome, '+(cur.fullName||'');document.getElementById('mainAvatar').innerText=cur.avatar||'F';document.getElementById('vaultWelcomeName').innerText=cur.fullName||'';document.getElementById('profileInfo').innerHTML='Name: '+(cur.fullName||'')+'<br>Phone: '+(cur.phone||'')+'<br>Username: '+(cur.username||'');loadEvidence();loadSafe();updateCounts();loadPayHistory();checkVaultPinState();updateBadge();initAIChat();loadTrustedInputs();if(isAdminUser()){document.getElementById('admin-stats').classList.remove('hidden');document.getElementById('admin-stats').style.display='block';refreshAdminStats();document.getElementById('admin-secret').style.display='block';document.getElementById('devArea').style.display='block';}}
 function checkVaultPinState(){var pin=localStorage.getItem('vault_pin');var setup=document.getElementById('vaultPinSetup');var enter=document.getElementById('vaultPinEnter');var content=document.getElementById('vaultContent');if(!pin){setup.classList.remove('hidden');enter.classList.add('hidden');content.classList.add('hidden');}else{if(sessionStorage.getItem('vault_unlocked')==='yes'){enter.classList.add('hidden');content.classList.remove('hidden');}else{enter.classList.remove('hidden');content.classList.add('hidden');setup.classList.add('hidden');}}}
 function createVaultPin(){var p1=document.getElementById('vaultPin1').value.trim();var p2=document.getElementById('vaultPin2').value.trim();if(p1.length!==4||p1!==p2){toast('PIN 4 digits match');return;}localStorage.setItem('vault_pin',p1);sessionStorage.setItem('vault_unlocked','yes');toast('✅ PIN created');checkVaultPinState();}
 function enterVaultPin(){var entered=document.getElementById('vaultPinEnterInput').value.trim();var saved=localStorage.getItem('vault_pin');if(entered===saved){sessionStorage.setItem('vault_unlocked','yes');checkVaultPinState();}else{toast('❌ Wrong PIN');}}
@@ -269,46 +124,22 @@ function removeEvidence(i){var ev=JSON.parse(localStorage.getItem('evidence_vaul
 function loadPayHistory(){var u=getCurrentUsername();var history=JSON.parse(localStorage.getItem('pay_history_'+u)||localStorage.getItem('pay_history')||'[]');document.getElementById('payHistory').innerHTML=history.length?history.slice(-5).reverse().map(h=>'<div style=background:rgba(255,255,255,0.07);padding:12px;border-radius:14px;margin:6px 0>'+h.voucher+' — '+h.status+'</div>').join(''):'<p>No payments</p>';}
 var sosTimer;function startSos(){sosTimer=setTimeout(()=>{doSos();},3000);document.getElementById('sosStatus').innerText='Holding...';}
 function cancelSos(){clearTimeout(sosTimer);document.getElementById('sosStatus').innerText='Hold 3 sec — 1 FREE if NOT ACTIVE, then R50';}
-function doSos(){
-var contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(c=>c.phone);
-if(contacts.length<1){toast('Add contacts first');return;}
-var paid=isPaid()||isAdminUser();
-var sosFreeUsed=parseInt(localStorage.getItem('fg_sos_free_used')||'0');
-if(!paid){if(sosFreeUsed>=1){toast('🔒 FREE SOS used — Pay R50');showPaywall();document.getElementById('sosStatus').innerText='🔒 FREE SOS used (1/1) — Pay R50';return;}}
-navigator.geolocation.getCurrentPosition(function(pos){
-var link='https://maps.google.com/?q='+pos.coords.latitude+','+pos.coords.longitude;
-var cur=JSON.parse(localStorage.getItem('current_user')||'{}');
-var msg='🆘 SOS! '+cur.fullName+' needs help! Live: '+link;
-contacts.forEach(c=>{var p=c.phone.replace(/[^0-9]/g,'');if(p.startsWith('0'))p='27'+p.substring(1);window.open('https://wa.me/'+p+'?text='+encodeURIComponent(msg),'_blank');});
-if(!paid){sosFreeUsed++;localStorage.setItem('fg_sos_free_used',sosFreeUsed.toString());document.getElementById('sosStatus').innerText='✅ SOS Sent to '+contacts.length+' — FREE 1/1 USED';toast('✅ SOS Sent to '+contacts.length);}else{document.getElementById('sosStatus').innerText='✅ SOS Sent to '+contacts.length+' — ACTIVE';toast('✅ SOS Sent to '+contacts.length);}updateBadge();
-},function(){toast('Enable GPS');});
-}
-function activatePay(){
-var pin=document.getElementById('voucher-pin').value.trim();var user=document.getElementById('voucher-user').value.trim();var cur=JSON.parse(localStorage.getItem('current_user')||'{}');
-if(!pin||!user){toast('Enter PIN and username');return;}
-var pending={user:user,pin:pin,phone:cur.phone||'',fullName:cur.fullName||user,time:new Date().toISOString()};
-localStorage.setItem('fg_pending_payment',JSON.stringify(pending));
-var u=cur.username||user;var history=JSON.parse(localStorage.getItem('pay_history_'+u)||'[]');history.push({voucher:pin,time:new Date().toISOString(),status:'pending',amount:50,days:31,user:user,phone:cur.phone});localStorage.setItem('pay_history_'+u,JSON.stringify(history));localStorage.setItem('pay_history',JSON.stringify(history));
-var baseUrl=location.origin+location.pathname;var approveLink=baseUrl+'?owner=1&approve='+encodeURIComponent(user)+'&pin='+encodeURIComponent(pin)+'&phone='+encodeURIComponent(cur.phone||'');var rejectLink=baseUrl+'?owner=1&reject='+encodeURIComponent(user)+'&pin='+encodeURIComponent(pin);
-var ownerMsg='🔔 NEW PAYMENT PENDING User: '+user+' Name: '+(cur.fullName||user)+' Phone: '+(cur.phone||'')+' Flash PIN: '+pin+' R50 APPROVE: '+approveLink+' REJECT: '+rejectLink;
-window.open('https://wa.me/27672739660?text='+encodeURIComponent(ownerMsg),'_blank');
-document.getElementById('payStatus').innerHTML='✅ Sent! PENDING';document.getElementById('payPendingNotice').classList.remove('hidden');document.getElementById('payPendingNotice').innerHTML='⏳ PENDING User: '+user+' PIN: '+pin;loadPayHistory();updateBadge();
-}
+function doSos(){var contacts=JSON.parse(localStorage.getItem('trusted_contacts')||'[]').filter(c=>c.phone);if(contacts.length<1){toast('Add contacts first');return;}var paid=isPaid()||isAdminUser();var sosFreeUsed=parseInt(localStorage.getItem('fg_sos_free_used')||'0');if(!paid){if(sosFreeUsed>=1){toast('🔒 FREE SOS used — Pay R50');showPaywall();document.getElementById('sosStatus').innerText='🔒 FREE SOS used (1/1) — Pay R50';return;}}navigator.geolocation.getCurrentPosition(function(pos){var link='https://maps.google.com/?q='+pos.coords.latitude+','+pos.coords.longitude;var cur=JSON.parse(localStorage.getItem('current_user')||'{}');var msg='🆘 SOS! '+cur.fullName+' needs help! Live: '+link;contacts.forEach(c=>{var p=c.phone.replace(/[^0-9]/g,'');if(p.startsWith('0'))p='27'+p.substring(1);window.open('https://wa.me/'+p+'?text='+encodeURIComponent(msg),'_blank');});if(!paid){sosFreeUsed++;localStorage.setItem('fg_sos_free_used',sosFreeUsed.toString());document.getElementById('sosStatus').innerText='✅ SOS Sent to '+contacts.length+' — FREE 1/1 USED';toast('✅ SOS Sent to '+contacts.length);}else{document.getElementById('sosStatus').innerText='✅ SOS Sent to '+contacts.length+' — ACTIVE';toast('✅ SOS Sent to '+contacts.length);}updateBadge();},function(){toast('Enable GPS');});}
+function activatePay(){var pin=document.getElementById('voucher-pin').value.trim();var user=document.getElementById('voucher-user').value.trim();var cur=JSON.parse(localStorage.getItem('current_user')||'{}');if(!pin||!user){toast('Enter PIN and username');return;}var pending={user:user,pin:pin,phone:cur.phone||'',fullName:cur.fullName||user,time:new Date().toISOString()};localStorage.setItem('fg_pending_payment',JSON.stringify(pending));var u=cur.username||user;var history=JSON.parse(localStorage.getItem('pay_history_'+u)||'[]');history.push({voucher:pin,time:new Date().toISOString(),status:'pending',amount:50,days:31,user:user,phone:cur.phone});localStorage.setItem('pay_history_'+u,JSON.stringify(history));localStorage.setItem('pay_history',JSON.stringify(history));var baseUrl=location.origin+location.pathname;var approveLink=baseUrl+'?owner=1&approve='+encodeURIComponent(user)+'&pin='+encodeURIComponent(pin)+'&phone='+encodeURIComponent(cur.phone||'');var rejectLink=baseUrl+'?owner=1&reject='+encodeURIComponent(user)+'&pin='+encodeURIComponent(pin);var ownerMsg='🔔 NEW PAYMENT PENDING User: '+user+' Name: '+(cur.fullName||user)+' Phone: '+(cur.phone||'')+' Flash PIN: '+pin+' R50 APPROVE: '+approveLink+' REJECT: '+rejectLink;window.open('https://wa.me/27672739660?text='+encodeURIComponent(ownerMsg),'_blank');document.getElementById('payStatus').innerHTML='✅ Sent! PENDING';loadPayHistory();updateBadge();}
 function generateUnlockCode(user,pin){var now=Date.now();var expiry=now+(31*24*60*60*1000);var raw=user+'|'+expiry+'|'+pin;var code=btoa(raw);var link=location.origin+location.pathname+'?unlock='+encodeURIComponent(code);return {code:code,link:link,expiry:expiry};}
-function ownerApprove(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();var phone=document.getElementById('cust-phone').value.trim();if(!user||!pin){alert('Enter username and PIN');return;}var gen=generateUnlockCode(user,pin);pendingApproveData={user:user,pin:pin,phone:phone,expiry:gen.expiry};localStorage.setItem('fg_paid_'+user,'true');localStorage.setItem('guard_active_'+user,'yes');localStorage.setItem('fg_expiry_'+user,gen.expiry.toString());document.getElementById('out').innerText='✅ APPROVED — '+user+' PIN '+pin+' Expires '+new Date(gen.expiry).toLocaleDateString()+' Link: '+gen.link;toast('✅ Approved');updateBadge();if(isAdminUser())refreshAdminStats();}
-function ownerReject(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();var phone=document.getElementById('cust-phone').value.trim();if(!user){alert('Enter username');return;}var msg='Hi '+user+' — Could not verify Flash PIN '+pin+'. Please resend correct PIN.';document.getElementById('out').innerText='❌ REJECTED — '+user+' Message: '+msg;pendingApproveData={user:user,pin:pin,phone:phone,reject:true,msg:msg};toast('❌ Rejected');}
+function ownerApprove(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();if(!user||!pin){alert('Enter username and PIN');return;}var gen=generateUnlockCode(user,pin);localStorage.setItem('fg_paid_'+user,'true');localStorage.setItem('guard_active_'+user,'yes');localStorage.setItem('fg_expiry_'+user,gen.expiry.toString());document.getElementById('out').innerText='✅ APPROVED — '+user+' PIN '+pin+' Expires '+new Date(gen.expiry).toLocaleDateString()+' Link: '+gen.link;toast('✅ Approved');updateBadge();if(isAdminUser())refreshAdminStats();}
+function ownerReject(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();if(!user){alert('Enter username');return;}var msg='Hi '+user+' — Could not verify Flash PIN '+pin+'. Please resend correct PIN.';document.getElementById('out').innerText='❌ REJECTED — '+user+' Message: '+msg;toast('❌ Rejected');}
 function toWaPhone(p){if(!p)return'';var digits=p.replace(/[^0-9]/g,'');if(digits.length==0)return'';if(digits.startsWith('0')){digits='27'+digits.substring(1);}else if(!digits.startsWith('27')){if(digits.length==10){digits='27'+digits.substring(1);}else if(digits.length==9){digits='27'+digits;}}return digits;}
-function sendUnlockWhatsApp(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();var phone=document.getElementById('cust-phone').value.trim();var outText=document.getElementById('out').innerText;if(!outText||outText.includes('Waiting')){alert('Approve or Reject first');return;}var waPhone=toWaPhone(phone);if(!waPhone){alert('Enter customer phone 071...');return;}if(pendingApproveData.reject){window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(pendingApproveData.msg),'_blank');}else{var gen=generateUnlockCode(user,pin);var expiryDate=new Date(gen.expiry).toLocaleDateString();var msg='Hi '+user+'! ✅ Your R50 PIN '+pin+' VERIFIED! ACTIVE 31 Days! TAP TO UNLOCK: '+gen.link+' Expires: '+expiryDate+' — Feminist-Guard';window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');}}
+function sendUnlockWhatsApp(){var user=document.getElementById('cust-user').value.trim();var pin=document.getElementById('cust-pin').value.trim();var phone=document.getElementById('cust-phone').value.trim();var outText=document.getElementById('out').innerText;if(!outText||outText.includes('Waiting')){alert('Approve or Reject first');return;}var waPhone=toWaPhone(phone);if(!waPhone){alert('Enter customer phone 071...');return;}var gen=generateUnlockCode(user,pin);if(document.getElementById('out').innerText.includes('REJECTED')){window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent('Hi '+user+' — Could not verify PIN '+pin), '_blank');}else{var msg='Hi '+user+'! ✅ Your R50 PIN '+pin+' VERIFIED! TAP TO UNLOCK: '+gen.link;window.open('https://wa.me/'+waPhone+'?text='+encodeURIComponent(msg),'_blank');}}
 function devActivate(){var pin=prompt('Owner PIN');if(pin!=='768091'&&pin!=='2026'){toast('❌ Owner only — Pay R50');return;}var u=getCurrentUsername();if(!u){toast('Login first');return;}var now=Date.now();var expiry=now+(31*24*60*60*1000);localStorage.setItem('fg_paid_'+u,'true');localStorage.setItem('guard_active_'+u,'yes');localStorage.setItem('fg_start_'+u,now.toString());localStorage.setItem('fg_expiry_'+u,expiry.toString());localStorage.removeItem('fg_pending_payment');var history=JSON.parse(localStorage.getItem('pay_history_'+u)||'[]');history.push({voucher:'OWNER-TEST'+Date.now(),time:new Date().toISOString(),status:'active',amount:50,days:31});localStorage.setItem('pay_history_'+u,JSON.stringify(history));localStorage.setItem('pay_history',JSON.stringify(history));updateBadge();loadPayHistory();alert('Owner Test ACTIVE for '+u+' 31 Days until '+new Date(expiry).toLocaleDateString());closePaywall();openTab('dashboard');if(isAdminUser())refreshAdminStats();}
 function openAdmin(){var pass=prompt("Owner PIN");if(pass==="2026"||pass==="768091"){localStorage.setItem('owner_mode','yes');document.getElementById('admin-secret').style.display='block';document.getElementById('devArea').style.display='block';if(isAdminUser()){document.getElementById('admin-stats').classList.remove('hidden');document.getElementById('admin-stats').style.display='block';refreshAdminStats();}toast('Owner mode ON');}else{alert("Wrong PIN");}}
 function copyCode(){navigator.clipboard.writeText(document.getElementById('out').innerText).then(()=>toast('Copied!'));}
 function initAIChat(){var chat=document.getElementById('comp-chat');if(chat)chat.innerHTML='<div style="color:#FFD88A">💜 Hey, I am your Guard Companion — Private<br>How are you feeling today?</div>';}
-function talkComp(){var input=document.getElementById('comp-input');var text=input.value.trim();if(!text)return;var chat=document.getElementById('comp-chat');var freeUsed=parseInt(localStorage.getItem('fg_free_chats')||'0');var paid=isPaid()||isAdminUser();if(!paid&&freeUsed>=3){showPaywall();return;}chat.innerHTML+='<div style="margin:8px 0;color:#FFD88A"><b>You:</b> '+text+'</div>';input.value='';if(!paid){localStorage.setItem('fg_free_chats',(freeUsed+1).toString());updateBadge();}var lower=text.toLowerCase();var reply='Thank you for sharing privately — I hear you. You deserve support and safety.';if(lower==='hi'||lower==='hey'||lower==='hello'){reply='Hey 💜 — How are you feeling right now?';}else if(lower.includes('sad')){reply='I am sorry you feel sad — You deserve support.';}else if(lower.includes('scared')){reply='Your safety matters — If unsafe, can you get to safe place? GBV 0800 428 428.';}chat.innerHTML+='<div style="margin:8px 0;background:rgba(255,255,255,0.08);padding:12px;border-radius:16px"><b>Companion:</b> '+reply+'</div>';chat.scrollTop=chat.scrollHeight;}
+function talkComp(){var input=document.getElementById('comp-input');var text=input.value.trim();if(!text)return;var chat=document.getElementById('comp-chat');var freeUsed=parseInt(localStorage.getItem('fg_free_chats')||'0');var paid=isPaid()||isAdminUser();if(!paid&&freeUsed>=3){showPaywall();return;}chat.innerHTML+='<div style="margin:8px 0;color:#FFD88A"><b>You:</b> '+text+'</div>';input.value='';if(!paid){localStorage.setItem('fg_free_chats',(freeUsed+1).toString());updateBadge();}var lower=text.toLowerCase();var reply='Thank you for sharing privately — I hear you.';if(lower==='hi'||lower==='hey'||lower==='hello'){reply='Hey 💜 — How are you feeling right now?';}else if(lower.includes('sad')){reply='I am sorry you feel sad — You deserve support.';}else if(lower.includes('scared')){reply='Your safety matters — If unsafe, can you get to safe place? GBV 0800 428 428.';}chat.innerHTML+='<div style="margin:8px 0;background:rgba(255,255,255,0.08);padding:12px;border-radius:16px"><b>Companion:</b> '+reply+'</div>';chat.scrollTop=chat.scrollHeight;}
+(function(){var c=localStorage.getItem('popia_consent');if(c){var ps=document.getElementById('popiaScreen');if(ps){ps.style.display='none';ps.classList.add('hidden');}var auth=document.getElementById('authScreen');if(auth){auth.classList.remove('hidden');auth.style.display='block';}}})();
 handleUrlParams();
-if(localStorage.getItem('current_user')){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();}else{document.getElementById('popiaScreen').style.display=localStorage.getItem('popia_consent')?'none':'block';}
+if(localStorage.getItem('current_user')){document.getElementById('authScreen').classList.add('hidden');document.getElementById('authScreen').style.display='none';document.getElementById('mainApp').classList.remove('hidden');showMain();}
 </script>
-<script>
-if ('serviceWorker' in navigator) {navigator.serviceWorker.register('./sw.js?v=17.8').then(()=>console.log('Guard SW v17.8 OK')).catch(e=>console.log('SW fail',e));}
-</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js?v=17.9').then(()=>console.log('Guard SW v17.9 OK')).catch(()=>{});}</script>
 </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </html>
+  </html>
