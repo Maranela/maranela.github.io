@@ -3,214 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Feminist-Guard v27 FINAL FIX</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+<title>Feminist-Guard v28 ULTRA LIGHT - NO JAM</title>
 <style>
-body{font-family:'Outfit',sans-serif;background:#0e0a1e;color:#f5e9c8}
-.card{background:#1a1430;border:1px solid #e8d48b66;border-radius:24px}
-.gold-text{color:#e8d48b}
-.pink-btn{background:linear-gradient(135deg,#ff2e63,#ff7aa2);color:white;font-weight:800}
-.gold-btn{background:#e8d48b;color:#1a1430;font-weight:900}
-.bottom-nav{position:fixed;bottom:12px;left:12px;right:12px;background:#231d3e;border-radius:24px;display:flex;justify-content:space-around;padding:8px 4px;z-index:50;border:1px solid #ffffff1a}
-.nav-item{padding:8px 12px;border-radius:18px;font-size:10px;text-align:center;color:#a99dc2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#0e0a1e;color:#f5e9c8;padding:12px;padding-bottom:90px}
+.card{background:#1a1430;border:1px solid #e8d48b66;border-radius:20px;padding:16px;margin-top:12px}
+.gold{color:#e8d48b;font-weight:900}
+.pink{background:#ff2e63;color:white;border:none;padding:16px;border-radius:14px;width:100%;font-weight:900;font-size:16px;cursor:pointer}
+.goldbtn{background:#e8d48b;color:#1a1430;border:none;padding:16px;border-radius:14px;width:100%;font-weight:900;font-size:16px;cursor:pointer}
+input,select,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff22;background:#211c38;color:#e8d48b;margin-top:8px;font-size:14px}
+.tab{flex:1;padding:12px;border-radius:12px;border:1px solid #ffffff22;background:#211c38;color:#a99dc2;font-weight:800;cursor:pointer;text-align:center}
+.tab-active{border:2px solid #e8d48b;background:#3a325c;color:#e8d48b}
+.badge{display:inline-block;background:rgba(232,212,139,0.15);border:1px solid rgba(232,212,139,0.3);border-radius:10px;padding:4px 10px;font-size:10px;color:#e8d48b;margin-top:6px}
+.status-pending{background:#ffbe0b;color:#000;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.status-approved{background:#00d68f;color:#000;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.status-rejected{background:#ff3b30;color:white;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.bottom{position:fixed;bottom:8px;left:8px;right:8px;background:#231d3e;border-radius:20px;display:flex;justify-content:space-around;padding:8px 4px;z-index:99;border:1px solid #ffffff1a}
+.nav{padding:8px 6px;border-radius:12px;font-size:10px;text-align:center;color:#a99dc2;cursor:pointer}
 .nav-active{background:#3a325c;color:#e8d48b}
-input,textarea,select{background:#211c38;border:1px solid #ffffff1a;color:#e8d48b}
-.tab-active{border:2px solid #e8d48b;background:#3a325c}
-.badge{background:rgba(232,212,139,0.15);border:1px solid rgba(232,212,139,0.3);border-radius:12px;padding:4px 10px;font-size:10px;color:#e8d48b}
-.status-pending{background:#ffbe0b;color:#000;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:900}
-.status-approved{background:#00d68f;color:#000;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:900}
-.status-rejected{background:#ff3b30;color:white;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:900}
+.hidden{display:none!important}
+.msg{padding:12px;border-radius:12px;margin-top:12px;font-weight:700;text-align:center;font-size:13px}
+.ok{background:rgba(0,214,143,0.15);border:1px solid rgba(0,214,143,0.4);color:#00d68f}
+.err{background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.4);color:#ff8a8a}
+.warn{background:rgba(255,190,11,0.15);border:1px solid rgba(255,190,11,0.4);color:#ffbe0b}
 </style>
 </head>
-<body class="pb-28">
-<div class="max-w-md mx-auto p-3">
-<div class="card p-4 flex items-center justify-between mt-2">
-<div class="flex items-center gap-3">
-<div class="w-14 h-14 rounded-full bg-[#e8d48b] flex items-center justify-center text-black font-black text-xl" id="avatarLetter">F</div>
-<div><h1 class="font-black text-xl gold-text leading-5">Feminist-<br>Guard</h1><p class="text-[11px] opacity-70">Welcome, <span id="welcomeName">Guest</span></p><span class="badge">v27 FINAL FIX - NO JAM</span></div>
+<body>
+<div style="max-width:420px;margin:0 auto">
+<div class="card" style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;gap:12px;align-items:center">
+<div id="avatarLetter" style="width:52px;height:52px;border-radius:50%;background:#e8d48b;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px">F</div>
+<div><h1 class="gold" style="line-height:18px;font-size:20px">Feminist-<br>Guard</h1><p style="font-size:11px;opacity:0.7">Welcome, <span id="welcomeName">Guest</span></p><span class="badge">v28 ULTRA LIGHT - NO JAM - INSTANT</span></div>
 </div>
-<div class="flex flex-col items-end gap-1"><div class="bg-emerald-400 text-black text-[10px] font-black px-3 py-2 rounded-full" id="activeBadge">GUEST</div><button id="logoutBtn" onclick="logout()" class="hidden text-[10px] bg-white/10 px-3 py-1.5 rounded-full">Logout</button></div>
+<div style="text-align:right"><div id="activeBadge" style="background:#00d68f;color:#000;font-size:10px;font-weight:900;padding:6px 10px;border-radius:20px">GUEST</div><button id="logoutBtn" onclick="logout()" class="hidden" style="margin-top:6px;background:rgba(255,255,255,0.1);border:none;color:white;padding:6px 10px;border-radius:20px;font-size:10px">Logout</button></div>
 </div>
-<div id="ownerCard" class="card p-4 mt-4 hidden">
-<h2 class="text-center font-black text-lg gold-text">🔒 OWNER ONLY 0672739660 — PAYMENT APPROVAL</h2>
-<div class="grid grid-cols-2 gap-3 mt-3">
-<div class="card p-3 text-center"><p class="text-2xl font-black gold-text" id="totalVisitors">0</p><p class="text-[10px]">TOTAL</p></div>
-<div class="card p-3 text-center"><p class="text-2xl font-black text-yellow-400" id="pendingCount">0</p><p class="text-[10px]">PENDING</p></div>
-<div class="card p-3 text-center"><p class="text-2xl font-black text-emerald-400" id="paidCount">0</p><p class="text-[10px]">APPROVED</p></div>
-<div class="card p-3 text-center"><p class="text-2xl font-black text-pink-400" id="notPaidCount">0</p><p class="text-[10px]">REJECTED</p></div>
+<div id="ownerCard" class="card hidden">
+<h2 class="gold" style="text-align:center">🔒 OWNER 0672739660 — PAYMENT APPROVAL</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+<div class="card" style="text-align:center;margin:0"><p id="totalVisitors" class="gold" style="font-size:22px">0</p><p style="font-size:10px">TOTAL</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="pendingCount" style="font-size:22px;color:#ffbe0b;font-weight:900">0</p><p style="font-size:10px">PENDING</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="paidCount" style="font-size:22px;color:#00d68f;font-weight:900">0</p><p style="font-size:10px">APPROVED</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="notPaidCount" style="font-size:22px;color:#ff7aa2;font-weight:900">0</p><p style="font-size:10px">REJECTED</p></div>
 </div>
-<div class="card p-3 mt-3 bg-yellow-500/10">
-<p class="text-[10px]"><b>Verify voucher:</b> Dial *120*1123# or Flash app → Enter PIN → Check if R50 valid & unused → Then Approve/Reject</p>
-</div>
-<h3 class="font-black text-sm gold-text mt-3">💳 PENDING PAYMENTS</h3>
-<div id="pendingPaymentsList" class="mt-2 space-y-2 max-h-96 overflow-auto"></div>
-<button onclick="loadRecords()" class="w-full mt-3 card p-3 text-xs">🔄 Refresh</button>
-<div id="recordsList" class="mt-2 text-xs space-y-1 max-h-32 overflow-auto"></div>
-<div class="flex gap-2 mt-3">
-<button onclick="clearAllStorage()" class="flex-1 card p-3 text-xs bg-red-500/10">🗑️ Clear Full Storage (Fix Jam)</button>
-<button onclick="fixStorage()" class="flex-1 card p-3 text-xs bg-emerald-500/10">🔧 Fix Storage Quota</button>
+<div class="card" style="background:rgba(255,190,11,0.1);margin-top:10px"><p style="font-size:10px"><b>Verify voucher:</b> Dial *120*1123# → Enter PIN → Check if R50 valid & unused → Approve/Reject</p></div>
+<h3 class="gold" style="margin-top:12px;font-size:13px">💳 PENDING PAYMENTS</h3>
+<div id="pendingPaymentsList" style="margin-top:8px;max-height:380px;overflow:auto"></div>
+<button onclick="loadRecords()" class="card" style="width:100%;margin-top:8px;padding:10px;font-size:12px">🔄 Refresh Records</button>
+<div id="recordsList" style="margin-top:8px;font-size:11px;max-height:120px;overflow:auto"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<button onclick="clearAllStorage()" style="flex:1;background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.3);color:white;padding:10px;border-radius:12px;font-size:11px">🗑️ Clear Storage</button>
+<button onclick="fixStorage()" style="flex:1;background:rgba(0,214,143,0.15);border:1px solid rgba(0,214,143,0.3);color:white;padding:10px;border-radius:12px;font-size:11px">🔧 Fix Quota</button>
 </div>
 </div>
-<div id="authView" class="card p-5 mt-6">
-<div class="text-center"><h2 class="font-black text-xl gold-text">Feminist Guard — PRO</h2><p class="text-xs opacity-70">Private to YOU — v27 Final Fix — No Jam</p></div>
-<div class="flex gap-2 mt-4">
-<button id="tabCreate" onclick="switchAuth('create')" class="flex-1 p-3 rounded-xl tab-active font-black text-sm">➕ Create Account</button>
-<button id="tabLogin" onclick="switchAuth('login')" class="flex-1 p-3 rounded-xl card font-bold text-sm">🔑 Login</button>
-<button id="tabRecover" onclick="switchAuth('recover')" class="flex-1 p-3 rounded-xl card font-bold text-sm">♻️ Recover</button>
+<div id="authView" class="card" style="margin-top:16px">
+<div style="text-align:center"><h2 class="gold" style="font-size:20px">Feminist Guard — PRO</h2><p style="font-size:11px;opacity:0.6">v28 Ultra Light — No External — Instant — No Jam</p></div>
+<div style="display:flex;gap:8px;margin-top:14px">
+<button id="tabCreate" onclick="switchAuth('create')" class="tab tab-active">➕ Create Account</button>
+<button id="tabLogin" onclick="switchAuth('login')" class="tab">🔑 Login</button>
+<button id="tabRecover" onclick="switchAuth('recover')" class="tab">♻️ Recover</button>
 </div>
-<div id="createForm" class="mt-5">
-<h3 class="font-black text-sm gold-text">CREATE YOUR PRIVATE ACCOUNT</h3>
-<p class="text-[10px] opacity-60">Professional — No e.g — Instant offline — No jam</p>
-<input id="regName" placeholder="Full Name *" class="w-full p-4 rounded-xl mt-3">
-<input id="regUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-2">
-<input id="regPhone" placeholder="Phone *" type="tel" class="w-full p-4 rounded-xl mt-2">
-<input id="regEmail" placeholder="Email (optional)" class="w-full p-4 rounded-xl mt-2">
-<input id="regPin" placeholder="Create 4-digit PIN *" type="password" maxlength="4" inputmode="numeric" class="w-full p-4 rounded-xl mt-2">
-<input id="regPinConfirm" placeholder="Confirm PIN *" type="password" maxlength="4" inputmode="numeric" class="w-full p-4 rounded-xl mt-2">
-<div class="flex items-center gap-2 mt-3"><input type="checkbox" id="terms" class="w-4 h-4"><label for="terms" class="text-[10px]">I agree my data is private</label></div>
-<button id="createBtn" type="button" onclick="registerFull()" class="pink-btn w-full p-4 rounded-xl mt-4 font-black text-lg">➕ Create Account → Activate 31 Days</button>
-<p class="text-[9px] opacity-50 text-center mt-2">If button jammed before, v27 fixes it — Click once — Instant</p>
+<div id="createForm" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">CREATE YOUR PRIVATE ACCOUNT</h3>
+<p style="font-size:10px;opacity:0.6">Professional — No e.g — Works even if storage full</p>
+<input id="regName" placeholder="Full Name *">
+<input id="regUser" placeholder="Username *">
+<input id="regPhone" placeholder="Phone * — e.g. 0672739660" type="tel">
+<input id="regEmail" placeholder="Email (optional)">
+<input id="regPin" placeholder="Create 4-digit PIN *" type="password" maxlength="4" inputmode="numeric">
+<input id="regPinConfirm" placeholder="Confirm PIN *" type="password" maxlength="4" inputmode="numeric">
+<div style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="terms" style="width:18px;height:18px"><label for="terms" style="font-size:11px">I agree my data is private</label></div>
+<button id="createBtn" type="button" onclick="registerFull()" class="pink" style="margin-top:14px">➕ Create Account → Activate 31 Days</button>
+<p style="font-size:9px;opacity:0.5;text-align:center;margin-top:6px">v28 — Click once — Instant — No external scripts to block</p>
 </div>
-<div id="loginForm" class="mt-5 hidden">
-<h3 class="font-black text-sm gold-text">LOGIN TO YOUR PRIVATE ACCOUNT</h3>
-<input id="loginUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-3">
-<input id="loginPhone" placeholder="Phone *" type="tel" class="w-full p-4 rounded-xl mt-2">
-<input id="loginPin" placeholder="Vault PIN *" type="password" maxlength="4" inputmode="numeric" class="w-full p-4 rounded-xl mt-2">
-<button id="loginBtn" type="button" onclick="loginFull()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black text-lg">🔑 Login → Load My Private Data</button>
-<p class="text-[9px] opacity-50 text-center mt-2">Offline-first — Instant — No jam</p>
+<div id="loginForm" class="hidden" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">LOGIN TO YOUR PRIVATE ACCOUNT</h3>
+<input id="loginUser" placeholder="Username *">
+<input id="loginPhone" placeholder="Phone * — e.g. 0672739660" type="tel">
+<input id="loginPin" placeholder="Vault PIN * (optional)" type="password" maxlength="4" inputmode="numeric">
+<button id="loginBtn" type="button" onclick="loginFull()" class="goldbtn" style="margin-top:14px">🔑 Login → Load My Private Data</button>
+<p style="font-size:9px;opacity:0.5;text-align:center;margin-top:6px">Offline-first — Instant — No jam — Owner 0672739660 always works</p>
 </div>
-<div id="recoverForm" class="mt-5 hidden">
-<h3 class="font-black text-sm gold-text">RECOVER YOUR ACCOUNT</h3>
-<input id="recoverPhone" placeholder="Phone *" class="w-full p-4 rounded-xl mt-3">
-<input id="recoverUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-2">
-<button id="recoverBtn" type="button" onclick="recoverAccount()" class="card w-full p-4 rounded-xl mt-4 font-bold">♻️ Recover Account</button>
+<div id="recoverForm" class="hidden" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">RECOVER YOUR ACCOUNT</h3>
+<input id="recoverPhone" placeholder="Phone *">
+<input id="recoverUser" placeholder="Username *">
+<button onclick="recoverAccount()" class="card" style="width:100%;margin-top:10px;padding:14px;font-weight:800">♻️ Recover Account</button>
 </div>
-<p id="authStatus" class="text-sm mt-4 text-center font-bold p-3 rounded-xl"></p>
-<div class="card p-3 mt-4 bg-black/30">
-<p class="text-[10px] font-bold">🔧 If still jammed:</p>
-<button onclick="clearAllStorage()" class="w-full mt-2 card p-2 text-xs bg-red-500/20">🗑️ Clear Storage & Try Again (Fixes Jam)</button>
-<p class="text-[9px] opacity-50 mt-1">This clears Vault photos/videos that fill phone storage and block Create Account</p>
+<div id="authStatus"></div>
+<div class="card" style="background:rgba(0,0,0,0.25);margin-top:12px">
+<p style="font-size:11px;font-weight:800">🔧 If still jammed:</p>
+<button onclick="clearAllStorage()" class="card" style="width:100%;margin-top:8px;padding:10px;background:rgba(255,59,48,0.15);font-size:12px">🗑️ Clear Storage & Try Again (Fixes Jam)</button>
+<p style="font-size:9px;opacity:0.5;margin-top:6px">This clears old Vault photos/videos that fill phone storage and block Create Account — Accounts are kept unless you choose clear everything</p>
 </div>
 </div>
 <div id="homeView" class="hidden">
-<div class="mt-2 card p-3 bg-emerald-500/10 flex justify-between items-center"><p class="text-xs font-black text-emerald-300">✅ ACTIVE — <span id="expiryDays">31</span> Days — v27 FIXED</p><span class="bg-emerald-400 text-black text-[9px] font-black px-2 py-1 rounded-full" id="paymentBadge">ACTIVE</span></div>
-<h2 class="mt-4 font-black text-lg">Dashboard</h2>
-<div class="grid grid-cols-2 gap-3 mt-3">
-<a href="tel:10111" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🚓 SAPS 10111</a>
-<a href="tel:112" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🆘 112 FREE</a>
+<div class="card" style="background:rgba(0,214,143,0.1);display:flex;justify-content:space-between;align-items:center"><p style="font-size:12px;font-weight:900;color:#00d68f">✅ ACTIVE — <span id="expiryDays">31</span> Days — v28 ULTRA</p><span id="paymentBadge" style="background:#00d68f;color:#000;font-size:9px;font-weight:900;padding:4px 8px;border-radius:20px">ACTIVE</span></div>
+<h2 style="margin-top:14px;font-weight:900;font-size:18px">Dashboard</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+<a href="tel:10111" class="pink" style="display:block;text-align:center;padding:12px;border-radius:20px;text-decoration:none;font-size:12px">🚓 SAPS 10111</a>
+<a href="tel:112" class="pink" style="display:block;text-align:center;padding:12px;border-radius:20px;text-decoration:none;font-size:12px">🆘 112 FREE</a>
 </div>
-<div class="grid grid-cols-2 gap-3 mt-4">
-<div onclick="showTab('sos')" class="card p-5 text-center"><p class="text-3xl">🆘</p><p class="font-black mt-2 text-sm">SOS</p><p class="text-[9px] opacity-60">SMS+WhatsApp+LIVE</p></div>
-<div onclick="showTab('circle')" class="card p-5 text-center"><p class="text-3xl">👥</p><p class="font-black mt-2 text-sm">CIRCLE</p><p class="text-xs gold-text"><span class="circleCount">0</span>/7</p></div>
-<div onclick="showTab('vault')" class="card p-5 text-center"><p class="text-3xl">🔒</p><p class="font-black mt-2 text-sm">VAULT</p><p class="text-xs gold-text"><span class="vaultCount">0</span></p></div>
-<div onclick="showTab('safe')" class="card p-5 text-center"><p class="text-3xl">📍</p><p class="font-black mt-2 text-sm">SAFE PLACES</p><p class="text-xs"><span id="safeCount">0</span></p></div>
-<div onclick="showTab('ai')" class="card p-5 text-center border-pink-400 border-2"><p class="text-3xl">💜</p><p class="font-black mt-2 text-sm">AI PRO</p></div>
-<div onclick="showTab('pay')" class="card p-5 text-center border-yellow-400 border-2"><p class="text-3xl">💳</p><p class="font-black mt-2 text-sm">PAY R50</p><p class="text-[9px] opacity-60" id="payStatusMini">Status: -</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+<div onclick="showTab('sos')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">🆘</p><p style="font-weight:900;margin-top:6px;font-size:13px">SOS</p><p style="font-size:9px;opacity:0.6">SMS+WhatsApp+LIVE</p></div>
+<div onclick="showTab('circle')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">👥</p><p style="font-weight:900;margin-top:6px;font-size:13px">CIRCLE</p><p class="gold" style="font-size:12px"><span class="circleCount">0</span>/7</p></div>
+<div onclick="showTab('vault')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">🔒</p><p style="font-weight:900;margin-top:6px;font-size:13px">VAULT</p><p class="gold" style="font-size:12px"><span class="vaultCount">0</span></p></div>
+<div onclick="showTab('safe')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">📍</p><p style="font-weight:900;margin-top:6px;font-size:13px">SAFE PLACES</p><p style="font-size:11px"><span id="safeCount">0</span></p></div>
+<div onclick="showTab('ai')" class="card" style="text-align:center;padding:18px;cursor:pointer;border:2px solid #ff2e63"><p style="font-size:28px">💜</p><p style="font-weight:900;margin-top:6px;font-size:13px">AI PRO</p></div>
+<div onclick="showTab('pay')" class="card" style="text-align:center;padding:18px;cursor:pointer;border:2px solid #e8d48b"><p style="font-size:28px">💳</p><p style="font-weight:900;margin-top:6px;font-size:13px">PAY R50</p><p style="font-size:9px;opacity:0.6" id="payStatusMini">Status: -</p></div>
 </div>
-<div class="card p-3 mt-6 flex justify-between items-center"><div><p class="text-[10px] opacity-60">Logged in as</p><p class="font-black text-sm" id="loggedAs">-</p></div><button onclick="logout()" class="pink-btn px-5 py-2.5 rounded-full text-xs font-black">Logout</button></div>
+<div class="card" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center"><div><p style="font-size:10px;opacity:0.6">Logged in as</p><p style="font-weight:900;font-size:13px" id="loggedAs">-</p></div><button onclick="logout()" class="pink" style="width:auto;padding:10px 18px;border-radius:20px;font-size:12px">Logout</button></div>
 </div>
-<div id="sosView" class="hidden"><h2 class="mt-6 font-black text-lg text-center">🆘 HOLD SOS</h2><div class="card p-6 mt-4 text-center"><button onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" class="w-64 h-64 rounded-full bg-[#ff2e63] text-white font-black text-5xl mx-auto">SOS</button><div id="map" class="mt-4 hidden" style="height:200px;border-radius:16px"></div><p id="sosStatus" class="mt-4 text-xs text-left"></p></div></div>
-<div id="circleView" class="hidden"><h2 class="mt-6 font-black text-lg">👥 Circle 7 Private</h2><div id="circleInputs" class="grid gap-2 mt-4"></div><button onclick="saveCircle()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">💾 Save Circle</button><p id="circleStatus" class="text-xs mt-2 text-center"></p></div>
-<div id="vaultView" class="hidden"><h2 class="mt-6 font-black text-lg">🔒 Vault — Private + PIN</h2><div class="card p-6 mt-4" id="vaultLock"><input id="vaultPinInput" type="password" placeholder="Enter PIN *" maxlength="4" class="w-full p-4 rounded-xl"><button onclick="unlockVault()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">🔓 Unlock</button><p id="vaultPinStatus" class="text-xs mt-2"></p></div><div class="card p-4 mt-4 hidden" id="vaultContent"><input type="file" id="vaultFile" class="hidden" onchange="handleFile(event)"><div class="grid grid-cols-3 gap-2"><button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs">📷 Photo</button><button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs">🎥 Video</button><button onclick="startRecording()" class="card p-3 text-xs" id="recordBtn">🎙️ Audio</button></div><textarea id="vaultNote" placeholder="Write private note..." class="w-full p-3 rounded-xl mt-3 h-20"></textarea><button onclick="saveVault()" class="gold-btn w-full p-3 rounded-xl mt-3 font-black">💾 Save</button><div id="vaultList" class="mt-4 space-y-2 text-xs"></div></div></div>
-<div id="safeView" class="hidden"><h2 class="mt-6 font-black text-lg">📍 Safe Places</h2><div class="card p-4 mt-4"><div id="safeMap" style="height:200px;border-radius:16px"></div><input id="safeName" placeholder="Place Name" class="w-full p-3 rounded-xl mt-3"><input id="safeAddress" placeholder="Address" class="w-full p-3 rounded-xl mt-2"><div class="flex gap-2 mt-2"><button onclick="addSafePlace()" class="gold-btn flex-1 p-3 rounded-xl text-xs">➕ Add</button><button onclick="useCurrentLocation()" class="card flex-1 p-3 rounded-xl text-xs">📍 LIVE Loc</button></div><div id="safeList" class="mt-4 space-y-2 text-xs"></div></div></div>
-<div id="aiView" class="hidden"><h2 class="mt-6 font-black text-lg">💜 Guard Companion v27</h2><div class="card p-3 mt-4 h-[420px] overflow-auto flex flex-col" id="aiChat"><div class="bg-black/30 p-3 rounded-xl text-sm">💜 Hey Queen! v27 FINAL FIX — No jam — Professional clean — Login instant</div></div><div class="flex gap-2 mt-3"><input id="aiInput" placeholder="How are you feeling?..." class="flex-1 p-4 rounded-xl"><button onclick="sendAI()" class="gold-btn px-8 rounded-xl font-black">Send</button></div></div>
+<div id="sosView" class="hidden"><h2 style="margin-top:18px;font-weight:900;text-align:center">🆘 HOLD SOS</h2><div class="card" style="text-align:center;padding:20px;margin-top:10px"><button onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" style="width:200px;height:200px;border-radius:50%;background:#ff2e63;color:white;border:none;font-weight:900;font-size:42px">SOS</button><p id="sosStatus" style="margin-top:14px;font-size:12px;text-align:left"></p></div></div>
+<div id="circleView" class="hidden"><h2 style="margin-top:18px;font-weight:900">👥 Circle 7 Private</h2><div id="circleInputs" style="display:grid;gap:8px;margin-top:10px"></div><button onclick="saveCircle()" class="goldbtn" style="margin-top:12px">💾 Save Circle</button><p id="circleStatus" style="font-size:12px;text-align:center;margin-top:6px"></p></div>
+<div id="vaultView" class="hidden"><h2 style="margin-top:18px;font-weight:900">🔒 Vault — Private + PIN</h2><div class="card" id="vaultLock" style="padding:20px;margin-top:10px"><input id="vaultPinInput" type="password" placeholder="Enter PIN *" maxlength="4"><button onclick="unlockVault()" class="goldbtn" style="margin-top:10px">🔓 Unlock</button><p id="vaultPinStatus" style="font-size:12px;margin-top:6px"></p></div><div class="card hidden" id="vaultContent" style="padding:16px;margin-top:10px"><textarea id="vaultNote" placeholder="Write private note..." style="height:70px"></textarea><button onclick="saveVault()" class="goldbtn" style="margin-top:8px">💾 Save Note</button><div id="vaultList" style="margin-top:12px;font-size:12px"></div></div></div>
+<div id="safeView" class="hidden"><h2 style="margin-top:18px;font-weight:900">📍 Safe Places</h2><div class="card" style="margin-top:10px"><input id="safeName" placeholder="Place Name"><input id="safeAddress" placeholder="Address"><div style="display:flex;gap:8px;margin-top:8px"><button onclick="addSafePlace()" class="goldbtn" style="flex:1;padding:10px;font-size:12px">➕ Add</button><button onclick="useCurrentLocation()" class="card" style="flex:1;padding:10px;font-size:12px">📍 LIVE Loc</button></div><div id="safeList" style="margin-top:12px;font-size:12px"></div></div></div>
+<div id="aiView" class="hidden"><h2 style="margin-top:18px;font-weight:900">💜 Guard Companion v28</h2><div id="aiChat" class="card" style="margin-top:10px;height:340px;overflow:auto;display:flex;flex-direction:column;gap:8px"><div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;font-size:13px">💜 Hey Queen! v28 Ultra Light — No external scripts — Buttons work instant — No jam</div></div><div style="display:flex;gap:8px;margin-top:10px"><input id="aiInput" placeholder="How are you feeling?..."><button onclick="sendAI()" class="goldbtn" style="width:auto;padding:12px 18px">Send</button></div></div>
 <div id="payView" class="hidden">
-<h2 class="mt-6 font-black text-lg">💳 Pay R50 — v27 Verification</h2>
-<div class="card p-4 mt-4 bg-emerald-500/10">
-<p class="text-xs font-black text-emerald-300">✅ ACTIVE — Logged in as <span id="payLoggedAs">-</span></p>
-<p class="text-[10px] opacity-70">Expiry: <span id="payExpiry">-</span> | Status: <span id="payStatusText">-</span></p>
+<h2 style="margin-top:18px;font-weight:900">💳 Pay R50 — v28 Verification</h2>
+<div class="card" style="background:rgba(0,214,143,0.1);margin-top:10px"><p style="font-size:12px;font-weight:900;color:#00d68f">✅ ACTIVE — Logged in as <span id="payLoggedAs">-</span></p><p style="font-size:10px;opacity:0.7">Expiry: <span id="payExpiry">-</span> | Status: <span id="payStatusText">-</span></p></div>
+<div class="card" style="margin-top:10px">
+<h3 class="gold" style="font-size:13px">💳 SUBMIT VOUCHER FOR APPROVAL</h3>
+<label style="font-size:10px;font-weight:800;margin-top:10px;display:block">Voucher Type *</label>
+<select id="voucherType"><option value="Flash">Flash / 1Voucher / OTT</option><option value="OTT">OTT Voucher</option><option value="Kazang">Kazang</option><option value="Other">Other</option></select>
+<label style="font-size:10px;font-weight:800;margin-top:10px;display:block">Voucher PIN / Code * — e.g. 1263336373</label>
+<input id="flashPin" placeholder="Voucher PIN — e.g., 1263336373">
+<label style="font-size:10px;font-weight:800;margin-top:10px;display:block">Amount *</label>
+<input id="payAmount" value="R50" placeholder="R50">
+<label style="font-size:10px;font-weight:800;margin-top:10px;display:block">Username * (auto)</label>
+<input id="payUsername" placeholder="Username *">
+<button onclick="payNow()" class="goldbtn" style="margin-top:14px">💳 Submit Voucher → Send to Owner</button>
+<p id="payStatus" style="font-size:12px;text-align:center;font-weight:700;margin-top:8px"></p>
 </div>
-<div class="card p-4 mt-4">
-<h3 class="font-black text-sm gold-text">💳 SUBMIT VOUCHER FOR APPROVAL</h3>
-<label class="text-[10px] font-bold mt-3 block">Voucher Type *</label>
-<select id="voucherType" class="w-full p-4 rounded-xl mt-1">
-<option value="Flash">Flash / 1Voucher / OTT</option>
-<option value="OTT">OTT Voucher</option>
-<option value="Kazang">Kazang</option>
-<option value="Other">Other</option>
-</select>
-<label class="text-[10px] font-bold mt-3 block">Voucher PIN / Code *</label>
-<input id="flashPin" placeholder="Voucher PIN — e.g., 1263336373" class="w-full p-4 rounded-xl mt-1">
-<label class="text-[10px] font-bold mt-3 block">Amount *</label>
-<input id="payAmount" value="R50" placeholder="R50" class="w-full p-4 rounded-xl mt-1">
-<label class="text-[10px] font-bold mt-3 block">Username * (auto)</label>
-<input id="payUsername" placeholder="Username *" class="w-full p-4 rounded-xl mt-1">
-<label class="text-[10px] font-bold mt-3 block">Upload Proof (optional)</label>
-<input type="file" id="proofFile" accept="image/*" class="w-full p-2 rounded-xl mt-1 text-xs" onchange="handleProof(event)">
-<div id="proofPreview" class="mt-2"></div>
-<button onclick="payNow()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">💳 Submit Voucher → Send to Owner</button>
-<p id="payStatus" class="text-xs mt-2 text-center font-bold"></p>
-</div>
-<div class="card p-4 mt-4">
-<h3 class="font-black text-sm gold-text">📋 My Payment History</h3>
-<div id="myPaymentsList" class="mt-2 space-y-2 max-h-64 overflow-auto text-xs"></div>
-</div>
-<div class="card p-4 mt-4"><button onclick="logout()" class="w-full p-4 rounded-xl bg-red-500/20 border border-red-500/30 text-xs font-black">🚪 Logout</button></div>
+<div class="card" style="margin-top:10px"><h3 class="gold" style="font-size:13px">📋 My Payment History</h3><div id="myPaymentsList" style="margin-top:8px;max-height:240px;overflow:auto;font-size:11px"></div></div>
+<div class="card" style="margin-top:10px"><button onclick="logout()" style="width:100%;padding:12px;border-radius:12px;background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.3);color:white;font-size:12px;font-weight:900">🚪 Logout</button></div>
 </div>
 </div>
-<div class="bottom-nav">
-<div class="nav-item nav-active" onclick="showTab('home')" id="navHome">🏠<br>Home</div>
-<div class="nav-item" onclick="showTab('sos')" id="navSos">🆘<br>SOS</div>
-<div class="nav-item" onclick="showTab('circle')" id="navCircle">👥<br>Circle</div>
-<div class="nav-item" onclick="showTab('vault')" id="navVault">🔒<br>Vault</div>
-<div class="nav-item" onclick="showTab('safe')" id="navSafe">📍<br>Safe</div>
-<div class="nav-item" onclick="showTab('ai')" id="navAi">💜<br>AI</div>
-<div class="nav-item" onclick="showTab('pay')" id="navPay">💳<br>Pay</div>
+<div class="bottom">
+<div class="nav nav-active" onclick="showTab('home')" id="navHome">🏠<br>Home</div>
+<div class="nav" onclick="showTab('sos')" id="navSos">🆘<br>SOS</div>
+<div class="nav" onclick="showTab('circle')" id="navCircle">👥<br>Circle</div>
+<div class="nav" onclick="showTab('vault')" id="navVault">🔒<br>Vault</div>
+<div class="nav" onclick="showTab('safe')" id="navSafe">📍<br>Safe</div>
+<div class="nav" onclick="showTab('ai')" id="navAi">💜<br>AI</div>
+<div class="nav" onclick="showTab('pay')" id="navPay">💳<br>Pay</div>
 </div>
 <script>
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycby3RV99mK6kQXzTFwc9gRQlLt-A8kUQ-pbrwiwkeLZI55ljnpqyrQaxljxr_hG5V_Wb/exec";
-let holdTimer=null; 
-let vaultItems=JSON.parse(localStorage.getItem('vault')||'[]'); 
-let circleData=JSON.parse(localStorage.getItem('circle')||'[]'); 
-let safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]');
-let allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
-let payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');
-let currentLat=-25.5740711, currentLng=28.0561643, map, safeMap, mediaRecorder, audioChunks=[], proofData='';
+let holdTimer=null;
+let vaultItems=[]; let circleData=[]; let safePlaces=[]; let allUsers=[]; let payments=[];
+let currentLat=-25.5740711, currentLng=28.0561643;
+try{vaultItems=JSON.parse(localStorage.getItem('vault')||'[]')}catch(e){vaultItems=[]}
+try{circleData=JSON.parse(localStorage.getItem('circle')||'[]')}catch(e){circleData=[]}
+try{safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]')}catch(e){safePlaces=[]}
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
 function fixStorage(){
-  try{
-    const status=document.getElementById('authStatus');
-    vaultItems=[];
-    payments=payments.map(p=>({...p,proofData:''}));
-    localStorage.setItem('vault','[]');
-    localStorage.setItem('fg_payments',JSON.stringify(payments));
-    status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl text-emerald-300">✅ Fixed! Cleared heavy photos/videos that block storage — Now try Create Account again — Instant!</div>';
-  }catch(e){document.getElementById('authStatus').innerText='❌ '+e.message;}
+  const status=document.getElementById('authStatus');
+  vaultItems=[]; payments=payments.map(p=>{let np={...p}; delete np.proofData; return np});
+  try{localStorage.setItem('vault','[]')}catch(e){}
+  try{localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(e){localStorage.setItem('fg_payments','[]')}
+  try{localStorage.setItem('safePlaces','[]')}catch(e){}
+  status.innerHTML='<div class="msg ok">✅ Fixed! Cleared heavy photos/videos that block storage — Now try Create Account again — Instant!</div>';
 }
 function clearAllStorage(){
-  if(!confirm('Clear ALL storage? This will delete Vault photos/videos and payments proof but fix jam.')){return;}
+  if(!confirm('Clear storage that blocks jam? OK=Clear Vault+Payments proof (keep accounts), Cancel=Clear EVERYTHING')){return}
+  let keepAccounts=confirm('OK=Keep accounts (recommended), Cancel=Clear EVERYTHING including accounts');
   try{
-    if(confirm('Clear only Vault & Payments proof (keep accounts)? OK=keep accounts, Cancel=clear everything')){
-      localStorage.setItem('vault','[]');
-      localStorage.setItem('fg_payments','[]');
-      localStorage.setItem('safePlaces','[]');
+    if(keepAccounts){
+      localStorage.setItem('vault','[]'); localStorage.setItem('fg_payments','[]'); localStorage.setItem('safePlaces','[]');
       vaultItems=[]; safePlaces=[]; payments=[];
-      document.getElementById('authStatus').innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Cleared Vault & Payments proof — Accounts kept — Now Create Account works!</div>';
+      document.getElementById('authStatus').innerHTML='<div class="msg ok">✅ Cleared Vault & Payments proof — Accounts kept — Now Create Account works!</div>';
     }else{
-      localStorage.clear();
-      vaultItems=[]; circleData=[]; safePlaces=[]; allUsers=[]; payments=[];
-      document.getElementById('authStatus').innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Cleared EVERYTHING — Fresh start — Now Create Account!</div>';
+      localStorage.clear(); vaultItems=[]; circleData=[]; safePlaces=[]; allUsers=[]; payments=[];
+      document.getElementById('authStatus').innerHTML='<div class="msg ok">✅ Cleared EVERYTHING — Fresh start — Now Create Account!</div>';
     }
-    setTimeout(()=>{location.reload();},1000);
-  }catch(e){alert(e.message);}
+  }catch(e){alert('Error: '+e.message)}
+  setTimeout(()=>{location.reload()},800);
 }
 function switchAuth(w){
   document.getElementById('createForm').classList.toggle('hidden',w!=='create');
   document.getElementById('loginForm').classList.toggle('hidden',w!=='login');
   document.getElementById('recoverForm').classList.toggle('hidden',w!=='recover');
-  document.getElementById('tabCreate').className=w==='create'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
-  document.getElementById('tabLogin').className=w==='login'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
-  document.getElementById('tabRecover').className=w==='recover'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
-  document.getElementById('authStatus').innerText='';
+  document.getElementById('tabCreate').className=w==='create'?'tab tab-active':'tab';
+  document.getElementById('tabLogin').className=w==='login'?'tab tab-active':'tab';
+  document.getElementById('tabRecover').className=w==='recover'?'tab tab-active':'tab';
+  document.getElementById('authStatus').innerHTML='';
 }
 function showTab(t){
   const userStr=localStorage.getItem('fg_user');
-  if(!userStr){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));return;}
+  if(!userStr){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));return}
   document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));
   document.getElementById('homeView').classList.add('hidden');
-  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('nav-active'));
+  document.querySelectorAll('.nav').forEach(e=>e.classList.remove('nav-active'));
   const mapIds={home:'homeView',sos:'sosView',circle:'circleView',vault:'vaultView',safe:'safeView',ai:'aiView',pay:'payView'};
   if(mapIds[t]) document.getElementById(mapIds[t]).classList.remove('hidden');
   const nav=document.getElementById('nav'+t.charAt(0).toUpperCase()+t.slice(1));
@@ -218,12 +202,11 @@ function showTab(t){
   if(t==='circle') renderCircle();
   if(t==='vault') renderVault();
   if(t==='safe') renderSafe();
-  if(t==='sos') initMap();
   if(t==='pay') renderMyPayments();
 }
 function checkLogin(){
   const saved=localStorage.getItem('fg_user');
-  if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false;}
+  if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false}
   try{
     const u=JSON.parse(saved);
     document.getElementById('authView').classList.add('hidden');
@@ -245,141 +228,141 @@ function checkLogin(){
     if(isOwner){loadRecords(); renderPendingPayments();}
     renderCircle(); renderVault(); renderSafe(); renderMyPayments();
     return true;
-  }catch(e){document.getElementById('authStatus').innerText='Error: '+e.message; return false}
+  }catch(e){document.getElementById('authStatus').innerHTML='<div class="msg err">Error: '+e.message+'</div>'; return false}
 }
 function registerFull(){
   const status=document.getElementById('authStatus');
   const btn=document.getElementById('createBtn');
+  const n=document.getElementById('regName').value.trim();
+  const u=document.getElementById('regUser').value.trim();
+  const p=document.getElementById('regPhone').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pin=document.getElementById('regPin').value.trim();
+  const pinC=document.getElementById('regPinConfirm').value.trim();
+  const terms=document.getElementById('terms').checked;
+  if(!n){status.innerHTML='<div class="msg err">❌ Enter Full Name *</div>'; return}
+  if(!u){status.innerHTML='<div class="msg err">❌ Enter Username *</div>'; return}
+  if(!p){status.innerHTML='<div class="msg err">❌ Enter Phone *</div>'; return}
+  if(!pin){status.innerHTML='<div class="msg err">❌ Enter PIN *</div>'; return}
+  if(pin!==pinC){status.innerHTML='<div class="msg err">❌ PINs do not match</div>'; return}
+  if(!terms){status.innerHTML='<div class="msg err">❌ Tick agree checkbox</div>'; return}
+  if(pin.length!==4){status.innerHTML='<div class="msg err">❌ PIN must be 4 digits</div>'; return}
+  btn.innerText='⏳ Creating...'; btn.disabled=true;
+  status.innerHTML='<div class="msg warn">⏳ Creating your private account... Instant offline...</div>';
+  const payload={fullName:n,username:u,phone:p,email:email,created:new Date().toLocaleDateString(),paid:'R50',paidStatus:'active',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin};
   try{
-    const n=document.getElementById('regName').value.trim();
-    const u=document.getElementById('regUser').value.trim();
-    const p=document.getElementById('regPhone').value.trim();
-    const email=document.getElementById('regEmail').value.trim();
-    const pin=document.getElementById('regPin').value.trim();
-    const pinC=document.getElementById('regPinConfirm').value.trim();
-    const terms=document.getElementById('terms').checked;
-    if(!n){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter Full Name *</div>'; return;}
-    if(!u){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter Username *</div>'; return;}
-    if(!p){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter Phone *</div>'; return;}
-    if(!pin){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter PIN *</div>'; return;}
-    if(pin!==pinC){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ PINs do not match</div>'; return;}
-    if(!terms){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Tick agree checkbox</div>'; return;}
-    if(pin.length!==4){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ PIN must be 4 digits</div>'; return;}
-    btn.innerText='⏳ Creating...'; btn.disabled=true;
-    status.innerHTML='<div class="bg-yellow-500/20 p-3 rounded-xl">⏳ Creating your private account... Instant offline...</div>';
-    const payload={fullName:n,username:u,phone:p,email:email,created:new Date().toLocaleDateString(),paid:'R50',paidStatus:'active',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin};
-    try{localStorage.setItem('fg_user',JSON.stringify(payload));}catch(e){localStorage.setItem('vault','[]');localStorage.setItem('fg_payments','[]');localStorage.setItem('safePlaces','[]');localStorage.setItem('fg_user',JSON.stringify(payload));}
-    try{localStorage.setItem('vaultPin',pin);}catch(e){}
-    try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];}
-    allUsers=allUsers.filter(x=>x.username.toLowerCase()!==u.toLowerCase()); allUsers.push(payload);
-    try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}catch(e){allUsers=allUsers.slice(-10);localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}
-    status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl text-emerald-300">✅ Created! Full Name: '+n+' | Username: '+u+' | Phone: '+p+' | Active 31 days until '+payload.expiry+' — Redirecting to Dashboard...</div>';
-    try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});}catch(e){}
-    setTimeout(()=>{btn.disabled=false;btn.innerText='➕ Create Account → Activate 31 Days';checkLogin();showTab('home');document.getElementById('authStatus').innerText='';},1200);
-  }catch(e){btn.disabled=false;btn.innerText='➕ Create Account → Activate 31 Days';status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Error: '+e.message+'<br><button onclick="clearAllStorage()" class="mt-2 gold-btn p-2 rounded text-xs">🗑️ Clear Storage & Try Again</button></div>';}
+    localStorage.setItem('fg_user',JSON.stringify(payload));
+  }catch(e){
+    try{localStorage.setItem('vault','[]');localStorage.setItem('fg_payments','[]');localStorage.setItem('safePlaces','[]');}catch(err){}
+    try{localStorage.setItem('fg_user',JSON.stringify(payload));}catch(err2){status.innerHTML='<div class="msg err">❌ Storage still full — Click Clear Storage below then try again<br>Error: '+err2.message+'</div>'; btn.disabled=false; btn.innerText='➕ Create Account → Activate 31 Days'; return}
+  }
+  try{localStorage.setItem('vaultPin',pin)}catch(e){}
+  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+  allUsers=allUsers.filter(x=>x.username.toLowerCase()!==u.toLowerCase()); allUsers.push(payload);
+  try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){try{allUsers=allUsers.slice(-10); localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(err){}}
+  status.innerHTML='<div class="msg ok">✅ Created! Full Name: '+n+' | Username: '+u+' | Phone: '+p+' | Active 31 days until '+payload.expiry+' — Redirecting...</div>';
+  try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{})}catch(e){}
+  setTimeout(()=>{btn.disabled=false; btn.innerText='➕ Create Account → Activate 31 Days'; checkLogin(); showTab('home'); document.getElementById('authStatus').innerHTML='';},900);
 }
 function loginFull(){
   const status=document.getElementById('authStatus'); const btn=document.getElementById('loginBtn');
-  try{
-    const u=document.getElementById('loginUser').value.trim(); const p=document.getElementById('loginPhone').value.trim(); const pin=document.getElementById('loginPin').value.trim();
-    if(!u){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter Username *</div>'; return;}
-    if(!p){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter Phone *</div>'; return;}
-    btn.innerText='⏳ Logging in...'; btn.disabled=true;
-    status.innerHTML='<div class="bg-yellow-500/20 p-3 rounded-xl">⏳ Logging in — Checking offline first — Instant...</div>';
-    try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];}
-    let found=allUsers.find(x=>x.username.toLowerCase()===u.toLowerCase() && x.phone.trim()===p.trim());
-    if(found){localStorage.setItem('fg_user',JSON.stringify(found)); if(pin) localStorage.setItem('vaultPin',pin); status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Welcome back, '+found.fullName+'! Offline login instant</div>'; setTimeout(()=>{btn.disabled=false;btn.innerText='🔑 Login → Load My Private Data';checkLogin();showTab('home');},800); return;}
-    if(p.includes('672739660') || u.toLowerCase()==='maranela'){const fallback={fullName:u,username:u,phone:p,created:new Date().toLocaleDateString(),paid:'R50',paidStatus:'active',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin||'1234'}; localStorage.setItem('fg_user',JSON.stringify(fallback)); if(pin) localStorage.setItem('vaultPin',pin); allUsers.push(fallback); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}catch(e){} status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Owner offline login — Welcome Maranela — Active 31 days</div>'; setTimeout(()=>{btn.disabled=false;checkLogin();showTab('home');},800); return;}
-    status.innerHTML='<div class="bg-yellow-500/20 p-3 rounded-xl">⏳ Not found offline — Checking Google Sheet (5 sec timeout)...</div>';
-    const controller=new AbortController(); const timeout=setTimeout(()=>controller.abort(),5000);
-    fetch(SCRIPT_URL,{signal:controller.signal}).then(r=>r.json()).then(data=>{clearTimeout(timeout); const foundSheet=data.find(d=>(d.username||'').toLowerCase()===u.toLowerCase()&&(d.phone||'').trim()===p.trim()); if(foundSheet){localStorage.setItem('fg_user',JSON.stringify(foundSheet)); if(pin) localStorage.setItem('vaultPin',pin); status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Welcome back — Google Sheet login</div>'; btn.disabled=false; checkLogin(); showTab('home');}else{status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Not found — Try Create Account — Offline instant — Users: '+allUsers.length+'</div>'; btn.disabled=false; btn.innerText='🔑 Login → Load My Private Data';}}).catch(e=>{clearTimeout(timeout); status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Google Sheet slow/offline — Error: '+e.message+'<br>✅ But you can Create Account offline instant — Works 100% offline<br><button onclick="switchAuth(\'create\')" class="mt-2 gold-btn p-2 rounded text-xs">➕ Go to Create Account</button></div>'; btn.disabled=false; btn.innerText='🔑 Login → Load My Private Data';});
-  }catch(e){btn.disabled=false;status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Error: '+e.message+'</div>';}
+  const u=document.getElementById('loginUser').value.trim(); const p=document.getElementById('loginPhone').value.trim(); const pin=document.getElementById('loginPin').value.trim();
+  if(!u){status.innerHTML='<div class="msg err">❌ Enter Username *</div>'; return}
+  if(!p){status.innerHTML='<div class="msg err">❌ Enter Phone *</div>'; return}
+  btn.innerText='⏳ Logging in...'; btn.disabled=true;
+  status.innerHTML='<div class="msg warn">⏳ Logging in — Checking offline first — Instant...</div>';
+  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+  let found=allUsers.find(x=>x.username.toLowerCase()===u.toLowerCase() && x.phone.trim()===p.trim());
+  if(found){localStorage.setItem('fg_user',JSON.stringify(found)); if(pin) try{localStorage.setItem('vaultPin',pin)}catch(e){}; status.innerHTML='<div class="msg ok">✅ Welcome back, '+found.fullName+'! Offline login instant</div>'; setTimeout(()=>{btn.disabled=false; btn.innerText='🔑 Login → Load My Private Data'; checkLogin(); showTab('home')},600); return}
+  if(p.includes('672739660') || u.toLowerCase()==='maranela'){const fallback={fullName:u,username:u,phone:p,created:new Date().toLocaleDateString(),paid:'R50',paidStatus:'active',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin||'1234'}; try{localStorage.setItem('fg_user',JSON.stringify(fallback))}catch(e){fixStorage(); localStorage.setItem('fg_user',JSON.stringify(fallback))} if(pin) try{localStorage.setItem('vaultPin',pin)}catch(e){}; allUsers.push(fallback); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){}; status.innerHTML='<div class="msg ok">✅ Owner offline login — Welcome Maranela — Active 31 days</div>'; setTimeout(()=>{btn.disabled=false; checkLogin(); showTab('home')},600); return}
+  status.innerHTML='<div class="msg err">❌ Not found offline — '+allUsers.length+' users saved — Try Create Account first — Users: '+allUsers.map(x=>x.username+'('+x.phone+')').join(', ')+'<br><button onclick="switchAuth(\'create\')" style="margin-top:8px;background:#e8d48b;color:#000;border:none;padding:8px 12px;border-radius:8px;font-weight:900">➕ Go Create Account</button></div>';
+  btn.disabled=false; btn.innerText='🔑 Login → Load My Private Data';
 }
 function recoverAccount(){
   const phone=document.getElementById('recoverPhone').value.trim(); const user=document.getElementById('recoverUser').value.trim(); const status=document.getElementById('authStatus');
-  if(!phone||!user){status.innerHTML='<div class="bg-red-500/20 p-3 rounded-xl">❌ Enter phone & username</div>'; return;}
-  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];}
+  if(!phone||!user){status.innerHTML='<div class="msg err">❌ Enter phone & username</div>'; return}
+  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
   let found=allUsers.find(x=>x.username.toLowerCase()===user.toLowerCase() && x.phone.trim()===phone.trim());
-  if(found){localStorage.setItem('fg_user',JSON.stringify(found)); status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Recovered offline — Welcome back, '+found.fullName+'</div>'; setTimeout(()=>{checkLogin();showTab('home');},800);}else{status.innerHTML='<div class="bg-yellow-500/20 p-3 rounded-xl">⏳ Not found offline — Trying login...</div>'; document.getElementById('loginUser').value=user; document.getElementById('loginPhone').value=phone; switchAuth('login'); loginFull();}
+  if(found){localStorage.setItem('fg_user',JSON.stringify(found)); status.innerHTML='<div class="msg ok">✅ Recovered offline — Welcome back, '+found.fullName+'</div>'; setTimeout(()=>{checkLogin(); showTab('home')},600)}else{status.innerHTML='<div class="msg warn">⏳ Not found offline — Trying login...</div>'; document.getElementById('loginUser').value=user; document.getElementById('loginPhone').value=phone; switchAuth('login'); loginFull()}
 }
-function logout(){localStorage.removeItem('fg_user');document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('ownerCard').classList.add('hidden');document.getElementById('logoutBtn').classList.add('hidden');document.getElementById('welcomeName').innerText='Guest';document.getElementById('activeBadge').innerText='GUEST';document.getElementById('authStatus').innerHTML='<div class="bg-black/30 p-3 rounded-xl">Logged out — Offline accounts saved ('+allUsers.length+' users) — Login instant</div>';switchAuth('login');}
-function handleProof(e){const file=e.target.files[0]; if(!file) return; const reader=new FileReader(); reader.onload=(ev)=>{proofData=ev.target.result; document.getElementById('proofPreview').innerHTML=`<img src="${proofData}" class="w-full h-32 object-cover rounded-xl mt-2"><p class="text-[10px] text-emerald-300">✅ Proof attached</p>`;}; reader.readAsDataURL(file);}
+function logout(){localStorage.removeItem('fg_user');document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('ownerCard').classList.add('hidden');document.getElementById('logoutBtn').classList.add('hidden');document.getElementById('welcomeName').innerText='Guest';document.getElementById('activeBadge').innerText='GUEST';document.getElementById('authStatus').innerHTML='<div class="msg" style="background:rgba(0,0,0,0.2)">Logged out — Offline accounts saved ('+allUsers.length+' users) — Login instant</div>';switchAuth('login')}
 function payNow(){
   const flashPin=document.getElementById('flashPin').value.trim(); const payUsername=document.getElementById('payUsername').value.trim(); const voucherType=document.getElementById('voucherType').value; const amount=document.getElementById('payAmount').value.trim()||'R50'; const status=document.getElementById('payStatus');
-  if(!flashPin||!payUsername){status.innerText='❌ Enter voucher PIN + username';return;}
+  if(!flashPin||!payUsername){status.innerHTML='<div class="msg err">❌ Enter voucher PIN + username</div>';return}
   const user=JSON.parse(localStorage.getItem('fg_user')||'{}'); const fullName=user.fullName||'-'; const phone=user.phone||'-'; const email=user.email||'-'; const date=new Date().toLocaleString(); const id=Date.now();
-  const payment={id:id,fullName:fullName,username:payUsername,phone:phone,email:email,flashPin:flashPin,voucherType:voucherType,amount:amount,date:date,status:'pending',proofData:''};
-  if(proofData && proofData.length<200000){payment.proofData=proofData;}
-  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];}
+  const payment={id:id,fullName:fullName,username:payUsername,phone:phone,email:email,flashPin:flashPin,voucherType:voucherType,amount:amount,date:date,status:'pending'};
+  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
   payments.push(payment);
-  try{localStorage.setItem('fg_payments',JSON.stringify(payments));}catch(e){payments=payments.map(p=>({...p,proofData:''})); localStorage.setItem('fg_payments',JSON.stringify(payments));}
-  try{user.paidStatus='pending'; localStorage.setItem('fg_user',JSON.stringify(user));}catch(e){}
-  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]'); allUsers=allUsers.map(x=>x.username.toLowerCase()===payUsername.toLowerCase()?{...x,paidStatus:'pending'}:x); localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}catch(e){}
-  status.innerHTML='<div class="bg-emerald-500/20 p-3 rounded-xl">✅ Submitted! Voucher '+flashPin+' — Status: PENDING — Owner will verify via *120*1123#</div>';
+  try{localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(e){try{localStorage.setItem('vault','[]'); localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(err){payments=payments.slice(-20); localStorage.setItem('fg_payments',JSON.stringify(payments))}}
+  try{user.paidStatus='pending'; localStorage.setItem('fg_user',JSON.stringify(user))}catch(e){}
+  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]'); allUsers=allUsers.map(x=>x.username.toLowerCase()===payUsername.toLowerCase()?{...x,paidStatus:'pending'}:x); localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){}
+  status.innerHTML='<div class="msg ok">✅ Submitted! Voucher '+flashPin+' — Status: PENDING — Owner will verify via *120*1123#</div>';
   renderMyPayments(); if(user.phone&&user.phone.includes('672739660')) renderPendingPayments();
-  const message=`💳 *NEW PAYMENT v27* 💳%0A*Full Name:* ${encodeURIComponent(fullName)}%0A*Username:* ${encodeURIComponent(payUsername)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Email:* ${encodeURIComponent(email)}%0A*Voucher Type:* ${encodeURIComponent(voucherType)}%0A*Voucher PIN:* ${encodeURIComponent(flashPin)}%0A*Amount:* ${encodeURIComponent(amount)}%0A*Date:* ${encodeURIComponent(date)}%0A*ID:* ${id}%0A%0AVerify via *120*1123# → Enter PIN → Check if valid`;
+  const message=`💳 *NEW PAYMENT v28* 💳%0A*Full Name:* ${encodeURIComponent(fullName)}%0A*Username:* ${encodeURIComponent(payUsername)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Email:* ${encodeURIComponent(email)}%0A*Voucher Type:* ${encodeURIComponent(voucherType)}%0A*Voucher PIN:* ${encodeURIComponent(flashPin)}%0A*Amount:* ${encodeURIComponent(amount)}%0A*Date:* ${encodeURIComponent(date)}%0A*ID:* ${id}%0A%0AVerify via *120*1123# → Enter PIN`;
   window.open(`https://wa.me/27672739660?text=${message}`,'_blank');
-  document.getElementById('flashPin').value=''; proofData=''; document.getElementById('proofPreview').innerHTML='';
+  document.getElementById('flashPin').value='';
 }
 function renderMyPayments(){
   const list=document.getElementById('myPaymentsList'); if(!list) return;
-  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];}
+  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
   const user=JSON.parse(localStorage.getItem('fg_user')||'{}');
   const myPayments=payments.filter(p=>p.username.toLowerCase()===(user.username||'').toLowerCase()).reverse();
-  if(myPayments.length===0){list.innerHTML='<p class="opacity-50">No payments yet — Submit voucher above</p>';return;}
-  list.innerHTML=''; myPayments.forEach(p=>{const statusClass=p.status==='pending'?'status-pending':p.status==='approved'?'status-approved':'status-rejected'; list.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl"><div class="flex justify-between"><span class="font-bold">${p.date}</span><span class="${statusClass}">${p.status.toUpperCase()}</span></div><p class="mt-1 text-[11px]">Voucher: ${p.voucherType} — PIN: ${p.flashPin} — ${p.amount}</p>${p.proofData?`<img src="${p.proofData}" class="w-full h-20 object-cover rounded-xl mt-2">`:''}<p class="text-[9px] mt-1 opacity-50">${p.status==='pending'?'⏳ Waiting for owner verification':p.status==='approved'?'✅ Approved — 31 days extended':'❌ Rejected — Send new voucher'}</p></div>`;});
+  if(myPayments.length===0){list.innerHTML='<p style="opacity:0.5">No payments yet — Submit voucher above</p>';return}
+  list.innerHTML=''; myPayments.forEach(p=>{const statusClass=p.status==='pending'?'status-pending':p.status==='approved'?'status-approved':'status-rejected'; list.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">${p.date}</span><span class="${statusClass}">${p.status.toUpperCase()}</span></div><p style="margin-top:4px;font-size:11px">Voucher: ${p.voucherType} — PIN: ${p.flashPin} — ${p.amount}</p><p style="font-size:9px;margin-top:4px;opacity:0.5">${p.status==='pending'?'⏳ Waiting for owner verification':p.status==='approved'?'✅ Approved — 31 days extended':'❌ Rejected — Send new voucher'}</p></div>`;});
 }
 function renderPendingPayments(){
-  const list=document.getElementById('pendingPaymentsList'); try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];}
+  const list=document.getElementById('pendingPaymentsList'); try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
   const pending=payments.filter(p=>p.status==='pending').reverse();
   document.getElementById('pendingCount').innerText=pending.length; document.getElementById('paidCount').innerText=payments.filter(p=>p.status==='approved').length; document.getElementById('notPaidCount').innerText=payments.filter(p=>p.status==='rejected').length;
-  if(pending.length===0){list.innerHTML='<p class="opacity-50 text-xs">No pending payments — When user submits voucher, it appears here with Full Name, Phone, Voucher PIN, Date — You Approve/Reject</p>';}
-  else{list.innerHTML=''; pending.forEach(p=>{list.innerHTML+=`<div class="bg-black/40 p-3 rounded-xl border border-yellow-500/30"><div class="flex justify-between"><span class="font-black text-sm">${p.fullName} (${p.username})</span><span class="status-pending">PENDING</span></div><p class="text-[11px] mt-1"><b>Phone:</b> ${p.phone} | <b>Email:</b> ${p.email}</p><p class="text-[11px]"><b>Voucher:</b> ${p.voucherType} | <b>PIN:</b> <span class="font-black text-yellow-300">${p.flashPin}</span> | <b>Amount:</b> ${p.amount}</p><p class="text-[10px] opacity-60">Date: ${p.date} | ID: ${p.id}</p>${p.proofData?`<img src="${p.proofData}" class="w-full h-32 object-cover rounded-xl mt-2 border">`:''}<div class="grid grid-cols-2 gap-2 mt-3"><button onclick="approvePayment(${p.id})" class="bg-emerald-500 text-black p-3 rounded-xl font-black text-xs">✅ APPROVE — Legit — Extend 31 Days</button><button onclick="rejectPayment(${p.id})" class="bg-red-500 text-white p-3 rounded-xl font-black text-xs">❌ REJECT — Fake/Used</button></div><p class="text-[9px] opacity-50 mt-2">Verify: Dial *120*1123# → Enter ${p.flashPin} → Check if ${p.amount} valid & unused</p></div>`;});}
+  if(pending.length===0){list.innerHTML='<p style="opacity:0.5;font-size:11px">No pending payments — When user submits voucher, it appears here with Full Name, Phone, Voucher PIN, Date — You Approve/Reject</p>'}
+  else{list.innerHTML=''; pending.forEach(p=>{list.innerHTML+=`<div style="background:rgba(0,0,0,0.4);padding:10px;border-radius:12px;border:1px solid rgba(232,212,139,0.3);margin-top:8px"><div style="display:flex;justify-content:space-between"><span style="font-weight:900;font-size:13px">${p.fullName} (${p.username})</span><span class="status-pending">PENDING</span></div><p style="font-size:11px;margin-top:4px"><b>Phone:</b> ${p.phone} | <b>Email:</b> ${p.email}</p><p style="font-size:11px"><b>Voucher:</b> ${p.voucherType} | <b>PIN:</b> <span style="font-weight:900;color:#ffbe0b">${p.flashPin}</span> | <b>Amount:</b> ${p.amount}</p><p style="font-size:10px;opacity:0.6">Date: ${p.date} | ID: ${p.id}</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><button onclick="approvePayment(${p.id})" style="background:#00d68f;color:#000;padding:10px;border-radius:10px;font-weight:900;font-size:11px;border:none">✅ APPROVE — Legit</button><button onclick="rejectPayment(${p.id})" style="background:#ff3b30;color:white;padding:10px;border-radius:10px;font-weight:900;font-size:11px;border:none">❌ REJECT — Fake/Used</button></div><p style="font-size:9px;opacity:0.5;margin-top:4px">Verify: Dial *120*1123# → Enter ${p.flashPin}</p></div>`;});}
 }
 function approvePayment(id){
-  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];} let payment=payments.find(p=>p.id===id); if(!payment) return; payment.status='approved'; try{localStorage.setItem('fg_payments',JSON.stringify(payments));}catch(e){}
-  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];} allUsers=allUsers.map(u=>{if(u.username.toLowerCase()===payment.username.toLowerCase()){return {...u,paidStatus:'approved',paid:'R50 APPROVED',expiry:new Date(Date.now()+31*86400000).toLocaleDateString()};}return u;}); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}catch(e){}
-  const current=JSON.parse(localStorage.getItem('fg_user')||'{}'); if(current.username&&current.username.toLowerCase()===payment.username.toLowerCase()){current.paidStatus='approved'; current.paid='R50 APPROVED'; current.expiry=new Date(Date.now()+31*86400000).toLocaleDateString(); try{localStorage.setItem('fg_user',JSON.stringify(current));}catch(e){}} alert(`✅ Approved! User ${payment.username} — Voucher ${payment.flashPin} legit — 31 days extended`); renderPendingPayments(); renderMyPayments(); loadRecords(); let clean=payment.phone.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); if(clean.length>9){const msg=`✅ Feminist-Guard: Hi ${payment.fullName}, your voucher ${payment.flashPin} (${payment.amount}) APPROVED — legit! Extended 31 days — Owner`; window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`,'_blank');}}
+  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]} let payment=payments.find(p=>p.id===id); if(!payment) return; payment.status='approved'; try{localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(e){}
+  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]} allUsers=allUsers.map(u=>{if(u.username.toLowerCase()===payment.username.toLowerCase()){return {...u,paidStatus:'approved',paid:'R50 APPROVED',expiry:new Date(Date.now()+31*86400000).toLocaleDateString()}}return u}); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){}
+  const current=JSON.parse(localStorage.getItem('fg_user')||'{}'); if(current.username&&current.username.toLowerCase()===payment.username.toLowerCase()){current.paidStatus='approved'; current.paid='R50 APPROVED'; current.expiry=new Date(Date.now()+31*86400000).toLocaleDateString(); try{localStorage.setItem('fg_user',JSON.stringify(current))}catch(e){}} alert(`✅ Approved! User ${payment.username} — Voucher ${payment.flashPin} legit — 31 days extended`); renderPendingPayments(); renderMyPayments(); loadRecords(); let clean=payment.phone.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); if(clean.length>9){const msg=`✅ Feminist-Guard: Hi ${payment.fullName}, your voucher ${payment.flashPin} (${payment.amount}) APPROVED — legit! Extended 31 days — Owner`; window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`,'_blank')}}
 function rejectPayment(id){
-  const reason=prompt('Why reject? (e.g., Used voucher, Invalid PIN, Fake):','Used voucher'); if(reason===null) return; try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];} let payment=payments.find(p=>p.id===id); if(!payment) return; payment.status='rejected'; payment.rejectReason=reason; try{localStorage.setItem('fg_payments',JSON.stringify(payments));}catch(e){} try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];} allUsers=allUsers.map(u=>{if(u.username.toLowerCase()===payment.username.toLowerCase()){return {...u,paidStatus:'rejected'};}return u;}); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers));}catch(e){} alert(`❌ Rejected! User ${payment.username} — Voucher ${payment.flashPin} — Reason: ${reason}`); renderPendingPayments(); renderMyPayments(); let clean=payment.phone.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); if(clean.length>9){const msg=`❌ Feminist-Guard: Hi ${payment.fullName}, voucher ${payment.flashPin} REJECTED — Reason: ${reason} — Send new valid R50 voucher — Owner`; window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`,'_blank');}}
-function renderCircle(){const c=document.getElementById('circleInputs');if(!c)return;c.innerHTML='';for(let i=0;i<7;i++){const n=circleData[i]?.name||'';const num=circleData[i]?.number||'';c.innerHTML+=`<div class="flex gap-2"><input id="cname${i}" value="${n}" placeholder="Name ${i+1}" class="flex-1 p-3 rounded-xl"><input id="cnum${i}" value="${num}" placeholder="Phone ${i+1}" class="flex-1 p-3 rounded-xl"></div>`;}document.querySelectorAll('.circleCount').forEach(e=>e.innerText=circleData.filter(x=>x.number).length);}
-function saveCircle(){let a=[];for(let i=0;i<7;i++){a.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}circleData=a;try{localStorage.setItem('circle',JSON.stringify(a));}catch(e){localStorage.setItem('circle','[]');}document.getElementById('circleStatus').innerText='✅ Saved '+a.filter(x=>x.number).length+'/7 private';renderCircle();}
-function initMap(){setTimeout(()=>{try{if(!map){map=L.map('map').setView([currentLat,currentLng],13);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);L.marker([currentLat,currentLng]).addTo(map).bindPopup('Your LIVE Location');}map.invalidateSize();}catch{}},300);}
-function startHold(){holdTimer=setTimeout(()=>{triggerSOS()},3000);document.getElementById('sosStatus').innerHTML='Holding 3 sec...';}
-function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText='';}
-async function triggerSOS(){let batt='?';try{if(navigator.getBattery){const b=await navigator.getBattery();batt=Math.round(b.level*100)+'%';}}catch{}await new Promise(res=>{if(!navigator.geolocation){res();return;}navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;if(map){map.setView([currentLat,currentLng],15);L.marker([currentLat,currentLng]).addTo(map).bindPopup('LIVE SOS').openPopup();document.getElementById('map').classList.remove('hidden');map.invalidateSize();}res();},()=>{res();},{enableHighAccuracy:true,timeout:8000});});const user=JSON.parse(localStorage.getItem('fg_user')||'{}');const name=user.fullName||user.username||'Queen';const time=new Date().toLocaleString();const mapsLink=`https://maps.google.com/?q=${currentLat},${currentLng}`;const message=`SOS! HELP! I am ${name} - ${time} - LIVE LOC: ${mapsLink} - Batt ${batt} - Help!`;const waMessage=encodeURIComponent(message);const smsMessage=encodeURIComponent(message);document.getElementById('sosStatus').innerHTML=`🚨 SOS READY<br><b>${message}</b><br><div id='sosLinks' class='mt-3 grid gap-2'></div>`;const linksDiv=document.getElementById('sosLinks');const contacts=circleData.filter(x=>x.number);if(contacts.length===0){linksDiv.innerHTML=`<p class='text-pink-300 text-xs'>No Circle! Add 7 people!</p>`;return;}contacts.forEach((c)=>{let clean=c.number.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);const waUrl=`https://wa.me/${clean}?text=${waMessage}`;const smsUrl=`sms:${c.number}?body=${smsMessage}`;linksDiv.innerHTML+=`<div class="bg-black/40 p-2 rounded-xl flex justify-between items-center"><span class="text-xs">${c.name||'Contact'}: ${c.number}</span><div class="flex gap-1"><a href="${smsUrl}" class="bg-emerald-500 text-black text-[10px] px-2 py-1 rounded-full font-black">SMS</a><a href="${waUrl}" target="_blank" class="bg-green-500 text-black text-[10px] px-2 py-1 rounded-full font-black">WhatsApp</a></div></div>`;});try{window.location.href=`sms:${contacts.map(c=>c.number).join(',')}?body=${smsMessage}`;let clean=contacts[0].number.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);setTimeout(()=>{window.open(`https://wa.me/${clean}?text=${waMessage}`,'_blank');},1000);}catch(e){}setTimeout(()=>{window.open(`https://wa.me/27672739660?text=${waMessage}`,'_blank');},1500);}
-function unlockVault(){const pin=document.getElementById('vaultPinInput').value;const saved=localStorage.getItem('vaultPin');if(!saved||pin===saved){document.getElementById('vaultLock').classList.add('hidden');document.getElementById('vaultContent').classList.remove('hidden');renderVault();}else{document.getElementById('vaultPinStatus').innerText='❌ Wrong PIN';}}
-function handleFile(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(ev)=>{let item={id:Date.now(),note:`📁 ${file.name}`,data:ev.target.result,[STRIPPED] Date().toLocaleString(),type:file.type};vaultItems.push(item);try{localStorage.setItem('vault',JSON.stringify(vaultItems));}catch(err){alert('Storage full — Clear Vault first');vaultItems.pop();}renderVault();};reader.readAsDataURL(file);}
-async function startRecording(){const btn=document.getElementById('recordBtn');if(mediaRecorder&&mediaRecorder.state==='recording'){mediaRecorder.stop();btn.innerText='🎙️ Audio';return;}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(stream);audioChunks=[];mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(audioChunks,{type:'audio/webm'});const reader=new FileReader();reader.onload=()=>{let item={id:Date.now(),note:`🎙️ Voice Note`,data:reader.result,[STRIPPED] Date().toLocaleString(),type:'audio/webm'};vaultItems.push(item);try{localStorage.setItem('vault',JSON.stringify(vaultItems));}catch(err){alert('Storage full — Clear Vault');vaultItems.pop();}renderVault();};reader.readAsDataURL(blob);};mediaRecorder.start();btn.innerText='⏹️ Stop';}catch(e){alert('Mic permission needed');}}
-function saveVault(){const note=document.getElementById('vaultNote').value.trim();if(!note)return;let item={id:Date.now(),note:note,date:new Date().toLocaleString(),type:'text'};vaultItems.push(item);try{localStorage.setItem('vault',JSON.stringify(vaultItems));}catch(e){alert('Storage full');vaultItems.pop();return;}document.getElementById('vaultNote').value='';renderVault();}
-function renderVault(){document.querySelectorAll('.vaultCount').forEach(e=>e.innerText=vaultItems.length);const l=document.getElementById('vaultList');if(!l)return;l.innerHTML='';vaultItems.slice().reverse().forEach(it=>{let preview='';if(it.type&&it.type.startsWith('image')) preview=`<img src="${it.data}" class="w-full h-32 object-cover rounded-xl mt-2">`;else if(it.type&&it.type.startsWith('video')) preview=`<video src="${it.data}" controls class="w-full rounded-xl mt-2"></video>`;else if(it.type&&it.type.startsWith('audio')) preview=`<audio src="${it.data}" controls class="w-full mt-2"></audio>`;l.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl"><div class="flex justify-between"><span class="font-bold">${it.date}</span><button onclick="deleteVault(${it.id})" class="text-[10px] text-red-400">Delete</button></div><p class="mt-1">${it.note}</p>${preview}</div>`});}
-function deleteVault(id){vaultItems=vaultItems.filter(x=>x.id!==id);try{localStorage.setItem('vault',JSON.stringify(vaultItems));}catch(e){}renderVault();}
-function renderSafe(){const list=document.getElementById('safeList');if(!list)return;list.innerHTML='';if(safePlaces.length===0){list.innerHTML='<p class="opacity-50 text-xs">No safe places yet</p>';}safePlaces.slice().reverse().forEach((p,i)=>{list.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl flex justify-between items-center"><div><p class="font-bold">${p.name}</p><p class="text-[10px] opacity-70">${p.address||''}</p></div><div class="flex gap-1"><a href="https://maps.google.com/?q=${p.lat},${p.lng}" target="_blank" class="card px-2 py-1 text-[10px]">Map</a><button onclick="deleteSafe(${i})" class="text-[10px] text-red-400 px-2">Delete</button></div></div>`});document.getElementById('safeCount').innerText=safePlaces.length;setTimeout(()=>{try{if(!safeMap){safeMap=L.map('safeMap').setView([currentLat,currentLng],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(safeMap);safeMap.on('click',e=>{currentLat=e.latlng.lat;currentLng=e.latlng.lng;L.marker([currentLat,currentLng]).addTo(safeMap).bindPopup('Selected').openPopup();});}safeMap.invalidateSize();}catch{}},300);}
-function addSafePlace(){const name=document.getElementById('safeName').value.trim(),addr=document.getElementById('safeAddress').value.trim();if(!name){alert('Name required');return;}safePlaces.push({name,address:addr,lat:currentLat,lng:currentLng,date:new Date().toLocaleString()});try{localStorage.setItem('safePlaces',JSON.stringify(safePlaces));}catch(e){}document.getElementById('safeName').value='';document.getElementById('safeAddress').value='';renderSafe();}
-function useCurrentLocation(){navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;alert('Live location set: '+currentLat+','+currentLng);if(safeMap){safeMap.setView([currentLat,currentLng],14);L.marker([currentLat,currentLng]).addTo(safeMap).bindPopup('Your LIVE Location').openPopup();}});}
-function deleteSafe(i){safePlaces.splice(i,1);try{localStorage.setItem('safePlaces',JSON.stringify(safePlaces));}catch(e){}renderSafe();}
-function sendAI(){const inp=document.getElementById('aiInput');const raw=inp.value.trim();if(!raw)return;const chat=document.getElementById('aiChat');chat.innerHTML+=`<div class="bg-[#e8d48b] text-black p-3 rounded-xl mt-2 self-end text-sm max-w-[85%] ml-auto"><b>You:</b> ${raw}</div>`;inp.value='';const tid='t'+Date.now();chat.innerHTML+=`<div id="${tid}" class="bg-black/20 p-3 rounded-xl mt-2 text-xs">💜 PRO thinking...</div>`;chat.scrollTop=chat.scrollHeight;setTimeout(()=>{const el=document.getElementById(tid);if(el) el.remove();const lower=raw.toLowerCase();let reply='';if(lower.includes('good and you')){reply=`<b>Companion: That's wonderful, Queen! 😊 I'm so glad you're good.</b>`;}else if(lower.includes('can i ask')||lower.includes('ask you')){reply=`<b>Companion: Yes, of course, Queen! 💜 You can ask me ANYTHING.</b>`;}else{reply=`<b>Companion: I hear you, Queen — you said "${raw}"</b>`;}chat.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl mt-2 text-sm">${reply}</div>`;chat.scrollTop=chat.scrollHeight;},700);}
+  const reason=prompt('Why reject? (e.g., Used voucher, Invalid PIN, Fake):','Used voucher'); if(reason===null) return; try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]} let payment=payments.find(p=>p.id===id); if(!payment) return; payment.status='rejected'; payment.rejectReason=reason; try{localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(e){} try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]} allUsers=allUsers.map(u=>{if(u.username.toLowerCase()===payment.username.toLowerCase()){return {...u,paidStatus:'rejected'}}return u}); try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){} alert(`❌ Rejected! User ${payment.username} — Voucher ${payment.flashPin} — Reason: ${reason}`); renderPendingPayments(); renderMyPayments(); let clean=payment.phone.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); if(clean.length>9){const msg=`❌ Feminist-Guard: Hi ${payment.fullName}, voucher ${payment.flashPin} REJECTED — Reason: ${reason} — Send new valid R50 voucher — Owner`; window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`,'_blank')}}
+function renderCircle(){const c=document.getElementById('circleInputs');if(!c)return;c.innerHTML='';for(let i=0;i<7;i++){const n=circleData[i]?.name||'';const num=circleData[i]?.number||'';c.innerHTML+=`<div style="display:flex;gap:8px"><input id="cname${i}" value="${n}" placeholder="Name ${i+1}" style="flex:1"><input id="cnum${i}" value="${num}" placeholder="Phone ${i+1}" style="flex:1"></div>`}document.querySelectorAll('.circleCount').forEach(e=>e.innerText=circleData.filter(x=>x.number).length)}
+function saveCircle(){let a=[];for(let i=0;i<7;i++){a.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}circleData=a;try{localStorage.setItem('circle',JSON.stringify(a))}catch(e){localStorage.setItem('circle','[]')}document.getElementById('circleStatus').innerText='✅ Saved '+a.filter(x=>x.number).length+'/7 private';renderCircle()}
+function startHold(){holdTimer=setTimeout(()=>{triggerSOS()},2500);document.getElementById('sosStatus').innerHTML='Holding 2.5 sec...'}
+function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText=''}
+async function triggerSOS(){
+  let batt='?'; try{if(navigator.getBattery){const b=await navigator.getBattery();batt=Math.round(b.level*100)+'%'}}catch{}
+  try{if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude; currentLng=p.coords.longitude},()=>{},{enableHighAccuracy:true,timeout:5000})}}catch{}
+  await new Promise(r=>setTimeout(r,1200));
+  const user=JSON.parse(localStorage.getItem('fg_user')||'{}'); const name=user.fullName||user.username||'Queen'; const time=new Date().toLocaleString(); const mapsLink=`https://maps.google.com/?q=${currentLat},${currentLng}`; const message=`SOS! HELP! I am ${name} - ${time} - LIVE LOC: ${mapsLink} - Batt ${batt} - Help!`; const waMessage=encodeURIComponent(message); const smsMessage=encodeURIComponent(message);
+  document.getElementById('sosStatus').innerHTML=`🚨 SOS READY<br><b>${message}</b><br><div id='sosLinks' style="margin-top:10px;display:grid;gap:8px"></div>`;
+  const linksDiv=document.getElementById('sosLinks'); const contacts=circleData.filter(x=>x.number);
+  if(contacts.length===0){linksDiv.innerHTML=`<p style="color:#ff7aa2;font-size:12px">No Circle! Add 7 people in Circle tab!</p>`;return}
+  contacts.forEach((c)=>{let clean=c.number.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); const waUrl=`https://wa.me/${clean}?text=${waMessage}`; const smsUrl=`sms:${c.number}?body=${smsMessage}`; linksDiv.innerHTML+=`<div style="background:rgba(0,0,0,0.4);padding:8px;border-radius:10px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">${c.name||'Contact'}: ${c.number}</span><div style="display:flex;gap:4px"><a href="${smsUrl}" style="background:#00d68f;color:#000;font-size:10px;padding:6px 8px;border-radius:20px;text-decoration:none;font-weight:900">SMS</a><a href="${waUrl}" target="_blank" style="background:#25D366;color:#000;font-size:10px;padding:6px 8px;border-radius:20px;text-decoration:none;font-weight:900">WA</a></div></div>`});
+  try{window.location.href=`sms:${contacts.map(c=>c.number).join(',')}?body=${smsMessage}`; let clean=contacts[0].number.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); setTimeout(()=>{window.open(`https://wa.me/${clean}?text=${waMessage}`,'_blank')},800)}catch(e){} setTimeout(()=>{window.open(`https://wa.me/27672739660?text=${waMessage}`,'_blank')},1200);
+}
+function unlockVault(){const pin=document.getElementById('vaultPinInput').value;const saved=localStorage.getItem('vaultPin');if(!saved||pin===saved){document.getElementById('vaultLock').classList.add('hidden');document.getElementById('vaultContent').classList.remove('hidden');renderVault()}else{document.getElementById('vaultPinStatus').innerText='❌ Wrong PIN'}}
+function saveVault(){const note=document.getElementById('vaultNote').value.trim();if(!note)return;let item={id:Date.now(),note:note,date:new Date().toLocaleString(),type:'text'};vaultItems.push(item);try{localStorage.setItem('vault',JSON.stringify(vaultItems))}catch(e){alert('Storage full — Click Clear Storage first');vaultItems.pop();return}document.getElementById('vaultNote').value='';renderVault()}
+function renderVault(){document.querySelectorAll('.vaultCount').forEach(e=>e.innerText=vaultItems.length);const l=document.getElementById('vaultList');if(!l)return;l.innerHTML='';vaultItems.slice().reverse().forEach(it=>{l.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px"><div style="display:flex;justify-content:space-between"><span style="font-weight:700">${it.date}</span><button onclick="deleteVault(${it.id})" style="font-size:10px;color:#ff7aa2;background:none;border:none">Delete</button></div><p style="margin-top:4px">${it.note}</p></div>`})}
+function deleteVault(id){vaultItems=vaultItems.filter(x=>x.id!==id);try{localStorage.setItem('vault',JSON.stringify(vaultItems))}catch(e){}renderVault()}
+function renderSafe(){const list=document.getElementById('safeList');if(!list)return;list.innerHTML='';if(safePlaces.length===0){list.innerHTML='<p style="opacity:0.5;font-size:11px">No safe places yet</p>'}safePlaces.slice().reverse().forEach((p,i)=>{list.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-top:6px"><div><p style="font-weight:700">${p.name}</p><p style="font-size:10px;opacity:0.7">${p.address||''} — ${p.lat.toFixed(4)},${p.lng.toFixed(4)}</p></div><div style="display:flex;gap:4px"><a href="https://maps.google.com/?q=${p.lat},${p.lng}" target="_blank" style="background:rgba(255,255,255,0.1);padding:6px 8px;border-radius:8px;font-size:10px;text-decoration:none;color:white">Map</a><button onclick="deleteSafe(${i})" style="font-size:10px;color:#ff7aa2;background:none;border:none">Delete</button></div></div>`});document.getElementById('safeCount').innerText=safePlaces.length}
+function addSafePlace(){const name=document.getElementById('safeName').value.trim(),addr=document.getElementById('safeAddress').value.trim();if(!name){alert('Name required');return}safePlaces.push({name,address:addr,lat:currentLat,lng:currentLng,date:new Date().toLocaleString()});try{localStorage.setItem('safePlaces',JSON.stringify(safePlaces))}catch(e){}document.getElementById('safeName').value='';document.getElementById('safeAddress').value='';renderSafe()}
+function useCurrentLocation(){if(!navigator.geolocation){alert('Geolocation not supported');return} navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude; currentLng=p.coords.longitude; alert('Live location set: '+currentLat.toFixed(5)+','+currentLng.toFixed(5))},()=>{alert('Could not get location — using default')},{enableHighAccuracy:true,timeout:8000})}
+function deleteSafe(i){safePlaces.splice(i,1);try{localStorage.setItem('safePlaces',JSON.stringify(safePlaces))}catch(e){}renderSafe()}
+function sendAI(){const inp=document.getElementById('aiInput');const raw=inp.value.trim();if(!raw)return;const chat=document.getElementById('aiChat');chat.innerHTML+=`<div style="background:#e8d48b;color:#000;padding:10px;border-radius:12px;margin-top:6px;align-self:flex-end;max-width:85%;margin-left:auto;font-size:13px"><b>You:</b> ${raw}</div>`;inp.value='';const tid='t'+Date.now();chat.innerHTML+=`<div id="${tid}" style="background:rgba(0,0,0,0.2);padding:10px;border-radius:12px;margin-top:6px;font-size:11px">💜 Thinking...</div>`;chat.scrollTop=chat.scrollHeight;setTimeout(()=>{const el=document.getElementById(tid);if(el) el.remove();const lower=raw.toLowerCase();let reply='';if(lower.includes('good and you')){reply=`<b>That's wonderful, Queen! 😊 I'm so glad you're good.</b>`}else if(lower.includes('can i ask')||lower.includes('ask you')){reply=`<b>Yes, of course, Queen! 💜 You can ask me ANYTHING.</b>`}else{reply=`<b>I hear you, Queen — you said "${raw}" — I'm here for you 💜</b>`}chat.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px;font-size:13px">${reply}</div>`;chat.scrollTop=chat.scrollHeight},600)}
 async function loadRecords(){
   try{
     const r=await fetch(SCRIPT_URL);const d=await r.json();
     document.getElementById('totalVisitors').innerText=d.length;
     const list=document.getElementById('recordsList');list.innerHTML='';
-    d.slice(-20).reverse().forEach(dd=>{list.innerHTML+=`<div class="flex justify-between bg-black/20 p-2 rounded-xl text-[11px]"><span>${dd.fullName||dd.username} (${dd.phone})</span><span class="text-emerald-400 font-black">${dd.paid||'R50'}</span></div>`});
+    d.slice(-20).reverse().forEach(dd=>{list.innerHTML+=`<div style="display:flex;justify-content:space-between;background:rgba(0,0,0,0.2);padding:6px;border-radius:8px;margin-top:4px;font-size:11px"><span>${dd.fullName||dd.username} (${dd.phone})</span><span style="color:#00d68f;font-weight:900">${dd.paid||'R50'}</span></div>`});
   }catch(e){
-    try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(err){allUsers=[];}
+    try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(err){allUsers=[]}
     document.getElementById('totalVisitors').innerText=allUsers.length;
-    document.getElementById('recordsList').innerHTML='Offline: '+allUsers.length+' users<br>'+allUsers.map(u=>`${u.fullName} (${u.username}) ${u.phone}`).join('<br>');
+    const list=document.getElementById('recordsList'); list.innerHTML='Offline: '+allUsers.length+' users<br>'+allUsers.map(u=>`${u.fullName} (${u.username}) ${u.phone}`).join('<br>');
   }
   renderPendingPayments();
 }
-window.onload=()=>{
-  try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');}catch(e){allUsers=[];}
-  try{vaultItems=JSON.parse(localStorage.getItem('vault')||'[]');}catch(e){vaultItems=[];}
-  try{circleData=JSON.parse(localStorage.getItem('circle')||'[]');}catch(e){circleData=[];}
-  try{safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]');}catch(e){safePlaces=[];}
-  try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]');}catch(e){payments=[];}
-  checkLogin();renderCircle();renderVault();renderSafe();renderMyPayments();
-};
+window.addEventListener('DOMContentLoaded',()=>{
+  try{checkLogin(); renderCircle(); renderVault(); renderSafe(); renderMyPayments()}catch(e){document.getElementById('authStatus').innerHTML='<div class="msg err">JS Error: '+e.message+'</div>'}
+});
 </script>
 </body>
   </html>
