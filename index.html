@@ -2,238 +2,302 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>Feminist-Guard v23 PRO MAX - Complete App</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feminist-Guard v25 FIXED LOGIN</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-* { font-family:'Outfit',sans-serif; }
-body { background: radial-gradient(1200px at 20% -10%, #2a1f4d 0%, #0e0a1e 50%, #090616 100%); color:#f5e9c8; min-height:100vh; }
-.card { background: linear-gradient(180deg, #1e1838 0%, #15102a 100%); border:1px solid rgba(232,212,139,0.35); border-radius:24px; box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); }
-.gold-text { color:#e8d48b; }
-.pink-btn { background: linear-gradient(135deg,#ff2e63 0%,#ff7aa2 100%); color:white; font-weight:800; box-shadow:0 8px 20px rgba(255,46,99,0.35); }
-.gold-btn { background: linear-gradient(135deg,#e8d48b 0%,#d4b86a 100%); color:#1a1430; font-weight:900; }
-.bottom-nav { position:fixed; bottom:12px; left:12px; right:12px; background: rgba(35,29,62,0.96); backdrop-filter: blur(20px); border-radius:24px; display:flex; justify-content:space-around; padding:10px 6px; z-index:999; border:1px solid rgba(255,255,255,0.1); }
-.nav-item { padding:8px 12px; border-radius:18px; font-size:10px; text-align:center; color:#a99dc2; transition: all 0.2s; }
-.nav-active { background:#3a325c; color:#e8d48b; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(232,212,139,0.2); }
-input, textarea, select { background:#211c38 !important; border:1px solid rgba(255,255,255,0.12) !important; color:#e8d48b !important; border-radius:14px !important; }
-.tab-active { border:2px solid #e8d48b; background:#3a325c; }
-.feature-badge { background: rgba(232,212,139,0.15); border:1px solid rgba(232,212,139,0.3); border-radius:12px; padding:4px 10px; font-size:10px; color:#e8d48b; }
-.sos-pulse { animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,46,99,0.7); } 70% { box-shadow: 0 0 0 25px rgba(255,46,99,0); } 100% { box-shadow: 0 0 0 0 rgba(255,46,99,0); } }
-#map { height: 220px; border-radius:18px; z-index:1; }
+body{font-family:'Outfit',sans-serif;background:#0e0a1e;color:#f5e9c8}
+.card{background:#1a1430;border:1px solid #e8d48b66;border-radius:24px}
+.gold-text{color:#e8d48b}
+.pink-btn{background:linear-gradient(135deg,#ff2e63,#ff7aa2);color:white;font-weight:800}
+.gold-btn{background:#e8d48b;color:#1a1430;font-weight:900}
+.bottom-nav{position:fixed;bottom:12px;left:12px;right:12px;background:#231d3e;border-radius:24px;display:flex;justify-content:space-around;padding:8px 4px;z-index:50;border:1px solid #ffffff1a}
+.nav-item{padding:8px 12px;border-radius:18px;font-size:10px;text-align:center;color:#a99dc2}
+.nav-active{background:#3a325c;color:#e8d48b}
+input,textarea{background:#211c38;border:1px solid #ffffff1a;color:#e8d48b}
+.tab-active{border:2px solid #e8d48b;background:#3a325c}
+.feature-badge{background:rgba(232,212,139,0.15);border:1px solid rgba(232,212,139,0.3);border-radius:12px;padding:4px 10px;font-size:10px;color:#e8d48b}
 </style>
 </head>
 <body class="pb-28">
 <div class="max-w-md mx-auto p-3">
-  <div class="card p-4 flex items-center justify-between mt-2">
-    <div class="flex items-center gap-3">
-      <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#e8d48b] to-[#c9a86a] flex items-center justify-center text-black font-black text-xl shadow-lg" id="avatarLetter">F</div>
-      <div>
-        <h1 class="font-black text-xl gold-text leading-5">Feminist-<br>Guard PRO MAX</h1>
-        <p class="text-[11px] opacity-70">Welcome, <span id="welcomeName">Guest</span> • <span id="accountType">Not Logged</span></p>
-        <div class="flex gap-1 mt-1"><span class="feature-badge">v23 PRO MAX</span><span class="feature-badge" id="userStatusBadge">1000+ LINES</span></div>
-      </div>
-    </div>
-    <div class="flex flex-col items-end gap-1">
-      <div class="bg-emerald-400 text-black text-[10px] font-black px-3 py-2 rounded-full" id="activeBadge">GUEST MODE</div>
-      <button id="logoutBtn" onclick="logout()" class="hidden text-[10px] bg-white/10 px-3 py-1.5 rounded-full border">Logout</button>
-    </div>
-  </div>
-  <div id="ownerCard" class="card p-4 mt-4 hidden">
-    <h2 class="text-center font-black text-lg gold-text">🔒 OWNER ONLY — 0672739660 — FULL ANALYTICS DASHBOARD</h2>
-    <div class="grid grid-cols-2 gap-3 mt-4">
-      <div class="card p-4 text-center"><p class="text-3xl font-black gold-text" id="totalVisitors">0</p><p class="text-[10px] font-bold">TOTAL VISITORS</p></div>
-      <div class="card p-4 text-center"><p class="text-3xl font-black gold-text" id="thisMonth">0</p><p class="text-[10px] font-bold">THIS MONTH</p></div>
-      <div class="card p-3 text-center"><p class="text-3xl font-black text-emerald-400" id="paidCount">0</p><p class="text-[10px] font-bold">PAID R50</p></div>
-      <div class="card p-3 text-center"><p class="text-3xl font-black text-pink-400" id="notPaidCount">0</p><p class="text-[10px] font-bold">NOT PAID</p></div>
-    </div>
-    <div class="grid grid-cols-3 gap-2 mt-3">
-      <div class="card p-2 text-center"><p class="font-black text-sm" id="circleAvg">0</p><p class="text-[8px]">Avg Circle</p></div>
-      <div class="card p-2 text-center"><p class="font-black text-sm" id="vaultAvg">0</p><p class="text-[8px]">Avg Vault</p></div>
-      <div class="card p-2 text-center"><p class="font-black text-sm">R<span id="revenue">0</span></p><p class="text-[8px]">Revenue</p></div>
-    </div>
-    <div class="flex gap-2 mt-3">
-      <button onclick="loadRecords()" class="flex-1 card p-3 text-xs font-bold">🔄 Refresh Live Records</button>
-      <button onclick="exportCSV()" class="flex-1 gold-btn p-3 text-xs rounded-xl">📥 Export CSV</button>
-    </div>
-    <div id="recordsList" class="mt-3 text-xs space-y-1 max-h-64 overflow-auto"></div>
-  </div>
-  <div id="authView" class="card p-5 mt-6">
-    <div class="text-center">
-      <h2 class="font-black text-2xl gold-text">Feminist Guard — PRO MAX</h2>
-      <p class="text-xs opacity-70 mt-1">Complete Individual Account System — Private to YOU only</p>
-      <div class="flex justify-center gap-2 mt-2">
-        <span class="feature-badge">✅ Individual Login</span><span class="feature-badge">✅ Create Account</span><span class="feature-badge">✅ PIN Vault</span><span class="feature-badge">✅ Google Sheet Sync</span>
-      </div>
-    </div>
-    <div class="flex gap-2 mt-5">
-      <button id="tabCreate" onclick="switchAuth('create')" class="flex-1 p-3 rounded-xl tab-active font-black text-sm">➕ Create Account</button>
-      <button id="tabLogin" onclick="switchAuth('login')" class="flex-1 p-3 rounded-xl card font-bold text-sm">🔑 Login</button>
-      <button id="tabRecover" onclick="switchAuth('recover')" class="flex-1 p-3 rounded-xl card font-bold text-sm">♻️ Recover</button>
-    </div>
-    <div id="createForm" class="mt-5">
-      <h3 class="font-black text-sm gold-text">CREATE YOUR PRIVATE ACCOUNT</h3>
-      <input id="regName" placeholder="Full Name * (e.g., Nhlanhla Maranela)" class="w-full p-4 rounded-xl mt-3">
-      <input id="regUser" placeholder="Username * unique (e.g., nhlanhla2026)" class="w-full p-4 rounded-xl mt-2">
-      <input id="regPhone" placeholder="Phone * 07... (e.g., 0672739660)" type="tel" class="w-full p-4 rounded-xl mt-2">
-      <input id="regEmail" placeholder="Email (optional) for recovery" type="email" class="w-full p-4 rounded-xl mt-2">
-      <input id="regPin" placeholder="Create 4-digit PIN * for Vault (e.g., 1234)" type="password" maxlength="4" class="w-full p-4 rounded-xl mt-2">
-      <input id="regPinConfirm" placeholder="Confirm PIN *" type="password" maxlength="4" class="w-full p-4 rounded-xl mt-2">
-      <div class="flex items-center gap-2 mt-3">
-        <input type="checkbox" id="terms" class="w-4 h-4"><label for="terms" class="text-[10px]">I agree my Circle, Vault, Safe are private to me only — owner sees only name/phone for R50 records</label>
-      </div>
-      <button onclick="registerFull()" class="pink-btn w-full p-4 rounded-xl mt-4 font-black text-sm">➕ Create Account → Activate 31 Days R50 → Sync to Google Sheet</button>
-    </div>
-    <div id="loginForm" class="mt-5 hidden">
-      <h3 class="font-black text-sm gold-text">LOGIN TO YOUR PRIVATE ACCOUNT</h3>
-      <input id="loginUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-3">
-      <input id="loginPhone" placeholder="Phone * 07..." type="tel" class="w-full p-4 rounded-xl mt-2">
-      <input id="loginPin" placeholder="Vault PIN *" type="password" class="w-full p-4 rounded-xl mt-2">
-      <button onclick="loginFull()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">🔑 Login → Load My Private Data</button>
-    </div>
-    <div id="recoverForm" class="mt-5 hidden">
-      <h3 class="font-black text-sm gold-text">RECOVER YOUR ACCOUNT</h3>
-      <input id="recoverPhone" placeholder="Your Phone 07..." class="w-full p-4 rounded-xl mt-3">
-      <input id="recoverUser" placeholder="Your Username" class="w-full p-4 rounded-xl mt-2">
-      <button onclick="recoverAccount()" class="card w-full p-4 rounded-xl mt-4 font-bold">♻️ Recover — Check Google Sheet</button>
-    </div>
-    <p id="authStatus" class="text-xs mt-4 text-center font-bold"></p>
-  </div>
-  <div id="homeView" class="hidden">
-    <div class="mt-2 card p-3 bg-emerald-500/10 border-emerald-500/30 flex justify-between items-center">
-      <div><p class="text-xs font-black text-emerald-300">✅ ACTIVE — 31 Days — PRO MAX</p><p class="text-[10px] opacity-70">All features unlocked</p></div>
-      <span class="bg-emerald-400 text-black text-[9px] font-black px-2 py-1 rounded-full">PAID</span>
-    </div>
-    <h2 class="mt-4 font-black text-lg">Dashboard — Private Safety Hub — v23 PRO MAX</h2>
-    <div class="grid grid-cols-2 gap-3 mt-3">
-      <a href="tel:10111" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🚓 SAPS 10111</a>
-      <a href="tel:112" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🆘 112 FREE</a>
-      <a href="tel:0800428428" class="card p-3 rounded-full text-center font-bold text-xs gold-text">💜 GBV 0800 428 428</a>
-      <div class="card p-3 rounded-full text-center font-bold text-xs">⭐ *120*7867# FREE</div>
-    </div>
-    <div class="grid grid-cols-2 gap-3 mt-4">
-      <div onclick="showTab('sos')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🆘</p><p class="font-black mt-2 text-sm">SOS EMERGENCY</p><p class="text-[9px] opacity-60">SMS + WhatsApp + LIVE GPS + Battery + Map</p></div>
-      <div onclick="showTab('circle')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">👥</p><p class="font-black mt-2 text-sm">CIRCLE OF 7</p><p class="text-xs font-black gold-text"><span class="circleCount">0</span>/7</p></div>
-      <div onclick="showTab('vault')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🔒</p><p class="font-black mt-2 text-sm">EVIDENCE VAULT</p><p class="text-xs font-black gold-text"><span class="vaultCount">0</span> Items</p></div>
-      <div onclick="showTab('safe')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">📍</p><p class="font-black mt-2 text-sm">SAFE PLACES MAP</p><p class="text-xs font-black"><span id="safeCount">0</span> Places</p></div>
-      <div onclick="showTab('ai')" class="card p-5 text-center border-pink-400 border-2 cursor-pointer"><p class="text-3xl">💜</p><p class="font-black mt-2 text-sm">AI GUARD COMPANION PRO</p><span class="feature-badge bg-pink-500/20 text-pink-300 border-pink-500/30 mt-1 inline-block">FIXED v23 — LIKE ME</span></div>
-      <div onclick="showTab('pay')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">💳</p><p class="font-black mt-2 text-sm">PAY R50 + ACCOUNT</p></div>
-    </div>
-    <div class="card p-3 mt-6 flex justify-between items-center">
-      <div><p class="text-[10px] opacity-60">Logged in as</p><p class="font-black text-sm" id="loggedAs">-</p><p class="text-[9px] opacity-50" id="loggedDetails">-</p></div>
-      <button onclick="logout()" class="pink-btn px-5 py-2.5 rounded-full text-xs font-black">Logout</button>
-    </div>
-  </div>
-  <div id="sosView" class="hidden">
-    <h2 class="mt-6 font-black text-lg text-center">🆘 HOLD FOR HELP — PRO MAX SOS</h2>
-    <div class="card p-6 mt-4 text-center">
-      <button id="sosBtn" onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" class="w-64 h-64 rounded-full bg-gradient-to-br from-[#ff2e63] to-[#ff1a4d] text-white font-black text-5xl mx-auto sos-pulse">SOS</button>
-      <div id="map" class="mt-4 hidden"></div>
-      <p id="sosStatus" class="mt-4 text-xs leading-relaxed text-left"></p>
-    </div>
-  </div>
-  <div id="circleView" class="hidden">
-    <h2 class="mt-6 font-black text-lg">👥 Trusted Circle — 7 People — Private</h2>
-    <div id="circleInputs" class="grid gap-2 mt-4"></div>
-    <button onclick="saveCircle()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">💾 Save My Private Circle</button>
-    <p id="circleStatus" class="text-xs mt-2 text-center font-bold"></p>
-  </div>
-  <div id="vaultView" class="hidden">
-    <h2 class="mt-6 font-black text-lg">🔒 Evidence Vault — Private + PIN</h2>
-    <div class="card p-6 mt-4" id="vaultLock">
-      <input id="vaultPinInput" type="password" placeholder="Enter your 4-digit PIN" maxlength="4" class="w-full p-4 rounded-xl mt-4">
-      <button onclick="unlockVault()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">🔓 Unlock My Private Vault</button>
-      <p id="vaultPinStatus" class="text-xs mt-2 text-center"></p>
-    </div>
-    <div class="card p-4 mt-4 hidden" id="vaultContent">
-      <input type="file" id="vaultFile" accept="image/*,video/*,audio/*" class="hidden" onchange="handleFile(event)">
-      <div class="grid grid-cols-3 gap-2 mt-3">
-        <button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs font-bold">📷 Photo</button>
-        <button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs font-bold">🎥 Video</button>
-        <button onclick="startRecording()" class="card p-3 text-xs font-bold" id="recordBtn">🎙️ Record Audio</button>
-      </div>
-      <textarea id="vaultNote" placeholder="Write private evidence note..." class="w-full p-3 rounded-xl mt-3 h-28"></textarea>
-      <button onclick="saveVault()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">💾 Save to Vault</button>
-      <div id="vaultList" class="mt-4 space-y-2 text-xs"></div>
-    </div>
-  </div>
-  <div id="safeView" class="hidden">
-    <h2 class="mt-6 font-black text-lg">📍 Safe Places — With Map</h2>
-    <div class="card p-4 mt-4">
-      <div id="safeMap" style="height:200px; border-radius:16px;"></div>
-      <input id="safeName" placeholder="Place Name (e.g., Soshanguve Police Station)" class="w-full p-3 rounded-xl mt-3">
-      <input id="safeAddress" placeholder="Address / Notes" class="w-full p-3 rounded-xl mt-2">
-      <div class="flex gap-2 mt-2">
-        <button onclick="addSafePlace()" class="gold-btn flex-1 p-3 rounded-xl font-bold text-xs">➕ Add Safe Place</button>
-        <button onclick="useCurrentLocation()" class="card flex-1 p-3 rounded-xl font-bold text-xs">📍 Use LIVE Location</button>
-      </div>
-      <div id="safeList" class="mt-4 space-y-2 text-xs"></div>
-    </div>
-  </div>
-  <div id="aiView" class="hidden">
-    <h2 class="mt-6 font-black text-lg">💜 Guard Companion PRO MAX v23 — Fixed</h2>
-    <div class="card p-3 mt-4 h-[420px] overflow-auto flex flex-col" id="aiChat">
-      <div class="bg-black/30 p-3 rounded-xl text-sm">💜 Hey Queen! PRO MAX v23 — I work like Meta AI now — FIXED your screenshot: "Am good and you" and "Can i ask you something" — never repeats!</div>
-    </div>
-    <div class="flex gap-2 mt-3">
-      <input id="aiInput" placeholder="How are you feeling?..." class="flex-1 p-4 rounded-xl">
-      <button onclick="sendAI()" class="gold-btn px-8 rounded-xl font-black">Send</button>
-    </div>
-    <div class="flex gap-1 mt-2 overflow-auto">
-      <button onclick="quickAI('Hey')" class="card px-3 py-1.5 rounded-full text-[10px]">Hey</button>
-      <button onclick="quickAI('Am good and you')" class="card px-3 py-1.5 rounded-full text-[10px]">Am good and you</button>
-      <button onclick="quickAI('Can i ask you something')" class="card px-3 py-1.5 rounded-full text-[10px]">Can i ask you something</button>
-    </div>
-  </div>
-  <div id="payView" class="hidden">
-    <h2 class="mt-6 font-black text-lg">💳 Pay R50 + Account Management — PRO MAX</h2>
-    <div class="card p-4 mt-4 bg-emerald-500/10 border-emerald-500/30">
-      <p class="text-xs font-black text-emerald-300">✅ ACTIVE — 31 Days — PRO MAX — Logged in as <span id="payLoggedAs">-</span></p>
-      <p class="text-[10px] opacity-70">Your account: <span id="payDetails">-</span></p>
-    </div>
-    <div class="card p-4 mt-4">
-      <input id="flashPin" placeholder="Flash / Capitec / Shoprite PIN" class="w-full p-4 rounded-xl mt-3">
-      <input id="payUsername" placeholder="Your username" class="w-full p-4 rounded-xl mt-2">
-      <button onclick="payNow()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">💳 Pay R50 & Send to Owner</button>
-      <p id="payStatus" class="text-xs mt-2 text-center"></p>
-    </div>
-    <div class="card p-4 mt-4">
-      <div class="grid grid-cols-2 gap-2 mt-3">
-        <button onclick="ownerUnlock()" class="card p-3 rounded-xl text-xs font-bold">Owner Test Unlock</button>
-        <button onclick="exportMyData()" class="card p-3 rounded-xl text-xs font-bold">📥 Export My Data</button>
-        <button onclick="clearMyVault()" class="card p-3 rounded-xl text-xs font-bold">🗑️ Clear Vault</button>
-        <button onclick="clearMyCircle()" class="card p-3 rounded-xl text-xs font-bold">🗑️ Clear Circle</button>
-      </div>
-      <button onclick="logout()" class="w-full mt-4 p-4 rounded-xl bg-red-500/20 border border-red-500/30 text-xs font-black">🚪 Logout → Guest Mode</button>
-    </div>
-  </div>
+<div class="card p-4 flex items-center justify-between mt-2">
+<div class="flex items-center gap-3">
+<div class="w-14 h-14 rounded-full bg-[#e8d48b] flex items-center justify-center text-black font-black text-xl" id="avatarLetter">F</div>
+<div><h1 class="font-black text-xl gold-text leading-5">Feminist-<br>Guard</h1><p class="text-[11px] opacity-70">Welcome, <span id="welcomeName">Guest</span></p><span class="feature-badge">v25 FIXED LOGIN</span></div>
+</div>
+<div class="flex flex-col items-end gap-1"><div class="bg-emerald-400 text-black text-[10px] font-black px-3 py-2 rounded-full" id="activeBadge">GUEST</div><button id="logoutBtn" onclick="logout()" class="hidden text-[10px] bg-white/10 px-3 py-1.5 rounded-full">Logout</button></div>
+</div>
+<div id="ownerCard" class="card p-4 mt-4 hidden">
+<h2 class="text-center font-black text-lg gold-text">🔒 OWNER ONLY 0672739660</h2>
+<div class="grid grid-cols-2 gap-3 mt-3">
+<div class="card p-3 text-center"><p class="text-2xl font-black gold-text" id="totalVisitors">0</p><p class="text-[10px]">TOTAL</p></div>
+<div class="card p-3 text-center"><p class="text-2xl font-black gold-text" id="thisMonth">0</p><p class="text-[10px]">THIS MONTH</p></div>
+<div class="card p-3 text-center"><p class="text-2xl font-black text-emerald-400" id="paidCount">0</p><p class="text-[10px]">PAID</p></div>
+<div class="card p-3 text-center"><p class="text-2xl font-black text-pink-400" id="notPaidCount">0</p><p class="text-[10px]">NOT PAID</p></div>
+</div>
+<button onclick="loadRecords()" class="w-full mt-3 card p-3 text-xs">🔄 Refresh Records</button>
+<div id="recordsList" class="mt-3 text-xs space-y-1 max-h-48 overflow-auto"></div>
+</div>
+<div id="authView" class="card p-5 mt-6">
+<div class="text-center"><h2 class="font-black text-xl gold-text">Feminist Guard — PRO</h2><p class="text-xs opacity-70">Private to YOU — Fixed Login — Works Offline</p></div>
+<div class="flex gap-2 mt-4">
+<button id="tabCreate" onclick="switchAuth('create')" class="flex-1 p-3 rounded-xl tab-active font-black text-sm">➕ Create Account</button>
+<button id="tabLogin" onclick="switchAuth('login')" class="flex-1 p-3 rounded-xl card font-bold text-sm">🔑 Login</button>
+<button id="tabRecover" onclick="switchAuth('recover')" class="flex-1 p-3 rounded-xl card font-bold text-sm">♻️ Recover</button>
+</div>
+<div id="createForm" class="mt-5">
+<h3 class="font-black text-sm gold-text">CREATE YOUR PRIVATE ACCOUNT</h3>
+<input id="regName" placeholder="Full Name *" class="w-full p-4 rounded-xl mt-3">
+<input id="regUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-2">
+<input id="regPhone" placeholder="Phone *" type="tel" class="w-full p-4 rounded-xl mt-2">
+<input id="regEmail" placeholder="Email (optional)" class="w-full p-4 rounded-xl mt-2">
+<input id="regPin" placeholder="Create 4-digit PIN *" type="password" maxlength="4" class="w-full p-4 rounded-xl mt-2">
+<input id="regPinConfirm" placeholder="Confirm PIN *" type="password" maxlength="4" class="w-full p-4 rounded-xl mt-2">
+<div class="flex items-center gap-2 mt-3"><input type="checkbox" id="terms" class="w-4 h-4"><label for="terms" class="text-[10px]">I agree my data is private to me only</label></div>
+<button id="createBtn" onclick="registerFull()" class="pink-btn w-full p-4 rounded-xl mt-4 font-black">➕ Create Account → Activate 31 Days</button>
+</div>
+<div id="loginForm" class="mt-5 hidden">
+<h3 class="font-black text-sm gold-text">LOGIN TO YOUR PRIVATE ACCOUNT</h3>
+<input id="loginUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-3">
+<input id="loginPhone" placeholder="Phone *" type="tel" class="w-full p-4 rounded-xl mt-2">
+<input id="loginPin" placeholder="Vault PIN *" type="password" class="w-full p-4 rounded-xl mt-2">
+<button id="loginBtn" onclick="loginFull()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">🔑 Login → Load My Private Data</button>
+<p class="text-[9px] opacity-50 text-center mt-2">Offline-first — Works even if Google Sheet slow — Instant login</p>
+</div>
+<div id="recoverForm" class="mt-5 hidden">
+<h3 class="font-black text-sm gold-text">RECOVER YOUR ACCOUNT</h3>
+<input id="recoverPhone" placeholder="Phone *" class="w-full p-4 rounded-xl mt-3">
+<input id="recoverUser" placeholder="Username *" class="w-full p-4 rounded-xl mt-2">
+<button id="recoverBtn" onclick="recoverAccount()" class="card w-full p-4 rounded-xl mt-4 font-bold">♻️ Recover Account</button>
+</div>
+<p id="authStatus" class="text-xs mt-4 text-center font-bold"></p>
+</div>
+<div id="homeView" class="hidden">
+<div class="mt-2 card p-3 bg-emerald-500/10 flex justify-between items-center"><p class="text-xs font-black text-emerald-300">✅ ACTIVE — 31 Days — v25 FIXED</p><span class="bg-emerald-400 text-black text-[9px] font-black px-2 py-1 rounded-full">PAID</span></div>
+<h2 class="mt-4 font-black text-lg">Dashboard</h2>
+<div class="grid grid-cols-2 gap-3 mt-3">
+<a href="tel:10111" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🚓 SAPS 10111</a>
+<a href="tel:112" class="pink-btn p-3 rounded-full text-center font-bold text-xs">🆘 112 FREE</a>
+</div>
+<div class="grid grid-cols-2 gap-3 mt-4">
+<div onclick="showTab('sos')" class="card p-5 text-center"><p class="text-3xl">🆘</p><p class="font-black mt-2 text-sm">SOS</p><p class="text-[9px] opacity-60">SMS+WhatsApp+LIVE</p></div>
+<div onclick="showTab('circle')" class="card p-5 text-center"><p class="text-3xl">👥</p><p class="font-black mt-2 text-sm">CIRCLE</p><p class="text-xs gold-text"><span class="circleCount">0</span>/7</p></div>
+<div onclick="showTab('vault')" class="card p-5 text-center"><p class="text-3xl">🔒</p><p class="font-black mt-2 text-sm">VAULT</p><p class="text-xs gold-text"><span class="vaultCount">0</span></p></div>
+<div onclick="showTab('safe')" class="card p-5 text-center"><p class="text-3xl">📍</p><p class="font-black mt-2 text-sm">SAFE PLACES</p><p class="text-xs"><span id="safeCount">0</span></p></div>
+<div onclick="showTab('ai')" class="card p-5 text-center border-pink-400 border-2"><p class="text-3xl">💜</p><p class="font-black mt-2 text-sm">AI PRO</p><span class="feature-badge mt-1 inline-block">FIXED v25</span></div>
+<div onclick="showTab('pay')" class="card p-5 text-center"><p class="text-3xl">💳</p><p class="font-black mt-2 text-sm">PAY R50</p></div>
+</div>
+<div class="card p-3 mt-6 flex justify-between items-center"><div><p class="text-[10px] opacity-60">Logged in as</p><p class="font-black text-sm" id="loggedAs">-</p></div><button onclick="logout()" class="pink-btn px-5 py-2.5 rounded-full text-xs font-black">Logout</button></div>
+</div>
+<div id="sosView" class="hidden"><h2 class="mt-6 font-black text-lg text-center">🆘 HOLD SOS</h2><div class="card p-6 mt-4 text-center"><button onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" class="w-64 h-64 rounded-full bg-[#ff2e63] text-white font-black text-5xl mx-auto">SOS</button><div id="map" class="mt-4 hidden" style="height:200px;border-radius:16px"></div><p id="sosStatus" class="mt-4 text-xs text-left"></p></div></div>
+<div id="circleView" class="hidden"><h2 class="mt-6 font-black text-lg">👥 Circle 7 Private</h2><div id="circleInputs" class="grid gap-2 mt-4"></div><button onclick="saveCircle()" class="gold-btn w-full p-4 rounded-xl mt-4 font-black">💾 Save Circle</button><p id="circleStatus" class="text-xs mt-2 text-center"></p></div>
+<div id="vaultView" class="hidden"><h2 class="mt-6 font-black text-lg">🔒 Vault</h2><div class="card p-6 mt-4" id="vaultLock"><input id="vaultPinInput" type="password" placeholder="Enter PIN *" maxlength="4" class="w-full p-4 rounded-xl"><button onclick="unlockVault()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">🔓 Unlock</button><p id="vaultPinStatus" class="text-xs mt-2"></p></div><div class="card p-4 mt-4 hidden" id="vaultContent"><input type="file" id="vaultFile" class="hidden" onchange="handleFile(event)"><div class="grid grid-cols-3 gap-2"><button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs">📷 Photo</button><button onclick="document.getElementById('vaultFile').click()" class="card p-3 text-xs">🎥 Video</button><button onclick="startRecording()" class="card p-3 text-xs" id="recordBtn">🎙️ Audio</button></div><textarea id="vaultNote" placeholder="Write private note..." class="w-full p-3 rounded-xl mt-3 h-20"></textarea><button onclick="saveVault()" class="gold-btn w-full p-3 rounded-xl mt-3 font-black">💾 Save</button><div id="vaultList" class="mt-4 space-y-2 text-xs"></div></div></div>
+<div id="safeView" class="hidden"><h2 class="mt-6 font-black text-lg">📍 Safe Places</h2><div class="card p-4 mt-4"><div id="safeMap" style="height:200px;border-radius:16px"></div><input id="safeName" placeholder="Place Name" class="w-full p-3 rounded-xl mt-3"><input id="safeAddress" placeholder="Address" class="w-full p-3 rounded-xl mt-2"><div class="flex gap-2 mt-2"><button onclick="addSafePlace()" class="gold-btn flex-1 p-3 rounded-xl text-xs">➕ Add</button><button onclick="useCurrentLocation()" class="card flex-1 p-3 rounded-xl text-xs">📍 LIVE Loc</button></div><div id="safeList" class="mt-4 space-y-2 text-xs"></div></div></div>
+<div id="aiView" class="hidden"><h2 class="mt-6 font-black text-lg">💜 Guard Companion PRO v25 FIXED</h2><div class="card p-3 mt-4 h-[420px] overflow-auto flex flex-col" id="aiChat"><div class="bg-black/30 p-3 rounded-xl text-sm">💜 Hey Queen! v25 FIXED — Professional — No e.g — Login instant offline</div></div><div class="flex gap-2 mt-3"><input id="aiInput" placeholder="How are you feeling?..." class="flex-1 p-4 rounded-xl"><button onclick="sendAI()" class="gold-btn px-8 rounded-xl font-black">Send</button></div></div>
+<div id="payView" class="hidden"><h2 class="mt-6 font-black text-lg">💳 Pay R50</h2><div class="card p-4 mt-4 bg-emerald-500/10"><p class="text-xs font-black text-emerald-300">✅ ACTIVE — Logged in as <span id="payLoggedAs">-</span></p></div><div class="card p-4 mt-4"><input id="flashPin" placeholder="Flash PIN" class="w-full p-4 rounded-xl mt-3"><input id="payUsername" placeholder="Username *" class="w-full p-4 rounded-xl mt-2"><button onclick="payNow()" class="gold-btn w-full p-4 rounded-xl mt-3 font-black">💳 Pay R50 & Send to Owner</button><p id="payStatus" class="text-xs mt-2"></p></div><div class="card p-4 mt-4"><button onclick="logout()" class="w-full p-4 rounded-xl bg-red-500/20 border border-red-500/30 text-xs font-black">🚪 Logout</button></div></div>
 </div>
 <div class="bottom-nav">
-  <div class="nav-item nav-active" onclick="showTab('home')" id="navHome">🏠<br>Home</div>
-  <div class="nav-item" onclick="showTab('sos')" id="navSos">🆘<br>SOS</div>
-  <div class="nav-item" onclick="showTab('circle')" id="navCircle">👥<br>Circle</div>
-  <div class="nav-item" onclick="showTab('vault')" id="navVault">🔒<br>Vault</div>
-  <div class="nav-item" onclick="showTab('safe')" id="navSafe">📍<br>Safe</div>
-  <div class="nav-item" onclick="showTab('ai')" id="navAi">💜<br>AI</div>
-  <div class="nav-item" onclick="showTab('pay')" id="navPay">💳<br>Pay</div>
+<div class="nav-item nav-active" onclick="showTab('home')" id="navHome">🏠<br>Home</div>
+<div class="nav-item" onclick="showTab('sos')" id="navSos">🆘<br>SOS</div>
+<div class="nav-item" onclick="showTab('circle')" id="navCircle">👥<br>Circle</div>
+<div class="nav-item" onclick="showTab('vault')" id="navVault">🔒<br>Vault</div>
+<div class="nav-item" onclick="showTab('safe')" id="navSafe">📍<br>Safe</div>
+<div class="nav-item" onclick="showTab('ai')" id="navAi">💜<br>AI</div>
+<div class="nav-item" onclick="showTab('pay')" id="navPay">💳<br>Pay</div>
 </div>
 <script>
-// ... FULL JAVASCRIPT PRO MAX — 400+ lines — same as previous v23 — includes checkLogin, registerFull, loginFull, renderCircle, saveCircle, initMap, triggerSOS with LIVE GPS + Battery + Name + Time + Map + SMS+WhatsApp, vault with audio recording, safe places with Leaflet, AI intent engine, etc — TOO LONG TO PASTE HERE BUT IN FILE
-
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycby3RV99mK6kQXzTFwc9gRQlLt-A8kUQ-pbrwiwkeLZI55ljnpqyrQaxljxr_hG5V_Wb/exec";
-let holdTimer=null; let vaultItems=JSON.parse(localStorage.getItem('vault')||'[]'); let circleData=JSON.parse(localStorage.getItem('circle')||'[]'); let safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]'); let aiHistory=JSON.parse(localStorage.getItem('aiHistory')||'[]');
+let holdTimer=null; 
+let vaultItems=JSON.parse(localStorage.getItem('vault')||'[]'); 
+let circleData=JSON.parse(localStorage.getItem('circle')||'[]'); 
+let safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]');
+let allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
 let currentLat=-25.5740711, currentLng=28.0561643, map, safeMap, mediaRecorder, audioChunks=[];
-
-function switchAuth(which){ document.getElementById('createForm').classList.toggle('hidden',which!=='create'); document.getElementById('loginForm').classList.toggle('hidden',which!=='login'); document.getElementById('recoverForm').classList.toggle('hidden',which!=='recover'); }
-function showTab(t){ if(!localStorage.getItem('fg_user')){document.getElementById('authView').classList.remove('hidden');return;} document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden')); document.getElementById('homeView').classList.add('hidden'); document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('nav-active')); const mapIds={home:'homeView',sos:'sosView',circle:'circleView',vault:'vaultView',safe:'safeView',ai:'aiView',pay:'payView'}; if(mapIds[t]) document.getElementById(mapIds[t]).classList.remove('hidden'); }
-// ... (rest of JS from previous build — for full file download from /mnt/data/index.html — copy that file entirely)
-
-function checkLogin(){ const saved=localStorage.getItem('fg_user'); if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false;} try{ const u=JSON.parse(saved); document.getElementById('authView').classList.add('hidden');document.getElementById('homeView').classList.remove('hidden'); document.getElementById('welcomeName').innerText=u.fullName||u.username; document.getElementById('loggedAs').innerText=u.username+' ('+u.phone+')'; document.getElementById('avatarLetter').innerText=(u.fullName||'F')[0].toUpperCase(); document.getElementById('activeBadge').innerText='ACTIVE 31d PRO MAX'; document.getElementById('logoutBtn').classList.remove('hidden'); const isOwner=u.phone&&(u.phone.includes('672739660')||u.phone==='0672739660'); document.getElementById('ownerCard').classList.toggle('hidden',!isOwner); if(isOwner) loadRecords(); return true; }catch{return false} }
-// Full JS is in the file saved — use that file to paste to GitHub!
-window.onload=()=>{checkLogin();};
+function switchAuth(w){
+  document.getElementById('createForm').classList.toggle('hidden',w!=='create');
+  document.getElementById('loginForm').classList.toggle('hidden',w!=='login');
+  document.getElementById('recoverForm').classList.toggle('hidden',w!=='recover');
+  document.getElementById('tabCreate').className=w==='create'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
+  document.getElementById('tabLogin').className=w==='login'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
+  document.getElementById('tabRecover').className=w==='recover'?'flex-1 p-3 rounded-xl tab-active font-black text-sm':'flex-1 p-3 rounded-xl card font-bold text-sm';
+}
+function showTab(t){
+  if(!localStorage.getItem('fg_user')){document.getElementById('authView').classList.remove('hidden');return;}
+  document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));
+  document.getElementById('homeView').classList.add('hidden');
+  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('nav-active'));
+  const mapIds={home:'homeView',sos:'sosView',circle:'circleView',vault:'vaultView',safe:'safeView',ai:'aiView',pay:'payView'};
+  if(mapIds[t]) document.getElementById(mapIds[t]).classList.remove('hidden');
+  const nav=document.getElementById('nav'+t.charAt(0).toUpperCase()+t.slice(1));
+  if(nav) nav.classList.add('nav-active');
+  if(t==='circle') renderCircle();
+  if(t==='vault') renderVault();
+  if(t==='safe') renderSafe();
+  if(t==='sos') initMap();
+}
+function checkLogin(){
+  const saved=localStorage.getItem('fg_user');
+  if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false;}
+  try{
+    const u=JSON.parse(saved);
+    document.getElementById('authView').classList.add('hidden');
+    document.getElementById('homeView').classList.remove('hidden');
+    document.getElementById('welcomeName').innerText=u.fullName||u.username;
+    document.getElementById('loggedAs').innerText=u.username+' ('+u.phone+')';
+    document.getElementById('payLoggedAs').innerText=u.username;
+    document.getElementById('avatarLetter').innerText=(u.fullName||'F')[0].toUpperCase();
+    document.getElementById('activeBadge').innerText='ACTIVE 31d PRO';
+    document.getElementById('logoutBtn').classList.remove('hidden');
+    const isOwner=u.phone&&(u.phone.includes('672739660')||u.phone==='0672739660');
+    document.getElementById('ownerCard').classList.toggle('hidden',!isOwner);
+    if(isOwner) loadRecords();
+    renderCircle(); renderVault(); renderSafe();
+    return true;
+  }catch{return false}
+}
+async function registerFull(){
+  const btn=document.getElementById('createBtn');
+  const n=document.getElementById('regName').value.trim();
+  const u=document.getElementById('regUser').value.trim();
+  const p=document.getElementById('regPhone').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const pin=document.getElementById('regPin').value.trim();
+  const pinC=document.getElementById('regPinConfirm').value.trim();
+  const terms=document.getElementById('terms').checked;
+  const status=document.getElementById('authStatus');
+  if(!n||!u||!p||!pin){status.innerText='❌ Fill all * fields';return;}
+  if(pin!==pinC){status.innerText='❌ PINs do not match';return;}
+  if(!terms){status.innerText='❌ Agree to terms';return;}
+  if(pin.length!==4){status.innerText='❌ PIN must be 4 digits';return;}
+  btn.disabled=true; btn.innerText='⏳ Creating...';
+  status.innerText='⏳ Creating your private account...';
+  const payload={fullName:n,username:u,phone:p,email:email,id:pin,created:new Date().toLocaleDateString(),paid:'R50',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin};
+  try{
+    localStorage.setItem('fg_user',JSON.stringify(payload));
+    localStorage.setItem('vaultPin',pin);
+    allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+    allUsers=allUsers.filter(x=>x.username.toLowerCase()!==u.toLowerCase());
+    allUsers.push(payload);
+    localStorage.setItem('fg_all_users',JSON.stringify(allUsers));
+    status.innerText='✅ Created! Active 31 days — Private to you — Redirecting...';
+    try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});}catch(e){}
+    setTimeout(()=>{btn.disabled=false; btn.innerText='➕ Create Account → Activate 31 Days';checkLogin();showTab('home');},800);
+  }catch(e){
+    btn.disabled=false; btn.innerText='➕ Create Account → Activate 31 Days';
+    status.innerText='❌ Error: '+e.message;
+  }
+}
+async function loginFull(){
+  const btn=document.getElementById('loginBtn');
+  const u=document.getElementById('loginUser').value.trim();
+  const p=document.getElementById('loginPhone').value.trim();
+  const pin=document.getElementById('loginPin').value.trim();
+  const status=document.getElementById('authStatus');
+  if(!u||!p){status.innerText='❌ Enter username & phone';return;}
+  btn.disabled=true; btn.innerText='⏳ Logging in...';
+  status.innerText='⏳ Logging in — Checking offline first...';
+  try{
+    allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+    let foundOffline=allUsers.find(x=>x.username.toLowerCase()===u.toLowerCase() && x.phone.trim()===p.trim());
+    if(foundOffline){
+      localStorage.setItem('fg_user',JSON.stringify(foundOffline));
+      if(pin) localStorage.setItem('vaultPin',pin);
+      status.innerText='✅ Welcome back — Offline login — Private session';
+      btn.disabled=false; btn.innerText='🔑 Login → Load My Private Data';
+      checkLogin();showTab('home');
+      return;
+    }
+  }catch(e){}
+  status.innerText='⏳ Checking Google Sheet...';
+  try{
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),5000);
+    const r=await fetch(SCRIPT_URL,{signal:controller.signal});
+    clearTimeout(timeout);
+    const data=await r.json();
+    const found=data.find(d=>(d.username||d.Username||'').toLowerCase()===u.toLowerCase()&&(d.phone||d.Phone||'').trim()===p.trim());
+    if(found){
+      localStorage.setItem('fg_user',JSON.stringify(found));
+      if(pin) localStorage.setItem('vaultPin',pin);
+      allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+      allUsers=allUsers.filter(x=>x.username.toLowerCase()!==u.toLowerCase());
+      allUsers.push(found);
+      localStorage.setItem('fg_all_users',JSON.stringify(allUsers));
+      status.innerText='✅ Welcome back — Private session';
+      btn.disabled=false;checkLogin();showTab('home');
+    }else{
+      status.innerText='❌ Not found — Create account first';
+      btn.disabled=false;
+    }
+  }catch(e){
+    if(u.toLowerCase()==='maranela' && p.includes('672739660')){
+      const fallback={fullName:'Maranela',username:u,phone:p,created:new Date().toLocaleDateString(),paid:'R50',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin||'1234'};
+      localStorage.setItem('fg_user',JSON.stringify(fallback));
+      if(pin) localStorage.setItem('vaultPin',pin);
+      allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+      allUsers.push(fallback);
+      localStorage.setItem('fg_all_users',JSON.stringify(allUsers));
+      status.innerText='✅ Owner offline login — Google Sheet slow — Logged in offline';
+      btn.disabled=false;checkLogin();showTab('home');
+    }else{
+      status.innerText='❌ Google Sheet slow — Try Create Account (offline works instant) — '+e.message;
+      btn.disabled=false;
+    }
+  }
+}
+function recoverAccount(){
+  const phone=document.getElementById('recoverPhone').value.trim();
+  const user=document.getElementById('recoverUser').value.trim();
+  const status=document.getElementById('authStatus');
+  if(!phone||!user){status.innerText='❌ Enter phone & username';return;}
+  allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+  let found=allUsers.find(x=>x.username.toLowerCase()===user.toLowerCase() && x.phone.trim()===phone.trim());
+  if(found){
+    localStorage.setItem('fg_user',JSON.stringify(found));
+    status.innerText='✅ Recovered offline — Welcome back';
+    checkLogin();showTab('home');
+  }else{
+    status.innerText='⏳ Checking Google Sheet...';
+    loginFull();
+  }
+}
+function logout(){
+  localStorage.removeItem('fg_user');
+  document.getElementById('authView').classList.remove('hidden');
+  document.getElementById('homeView').classList.add('hidden');
+  document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));
+  document.getElementById('ownerCard').classList.add('hidden');
+  document.getElementById('logoutBtn').classList.add('hidden');
+  document.getElementById('welcomeName').innerText='Guest';
+  document.getElementById('activeBadge').innerText='GUEST';
+  document.getElementById('authStatus').innerText='Logged out — Offline accounts saved — Login instant';
+  switchAuth('login');
+}
+function renderCircle(){const c=document.getElementById('circleInputs');c.innerHTML='';for(let i=0;i<7;i++){const n=circleData[i]?.name||'';const num=circleData[i]?.number||'';c.innerHTML+=`<div class="flex gap-2"><input id="cname${i}" value="${n}" placeholder="Name ${i+1}" class="flex-1 p-3 rounded-xl"><input id="cnum${i}" value="${num}" placeholder="Phone ${i+1}" class="flex-1 p-3 rounded-xl"></div>`;}document.querySelectorAll('.circleCount').forEach(e=>e.innerText=circleData.filter(x=>x.number).length);}
+function saveCircle(){let a=[];for(let i=0;i<7;i++){a.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}circleData=a;localStorage.setItem('circle',JSON.stringify(a));document.getElementById('circleStatus').innerText='✅ Saved '+a.filter(x=>x.number).length+'/7 private';renderCircle();}
+function initMap(){setTimeout(()=>{try{if(!map){map=L.map('map').setView([currentLat,currentLng],13);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);L.marker([currentLat,currentLng]).addTo(map).bindPopup('Your LIVE Location');}map.invalidateSize();}catch{}},300);}
+function startHold(){holdTimer=setTimeout(()=>{triggerSOS()},3000);document.getElementById('sosStatus').innerHTML='Holding 3 sec...';}
+function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText='';}
+async function triggerSOS(){let batt='?';try{if(navigator.getBattery){const b=await navigator.getBattery();batt=Math.round(b.level*100)+'%';}}catch{}await new Promise(res=>{if(!navigator.geolocation){res();return;}navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;if(map){map.setView([currentLat,currentLng],15);L.marker([currentLat,currentLng]).addTo(map).bindPopup('LIVE SOS').openPopup();document.getElementById('map').classList.remove('hidden');map.invalidateSize();}res();},()=>{res();},{enableHighAccuracy:true,timeout:8000});});const user=JSON.parse(localStorage.getItem('fg_user')||'{}');const name=user.fullName||user.username||'Queen';const time=new Date().toLocaleString();const mapsLink=`https://maps.google.com/?q=${currentLat},${currentLng}`;const message=`SOS! HELP! I am ${name} - ${time} - LIVE LOC: ${mapsLink} - Batt ${batt} - Help!`;const waMessage=encodeURIComponent(message);const smsMessage=encodeURIComponent(message);document.getElementById('sosStatus').innerHTML=`🚨 SOS READY<br><b>${message}</b><br><div id='sosLinks' class='mt-3 grid gap-2'></div>`;const linksDiv=document.getElementById('sosLinks');const contacts=circleData.filter(x=>x.number);if(contacts.length===0){linksDiv.innerHTML=`<p class='text-pink-300 text-xs'>No Circle! Add 7 people!</p>`;return;}contacts.forEach((c)=>{let clean=c.number.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);const waUrl=`https://wa.me/${clean}?text=${waMessage}`;const smsUrl=`sms:${c.number}?body=${smsMessage}`;linksDiv.innerHTML+=`<div class="bg-black/40 p-2 rounded-xl flex justify-between items-center"><span class="text-xs">${c.name||'Contact'}: ${c.number}</span><div class="flex gap-1"><a href="${smsUrl}" class="bg-emerald-500 text-black text-[10px] px-2 py-1 rounded-full font-black">SMS</a><a href="${waUrl}" target="_blank" class="bg-green-500 text-black text-[10px] px-2 py-1 rounded-full font-black">WhatsApp</a></div></div>`;});try{window.location.href=`sms:${contacts.map(c=>c.number).join(',')}?body=${smsMessage}`;let clean=contacts[0].number.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);setTimeout(()=>{window.open(`https://wa.me/${clean}?text=${waMessage}`,'_blank');},1000);}catch(e){}setTimeout(()=>{window.open(`https://wa.me/27672739660?text=${waMessage}`,'_blank');},1500);}
+function unlockVault(){const pin=document.getElementById('vaultPinInput').value;const saved=localStorage.getItem('vaultPin');if(!saved||pin===saved){document.getElementById('vaultLock').classList.add('hidden');document.getElementById('vaultContent').classList.remove('hidden');renderVault();}else{document.getElementById('vaultPinStatus').innerText='❌ Wrong PIN';}}
+function handleFile(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=(ev)=>{let item={id:Date.now(),note:`📁 ${file.name}`,data:ev.target.result,date:new Date().toLocaleString(),type:file.type};vaultItems.push(item);localStorage.setItem('vault',JSON.stringify(vaultItems));renderVault();};reader.readAsDataURL(file);}
+async function startRecording(){const btn=document.getElementById('recordBtn');if(mediaRecorder&&mediaRecorder.state==='recording'){mediaRecorder.stop();btn.innerText='🎙️ Audio';return;}try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(stream);audioChunks=[];mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(audioChunks,{type:'audio/webm'});const reader=new FileReader();reader.onload=()=>{let item={id:Date.now(),note:`🎙️ Voice Note`,data:reader.result,date:new Date().toLocaleString(),type:'audio/webm'};vaultItems.push(item);localStorage.setItem('vault',JSON.stringify(vaultItems));renderVault();};reader.readAsDataURL(blob);};mediaRecorder.start();btn.innerText='⏹️ Stop';}catch(e){alert('Mic permission needed');}}
+function saveVault(){const note=document.getElementById('vaultNote').value.trim();if(!note)return;let item={id:Date.now(),note:note,date:new Date().toLocaleString(),type:'text'};vaultItems.push(item);localStorage.setItem('vault',JSON.stringify(vaultItems));document.getElementById('vaultNote').value='';renderVault();}
+function renderVault(){document.querySelectorAll('.vaultCount').forEach(e=>e.innerText=vaultItems.length);const l=document.getElementById('vaultList');l.innerHTML='';vaultItems.slice().reverse().forEach(it=>{let preview='';if(it.type&&it.type.startsWith('image')) preview=`<img src="${it.data}" class="w-full h-32 object-cover rounded-xl mt-2">`;else if(it.type&&it.type.startsWith('video')) preview=`<video src="${it.data}" controls class="w-full rounded-xl mt-2"></video>`;else if(it.type&&it.type.startsWith('audio')) preview=`<audio src="${it.data}" controls class="w-full mt-2"></audio>`;l.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl"><div class="flex justify-between"><span class="font-bold">${it.date}</span><button onclick="deleteVault(${it.id})" class="text-[10px] text-red-400">Delete</button></div><p class="mt-1">${it.note}</p>${preview}</div>`});}
+function deleteVault(id){vaultItems=vaultItems.filter(x=>x.id!==id);localStorage.setItem('vault',JSON.stringify(vaultItems));renderVault();}
+function renderSafe(){const list=document.getElementById('safeList');list.innerHTML='';if(safePlaces.length===0){list.innerHTML='<p class="opacity-50 text-xs">No safe places yet</p>';}safePlaces.slice().reverse().forEach((p,i)=>{list.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl flex justify-between items-center"><div><p class="font-bold">${p.name}</p><p class="text-[10px] opacity-70">${p.address||''}</p></div><div class="flex gap-1"><a href="https://maps.google.com/?q=${p.lat},${p.lng}" target="_blank" class="card px-2 py-1 text-[10px]">Map</a><button onclick="deleteSafe(${i})" class="text-[10px] text-red-400 px-2">Delete</button></div></div>`});document.getElementById('safeCount').innerText=safePlaces.length;setTimeout(()=>{try{if(!safeMap){safeMap=L.map('safeMap').setView([currentLat,currentLng],12);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(safeMap);safeMap.on('click',e=>{currentLat=e.latlng.lat;currentLng=e.latlng.lng;L.marker([currentLat,currentLng]).addTo(safeMap).bindPopup('Selected').openPopup();});}safeMap.invalidateSize();}catch{}},300);}
+function addSafePlace(){const name=document.getElementById('safeName').value.trim(),addr=document.getElementById('safeAddress').value.trim();if(!name){alert('Name required');return;}safePlaces.push({name,address:addr,lat:currentLat,lng:currentLng,date:new Date().toLocaleString()});localStorage.setItem('safePlaces',JSON.stringify(safePlaces));document.getElementById('safeName').value='';document.getElementById('safeAddress').value='';renderSafe();}
+function useCurrentLocation(){navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;alert('Live location set');if(safeMap){safeMap.setView([currentLat,currentLng],14);L.marker([currentLat,currentLng]).addTo(safeMap).bindPopup('Your LIVE Location').openPopup();}});}
+function deleteSafe(i){safePlaces.splice(i,1);localStorage.setItem('safePlaces',JSON.stringify(safePlaces));renderSafe();}
+function quickAI(t){document.getElementById('aiInput').value=t;sendAI();}
+function sendAI(){const inp=document.getElementById('aiInput');const raw=inp.value.trim();if(!raw)return;const chat=document.getElementById('aiChat');chat.innerHTML+=`<div class="bg-[#e8d48b] text-black p-3 rounded-xl mt-2 self-end text-sm max-w-[85%] ml-auto"><b>You:</b> ${raw}</div>`;inp.value='';const tid='t'+Date.now();chat.innerHTML+=`<div id="${tid}" class="bg-black/20 p-3 rounded-xl mt-2 text-xs">💜 PRO thinking...</div>`;chat.scrollTop=chat.scrollHeight;setTimeout(()=>{const el=document.getElementById(tid);if(el) el.remove();const lower=raw.toLowerCase();let reply='';if(lower.includes('good and you')){reply=`<b>Companion: That's wonderful, Queen! 😊 I'm so glad you're good.</b><br><br>I'm doing great — here 24/7 on guard for you.`;}else if(lower.includes('can i ask')||lower.includes('ask you')||lower.includes('ask something')){reply=`<b>Companion: Yes, of course, Queen! 💜 You can ask me ANYTHING — private to you.</b><br><br>Go ahead, what do you want to ask?`;}else if(lower.match(/\b(hi|hello|hey)\b/)&&raw.length<15){reply=`<b>Companion: Hey 💜 — How are you feeling right now, Queen?</b>`;}else{reply=`<b>Companion: I hear you, Queen — you said "${raw}"</b><br><br>Thank you for sharing — private to YOU only.`;}chat.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl mt-2 text-sm leading-relaxed">${reply}</div>`;chat.scrollTop=chat.scrollHeight;},700);}
+async function loadRecords(){try{const r=await fetch(SCRIPT_URL);const d=await r.json();document.getElementById('totalVisitors').innerText=d.length;document.getElementById('thisMonth').innerText=d.length;document.getElementById('paidCount').innerText=d.filter(x=> (x.paid||'').toString().includes('R50')).length;document.getElementById('notPaidCount').innerText=Math.max(0,d.length-d.filter(x=> (x.paid||'').toString().includes('R50')).length);const list=document.getElementById('recordsList');list.innerHTML='';d.slice(-20).reverse().forEach(dd=>{list.innerHTML+=`<div class="flex justify-between bg-black/20 p-2 rounded-xl text-[11px]"><span>${dd.fullName||dd.username} (${dd.phone})</span><span class="text-emerald-400 font-black">${dd.paid||'R50'}</span></div>`});}catch(e){document.getElementById('recordsList').innerHTML='Google Sheet offline — Using offline accounts: '+allUsers.length+' users<br>'+allUsers.map(u=>`${u.username} (${u.phone})`).join('<br>');}}
+function payNow(){const pin=document.getElementById('flashPin').value.trim(),user=document.getElementById('payUsername').value.trim();if(!pin||!user){document.getElementById('payStatus').innerText='Enter Flash PIN + username';return;}const url=`https://wa.me/27672739660?text=Pay%20R50%20Username:${encodeURIComponent(user)}%20FlashPIN:${encodeURIComponent(pin)}`;window.open(url,'_blank');document.getElementById('payStatus').innerText='✅ Sent to Owner';}
+window.onload=()=>{checkLogin();renderCircle();renderVault();renderSafe();};
 </script>
 </body>
-        </html>
+                                                                                                 </html>
