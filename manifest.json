@@ -1,13 +1,14 @@
 {
-  "name": "Feminist-Guard Private",
+  "name": "Feminist-Guard",
   "short_name": "Guard",
-  "description": "Feminist-Guard Private - 31 Days Safety Vault - Stealth SOS Trusted Circle Login Logout Private",
-  "start_url": "./",
+  "description": "Private safety — SOS, Vault, Circle — POPIA Safe",
+  "start_url": "./index.html?v=17.8",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay"],
+  "orientation": "portrait",
   "background_color": "#0F0A1E",
   "theme_color": "#FFD88A",
-  "orientation": "portrait",
-  "scope": "./",
   "icons": [
     {
       "src": "./icon192.png",
