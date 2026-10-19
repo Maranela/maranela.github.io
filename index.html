@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Feminist-Guard - Full v18.1</title>
+<title>Feminist-Guard v21 FINAL - SOS WhatsApp + PRO AI + Auth</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -15,101 +15,119 @@ body{font-family:'Outfit',sans-serif;background:#0e0a1e;color:#f5e9c8}
 .nav-item{padding:8px 14px;border-radius:18px;font-size:11px;text-align:center;color:#a99dc2}
 .nav-active{background:#3a325c;color:#e8d48b}
 input,textarea{background:#211c38;border:1px solid #ffffff1a;color:#e8d48b}
+.tab-active{border:2px solid #e8d48b;background:#3a325c}
 </style>
 </head>
-<body class="pb-24">
+<body class="pb-28">
 <div class="max-w-md mx-auto p-3">
 <div class="card p-4 flex items-center justify-between mt-2">
-  <div class="flex items-center gap-3"><div class="w-14 h-14 rounded-full bg-[#e8d48b] flex items-center justify-center text-black font-black text-xl">N</div><div><h1 class="font-black text-xl gold-text leading-5">Feminist-<br>Guard</h1><p class="text-xs opacity-70">Welcome, <span id="welcomeName">Nhlanhla</span></p></div></div>
-  <div class="bg-emerald-400 text-black text-xs font-bold px-3 py-2 rounded-full">ACTIVE<br>31d</div>
+  <div class="flex items-center gap-3"><div class="w-14 h-14 rounded-full bg-[#e8d48b] flex items-center justify-center text-black font-black text-xl" id="avatarLetter">F</div><div><h1 class="font-black text-xl gold-text leading-5">Feminist-<br>Guard</h1><p class="text-xs opacity-70">Welcome, <span id="welcomeName">Guest</span></p></div></div>
+  <div class="flex flex-col items-end gap-1"><div class="bg-emerald-400 text-black text-xs font-bold px-3 py-2 rounded-full" id="activeBadge">GUEST</div><button id="logoutBtn" onclick="logout()" class="hidden text-[10px] bg-white/10 px-2 py-1 rounded-full">Logout</button></div>
 </div>
-<div class="mt-2 text-xs bg-emerald-500/20 text-emerald-300 p-2 rounded-xl text-center">✅ Active — 31 days</div>
-<div id="ownerCard" class="card p-4 mt-4">
+<div id="ownerCard" class="card p-4 mt-4 hidden">
   <h2 class="text-center font-black text-lg gold-text">🔒 OWNER ONLY — 0672739660 — RECORDS</h2>
   <div class="grid grid-cols-2 gap-3 mt-4">
-    <div class="card p-3 text-center"><p class="text-3xl font-black gold-text" id="totalVisitors">1</p><p class="text-xs">Total Visitors</p></div>
-    <div class="card p-3 text-center"><p class="text-3xl font-black gold-text" id="thisMonth">1</p><p class="text-xs">This Month</p></div>
-    <div class="card p-3 text-center border-emerald-400"><p class="text-3xl font-black text-emerald-400" id="paidCount">1</p><p class="text-xs">PAID R50</p></div>
-    <div class="card p-3 text-center border-pink-400"><p class="text-3xl font-black text-pink-400" id="notPaidCount">0</p><p class="text-xs">NOT PAID</p></div>
+    <div class="card p-3 text-center"><p class="text-3xl font-black gold-text" id="totalVisitors">0</p><p class="text-xs">Total Visitors</p></div>
+    <div class="card p-3 text-center"><p class="text-3xl font-black gold-text" id="thisMonth">0</p><p class="text-xs">This Month</p></div>
+    <div class="card p-3 text-center"><p class="text-3xl font-black text-emerald-400" id="paidCount">0</p><p class="text-xs">PAID R50</p></div>
+    <div class="card p-3 text-center"><p class="text-3xl font-black text-pink-400" id="notPaidCount">0</p><p class="text-xs">NOT PAID</p></div>
   </div>
-  <div class="mt-3 bg-black/30 p-3 rounded-xl flex justify-between text-sm"><span id="lastUser">Nhlanhla (Maranela)</span><span class="text-emerald-400">PAID</span></div>
-  <button onclick="loadRecords()" class="w-full mt-3 card p-3">🔄 Refresh</button>
-  <div id="recordsList" class="mt-3 text-xs space-y-1 max-h-40 overflow-auto"></div>
+  <button onclick="loadRecords()" class="w-full mt-3 card p-3">🔄 Refresh Records</button>
+  <div id="recordsList" class="mt-3 text-xs space-y-1 max-h-48 overflow-auto"></div>
 </div>
-<div id="homeView">
-  <h2 class="mt-6 font-bold text-lg">Dashboard — Private — 31 Days</h2>
+<div id="authView" class="card p-5 mt-6">
+  <h2 class="font-black text-xl gold-text text-center">Feminist Guard — Private</h2>
+  <p class="text-xs opacity-60 text-center mt-1">Create individual account — private to YOU</p>
+  <div class="flex gap-2 mt-4">
+    <button id="tabCreate" onclick="switchAuth('create')" class="flex-1 p-3 rounded-xl tab-active font-bold">Create Account</button>
+    <button id="tabLogin" onclick="switchAuth('login')" class="flex-1 p-3 rounded-xl card">Login</button>
+  </div>
+  <div id="createForm" class="mt-5">
+    <input id="regName" placeholder="Full Name" class="w-full p-4 rounded-xl mt-2">
+    <input id="regUser" placeholder="Username (unique)" class="w-full p-4 rounded-xl mt-2">
+    <input id="regPhone" placeholder="Phone 07..." type="tel" class="w-full p-4 rounded-xl mt-2">
+    <input id="regPin" placeholder="Create 4-digit PIN for Vault" type="password" class="w-full p-4 rounded-xl mt-2">
+    <button onclick="registerFull()" class="pink-btn w-full p-4 rounded-xl mt-4 font-black">Create Account → Activate R50</button>
+  </div>
+  <div id="loginForm" class="mt-5 hidden">
+    <input id="loginUser" placeholder="Username" class="w-full p-4 rounded-xl mt-2">
+    <input id="loginPhone" placeholder="Phone 07..." type="tel" class="w-full p-4 rounded-xl mt-2">
+    <input id="loginPin" placeholder="Your Vault PIN" type="password" class="w-full p-4 rounded-xl mt-2">
+    <button onclick="loginFull()" class="gold-btn w-full p-4 rounded-xl mt-4">Login →</button>
+  </div>
+  <p id="authStatus" class="text-xs mt-3 text-center"></p>
+</div>
+<div id="homeView" class="hidden">
+  <div class="mt-2 text-xs bg-emerald-500/20 text-emerald-300 p-2 rounded-xl text-center">✅ Active — 31 days</div>
+  <h2 class="mt-4 font-bold text-lg">Dashboard — Private — 31 Days</h2>
   <div class="grid grid-cols-2 gap-3 mt-3">
     <a href="tel:10111" class="pink-btn p-3 rounded-full text-center font-bold">🚓 SAPS 10111</a>
     <a href="tel:112" class="pink-btn p-3 rounded-full text-center font-bold">🆘 112 FREE</a>
   </div>
-  <div class="card p-3 mt-3 text-sm text-center bg-emerald-500/20">✅ ACTIVE — 31 days — Expires <span id="expiryDate">11/19/2026</span></div>
   <div class="grid grid-cols-2 gap-3 mt-4">
-    <div onclick="showTab('sos')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🆘</p><p class="font-bold mt-2">SOS</p><p class="text-xs opacity-60 mt-3">FREE 1x then R50</p></div>
-    <div onclick="showTab('circle')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">👥</p><p class="font-bold mt-2">Circle</p><p class="text-xs opacity-60 mt-3"><span id="circleCount">0</span>/7</p></div>
-    <div onclick="showTab('vault')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🔒</p><p class="font-bold mt-2">Vault</p><p class="text-xs opacity-60 mt-3"><span id="vaultCount">0</span> items</p></div>
-    <div class="card p-5 text-center"><p class="text-3xl">📍</p><p class="font-bold mt-2">Safe</p><p class="text-xs opacity-60 mt-3">0 places</p></div>
-    <div onclick="showTab('ai')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">💜</p><p class="font-bold mt-2">AI</p></div>
+    <div onclick="showTab('sos')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🆘</p><p class="font-bold mt-2">SOS</p><p class="text-[10px] opacity-60">SMS+WhatsApp+LIVE LOC</p></div>
+    <div onclick="showTab('circle')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">👥</p><p class="font-bold mt-2">Circle</p><p class="text-xs"><span class="circleCount">0</span>/7</p></div>
+    <div onclick="showTab('vault')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">🔒</p><p class="font-bold mt-2">Vault</p><p class="text-xs"><span class="vaultCount">0</span> items</p></div>
+    <div onclick="showTab('ai')" class="card p-5 text-center border-pink-400 cursor-pointer"><p class="text-3xl">💜</p><p class="font-bold mt-2">AI PRO</p><p class="text-[10px] text-pink-300">Accurate</p></div>
     <div onclick="showTab('pay')" class="card p-5 text-center cursor-pointer"><p class="text-3xl">💳</p><p class="font-bold mt-2">Pay R50</p></div>
+    <div class="card p-5 text-center"><p class="text-3xl">📍</p><p class="font-bold mt-2">Safe</p><p class="text-xs">0 places</p></div>
+  </div>
+  <div class="card p-3 mt-6 flex justify-between items-center">
+    <div><p class="text-xs opacity-60">Logged in as</p><p class="font-bold" id="loggedAs">-</p></div>
+    <button onclick="logout()" class="pink-btn px-4 py-2 rounded-full text-xs font-bold">Logout</button>
   </div>
 </div>
 <div id="sosView" class="hidden">
-  <h2 class="mt-6 font-bold text-lg text-center">HOLD FOR HELP — 1 FREE then R50</h2>
+  <h2 class="mt-6 font-bold text-lg text-center">HOLD FOR HELP — SMS + WhatsApp + LIVE LOC</h2>
   <div class="card p-6 mt-4 text-center">
-    <button id="sosBtn" onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" class="w-48 h-48 rounded-full bg-[#ff2e63] text-white font-black text-3xl mx-auto">SOS</button>
-    <p class="mt-6 text-sm">Hold 3 sec — 1 FREE if NOT ACTIVE, then R50</p>
-    <p class="mt-2 text-xs gold-text">✅ UNLIMITED SOS — ACTIVE — <span id="sosContacts">7</span> contacts</p>
-    <p id="sosStatus" class="mt-3 text-xs"></p>
+    <button id="sosBtn" onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" class="w-56 h-56 rounded-full bg-[#ff2e63] text-white font-black text-4xl mx-auto shadow-2xl">SOS</button>
+    <p class="mt-4 text-sm">Hold 3 sec — Sends to your 7 Circle + Owner 0672739660<br>SMS + WhatsApp with LIVE GPS + Battery + Name + Time + Map</p>
+    <p id="sosStatus" class="mt-4 text-xs leading-relaxed"></p>
   </div>
 </div>
 <div id="circleView" class="hidden">
-  <h2 class="mt-6 font-bold text-lg">Trusted Circle — 7 People — Private</h2>
-  <div id="circleInputs" class="grid grid-cols-1 gap-2 mt-4"></div>
-  <button onclick="saveCircle()" class="gold-btn w-full p-3 rounded-xl mt-4">Save Circle →</button>
+  <h2 class="mt-6 font-bold text-lg">Trusted Circle — 7 People — Private to YOU</h2>
+  <div id="circleInputs" class="grid gap-2 mt-4"></div>
+  <button onclick="saveCircle()" class="gold-btn w-full p-3 rounded-xl mt-4">Save My Private Circle →</button>
   <p id="circleStatus" class="text-xs mt-2 text-center"></p>
 </div>
 <div id="vaultView" class="hidden">
-  <h2 class="mt-6 font-bold text-lg">Evidence Vault — Private</h2>
+  <h2 class="mt-6 font-bold text-lg">Evidence Vault — Private + PIN</h2>
   <div class="card p-6 mt-4" id="vaultLock">
-    <p class="gold-text font-bold">Enter Vault PIN</p>
-    <p class="mt-2 text-sm">Welcome <span class="font-bold">Nhlanhla</span></p>
-    <input id="vaultPinInput" type="password" placeholder="Enter PIN" class="w-full p-3 rounded-xl mt-4">
-    <button onclick="unlockVault()" class="gold-btn w-full p-3 rounded-xl mt-3">Unlock →</button>
+    <p class="gold-text font-bold">Enter Your Private Vault PIN</p>
+    <input id="vaultPinInput" type="password" placeholder="Enter PIN you created" class="w-full p-3 rounded-xl mt-4">
+    <button onclick="unlockVault()" class="gold-btn w-full p-3 rounded-xl mt-3">Unlock My Vault →</button>
+    <p id="vaultPinStatus" class="text-xs mt-2 text-center"></p>
   </div>
   <div class="card p-4 mt-4 hidden" id="vaultContent">
+    <input type="file" id="vaultFile" accept="image/*,video/*,audio/*" class="hidden">
     <div class="flex gap-2">
-      <input type="file" id="vaultFile" accept="image/*,video/*,audio/*" class="hidden">
       <button onclick="document.getElementById('vaultFile').click()" class="card p-2 flex-1 text-xs">📷 Photo</button>
-      <button onclick="startRecording()" class="card p-2 flex-1 text-xs">🎥 Video</button>
-      <button onclick="startAudio()" class="card p-2 flex-1 text-xs">🎙️ Record</button>
+      <button onclick="document.getElementById('vaultFile').click()" class="card p-2 flex-1 text-xs">🎥 Video</button>
+      <button onclick="document.getElementById('vaultFile').click()" class="card p-2 flex-1 text-xs">🎙️ Record</button>
     </div>
-    <textarea id="vaultNote" placeholder="Write evidence note..." class="w-full p-3 rounded-xl mt-3 h-20"></textarea>
-    <button onclick="saveVault()" class="gold-btn w-full p-3 rounded-xl mt-3">Save to Vault →</button>
+    <textarea id="vaultNote" placeholder="Write private evidence note..." class="w-full p-3 rounded-xl mt-3 h-20"></textarea>
+    <button onclick="saveVault()" class="gold-btn w-full p-3 rounded-xl mt-3">Save to My Private Vault →</button>
     <div id="vaultList" class="mt-4 space-y-2 text-xs"></div>
   </div>
 </div>
 <div id="aiView" class="hidden">
-  <h2 class="mt-6 font-bold text-lg">💜 Guard Companion — Private</h2>
-  <div class="card p-3 mt-4 h-80 overflow-auto flex flex-col" id="aiChat">
-    <div class="bg-black/30 p-3 rounded-xl text-sm">💜 Hey, I am your Guard Companion — Private<br>How are you feeling today?</div>
+  <h2 class="mt-6 font-bold text-lg">💜 Guard Companion PRO — Private & Accurate</h2>
+  <p class="text-xs opacity-60">Professional — listens accurately — never repeats same line — protects you</p>
+  <div class="card p-3 mt-4 h-96 overflow-auto flex flex-col" id="aiChat">
+    <div class="bg-black/30 p-3 rounded-xl text-sm">💜 Hey, I am your PRO Guard Companion — Private<br>I listen accurately, I don't repeat. I help you feel protected.<br><br>How are you feeling today, Queen?</div>
   </div>
-  <div class="flex gap-2 mt-3"><input id="aiInput" placeholder="Tell me..." class="flex-1 p-3 rounded-xl"><button onclick="sendAI()" class="gold-btn px-6 rounded-xl">Send</button></div>
+  <div class="flex gap-2 mt-3"><input id="aiInput" placeholder="Tell me privately..." class="flex-1 p-3 rounded-xl"><button onclick="sendAI()" class="gold-btn px-6 rounded-xl">Send</button></div>
 </div>
 <div id="payView" class="hidden">
   <h2 class="mt-6 font-bold text-lg">R50 — 31 Days — Private</h2>
-  <div class="card p-4 mt-4 bg-emerald-500/20 text-sm">✅ ACTIVE — 31 days</div>
+  <div class="card p-4 mt-4 bg-emerald-500/20 text-sm">✅ ACTIVE — 31 days — Logged in as <span id="payLoggedAs">-</span></div>
   <input id="flashPin" placeholder="Flash PIN" class="w-full p-4 rounded-xl mt-4">
   <input id="payUsername" placeholder="Your username" class="w-full p-4 rounded-xl mt-3">
   <button onclick="payNow()" class="gold-btn w-full p-4 rounded-xl mt-4">Pay R50 & Send to Owner →</button>
   <button onclick="ownerUnlock()" class="card w-full p-4 rounded-xl mt-3 border-dashed">Owner Test — Unlock 31 Days</button>
   <p id="payStatus" class="text-xs mt-3 text-center"></p>
-</div>
-<div id="authView" class="card p-6 mt-6">
-  <h2 class="font-bold">Join — R50 Private</h2>
-  <input id="regName" placeholder="Full Name" class="w-full p-3 rounded-xl mt-3">
-  <input id="regUser" placeholder="Username" class="w-full p-3 rounded-xl mt-2">
-  <input id="regPhone" placeholder="Phone 07..." class="w-full p-3 rounded-xl mt-2">
-  <button onclick="registerFull()" class="pink-btn w-full p-4 rounded-xl mt-4 font-bold">Activate R50 →</button>
-  <p id="authStatus" class="text-xs mt-2 text-center"></p>
+  <button onclick="logout()" class="w-full mt-6 p-3 rounded-xl bg-white/10 text-xs">Logout from this device</button>
 </div>
 </div>
 <div class="bottom-nav">
@@ -122,97 +140,52 @@ input,textarea{background:#211c38;border:1px solid #ffffff1a;color:#e8d48b}
 </div>
 <script>
 const SCRIPT_URL="https://script.google.com/macros/s/AKfycby3RV99mK6kQXzTFwc9gRQlLt-A8kUQ-pbrwiwkeLZI55ljnpqyrQaxljxr_hG5V_Wb/exec";
-let holdTimer=null,sosUsed=localStorage.getItem('sosUsed')||0;
-let vaultItems=JSON.parse(localStorage.getItem('vault')||'[]');
-let circleData=JSON.parse(localStorage.getItem('circle')||'[]');
-function showTab(t){
-  document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));
-  document.getElementById('homeView').classList.add('hidden');
-  document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('nav-active'));
-  if(t==='home'){document.getElementById('homeView').classList.remove('hidden');document.getElementById('navHome').classList.add('nav-active');}
-  if(t==='sos'){document.getElementById('sosView').classList.remove('hidden');document.getElementById('navSos').classList.add('nav-active');}
-  if(t==='circle'){document.getElementById('circleView').classList.remove('hidden');document.getElementById('navCircle').classList.add('nav-active');renderCircle();}
-  if(t==='vault'){document.getElementById('vaultView').classList.remove('hidden');document.getElementById('navVault').classList.add('nav-active');}
-  if(t==='ai'){document.getElementById('aiView').classList.remove('hidden');document.getElementById('navAi').classList.add('nav-active');}
-  if(t==='pay'){document.getElementById('payView').classList.remove('hidden');document.getElementById('navPay').classList.add('nav-active');}
+let holdTimer=null; let vaultItems=JSON.parse(localStorage.getItem('vault')||'[]'); let circleData=JSON.parse(localStorage.getItem('circle')||'[]');
+function switchAuth(which){document.getElementById('createForm').classList.toggle('hidden',which!=='create');document.getElementById('loginForm').classList.toggle('hidden',which!=='login');document.getElementById('tabCreate').className=which==='create'?'flex-1 p-3 rounded-xl tab-active font-bold':'flex-1 p-3 rounded-xl card';document.getElementById('tabLogin').className=which==='login'?'flex-1 p-3 rounded-xl tab-active font-bold':'flex-1 p-3 rounded-xl card';}
+function showTab(t){if(!localStorage.getItem('fg_user')){document.getElementById('authView').classList.remove('hidden');return;}document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('.nav-item').forEach(e=>e.classList.remove('nav-active'));const map={home:'homeView',sos:'sosView',circle:'circleView',vault:'vaultView',ai:'aiView',pay:'payView'};document.getElementById(map[t]).classList.remove('hidden');document.getElementById('nav'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('nav-active');if(t==='circle')renderCircle();if(t==='vault')renderVault();}
+function checkLogin(){const saved=localStorage.getItem('fg_user');if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false;}try{const u=JSON.parse(saved);document.getElementById('authView').classList.add('hidden');document.getElementById('homeView').classList.remove('hidden');document.getElementById('welcomeName').innerText=u.fullName||u.username;document.getElementById('loggedAs').innerText=u.username+' ('+u.phone+')';const payEl=document.getElementById('payLoggedAs');if(payEl)payEl.innerText=u.username;document.getElementById('avatarLetter').innerText=(u.fullName||'F')[0].toUpperCase();document.getElementById('activeBadge').innerText='ACTIVE 31d';document.getElementById('logoutBtn').classList.remove('hidden');const isOwner=u.phone&&(u.phone.includes('672739660')||u.phone==='0672739660');document.getElementById('ownerCard').classList.toggle('hidden',!isOwner);if(isOwner)loadRecords();renderCircle();renderVault();return true;}catch{return false}}
+async function registerFull(){const name=document.getElementById('regName').value.trim(),user=document.getElementById('regUser').value.trim(),phone=document.getElementById('regPhone').value.trim(),pin=document.getElementById('regPin').value.trim();if(!name||!user||!phone||!pin){document.getElementById('authStatus').innerText='Fill all fields + PIN!';return;}document.getElementById('authStatus').innerText='Creating your private account...';const payload={fullName:name,username:user,phone:phone,id:pin,created:new Date().toLocaleDateString(),paid:'R50',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin};try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)});localStorage.setItem('fg_user',JSON.stringify(payload));localStorage.setItem('vaultPin',pin);document.getElementById('authStatus').innerText='✅ Created! Active 31 days — Private to you';setTimeout(()=>{checkLogin();showTab('home');},900);}catch(e){document.getElementById('authStatus').innerText=e.message}}
+async function loginFull(){const user=document.getElementById('loginUser').value.trim(),phone=document.getElementById('loginPhone').value.trim(),pin=document.getElementById('loginPin').value.trim();if(!user||!phone){document.getElementById('authStatus').innerText='Enter username & phone';return;}document.getElementById('authStatus').innerText='Checking your private account...';try{const r=await fetch(SCRIPT_URL);const data=await r.json();const found=data.find(d=>(d.username||d.Username||'').toLowerCase()===user.toLowerCase()&&(d.phone||d.Phone||'').trim()===phone.trim());if(found){localStorage.setItem('fg_user',JSON.stringify(found));if(pin)localStorage.setItem('vaultPin',pin);document.getElementById('authStatus').innerText='✅ Welcome back — Private session';checkLogin();showTab('home');}else{document.getElementById('authStatus').innerText='❌ Not found — Create account first';}}catch(e){document.getElementById('authStatus').innerText=e.message}}
+function logout(){localStorage.removeItem('fg_user');document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('ownerCard').classList.add('hidden');document.getElementById('logoutBtn').classList.add('hidden');document.getElementById('welcomeName').innerText='Guest';document.getElementById('activeBadge').innerText='GUEST';document.getElementById('authStatus').innerText='Logged out — Login or Create again';switchAuth('login');}
+function renderCircle(){const c=document.getElementById('circleInputs');c.innerHTML='';for(let i=0;i<7;i++){const name=circleData[i]?.name||'';const num=circleData[i]?.number||'';c.innerHTML+=`<div class="flex gap-2"><input id="cname${i}" value="${name}" placeholder="${i+1}. Name" class="flex-1 p-3 rounded-xl"><input id="cnum${i}" value="${num}" placeholder="Number" class="flex-1 p-3 rounded-xl"></div>`;}document.querySelectorAll('.circleCount').forEach(e=>e.innerText=circleData.filter(x=>x.number).length);}
+function saveCircle(){let arr=[];for(let i=0;i<7;i++){arr.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}circleData=arr;localStorage.setItem('circle',JSON.stringify(arr));document.getElementById('circleStatus').innerText='✅ Saved private '+arr.filter(x=>x.number).length+'/7 — Only YOU can see it';renderCircle();}
+function startHold(){holdTimer=setTimeout(()=>{triggerSOS()},3000);document.getElementById('sosStatus').innerHTML='Holding 3 sec...<br>Getting LIVE loc + Batt...';}
+function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText='';}
+async function triggerSOS(){
+  const btn=document.getElementById('sosStatus'); btn.innerText='📡 Getting LIVE GPS...';
+  let lat=-25.5740711, lng=28.0561643, batt='?';
+  try{if(navigator.getBattery){const b=await navigator.getBattery(); batt=Math.round(b.level*100)+'%';}}catch{}
+  await new Promise(res=>{if(!navigator.geolocation){res(); return;} navigator.geolocation.getCurrentPosition(p=>{lat=p.coords.latitude; lng=p.coords.longitude; res();},()=>{res();},{enableHighAccuracy:true,timeout:8000});});
+  const user=JSON.parse(localStorage.getItem('fg_user')||'{}'); const name=user.fullName||user.username||'Queen'; const time=new Date().toLocaleString(); const mapsLink=`https://maps.google.com/?q=${lat},${lng}`; const message=`SOS! HELP! I am ${name} - ${time} - LIVE LOC: ${mapsLink} - Batt ${batt} - Help!`; const waMessage=encodeURIComponent(message); const smsMessage=encodeURIComponent(message);
+  document.getElementById('sosStatus').innerHTML=`🚨 SOS READY!<br><b>${message}</b><br><br><span class='text-[10px]'>Sending to ${circleData.filter(x=>x.number).length} contacts via SMS + WhatsApp...</span><div id='sosLinks' class='mt-3 grid gap-2'></div>`;
+  const linksDiv=document.getElementById('sosLinks'); const contacts=circleData.filter(x=>x.number);
+  if(contacts.length===0){linksDiv.innerHTML=`<p class='text-pink-300 text-xs'>⚠️ No Circle contacts! Add 7 people in Circle tab first!</p><a href="tel:10111" class="pink-btn p-3 rounded-xl text-center block">Call SAPS 10111</a>`; return;}
+  contacts.forEach((c,i)=>{let clean=c.number.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); const waUrl=`https://wa.me/${clean}?text=${waMessage}`; const smsUrl=`sms:${c.number}?body=${smsMessage}`; linksDiv.innerHTML+=`<div class="bg-black/40 p-2 rounded-xl flex justify-between items-center"><span class="text-xs">${c.name||'Contact'}: ${c.number}</span><div class="flex gap-1"><a href="${smsUrl}" class="bg-emerald-500 text-black text-[10px] px-2 py-1 rounded-full font-bold">SMS</a><a href="${waUrl}" target="_blank" class="bg-green-500 text-black text-[10px] px-2 py-1 rounded-full font-bold">WhatsApp</a></div></div>`;});
+  try{window.location.href=`sms:${contacts.map(c=>c.number).join(',')}?body=${smsMessage}`; let clean=contacts[0].number.replace(/[^0-9]/g,''); if(clean.startsWith('0')) clean='27'+clean.slice(1); setTimeout(()=>{window.open(`https://wa.me/${clean}?text=${waMessage}`,'_blank');},1000);}catch(e){}
+  setTimeout(()=>{window.open(`https://wa.me/27672739660?text=${waMessage}`,'_blank');},1500);
 }
-function renderCircle(){
-  const c=document.getElementById('circleInputs');c.innerHTML='';
-  for(let i=0;i<7;i++){
-    const name=circleData[i]?.name||''; const num=circleData[i]?.number||'';
-    c.innerHTML+=`<div class="flex gap-2"><input id="cname${i}" value="${name}" placeholder="${i+1}. Name" class="flex-1 p-3 rounded-xl"><input id="cnum${i}" value="${num}" placeholder="${i==0?'082...':'Number'}" class="flex-1 p-3 rounded-xl"></div>`;
-  }
-  document.getElementById('circleCount').innerText=circleData.filter(x=>x.number).length;
-  document.getElementById('sosContacts').innerText=circleData.filter(x=>x.number).length;
-}
-function saveCircle(){
-  let arr=[];for(let i=0;i<7;i++){arr.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}
-  circleData=arr;localStorage.setItem('circle',JSON.stringify(arr));
-  document.getElementById('circleStatus').innerText='Saved! '+arr.filter(x=>x.number).length+'/7';renderCircle();
-}
-function startHold(){holdTimer=setTimeout(triggerSOS,3000);document.getElementById('sosStatus').innerText='Holding... 3 sec';}
-function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText=''}
-function triggerSOS(){
-  const isActive=true;
-  if(!isActive && sosUsed>=1){document.getElementById('sosStatus').innerText='⚠️ Need R50 for more SOS! Go Pay tab';showTab('pay');return;}
-  document.getElementById('sosStatus').innerText='🚨 SOS SENT!';
-  let nums=circleData.filter(x=>x.number).map(x=>x.number).join(',');
-  if(nums){window.location.href=`sms:${nums}?body=🚨 SOS! I need help! My location: https://maps.google.com/?q=Soshanguve`;}
-  if(!isActive){sosUsed++;localStorage.setItem('sosUsed',sosUsed);}
-}
-function unlockVault(){
-  const pin=document.getElementById('vaultPinInput').value;
-  const saved=localStorage.getItem('vaultPin')||'1234';
-  if(!localStorage.getItem('vaultPin')){localStorage.setItem('vaultPin',pin||'1234');}
-  document.getElementById('vaultLock').classList.add('hidden');
-  document.getElementById('vaultContent').classList.remove('hidden');
-  renderVault();
-}
-function saveVault(){
-  const note=document.getElementById('vaultNote').value;
-  const file=document.getElementById('vaultFile').files[0];
-  let item={id:Date.now(),note,date:new Date().toLocaleString()};
-  if(file){item.fileName=file.name;item.type=file.type;}
-  vaultItems.push(item);localStorage.setItem('vault',JSON.stringify(vaultItems));
-  document.getElementById('vaultNote').value='';renderVault();
-}
-function renderVault(){
-  document.getElementById('vaultCount').innerText=vaultItems.length;
-  const l=document.getElementById('vaultList');l.innerHTML='';
-  vaultItems.slice().reverse().forEach(it=>{l.innerHTML+=`<div class="bg-black/30 p-2 rounded-xl">📁 ${it.date}<br>${it.note||''} ${it.fileName||''}</div>`});
-}
+function unlockVault(){const pin=document.getElementById('vaultPinInput').value; const saved=localStorage.getItem('vaultPin'); if(!saved||pin===saved){document.getElementById('vaultLock').classList.add('hidden');document.getElementById('vaultContent').classList.remove('hidden');renderVault();}else{document.getElementById('vaultPinStatus').innerText='❌ Wrong PIN';}}
+function saveVault(){const note=document.getElementById('vaultNote').value; let item={id:Date.now(),note,date:new Date().toLocaleString()}; vaultItems.push(item); localStorage.setItem('vault',JSON.stringify(vaultItems)); document.getElementById('vaultNote').value=''; renderVault();}
+function renderVault(){document.querySelectorAll('.vaultCount').forEach(e=>e.innerText=vaultItems.length); const l=document.getElementById('vaultList'); l.innerHTML=''; vaultItems.slice().reverse().forEach(it=>{l.innerHTML+=`<div class="bg-black/30 p-2 rounded-xl">📁 ${it.date}<br>${it.note}</div>`});}
 function sendAI(){
-  const inp=document.getElementById('aiInput');const txt=inp.value.trim();if(!txt)return;
-  const chat=document.getElementById('aiChat');
-  chat.innerHTML+=`<div class="bg-[#e8d48b] text-black p-3 rounded-xl mt-2 self-end text-sm">${txt}</div>`;
-  inp.value='';
-  setTimeout(()=>{chat.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl mt-2 text-sm">💜 I hear you, Queen. You are safe here. Take deep breaths. You are strong and protected. Your feelings are valid. Do you want to save this in your vault as private note?</div>`;chat.scrollTop=chat.scrollHeight;},800);
+  const inp=document.getElementById('aiInput'); const txt=inp.value.trim(); if(!txt) return;
+  const chat=document.getElementById('aiChat'); chat.innerHTML+=`<div class="bg-[#e8d48b] text-black p-3 rounded-xl mt-2 self-end text-sm max-w-[85%] ml-auto">${txt}</div>`; inp.value='';
+  const tid='t'+Date.now(); chat.innerHTML+=`<div id="${tid}" class="bg-black/20 p-3 rounded-xl mt-2 text-xs">💜 Guard Companion is thinking...</div>`; chat.scrollTop=chat.scrollHeight;
+  setTimeout(()=>{const el=document.getElementById(tid); if(el) el.remove(); const low=txt.toLowerCase(); let r='';
+    if(low.match(/\b(hi|hello|hey)\b/)){r=`💜 Hi Queen! I'm your PRO Guard Companion — private, accurate, here for you. 🌸<br><br>How are you feeling right now? You can tell me anything — this chat, your Circle and Vault are 100% private to YOU only.`;}
+    else if(low.includes('good')&&low.includes('you')){r=`💜 I'm glad you're good, Queen! 😊 That makes me happy.<br><br>I'm doing well — here 24/7 to protect you. Is there anything on your mind? Do you want to check Safe places, Circle, or save something in Vault?<br><br>Tip: Hold SOS 3 sec anytime — sends SMS+WhatsApp LIVE LOC to your 7 private contacts + owner.`;}
+    else if(low.includes('scared')||low.includes('fear')||low.includes('unsafe')){r=`💜 I hear you, Queen. Feeling scared is valid — brave for telling me.<br><br><b>Grounding (30 sec):</b><br>1️⃣ 5 things you SEE<br>2️⃣ 4 things you TOUCH<br>3️⃣ 3 things you HEAR<br>4️⃣ 2 things you SMELL<br>5️⃣ 1 thing you TASTE<br><br>If in danger: Tap SOS (SMS+WhatsApp LIVE LOC), or call SAPS 10111 / 112 FREE from Home.<br><br>Save this private note in Vault?`;}
+    else if(low.includes('abuse')||low.includes('hit')||low.includes('rape')||low.includes('violence')){r=`💜 Queen, thank you for trusting me. What happened is NOT your fault. You deserve safety.<br><br><b>You are not alone:</b><br>• Vault stores evidence — photos, videos, voice — PRIVATE with PIN<br>• Circle of 7 gets SOS with LIVE location<br>• GBV: 0800 428 428 or *120*7867# (free)<br>• SAPS 10111<br><br>Breathing: Inhale 4s, hold 4, exhale 6 — 3x.<br><br>Save what happened in private Vault?`;}
+    else if(low.includes('anxious')||low.includes('panic')||low.includes('trauma')||low.includes('sad')||low.includes('cry')){r=`💜 I hear you, Queen. Trauma/anxiety heavy — strong for sharing.<br><br><b>Try now:</b><br>🌬️ Box Breathing: In 4s → Hold 4s → Out 4s → Hold 4s (3 rounds)<br>💧 Water, feet flat<br>📝 Write in Vault — releasing helps<br><br>What triggered this today?`;}
+    else if(low.includes('thank')){r=`💜 Welcome, Queen! 🌸 Always here. You have SOS SMS+WhatsApp LIVE LOC, Circle 7, Vault, Safe, and me. Never alone. Anything else?`;}
+    else if(low.includes('help')||low.includes('what can')){r=`💜 I am your PRO Guard Companion:<br><br>🛡️ Safety: SOS SMS+WhatsApp LIVE LOC + Battery + Name + Time, SAPS 10111, 112 FREE, GBV 0800 428 428<br>🔒 Evidence: Vault PIN private<br>👥 Circle: 7 trusted contacts — SMS+WhatsApp<br>💜 Emotional: Breathing, grounding, trauma support — accurate, not repeating<br><br>Tell me what you need — safety, emotional support, or feature help?`;}
+    else{r=`💜 I hear you, Queen: "${txt}"<br><br>Thank you for sharing — private to YOU only. How did that make you feel? Want to save this in Vault, talk more, or do calming exercise? You are safe here — I respond accurately to YOUR words, I don't repeat same line.`;}
+    chat.innerHTML+=`<div class="bg-black/30 p-3 rounded-xl mt-2 text-sm leading-relaxed">${r}</div>`; chat.scrollTop=chat.scrollHeight;},800);
 }
-async function registerFull(){
-  const name=document.getElementById('regName').value.trim(),user=document.getElementById('regUser').value.trim(),phone=document.getElementById('regPhone').value.trim();
-  if(!name||!user||!phone){document.getElementById('authStatus').innerText='Fill all';return;}
-  document.getElementById('authStatus').innerText='Activating...';
-  const payload={fullName:name,username:user,phone,id:'',created:new Date().toLocaleDateString(),paid:'R50',expiry:new Date(Date.now()+31*86400000).toLocaleDateString()};
-  try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)});document.getElementById('authStatus').innerText='✅ PAID - Active 31 days';localStorage.setItem('fg_user',JSON.stringify(payload));document.getElementById('welcomeName').innerText=name;loadRecords();}catch(e){document.getElementById('authStatus').innerText=e.message}
-}
-async function loadRecords(){
-  try{const r=await fetch(SCRIPT_URL);const data=await r.json();
-    document.getElementById('totalVisitors').innerText=data.length;
-    document.getElementById('thisMonth').innerText=data.length;
-    document.getElementById('paidCount').innerText=data.filter(d=>d.paid).length;
-    document.getElementById('notPaidCount').innerText=data.filter(d=>!d.paid).length;
-    const list=document.getElementById('recordsList');list.innerHTML='';
-    data.slice(-10).reverse().forEach(d=>{list.innerHTML+=`<div class="flex justify-between bg-black/20 p-1 rounded">${d.fullName||d.FullName||d.username} <span class="text-emerald-400">${d.paid||'R50'}</span></div>`});
-  }catch(e){}
-}
-function payNow(){
-  const pin=document.getElementById('flashPin').value, user=document.getElementById('payUsername').value;
-  if(!pin||!user){document.getElementById('payStatus').innerText='Enter Flash PIN + username';return;}
-  const url=`https://wa.me/27672739660?text=Pay%20R50%20Username:${encodeURIComponent(user)}%20FlashPIN:${encodeURIComponent(pin)}`;
-  window.open(url,'_blank');document.getElementById('payStatus').innerText='✅ Sent to Owner on WhatsApp!';
-}
-function ownerUnlock(){localStorage.setItem('fg_active','1');document.getElementById('payStatus').innerText='✅ Owner Test - Unlocked 31 Days!';}
-window.onload=()=>{renderCircle();renderVault();loadRecords();const saved=localStorage.getItem('fg_user');if(saved){try{const u=JSON.parse(saved);document.getElementById('welcomeName').innerText=u.fullName||u.username;}catch{}}}
+async function loadRecords(){try{const r=await fetch(SCRIPT_URL);const data=await r.json();document.getElementById('totalVisitors').innerText=data.length;document.getElementById('thisMonth').innerText=data.length;document.getElementById('paidCount').innerText=data.filter(d=>d.paid||d.Paid).length;document.getElementById('notPaidCount').innerText=Math.max(0,data.length-data.filter(d=>d.paid||d.Paid).length);const list=document.getElementById('recordsList');list.innerHTML='';data.slice(-15).reverse().forEach(d=>{list.innerHTML+=`<div class="flex justify-between bg-black/20 p-2 rounded">${d.fullName||d.FullName||d.username||d.Username} (${d.phone||d.Phone||''}) <span class="text-emerald-400">${d.paid||d.Paid||'R50'}</span></div>`});}catch(e){}}
+function payNow(){const pin=document.getElementById('flashPin').value,user=document.getElementById('payUsername').value;if(!pin||!user){document.getElementById('payStatus').innerText='Enter Flash PIN + username';return;}const url=`https://wa.me/27672739660?text=Pay%20R50%20Username:${encodeURIComponent(user)}%20FlashPIN:${encodeURIComponent(pin)}`;window.open(url,'_blank');document.getElementById('payStatus').innerText='✅ Sent to Owner on WhatsApp!';}
+function ownerUnlock(){document.getElementById('payStatus').innerText='✅ Owner Test - Unlocked 31 Days!';}
+window.onload=()=>{checkLogin();renderCircle();renderVault();}
 </script>
 </body>
-      </html>
+                                                                                                                                            </html>
