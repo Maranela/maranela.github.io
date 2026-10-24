@@ -1,12 +1,22 @@
 {
-  "name": "Feminist-Guard v32",
-  "short_name": "FemGuard v32",
-  "start_url": ".",
+  "name": "Feminist-Guard v33 PROFESSIONAL LUXURY",
+  "short_name": "F-Guard v33",
+  "description": "v33 PROFESSIONAL - v15.7 PAY MAGNIFICENT + VAULT MEDIA - No Bongane",
+  "start_url": "./?v=33",
   "display": "standalone",
-  "background_color": "#0f0820",
-  "theme_color": "#1a0b2e",
+  "background_color": "#0e0a1e",
+  "theme_color": "#e8d48b",
+  "orientation": "portrait",
   "icons": [
-    {"src": "icon-192.png","sizes": "192x192","type": "image/png"},
-    {"src": "icon-512.png","sizes": "512x512","type": "image/png"}
+    {
+      "src": "icon192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
