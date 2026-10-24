@@ -1,151 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-<title>Feminist-G — v35 PROFESSIONAL CLEAN — INSTALLABLE PWA — FULL</title>
-<link rel="manifest" href="manifest.json"/>
-<meta name="theme-color" content="#00d68f"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Feminist-Guard v34 PROFESSIONAL LUXURY - OWNER ONLY PAYMENTS FIX</title>
 <style>
-:root{--green:#00d68f;--gold:#d4af37;--bg:#0a0f1a;--card:#121a2b;--card2:#0e1729;--txt:#e8eefc;--muted:#9fb0d1;--line:#1e2a44;--red:#ff4d5a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;line-height:1.4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#0e0a1e;color:#f5e9c8;padding:12px;padding-bottom:90px}
+.card{background:#1a1430;border:1px solid #e8d48b66;border-radius:20px;padding:16px;margin-top:12px}
+.gold{color:#e8d48b;font-weight:900}
+.pink{background:#ff2e63;color:white;border:none;padding:16px;border-radius:14px;width:100%;font-weight:900;font-size:16px;cursor:pointer}
+.goldbtn{background:#e8d48b;color:#1a1430;border:none;padding:16px;border-radius:14px;width:100%;font-weight:900;font-size:16px;cursor:pointer}
+input,select,textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #ffffff22;background:#211c38;color:#e8d48b;margin-top:8px;font-size:14px}
+.tab{flex:1;padding:12px;border-radius:12px;border:1px solid #ffffff22;background:#211c38;color:#a99dc2;font-weight:800;cursor:pointer;text-align:center}
+.tab-active{border:2px solid #e8d48b;background:#3a325c;color:#e8d48b}
+.badge{display:inline-block;background:rgba(232,212,139,0.15);border:1px solid rgba(232,212,139,0.3);border-radius:10px;padding:4px 10px;font-size:10px;color:#e8d48b;margin-top:6px}
+.status-pending{background:#ffbe0b;color:#000;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.status-approved{background:#00d68f;color:#000;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.status-rejected{background:#ff3b30;color:white;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.bottom{position:fixed;bottom:8px;left:8px;right:8px;background:#231d3e;border-radius:20px;display:flex;justify-content:space-around;padding:8px 4px;z-index:99;border:1px solid #ffffff1a}
+.nav{padding:8px 6px;border-radius:12px;font-size:10px;text-align:center;color:#a99dc2;cursor:pointer;position:relative}
+.nav-active{background:#3a325c;color:#e8d48b}
+.nav-locked{opacity:0.35}
+.nav-locked::after{content:'🔒';position:absolute;top:-2px;right:0;font-size:10px}
 .hidden{display:none!important}
-.topbar{position:sticky;top:0;z-index:30;background:rgba(10,15,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
-.badge{background:var(--green);color:#000;padding:6px 12px;border-radius:999px;font-weight:900;font-size:11px;letter-spacing:.3px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:12px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.btn{background:var(--green);color:#000;border:0;border-radius:12px;padding:12px 18px;font-weight:900;cursor:pointer;transition:.15s}
-.btn:active{transform:scale(.98)}
-.goldbtn{background:linear-gradient(180deg,#00d68f,#00a86b);color:#000;border:0;border-radius:12px;padding:12px 18px;font-weight:900;cursor:pointer;box-shadow:0 0 0 1px #00a86b inset,0 8px 16px rgba(0,214,143,.25)}
-.input,select{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--txt);margin:7px 0;font-size:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:720px){.grid{grid-template-columns:1fr}}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#0b1222;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 0;z-index:25}
-.nav div{font-size:11px;text-align:center;color:var(--muted);cursor:pointer;line-height:1.1}
-.nav .active{color:var(--green);font-weight:900}
-.msg{padding:12px;border-radius:12px;margin:10px 0;font-size:13px}
-.msg.ok{background:#0f2a1f;border:1px solid var(--green);color:#b6ffdf}
-.msg.err{background:#2a1214;border:1px solid var(--red);color:#ffb8bd}
-.table{width:100%;border-collapse:collapse;font-size:13px}
-.table th{color:var(--muted);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
-.table th,.table td{border-bottom:1px solid var(--line);padding:11px 8px;text-align:left}
-.kpi{font-size:30px;font-weight:950;color:var(--green);letter-spacing:-.5px}
-.small{font-size:12px;color:var(--muted)}
-.hr{border:0;border-top:1px solid var(--line);margin:14px 0}
-.pill{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800}
-.pill.green{background:rgba(0,214,143,.15);color:var(--green);border:1px solid var(--green)}
-.pill.gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid var(--gold)}
-.pill.red{background:rgba(255,77,90,.15);color:var(--red);border:1px solid var(--red)}
+.msg{padding:12px;border-radius:12px;margin-top:12px;font-weight:700;text-align:center;font-size:13px}
+.ok{background:rgba(0,214,143,0.15);border:1px solid rgba(0,214,143,0.4);color:#00d68f}
+.err{background:rgba(255,59,48,0.15);border:1px solid rgba(255,59,48,0.4);color:#ff8a8a}
+.warn{background:rgba(255,190,11,0.15);border:1px solid rgba(255,190,11,0.4);color:#ffbe0b}
+.lock-overlay{background:rgba(0,0,0,0.85);border:2px solid #ff3b30;border-radius:20px;padding:20px;text-align:center;margin-top:12px}
+.lock-card{opacity:0.25;pointer-events:none;filter:grayscale(1)}
+.media-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.media-item{border-radius:14px;overflow:hidden;background:#211c38;border:1px solid #e8d48b44;padding:8px}
+.media-item img,.media-item video{width:100%;border-radius:10px}
+.media-btn{background:#3a325c;border:1px solid #e8d48b66;color:#e8d48b;padding:14px;border-radius:14px;font-weight:900;cursor:pointer;text-align:center}
 </style>
 </head>
 <body>
-<div class="topbar"><div><div style="font-weight:950;letter-spacing:.3px">FEMINIST-G</div><div class="small" style="margin-top:2px">v35 PROFESSIONAL CLEAN — INSTALLABLE PWA — FULL</div></div><div id="topBadge" class="badge">OFFLINE</div></div>
-
-<div id="authView" class="card">
-<h2 style="margin:0 0 6px">Secure Login</h2>
-<div class="small">Owner Dashboard is hidden — only Owner account sees it. Rose and normal members see Member view only. Install button appears automatically.</div>
-<div class="grid" style="margin-top:10px">
-<div><label class="small">Username</label><input id="username" class="input" placeholder="e.g. maranela"/></div>
-<div><label class="small">Password</label><input id="password" class="input" type="password" placeholder="••••••••"/></div>
+<div style="max-width:420px;margin:0 auto">
+<div class="card" style="display:flex;justify-content:space-between;align-items:center">
+<div style="display:flex;gap:12px;align-items:center">
+<div id="avatarLetter" style="width:52px;height:52px;border-radius:50%;background:#e8d48b;color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:22px">F</div>
+<div><h1 class="gold" style="line-height:18px;font-size:20px">Feminist-<br>Guard</h1><p style="font-size:11px;opacity:0.7">Welcome, <span id="welcomeName">Guest</span></p><span class="badge">v34 PROFESSIONAL — OWNER ONLY PAYMENTS FIX + v15.7 + VAULT MEDIA</span></div>
 </div>
-<div style="display:flex;gap:8px;margin-top:8px">
-<button class="btn" onclick="doLogin()">Login</button>
-<button class="btn" style="background:var(--card2);color:var(--txt);border:1px solid var(--line)" onclick="doRegister()">Create Account</button>
+<div style="text-align:right"><div id="activeBadge" style="background:#ff3b30;color:white;font-size:10px;font-weight:900;padding:6px 10px;border-radius:20px">NOT ACTIVE</div><button id="logoutBtn" onclick="logout()" class="hidden" style="margin-top:6px;background:rgba(255,255,255,0.1);border:none;color:white;padding:6px 10px;border-radius:20px;font-size:10px">Logout</button></div>
+</div>
+<div id="authView" class="card" style="margin-top:16px">
+<div style="text-align:center"><h2 class="gold" style="font-size:20px">Feminist Guard — PRO v34</h2><p style="font-size:11px;opacity:0.6">Professional Luxury — Owner Only Payments Fix — Rose cannot see owner payments</p></div>
+<div style="display:flex;gap:8px;margin-top:14px">
+<button id="tabCreate" onclick="switchAuth('create')" class="tab tab-active">➕ Create Account</button>
+<button id="tabLogin" onclick="switchAuth('login')" class="tab">🔑 Login</button>
+<button id="tabRecover" onclick="switchAuth('recover')" class="tab">♻️ Recover</button>
+</div>
+<div id="createForm" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">CREATE YOUR PRIVATE ACCOUNT</h3>
+<input id="regName" placeholder="Full Name *">
+<input id="regUser" placeholder="Username *">
+<input id="regPhone" placeholder="Phone * — e.g. 0672739660" type="tel">
+<input id="regEmail" placeholder="Email (optional)">
+<input id="regPin" placeholder="Create 4-digit PIN *" type="password" maxlength="4" inputmode="numeric">
+<input id="regPinConfirm" placeholder="Confirm PIN *" type="password" maxlength="4" inputmode="numeric">
+<div style="display:flex;gap:8px;align-items:center;margin-top:10px"><input type="checkbox" id="terms" style="width:18px;height:18px"><label for="terms" style="font-size:11px">I agree my data is private</label></div>
+<button id="createBtn" type="button" onclick="registerFull()" class="pink" style="margin-top:14px">➕ Create Account</button>
+</div>
+<div id="loginForm" class="hidden" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">LOGIN</h3>
+<input id="loginUser" placeholder="Username *">
+<input id="loginPhone" placeholder="Phone *">
+<input id="loginPin" placeholder="Vault PIN * (optional)" type="password" maxlength="4" inputmode="numeric">
+<button id="loginBtn" type="button" onclick="loginFull()" class="goldbtn" style="margin-top:14px">🔑 Login</button>
+</div>
+<div id="recoverForm" class="hidden" style="margin-top:16px">
+<h3 class="gold" style="font-size:14px">RECOVER</h3>
+<input id="recoverPhone" placeholder="Phone *">
+<input id="recoverUser" placeholder="Username *">
+<button onclick="recoverAccount()" class="card" style="width:100%;margin-top:10px;padding:14px;font-weight:800">♻️ Recover Account</button>
 </div>
 <div id="authStatus"></div>
-<div class="small" style="margin-top:10px">PWA Tip: On Android Chrome, you will see 📲 INSTALL Feminist-G below after 2 seconds. On iPhone, use Share → Add to Home Screen.</div>
 </div>
-
 <div id="homeView" class="hidden">
-<div class="card">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-<div><div class="small">Welcome back</div><div id="whoami" style="font-weight:950;font-size:20px;letter-spacing:-.2px">—</div><div id="roleBadge"><span class="pill gold">—</span></div></div>
-<button class="btn" style="background:var(--card2);color:var(--txt);border:1px solid var(--line)" onclick="doLogout()">Logout</button>
+<div id="activeCard" class="card" style="display:flex;justify-content:space-between;align-items:center"><p id="activeText" style="font-size:12px;font-weight:900;color:#ff3b30">🔒 NOT ACTIVE — Locked — 1 SOS only</p><span id="paymentBadge" style="background:#ff3b30;color:white;font-size:9px;font-weight:900;padding:4px 8px;border-radius:20px">NOT ACTIVE</span></div>
+<div id="lockedOverlay" class="lock-overlay"><h2 style="color:#ff3b30;font-weight:900">🔒 ACCOUNT LOCKED</h2><p style="font-size:13px;margin-top:8px">You have NOT paid R50 — Everything locked except 1 SOS</p><p style="font-size:11px;margin-top:4px">SOS used: <span id="sosUsedCount">0</span>/1</p><button onclick="showTab('pay')" class="goldbtn" style="margin-top:12px">💳 Pay R50 Voucher — Unlock</button></div>
+<div id="pendingOverlay" class="lock-overlay hidden" style="border-color:#ffbe0b"><h2 style="color:#ffbe0b;font-weight:900">⏳ PAYMENT PENDING v15.7</h2><p style="font-size:13px;margin-top:8px">Voucher <span id="pendingVoucherPin">-</span> pending — Owner will click APPROVE link</p><button onclick="showTab('pay')" class="card" style="width:100%;margin-top:10px;padding:10px;font-size:12px">📋 Check Payment Status</button></div>
+<div id="dashboardContent"><h2 style="margin-top:14px;font-weight:900;font-size:18px">Dashboard — Professional</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><a href="tel:10111" class="pink" style="display:block;text-align:center;padding:12px;border-radius:20px;text-decoration:none;font-size:12px">🚓 SAPS 10111</a><a href="tel:112" class="pink" style="display:block;text-align:center;padding:12px;border-radius:20px;text-decoration:none;font-size:12px">🆘 112 FREE</a></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><div id="dashSos" onclick="tryShowTab('sos')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">🆘</p><p style="font-weight:900;margin-top:6px;font-size:13px">SOS</p></div><div id="dashCircle" onclick="tryShowTab('circle')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">👥</p><p style="font-weight:900;margin-top:6px;font-size:13px">CIRCLE</p><p class="gold" style="font-size:12px"><span class="circleCount">0</span>/7</p></div><div id="dashVault" onclick="tryShowTab('vault')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">🔒</p><p style="font-weight:900;margin-top:6px;font-size:13px">VAULT</p><p class="gold" style="font-size:12px"><span class="vaultCount">0</span></p></div><div id="dashSafe" onclick="tryShowTab('safe')" class="card" style="text-align:center;padding:18px;cursor:pointer"><p style="font-size:28px">📍</p><p style="font-weight:900;margin-top:6px;font-size:13px">SAFE</p><p style="font-size:11px"><span id="safeCount">0</span></p></div><div id="dashAi" onclick="tryShowTab('ai')" class="card" style="text-align:center;padding:18px;cursor:pointer;border:2px solid #ff2e63"><p style="font-size:28px">💜</p><p style="font-weight:900;margin-top:6px;font-size:13px">AI PRO</p></div><div id="dashPay" onclick="showTab('pay')" class="card" style="text-align:center;padding:18px;cursor:pointer;border:2px solid #e8d48b"><p style="font-size:28px">💳</p><p style="font-weight:900;margin-top:6px;font-size:13px">PAY R50</p><p style="font-size:9px;opacity:0.6" id="payStatusMini">Status: NOT PAID</p></div></div></div><div class="card" style="margin-top:18px;display:flex;justify-content:space-between;align-items:center"><div><p style="font-size:10px;opacity:0.6">Logged in as</p><p style="font-weight:900;font-size:13px" id="loggedAs">-</p></div><button onclick="logout()" class="pink" style="width:auto;padding:10px 18px;border-radius:20px;font-size:12px">Logout</button></div>
 </div>
-<hr class="hr"/>
-<div class="grid">
-<div class="card" style="margin:0"><div class="small">Total Vault (All Members)</div><div id="vaultTotal" class="kpi">R 0.00</div><div class="small">Live from Google Sheets</div></div>
-<div class="card" style="margin:0"><div class="small">My Balance</div><div id="myBal" class="kpi">R 0.00</div><div class="small">Your personal vault total</div></div>
+<div id="sosView" class="hidden"><h2 style="margin-top:18px;font-weight:900;text-align:center">🆘 HOLD SOS</h2><div class="card" style="text-align:center;padding:20px;margin-top:10px"><div id="sosLockMsg" class="hidden"><div class="msg err">🔒 SOS Limit Reached — Pay R50 to unlock</div><button onclick="showTab('pay')" class="goldbtn" style="margin-top:10px">💳 Pay R50 to Unlock SOS</button></div><div id="sosActive"><button onmousedown="startHold()" onmouseup="endHold()" ontouchstart="startHold()" ontouchend="endHold()" style="width:200px;height:200px;border-radius:50%;background:#ff2e63;color:white;border:none;font-weight:900;font-size:42px">SOS</button><p style="font-size:11px;margin-top:8px;opacity:0.7">SOS used: <span id="sosUsedInSosView">0</span>/1</p><p id="sosStatus" style="margin-top:14px;font-size:12px;text-align:left"></p></div></div></div>
+<div id="circleView" class="hidden"><h2 style="margin-top:18px;font-weight:900">👥 Circle 7 Private</h2><div id="circleLock" class="lock-overlay"><h3 style="color:#ff3b30">🔒 LOCKED — Pay R50 to unlock Circle</h3><button onclick="showTab('pay')" class="goldbtn" style="margin-top:10px">💳 Pay R50 Voucher</button></div><div id="circleContent" class="hidden"><div id="circleInputs" style="display:grid;gap:8px;margin-top:10px"></div><button onclick="saveCircle()" class="goldbtn" style="margin-top:12px">💾 Save Circle</button><p id="circleStatus" style="font-size:12px;text-align:center;margin-top:6px"></p></div></div>
+<div id="vaultView" class="hidden">
+<h2 style="margin-top:18px;font-weight:900">🔒 Vault — Private + PIN + MEDIA</h2>
+<div id="vaultLockMsg" class="lock-overlay"><h3 style="color:#ff3b30">🔒 LOCKED — Pay R50 to unlock Vault</h3><button onclick="showTab('pay')" class="goldbtn" style="margin-top:10px">💳 Pay R50 Voucher</button></div>
+<div id="vaultActual" class="hidden">
+<div class="card" id="vaultLock" style="padding:20px;margin-top:10px"><input id="vaultPinInput" type="password" placeholder="Enter 4-digit PIN *" maxlength="4"><button onclick="unlockVault()" class="goldbtn" style="margin-top:10px">🔓 Unlock Vault</button><p id="vaultPinStatus" style="font-size:12px;margin-top:6px"></p></div>
+<div class="card hidden" id="vaultContent" style="padding:16px;margin-top:10px">
+<div style="background:rgba(232,212,139,0.1);padding:12px;border-radius:14px;margin-bottom:12px"><h3 class="gold" style="font-size:14px">📸 Vault Media — Take Photo Video Voice</h3></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+<button onclick="document.getElementById('photoInput').click()" class="media-btn">📸<br>Take Photo</button>
+<button onclick="document.getElementById('videoInput').click()" class="media-btn">🎥<br>Take Video</button>
+</div>
+<button id="recordBtn" onclick="toggleRecord()" class="pink" style="margin-bottom:12px">🎤 Record Voice — Tap to Start / Stop</button>
+<textarea id="vaultNote" placeholder="Write private note..." style="height:80px"></textarea><button onclick="saveVault()" class="goldbtn" style="margin-top:8px">💾 Save Note</button>
+<input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="handlePhoto(event)">
+<input type="file" id="videoInput" accept="video/*" capture="environment" style="display:none" onchange="handleVideo(event)">
+<div id="vaultMediaGrid" class="media-grid"></div>
+<div id="vaultList" style="margin-top:12px;font-size:12px"></div>
 </div>
 </div>
-
-<div id="ownerDash" class="card hidden">
-<h3 style="margin:0 0 6px;color:var(--gold)">👑 Owner Dashboard — Private</h3>
-<div class="small">This section is visible ONLY to role=owner. If you login as Rose or any member, this card will NOT appear. This is how you hide from Rose.</div>
-<div class="grid" style="margin-top:10px">
-<div class="card" style="margin:0"><div class="small">Total Members</div><div id="ownerMembers" class="kpi">0</div></div>
-<div class="card" style="margin:0"><div class="small">Pending Payments</div><div id="ownerPending" class="kpi">0</div></div>
-<div class="card" style="margin:0"><div class="small">SOS Alerts (All)</div><div id="ownerSos" class="kpi">0</div></div>
-<div class="card" style="margin:0"><div class="small">Vault Media Files</div><div id="ownerMedia" class="kpi">0</div></div>
 </div>
-<div class="grid">
-<button class="btn" onclick="ownerApproveAll()">Approve All Pending</button>
-<button class="btn" style="background:var(--card2);color:var(--txt);border:1px solid var(--line)" onclick="refreshAll()">Refresh All Data</button>
+<div id="safeView" class="hidden"><h2 style="margin-top:18px;font-weight:900">📍 Safe Places</h2><div id="safeLock" class="lock-overlay"><h3 style="color:#ff3b30">🔒 LOCKED — Pay R50 to unlock Safe Places</h3><button onclick="showTab('pay')" class="goldbtn" style="margin-top:10px">💳 Pay R50 Voucher</button></div><div id="safeContent" class="hidden"><div class="card" style="margin-top:10px"><input id="safeName" placeholder="Place Name"><input id="safeAddress" placeholder="Address"><div style="display:flex;gap:8px;margin-top:8px"><button onclick="addSafePlace()" class="goldbtn" style="flex:1;padding:10px;font-size:12px">➕ Add</button><button onclick="useCurrentLocation()" class="card" style="flex:1;padding:10px;font-size:12px">📍 LIVE Loc</button></div><div id="safeList" style="margin-top:12px;font-size:12px"></div></div></div></div>
+<div id="aiView" class="hidden"><h2 style="margin-top:18px;font-weight:900">💜 Guard Companion</h2><div id="aiLock" class="lock-overlay"><h3 style="color:#ff3b30">🔒 LOCKED — Pay R50 to unlock AI PRO</h3><button onclick="showTab('pay')" class="goldbtn" style="margin-top:10px">💳 Pay R50 Voucher</button></div><div id="aiContent" class="hidden"><div id="aiChat" class="card" style="margin-top:10px;height:340px;overflow:auto;display:flex;flex-direction:column;gap:8px"><div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;font-size:13px">💜 Hey Queen! You are ACTIVE — AI unlocked!</div></div><div style="display:flex;gap:8px;margin-top:10px"><input id="aiInput" placeholder="How are you feeling?..."><button onclick="sendAI()" class="goldbtn" style="width:auto;padding:12px 18px">Send</button></div></div></div>
+<div id="payView" class="hidden">
+<h2 style="margin-top:18px;font-weight:900">💳 Pay R50 — Unlock</h2>
+<div id="payActiveCard" class="card" style="margin-top:10px"><p style="font-size:12px;font-weight:900" id="payActiveText">🔒 NOT ACTIVE</p><p style="font-size:10px;opacity:0.7">Logged in as <span id="payLoggedAs">-</span> | Expiry: <span id="payExpiry">-</span> | Status: <span id="payStatusText">NOT PAID</span></p></div>
+<div class="card" style="margin-top:10px">
+<h3 class="gold" style="font-size:13px">💳 SUBMIT VOUCHER — v15.7 MAGNIFICENT</h3>
+<select id="voucherType"><option value="Flash">Flash / 1Voucher / OTT</option><option value="OTT">OTT Voucher</option><option value="Kazang">Kazang</option><option value="Other">Other</option></select>
+<input id="flashPin" placeholder="Voucher PIN — e.g., 1263336373">
+<input id="payAmount" value="R50" placeholder="R50">
+<input id="payUsername" placeholder="Username *">
+<button onclick="payNow()" class="goldbtn" style="margin-top:14px">💳 Submit Voucher → Send Owner v15.7 APPROVE link</button>
+<p id="payStatus" style="font-size:12px;text-align:center;font-weight:700;margin-top:8px"></p>
 </div>
-<div id="ownerTables" style="margin-top:12px"></div>
+<div class="card" style="margin-top:10px"><h3 class="gold" style="font-size:13px">📋 My Payment History</h3><div id="myPaymentsList" style="margin-top:8px;max-height:240px;overflow:auto;font-size:11px"></div></div>
 </div>
-
-<div id="circleView" class="card"><h3 style="margin:0 0 8px">💚 Money Circle — Contributions</h3><div class="small">Add your monthly contribution. Owner sees all.</div><div class="grid" style="margin-top:8px"><input id="circleAmount" class="input" type="number" placeholder="Amount e.g. 500"/><select id="circleMonth" class="input"><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select></div><button class="btn" style="width:100%;margin-top:6px" onclick="addCircle()">Contribute to Circle</button><div id="circleList" style="margin-top:12px" class="small">Loading circle...</div></div>
-
-<div id="myPaymentsView" class="card"><h3 style="margin:0 0 8px">💳 My Payments — Proof Upload</h3><div class="grid"><input id="payAmount" class="input" type="number" placeholder="Amount"/><input id="payRef" class="input" placeholder="Reference e.g. Capitec 12:00"/></div><input id="payNote" class="input" placeholder="Note (optional)"/><button class="btn" style="width:100%" onclick="addPayment()">Upload Payment Proof</button><div id="myPaymentsList" style="margin-top:12px"></div></div>
-
-<div id="vaultView" class="card"><h3 style="margin:0 0 8px">🏦 Vault — Live Balances</h3><div class="small">Vault totals from Sheets. My balance highlighted.</div><div id="vaultList" style="margin-top:10px"></div></div>
-
-<div id="safeView" class="card"><h3 style="margin:0 0 8px">🔐 Safe — Savings Goals</h3><div class="grid"><input id="safeName" class="input" placeholder="Goal name e.g. Emergency"/><input id="safeTarget" class="input" type="number" placeholder="Target e.g. 5000"/><button class="btn" onclick="addSafe()">Create Goal</button></div><div class="grid" style="margin-top:8px"><select id="safeSelect" class="input"></select><input id="safeAddAmount" class="input" type="number" placeholder="Add amount"/><button class="btn" onclick="addToSelectedSafe()">Add to Goal</button></div><div id="safeList" style="margin-top:10px"></div></div>
-
-<div id="sosView" class="card"><h3 style="margin:0 0 8px">🚨 SOS — Emergency</h3><div class="small">Send SOS, owner gets instant alert. Counters update live.</div><div class="grid" style="margin-top:8px"><input id="sosMsg" class="input" placeholder="I need help with..."/><select id="sosType" class="input"><option>Money</option><option>Family</option><option>Safety</option><option>Other</option></select></div><button class="btn" style="width:100%;background:var(--red);color:#fff" onclick="sendSos()">Send SOS Now</button><div id="sosList" style="margin-top:12px"></div><div class="grid" style="margin-top:8px"><div class="card" style="margin:0"><span class="small">My SOS Count</span><div id="mySosCount" class="kpi">0</div></div><div class="card" style="margin:0"><span class="small">All SOS Count</span><div id="allSosCount" class="kpi">0</div></div></div></div>
-
-<div id="vaultMediaView" class="card"><h3 style="margin:0 0 8px">🖼️ Vault Media — Files & Proofs</h3><div class="grid"><input id="mediaUrl" class="input" placeholder="File URL (Drive link)"/><input id="mediaNote" class="input" placeholder="Note"/><button class="btn" onclick="addVaultMedia()">Add Media</button></div><div id="vaultMediaList" style="margin-top:10px" class="small">No media yet.</div></div>
-
-<div id="settingsView" class="card"><h3 style="margin:0 0 8px">⚙️ Settings & PWA</h3><div class="grid"><input id="setPhone" class="input" placeholder="Phone"/><input id="setAddr" class="input" placeholder="Address"/></div><button class="btn" onclick="saveSettings()">Save Settings</button><hr class="hr"/><div class="small">Install: If you see 📲 INSTALL button in login, click it. If not, Chrome menu ⋮ → Install app / Add to Home Screen. iPhone: Share → Add to Home Screen.</div><div id="pwaArea" style="margin-top:10px"></div><div class="small" style="margin-top:10px">Version: v35 PROFESSIONAL CLEAN FULL — Installable PWA</div></div>
-
-<div style="height:90px"></div>
+<div id="settingsView" class="hidden">
+<h2 style="margin-top:18px;font-weight:900">⚙️ Settings — Professional</h2>
+<div id="ownerSettingsCard" class="card hidden" style="margin-top:10px">
+<h3 class="gold">🔒 OWNER 0672739660 — Payment Approval v15.7 — OWNER ONLY</h3>
+<p style="font-size:10px;opacity:0.7;margin-top:6px">Owner Only: Payments here, not on every page. v34 FIX: Rose and others cannot see this card.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+<div class="card" style="text-align:center;margin:0"><p id="totalVisitors" class="gold" style="font-size:22px">0</p><p style="font-size:10px">TOTAL</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="pendingCount" style="font-size:22px;color:#ffbe0b;font-weight:900">0</p><p style="font-size:10px">PENDING</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="paidCount" style="font-size:22px;color:#00d68f;font-weight:900">0</p><p style="font-size:10px">APPROVED</p></div>
+<div class="card" style="text-align:center;margin:0"><p id="notPaidCount" style="font-size:22px;color:#ff3b30;font-weight:900">0</p><p style="font-size:10px">NOT PAID</p></div>
 </div>
-
-<div id="bottomNav" class="nav hidden">
-<div onclick="showTab('home')" id="tabHome" class="active">🏠<br/>Home</div>
-<div onclick="showTab('circle')" id="tabCircle">💚<br/>Circle</div>
-<div onclick="showTab('payments')" id="tabPayments">💳<br/>Payments</div>
-<div onclick="showTab('safe')" id="tabSafe">🔐<br/>Safe</div>
-<div onclick="showTab('sos')" id="tabSos">🚨<br/>SOS</div>
-<div onclick="showTab('settings')" id="tabSettings">⚙️<br/>Settings</div>
+<h3 class="gold" style="margin-top:14px;font-size:13px">💳 PENDING PAYMENTS — v15.7 APPROVE/REJECT LINKS</h3>
+<div id="pendingPaymentsList" style="margin-top:8px;max-height:400px;overflow:auto"></div>
+<button onclick="loadRecords()" class="card" style="width:100%;margin-top:10px;padding:10px;font-size:12px">🔄 Refresh From Google Sheet</button>
+<div id="recordsList" style="margin-top:8px;font-size:11px;max-height:120px;overflow:auto"></div>
 </div>
-
+<div class="card" style="margin-top:10px">
+<h3 class="gold" style="font-size:13px">⚙️ App Settings — Regular Users See ONLY This</h3>
+<p style="font-size:11px;margin-top:6px">Logged in as <span id="settingsLoggedAs">-</span></p>
+<div id="userSettingsInfo" style="margin-top:10px;font-size:12px"></div>
+<button onclick="logout()" class="card" style="width:100%;margin-top:10px;padding:12px;font-size:12px;background:rgba(255,59,48,0.15)">🚪 Logout</button>
+<button onclick="clearAllData()" class="card" style="width:100%;margin-top:8px;padding:10px;font-size:11px">🗑️ Clear All Data</button>
+</div>
+</div>
+</div>
+<div class="bottom">
+<div class="nav nav-active" onclick="tryShowTab('home')" id="navHome">🏠<br>Home</div>
+<div class="nav" onclick="tryShowTab('sos')" id="navSos">🆘<br>SOS</div>
+<div class="nav nav-locked" onclick="tryShowTab('circle')" id="navCircle">👥<br>Circle</div>
+<div class="nav nav-locked" onclick="tryShowTab('vault')" id="navVault">🔒<br>Vault</div>
+<div class="nav nav-locked" onclick="tryShowTab('safe')" id="navSafe">📍<br>Safe</div>
+<div class="nav nav-locked" onclick="tryShowTab('ai')" id="navAi">💜<br>AI</div>
+<div class="nav" onclick="showTab('settings')" id="navSettings">⚙️<br>Settings</div>
+</div>
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbz_EXAMPLE_REPLACE_WITH_YOUR_SCRIPT_ID/exec";
-let USER=null;
-function api(action,payload={}){const fd=new FormData();fd.append('action',action);fd.append('payload',JSON.stringify(payload));return fetch(SCRIPT_URL,{method:'POST',body:fd}).then(r=>r.json());}
-function showMsg(elId,txt,ok=true){const el=document.getElementById(elId);if(!el)return;el.innerHTML='<div class="msg '+(ok?'ok':'err')+'">'+txt+'</div>';setTimeout(()=>{el.innerHTML='';},4500);}
-function checkLogin(){const s=localStorage.getItem('fg_user');if(s){try{USER=JSON.parse(s);}catch(e){USER=null;}}if(USER){document.getElementById('authView').classList.add('hidden');document.getElementById('homeView').classList.remove('hidden');document.getElementById('bottomNav').classList.remove('hidden');document.getElementById('whoami').textContent=USER.username;document.getElementById('roleBadge').innerHTML='<span class="pill '+(USER.role==='owner'?'gold':'green')+'">'+USER.role.toUpperCase()+'</span> <span class="small">'+USER.status+'</span>';document.getElementById('topBadge').textContent='ONLINE: '+USER.username;applyRole();showTab('home');refreshAll();}else{document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.getElementById('bottomNav').classList.add('hidden');document.getElementById('topBadge').textContent='OFFLINE';}}
-function applyRole(){const owner=document.getElementById('ownerDash');if(!owner)return;if(USER&&USER.role==='owner'){owner.classList.remove('hidden');}else{owner.classList.add('hidden');}}
-function doLogin(){const u=document.getElementById('username').value.trim();const p=document.getElementById('password').value.trim();if(!u||!p){showMsg('authStatus','Enter username and password',false);return;}showMsg('authStatus','Logging in...',true);api('login',{username:u,password:p}).then(res=>{if(res.ok){USER=res.user;localStorage.setItem('fg_user',JSON.stringify(USER));showMsg('authStatus','Welcome '+USER.username,true);checkLogin();}else{showMsg('authStatus',res.msg||'Login failed',false);}}).catch(e=>{showMsg('authStatus','JS Error: '+e.message,false);});}
-function doRegister(){const u=document.getElementById('username').value.trim();const p=document.getElementById('password').value.trim();if(!u||!p){showMsg('authStatus','Enter username and password to register',false);return;}showMsg('authStatus','Registering...',true);api('register',{username:u,password:p}).then(res=>{if(res.ok){showMsg('authStatus','Registered! Now login.',true);}else{showMsg('authStatus',res.msg||'Register failed',false);}}).catch(e=>{showMsg('authStatus','JS Error: '+e.message,false);});}
-function doLogout(){localStorage.removeItem('fg_user');USER=null;checkLogin();}
-function showTab(t){document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));const tabEl=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1));if(tabEl)tabEl.classList.add('active');if(t==='home'){['circleView','myPaymentsView','vaultView','safeView','sosView','vaultMediaView','settingsView'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('hidden');});}else{['circleView','myPaymentsView','vaultView','safeView','sosView','vaultMediaView','settingsView'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});const map={circle:['circleView'],payments:['myPaymentsView'],safe:['safeView'],sos:['sosView'],settings:['settingsView']};(map[t]||[]).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('hidden');});}window.scrollTo({top:0,behavior:'smooth'});}
-function refreshAll(){renderCircle();renderVault();renderSafe();renderMyPayments();renderSos();updateSosCounters();renderVaultMedia();renderOwner();}
-function renderCircle(){api('getCircle',{}).then(res=>{const el=document.getElementById('circleList');if(!el)return;if(!res.ok){el.textContent=res.msg||'Failed to load circle';return;}let html='<table class="table"><tr><th>User</th><th>Amount</th><th>Month</th><th>Date</th></tr>';(res.list||[]).forEach(r=>{html+='<tr><td>'+r.username+'</td><td>R '+(r.amount||0)+'</td><td>'+(r.month||'')+'</td><td>'+(r.date||'')+'</td></tr>';});html+='</table>';el.innerHTML=html;const tot=(res.list||[]).reduce((s,x)=>s+Number(x.amount||0),0);const vt=document.getElementById('vaultTotal');if(vt)vt.textContent='R '+tot.toFixed(2);}).catch(()=>{});}
-function addCircle(){const a=document.getElementById('circleAmount').value.trim();const m=document.getElementById('circleMonth').value;if(!a)return alert('Enter amount');api('addCircle',{username:USER.username,amount:a,month:m}).then(res=>{if(res.ok){document.getElementById('circleAmount').value='';renderCircle();renderVault();}else alert(res.msg||'Failed');});}
-function renderVault(){api('getVault',{}).then(res=>{const el=document.getElementById('vaultList');if(!el)return;if(!res.ok){el.textContent='Failed';return;}let html='<table class="table"><tr><th>User</th><th>Total</th><th>Updated</th></tr>';(res.list||[]).forEach(r=>{const isMe=r.username===USER.username;html+='<tr style="'+(isMe?'background:rgba(0,214,143,.08)':'')+'"><td>'+r.username+(isMe?' ⭐':'' )+'</td><td>R '+(r.total||0)+'</td><td>'+(r.updated||'')+'</td></tr>';});html+='</table>';el.innerHTML=html;const my=(res.list||[]).find(x=>x.username===USER.username);const mb=document.getElementById('myBal');if(mb)mb.textContent='R '+(my?Number(my.total||0).toFixed(2):'0.00');});}
-function renderMyPayments(){api('getPayments',{username:USER.username}).then(res=>{const el=document.getElementById('myPaymentsList');if(!el)return;if(!res.ok){el.innerHTML='<div class="small">No payments yet</div>';return;}let html='<table class="table"><tr><th>Amount</th><th>Ref</th><th>Status</th><th>Date</th></tr>';(res.list||[]).forEach(r=>{let pillClass=r.status==='approved'?'green':r.status==='pending'?'gold':'red';html+='<tr><td>R '+r.amount+'</td><td>'+r.ref+'</td><td><span class="pill '+pillClass+'">'+r.status+'</span></td><td>'+(r.date||'')+'</td></tr>';});html+='</table>';el.innerHTML=html;});}
-function addPayment(){const a=document.getElementById('payAmount').value.trim();const r=document.getElementById('payRef').value.trim();const n=document.getElementById('payNote').value.trim();if(!a||!r)return alert('Enter amount and ref');api('addPayment',{username:USER.username,amount:a,ref:r,note:n}).then(res=>{if(res.ok){document.getElementById('payAmount').value='';document.getElementById('payRef').value='';document.getElementById('payNote').value='';renderMyPayments();}else alert(res.msg||'Failed');});}
-function renderSafe(){api('getSafe',{username:USER.username}).then(res=>{const el=document.getElementById('safeList');const sel=document.getElementById('safeSelect');if(!el)return;if(!res.ok){el.textContent='No goals';if(sel)sel.innerHTML='';return;}let html='<table class="table"><tr><th>Goal</th><th>Target</th><th>Saved</th><th>Progress</th></tr>';let opts='';(res.list||[]).forEach(r=>{const pct=Math.min(100,Math.round((Number(r.saved||0)/Number(r.target||1))*100));html+='<tr><td>'+r.name+'</td><td>R '+r.target+'</td><td>R '+(r.saved||0)+'</td><td><div style="background:#0e1729;border-radius:999px;height:8px;width:80px"><div style="width:'+pct+'%;height:8px;background:var(--green);border-radius:999px"></div></div> '+pct+'%</td></tr>';opts+='<option value="'+r.id+'">'+r.name+' — R '+(r.saved||0)+'/'+r.target+'</option>';});html+='</table>';el.innerHTML=html;if(sel)sel.innerHTML=opts||'<option>No goals</option>';});}
-function addSafe(){const n=document.getElementById('safeName').value.trim();const t=document.getElementById('safeTarget').value.trim();if(!n||!t)return alert('Enter goal and target');api('addSafe',{username:USER.username,name:n,target:t}).then(res=>{if(res.ok){document.getElementById('safeName').value='';document.getElementById('safeTarget').value='';renderSafe();}else alert(res.msg||'Failed');});}
-function addToSelectedSafe(){const sel=document.getElementById('safeSelect');const amt=document.getElementById('safeAddAmount').value.trim();if(!sel||!sel.value)return alert('Select goal');if(!amt)return alert('Enter amount');api('addToSafe',{username:USER.username,id:sel.value,amount:amt}).then(res=>{if(res.ok){document.getElementById('safeAddAmount').value='';renderSafe();}else alert(res.msg||'Failed');});}
-function renderSos(){api('getSos',{username:USER.username}).then(res=>{const el=document.getElementById('sosList');if(!el)return;if(!res.ok){el.textContent='No SOS';return;}let html='<table class="table"><tr><th>User</th><th>Message</th><th>Type</th><th>Status</th></tr>';(res.list||[]).forEach(r=>{html+='<tr><td>'+r.username+'</td><td>'+r.msg+'</td><td>'+(r.type||'')+'</td><td><span class="pill '+(r.status==='open'?'red':'green')+'">'+r.status+'</span></td></tr>';});html+='</table>';el.innerHTML=html;});}
-function updateSosCounters(){api('getSosCounts',{}).then(res=>{if(!res.ok)return;const my=document.getElementById('mySosCount');if(my)my.textContent=res.my||0;const all=document.getElementById('allSosCount');if(all)all.textContent=res.all||0;const o=document.getElementById('ownerSos');if(o)o.textContent=res.all||0;});}
-function sendSos(){const m=document.getElementById('sosMsg').value.trim();const tp=document.getElementById('sosType').value;if(!m)return alert('Enter message');api('sendSos',{username:USER.username,msg:m,type:tp}).then(res=>{if(res.ok){document.getElementById('sosMsg').value='';renderSos();updateSosCounters();}else alert(res.msg||'Failed');});}
-function renderVaultMedia(){api('getVaultMedia',{}).then(res=>{const el=document.getElementById('vaultMediaList');if(!el)return;if(!res.ok){el.textContent='No media yet.';return;}let html='';(res.list||[]).forEach(r=>{html+='<div class="card" style="margin:8px 0"><div class="small">'+r.username+' • '+(r.date||'')+'</div><div style="margin-top:6px">'+(r.url?'<a href="'+r.url+'" target="_blank" style="color:var(--green)">View file</a>':'')+' '+(r.note||'')+'</div></div>';});el.innerHTML=html||'No media yet.';const om=document.getElementById('ownerMedia');if(om)om.textContent=(res.list||[]).length;});}
-function addVaultMedia(){const url=document.getElementById('mediaUrl').value.trim();const note=document.getElementById('mediaNote').value.trim();if(!url)return alert('Enter file URL');api('addVaultMedia',{username:USER.username,url:url,note:note}).then(res=>{if(res.ok){document.getElementById('mediaUrl').value='';document.getElementById('mediaNote').value='';renderVaultMedia();}else alert(res.msg||'Failed');});}
-function renderOwner(){if(!USER||USER.role!=='owner')return;api('ownerStats',{}).then(res=>{if(!res.ok)return;const mm=document.getElementById('ownerMembers');if(mm)mm.textContent=res.members||0;const pp=document.getElementById('ownerPending');if(pp)pp.textContent=res.pending||0;const tables=document.getElementById('ownerTables');if(!tables)return;let html='<hr class="hr"/><h4>All Members</h4><table class="table"><tr><th>User</th><th>Role</th><th>Status</th><th>Action</th></tr>';(res.membersList||[]).forEach(r=>{html+='<tr><td>'+r.username+'</td><td>'+r.role+'</td><td>'+r.status+'</td><td><button class="btn" style="padding:6px 10px;font-size:12px" onclick="toggleUser(\''+r.username+'\')">Toggle</button></td></tr>';});html+='</table>';if(res.pendingList&&res.pendingList.length){html+='<h4 style="margin-top:12px">Pending Payments</h4><table class="table"><tr><th>User</th><th>Amount</th><th>Ref</th><th>Action</th></tr>';res.pendingList.forEach(r=>{html+='<tr><td>'+r.username+'</td><td>R '+r.amount+'</td><td>'+r.ref+'</td><td><button class="btn" style="padding:6px 10px" onclick="approvePayment(\''+r.id+'\')">Approve</button></td></tr>';});html+='</table>';}tables.innerHTML=html;});}
-function toggleUser(u){api('toggleUser',{username:u}).then(res=>{if(res.ok)renderOwner();else alert(res.msg);});}
-function approvePayment(id){api('approvePayment',{id:id}).then(res=>{if(res.ok){renderOwner();renderMyPayments();renderVault();}else alert(res.msg);});}
-function ownerApproveAll(){if(!confirm('Approve all pending?'))return;api('approveAll',{}).then(res=>{if(res.ok){renderOwner();renderVault();}else alert(res.msg);});}
-function saveSettings(){const ph=document.getElementById('setPhone').value.trim();const ad=document.getElementById('setAddr').value.trim();api('saveSettings',{username:USER.username,phone:ph,address:ad}).then(res=>{alert(res.ok?'Settings saved':'Failed: '+(res.msg||''));});}
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;const btn=document.createElement('button');btn.innerHTML='📲 INSTALL Feminist-G — Tap to Install';btn.className='goldbtn';btn.id='installBtnPWA';btn.style.width='100%';btn.style.marginTop='14px';btn.style.fontSize='15px';btn.onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();const {outcome}=await deferredPrompt;if(outcome==='accepted'){btn.textContent='✅ Installed — Open from Home Screen';btn.style.background='#0f2a1f';btn.style.color='#b6ffdf';}deferredPrompt=null;}else{alert('To install: Chrome menu ⋮ → Install app / Add to Home Screen. iPhone: Share button → Add to Home Screen.');}};const authView=document.getElementById('authView');const pwaArea=document.getElementById('pwaArea');if(authView&&!document.getElementById('installBtnPWA')){authView.appendChild(btn);}if(pwaArea&&!pwaArea.querySelector('#installBtnPWA2')){const b2=btn.cloneNode(true);b2.id='installBtnPWA2';b2.onclick=btn.onclick;pwaArea.appendChild(b2);}});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js').catch(()=>{});});}
-window.addEventListener('DOMContentLoaded',()=>{try{checkLogin();refreshAll();}catch(e){const el=document.getElementById('authStatus');if(el)el.innerHTML='<div class="msg err">JS Error: '+e.message+'</div>';}});
+const SCRIPT_URL="https://script.google.com/macros/s/AKfycby3RV99mK6kQXzTFwc9gRQlLt-A8kUQ-pbrwiwkeLZI55ljnpqyrQaxljxr_hG5V_Wb/exec";
+let holdTimer=null; let vaultItems=[]; let circleData=[]; let safePlaces=[]; let allUsers=[]; let payments=[]; let vaultMedia=[]; let isRecording=false; let mediaRecorder; let audioChunks=[]; let currentLat=-25.5740711, currentLng=28.0561643;
+try{vaultItems=JSON.parse(localStorage.getItem('vault')||'[]')}catch(e){vaultItems=[]}
+try{circleData=JSON.parse(localStorage.getItem('circle')||'[]')}catch(e){circleData=[]}
+try{safePlaces=JSON.parse(localStorage.getItem('safePlaces')||'[]')}catch(e){safePlaces=[]}
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
+try{vaultMedia=JSON.parse(localStorage.getItem('fg_vault_media')||'[]')}catch(e){vaultMedia=[]}
+function getSosUsed(){try{return parseInt(localStorage.getItem('fg_sos_used')||'0')}catch(e){return 0}}
+function setSosUsed(n){localStorage.setItem('fg_sos_used',String(n));updateSosCounters()}
+function updateSosCounters(){const used=getSosUsed();const el1=document.getElementById('sosUsedCount');if(el1) el1.innerText=used;const el2=document.getElementById('sosUsedInSosView');if(el2) el2.innerText=used;}
+function isActiveUser(){const saved=localStorage.getItem('fg_user');if(!saved) return false;try{const u=JSON.parse(saved);return u.paidStatus==='approved'||u.paidStatus==='active';}catch(e){return false}}
+function isPendingUser(){const saved=localStorage.getItem('fg_user');if(!saved) return false;try{const u=JSON.parse(saved);return u.paidStatus==='pending';}catch(e){return false}}
+function isOwnerUser(){const saved=localStorage.getItem('fg_user');if(!saved) return false;try{const u=JSON.parse(saved);return u.phone&&(u.phone.includes('672739660')||u.phone==='0672739660');}catch(e){return false}}
+(function checkUrlApprove(){
+const params=new URLSearchParams(window.location.search);const approveName=params.get('approve');const rejectName=params.get('reject');const pin=params.get('pin');const phone=params.get('phone');
+if(approveName||rejectName){let data=JSON.parse(localStorage.getItem('fg_payments')||'[]');let users=JSON.parse(localStorage.getItem('fg_all_users')||'[]');
+if(approveName&&pin){let p=data.find(x=>x.flashPin===pin||x.username===approveName);if(p){p.status='approved';}localStorage.setItem('fg_payments',JSON.stringify(data));
+users=users.map(u=>{if(u.username.toLowerCase()===approveName.toLowerCase()||u.phone===phone||(p&&u.username===p.username)){return{...u,paidStatus:'approved',paid:'R50 APPROVED',expiry:new Date(Date.now()+31*86400000).toLocaleDateString()};}return u;});localStorage.setItem('fg_all_users',JSON.stringify(users));
+try{const cur=JSON.parse(localStorage.getItem('fg_user')||'{}');if(cur.username&&cur.username.toLowerCase()===approveName.toLowerCase()){cur.paidStatus='approved';cur.paid='R50 APPROVED';cur.expiry=new Date(Date.now()+31*86400000).toLocaleDateString();localStorage.setItem('fg_user',JSON.stringify(cur));}}catch(e){}
+const exp=new Date(Date.now()+31*86400000).toLocaleDateString();const unlockLink='https://maranela.github.io/?unlock='+btoa(approveName+':'+pin);const msg=`✅ APPROVED — Private — ${approveName} PIN ${pin} Expires ${exp} Link: ${unlockLink}`;alert('✅ APPROVED — '+approveName+' PIN '+pin+' ACTIVE 31 days! Expires '+exp);if(phone){let clean=phone.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);const wa=`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`;window.open(wa,'_blank');}}
+if(rejectName&&pin){let d=data.filter(x=>x.flashPin!==pin);localStorage.setItem('fg_payments',JSON.stringify(d));alert('❌ REJECTED — '+rejectName);}}})();
+function tryShowTab(t){if(t==='pay'||t==='home'||t==='settings'){showTab(t);return;}if(isActiveUser()||isOwnerUser()){showTab(t);return;}alert('🔒 LOCKED — Pay R50 voucher first to unlock '+t.toUpperCase()+' — Go to Pay tab');showTab('pay');}
+function switchAuth(w){document.getElementById('createForm').classList.toggle('hidden',w!=='create');document.getElementById('loginForm').classList.toggle('hidden',w!=='login');document.getElementById('recoverForm').classList.toggle('hidden',w!=='recover');document.getElementById('tabCreate').className=w==='create'?'tab tab-active':'tab';document.getElementById('tabLogin').className=w==='login'?'tab tab-active':'tab';document.getElementById('tabRecover').className=w==='recover'?'tab tab-active':'tab';document.getElementById('authStatus').innerHTML='';}
+function showTab(t){
+const userStr=localStorage.getItem('fg_user');
+if(!userStr&&t!=='settings'){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));return}
+document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('.nav').forEach(e=>e.classList.remove('nav-active'));
+const mapIds={home:'homeView',sos:'sosView',circle:'circleView',vault:'vaultView',safe:'safeView',ai:'aiView',pay:'payView',settings:'settingsView'};
+if(mapIds[t]) document.getElementById(mapIds[t]).classList.remove('hidden');
+const nav=document.getElementById('nav'+t.charAt(0).toUpperCase()+t.slice(1));if(nav) nav.classList.add('nav-active');
+if(t==='circle') renderCircle();if(t==='vault') renderVault();if(t==='safe') renderSafe();if(t==='sos') renderSos();if(t==='pay') renderMyPayments();
+if(t==='settings'){
+const isOwner=isOwnerUser();
+const ownerCard=document.getElementById('ownerSettingsCard');
+if(ownerCard){if(isOwner){ownerCard.classList.remove('hidden');renderPendingPayments();loadRecords();}else{ownerCard.classList.add('hidden');}}
+try{const u=JSON.parse(localStorage.getItem('fg_user')||'{}');document.getElementById('settingsLoggedAs').innerText=u.username+' ('+u.phone+')';const info=document.getElementById('userSettingsInfo');
+if(info){if(!isOwner){info.innerHTML=`<div style="background:rgba(0,214,143,0.1);padding:10px;border-radius:10px"><b>Status:</b> ${u.paidStatus||'not_paid'}<br><b>Expiry:</b> ${u.expiry||'Not active'}<br><p style="font-size:10px;opacity:0.7;margin-top:6px">You are a regular user — Owner payments are hidden for privacy — Professional app</p></div>`;}else{info.innerHTML=`<div style="background:rgba(232,212,139,0.1);padding:10px;border-radius:10px"><b>Owner Mode:</b> You see all payments — v15.7 APPROVE/REJECT links — Professional</div>`;}}}catch(e){}
+}}
+function checkLogin(){
+const saved=localStorage.getItem('fg_user');if(!saved){document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');return false}
+try{
+const u=JSON.parse(saved);document.getElementById('authView').classList.add('hidden');document.getElementById('homeView').classList.remove('hidden');document.getElementById('welcomeName').innerText=u.fullName||u.username;document.getElementById('loggedAs').innerText=u.username+' ('+u.phone+')';document.getElementById('payLoggedAs').innerText=u.username;document.getElementById('payUsername').value=u.username;try{document.getElementById('settingsLoggedAs').innerText=u.username+' ('+u.phone+')';}catch(e){}
+const isActive=isActiveUser();const isPending=isPendingUser();const isOwner=isOwnerUser();
+const ownerCard=document.getElementById('ownerSettingsCard');if(ownerCard){if(isOwner){ownerCard.classList.remove('hidden');}else{ownerCard.classList.add('hidden');}}
+if(isActive||isOwner){
+document.getElementById('activeBadge').innerText='ACTIVE 31d PRO';document.getElementById('activeBadge').style.background='#00d68f';document.getElementById('activeBadge').style.color='#000';
+document.getElementById('activeText').innerText='✅ ACTIVE — 31 Days — Unlocked';document.getElementById('activeText').style.color='#00d68f';
+document.getElementById('paymentBadge').innerText='ACTIVE';document.getElementById('paymentBadge').style.background='#00d68f';document.getElementById('paymentBadge').style.color='#000';
+document.getElementById('payActiveText').innerText='✅ ACTIVE — Unlocked — 31 Days';document.getElementById('payActiveCard').style.background='rgba(0,214,143,0.1)';
+document.getElementById('payStatusText').innerText=u.paidStatus||'active';document.getElementById('payStatusMini').innerText='Status: '+(u.paidStatus||'active');
+document.getElementById('lockedOverlay').classList.add('hidden');document.getElementById('pendingOverlay').classList.add('hidden');document.getElementById('dashboardContent').classList.remove('lock-card');
+document.querySelectorAll('.nav').forEach(e=>e.classList.remove('nav-locked'));
+}else if(isPending){
+document.getElementById('activeBadge').innerText='PENDING';document.getElementById('activeBadge').style.background='#ffbe0b';document.getElementById('activeBadge').style.color='#000';
+document.getElementById('activeText').innerText='⏳ PENDING — Waiting Owner Approval v15.7';document.getElementById('activeText').style.color='#ffbe0b';
+document.getElementById('paymentBadge').innerText='PENDING';document.getElementById('paymentBadge').style.background='#ffbe0b';document.getElementById('paymentBadge').style.color='#000';
+document.getElementById('payActiveText').innerText='⏳ PENDING — Owner verifying';document.getElementById('payActiveCard').style.background='rgba(255,190,11,0.1)';
+document.getElementById('payStatusText').innerText='pending';document.getElementById('payStatusMini').innerText='Status: pending';
+document.getElementById('lockedOverlay').classList.add('hidden');document.getElementById('pendingOverlay').classList.remove('hidden');document.getElementById('dashboardContent').classList.add('lock-card');
+document.querySelectorAll('.nav').forEach(e=>{if(e.id!=='navHome'&&e.id!=='navSos'&&e.id!=='navPay'&&e.id!=='navSettings') e.classList.add('nav-locked');else e.classList.remove('nav-locked')});
+}else{
+document.getElementById('activeBadge').innerText='NOT ACTIVE';document.getElementById('activeBadge').style.background='#ff3b30';document.getElementById('activeBadge').style.color='white';
+document.getElementById('activeText').innerText='🔒 NOT ACTIVE — Locked — 1 SOS only';document.getElementById('activeText').style.color='#ff3b30';
+document.getElementById('paymentBadge').innerText='NOT ACTIVE';document.getElementById('paymentBadge').style.background='#ff3b30';document.getElementById('paymentBadge').style.color='white';
+document.getElementById('payActiveText').innerText='🔒 NOT ACTIVE — Pay R50';document.getElementById('payActiveCard').style.background='rgba(255,59,48,0.1)';
+document.getElementById('payStatusText').innerText='not_paid';document.getElementById('payStatusMini').innerText='Status: NOT PAID';
+document.getElementById('lockedOverlay').classList.remove('hidden');document.getElementById('pendingOverlay').classList.add('hidden');document.getElementById('dashboardContent').classList.add('lock-card');
+document.querySelectorAll('.nav').forEach(e=>{if(e.id!=='navHome'&&e.id!=='navSos'&&e.id!=='navPay'&&e.id!=='navSettings') e.classList.add('nav-locked');else e.classList.remove('nav-locked')});
+}
+document.getElementById('payExpiry').innerText=u.expiry||'Not active';document.getElementById('avatarLetter').innerText=(u.fullName||'F')[0].toUpperCase();document.getElementById('logoutBtn').classList.remove('hidden');
+renderCircle();renderVault();renderSafe();renderMyPayments();renderSos();updateSosCounters();return true;
+}catch(e){document.getElementById('authStatus').innerHTML='<div class="msg err">Error: '+e.message+'</div>';return false}
+}
+function registerFull(){
+const status=document.getElementById('authStatus');const btn=document.getElementById('createBtn');
+const n=document.getElementById('regName').value.trim();const u=document.getElementById('regUser').value.trim();const p=document.getElementById('regPhone').value.trim();const email=document.getElementById('regEmail').value.trim();const pin=document.getElementById('regPin').value.trim();const pinC=document.getElementById('regPinConfirm').value.trim();const terms=document.getElementById('terms').checked;
+if(!n){status.innerHTML='<div class="msg err">❌ Enter Full Name *</div>';return}
+if(!u){status.innerHTML='<div class="msg err">❌ Enter Username *</div>';return}
+if(!p){status.innerHTML='<div class="msg err">❌ Enter Phone *</div>';return}
+if(!pin){status.innerHTML='<div class="msg err">❌ Enter PIN *</div>';return}
+if(pin!==pinC){status.innerHTML='<div class="msg err">❌ PINs do not match</div>';return}
+if(!terms){status.innerHTML='<div class="msg err">❌ Tick agree checkbox</div>';return}
+if(pin.length!==4){status.innerHTML='<div class="msg err">❌ PIN must be 4 digits</div>';return}
+btn.innerText='⏳ Creating...';btn.disabled=true;
+const payload={fullName:n,username:u,phone:p,email:email,created:new Date().toLocaleDateString(),paid:'R0',paidStatus:'not_paid',expiry:'Not active — Pay to unlock',pin:pin};
+try{localStorage.setItem('fg_user',JSON.stringify(payload))}catch(e){localStorage.setItem('vault','[]');localStorage.setItem('fg_user',JSON.stringify(payload))}
+try{localStorage.setItem('vaultPin',String(pin).trim())}catch(e){}
+try{localStorage.setItem('fg_sos_used','0')}catch(e){}
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+allUsers=allUsers.filter(x=>x.username.toLowerCase()!==u.toLowerCase());allUsers.push(payload);
+try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){}
+status.innerHTML='<div class="msg ok">✅ Created! '+n+' — NOT ACTIVE — Go Pay R50</div>';
+try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{})}catch(e){}
+setTimeout(()=>{btn.disabled=false;checkLogin();showTab('home')},900);
+}
+function loginFull(){
+const status=document.getElementById('authStatus');const btn=document.getElementById('loginBtn');
+const u=document.getElementById('loginUser').value.trim();const p=document.getElementById('loginPhone').value.trim();const pin=document.getElementById('loginPin').value.trim();
+if(!u||!p){status.innerHTML='<div class="msg err">❌ Enter Username & Phone</div>';return}
+btn.innerText='⏳ Logging in...';btn.disabled=true;
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+let found=allUsers.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.phone.trim()===p.trim());
+if(found){localStorage.setItem('fg_user',JSON.stringify(found));if(pin) try{localStorage.setItem('vaultPin',String(pin).trim())}catch(e){};status.innerHTML='<div class="msg ok">✅ Welcome back, '+found.fullName+'!</div>';setTimeout(()=>{btn.disabled=false;checkLogin();showTab('home')},600);return}
+if(p.includes('672739660')||u.toLowerCase()==='maranela'){const fallback={fullName:u,username:u,phone:p,created:new Date().toLocaleDateString(),paid:'R0',paidStatus:'approved',expiry:new Date(Date.now()+31*86400000).toLocaleDateString(),pin:pin||'1234'};try{localStorage.setItem('fg_user',JSON.stringify(fallback))}catch(e){}if(pin) try{localStorage.setItem('vaultPin',String(pin).trim())}catch(e){};allUsers.push(fallback);try{localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){};status.innerHTML='<div class="msg ok">✅ Owner login — ACTIVE</div>';setTimeout(()=>{btn.disabled=false;checkLogin();showTab('home')},600);return}
+status.innerHTML='<div class="msg err">❌ Not found — Create Account</div>';btn.disabled=false;
+}
+function recoverAccount(){const phone=document.getElementById('recoverPhone').value.trim();const user=document.getElementById('recoverUser').value.trim();const status=document.getElementById('authStatus');if(!phone||!user){status.innerHTML='<div class="msg err">❌ Enter phone & username</div>';return}try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}let found=allUsers.find(x=>x.username.toLowerCase()===user.toLowerCase()&&x.phone.trim()===phone.trim());if(found){localStorage.setItem('fg_user',JSON.stringify(found));status.innerHTML='<div class="msg ok">✅ Recovered</div>';setTimeout(()=>{checkLogin();showTab('home')},600)}else{status.innerHTML='<div class="msg err">❌ Not found</div>';}}
+function logout(){localStorage.removeItem('fg_user');document.getElementById('authView').classList.remove('hidden');document.getElementById('homeView').classList.add('hidden');document.querySelectorAll('[id$="View"]').forEach(e=>e.classList.add('hidden'));document.getElementById('logoutBtn').classList.add('hidden');document.getElementById('welcomeName').innerText='Guest';switchAuth('login')}
+function payNow(){
+const flashPin=document.getElementById('flashPin').value.trim();const payUsername=document.getElementById('payUsername').value.trim();const voucherType=document.getElementById('voucherType').value;const amount=document.getElementById('payAmount').value.trim()||'R50';const status=document.getElementById('payStatus');
+if(!flashPin||!payUsername){status.innerHTML='<div class="msg err">❌ Enter voucher PIN + username</div>';return}
+const user=JSON.parse(localStorage.getItem('fg_user')||'{}');const fullName=user.fullName||'-';const phone=user.phone||'-';const email=user.email||'-';const date=new Date().toLocaleString();const id=Date.now();
+const payment={id:id,fullName:fullName,username:payUsername,phone:phone,email:email,flashPin:flashPin,voucherType:voucherType,amount:amount,date:date,status:'pending'};
+try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
+payments.push(payment);try{localStorage.setItem('fg_payments',JSON.stringify(payments))}catch(e){}
+try{user.paidStatus='pending';localStorage.setItem('fg_user',JSON.stringify(user))}catch(e){}
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]');allUsers=allUsers.map(x=>x.username.toLowerCase()===payUsername.toLowerCase()?{...x,paidStatus:'pending'}:x);localStorage.setItem('fg_all_users',JSON.stringify(allUsers))}catch(e){}
+status.innerHTML='<div class="msg ok">✅ Submitted! Voucher '+flashPin+' — PENDING — Owner gets WhatsApp with v15.7 APPROVE link</div>';
+document.getElementById('pendingVoucherPin').innerText=flashPin;renderMyPayments();checkLogin();
+const approveLink=`https://maranela.github.io/?owner=1&approve=${encodeURIComponent(payUsername)}&pin=${flashPin}&phone=${encodeURIComponent(phone)}`;
+const rejectLink=`https://maranela.github.io/?owner=1&reject=${encodeURIComponent(payUsername)}&pin=${flashPin}&phone=${encodeURIComponent(phone)}`;
+const message=`🔔 NEW PAYMENT PENDING — Private User: ${fullName} Name: ${payUsername} Phone: ${phone} Flash PIN: ${flashPin} ${amount} APPROVE: ${approveLink} REJECT: ${rejectLink}`;
+window.open(`https://wa.me/27672739660?text=${encodeURIComponent(message)}`,'_blank');
+document.getElementById('flashPin').value='';
+}
+function renderMyPayments(){const list=document.getElementById('myPaymentsList');if(!list) return;try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}const user=JSON.parse(localStorage.getItem('fg_user')||'{}');const myPayments=payments.filter(p=>p.username.toLowerCase()===(user.username||'').toLowerCase()).reverse();if(myPayments.length===0){list.innerHTML='<p style="opacity:0.5">No payments yet — Submit voucher above</p>';return}list.innerHTML='';myPayments.forEach(p=>{const statusClass=p.status==='pending'?'status-pending':p.status==='approved'?'status-approved':'status-rejected';list.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px"><div style="display:flex;justify-content:space-between"><span>${p.date}</span><span class="${statusClass}">${p.status.toUpperCase()}</span></div><p>Voucher: ${p.flashPin} — ${p.amount}</p></div>`;});}
+function renderPendingPayments(){
+const list=document.getElementById('pendingPaymentsList');if(!list) return;try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}
+const pending=payments.filter(p=>p.status==='pending').reverse();
+const totalEl=document.getElementById('totalVisitors');const pendEl=document.getElementById('pendingCount');const paidEl=document.getElementById('paidCount');const notPaidEl=document.getElementById('notPaidCount');
+if(pendEl) pendEl.innerText=pending.length;if(paidEl) paidEl.innerText=payments.filter(p=>p.status==='approved').length;
+try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}
+if(totalEl) totalEl.innerText=allUsers.length;if(notPaidEl) notPaidEl.innerText=allUsers.filter(u=>u.paidStatus!=='approved'&&u.paidStatus!=='active').length;
+if(pending.length===0){list.innerHTML='<p style="opacity:0.5;font-size:11px">No pending — v15.7 flow: User submits → You get WhatsApp with APPROVE link → Click link → User gets ✅ APPROVED</p>'}
+else{list.innerHTML='';pending.forEach(p=>{
+const approveLink=`https://maranela.github.io/?owner=1&approve=${encodeURIComponent(p.username)}&pin=${p.flashPin}&phone=${encodeURIComponent(p.phone)}`;
+const rejectLink=`https://maranela.github.io/?owner=1&reject=${encodeURIComponent(p.username)}&pin=${p.flashPin}&phone=${encodeURIComponent(p.phone)}`;
+list.innerHTML+=`<div style="background:rgba(0,0,0,0.4);padding:10px;border-radius:12px;border:1px solid rgba(232,212,139,0.3);margin-top:8px"><div style="display:flex;justify-content:space-between"><span style="font-weight:900">${p.fullName} (${p.username})</span><span class="status-pending">PENDING</span></div><p style="font-size:11px">Phone: ${p.phone} — PIN: <b style="color:#ffbe0b">${p.flashPin}</b> — ${p.amount}</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px"><a href="${approveLink}" style="background:#00d68f;color:#000;padding:10px;border-radius:10px;font-weight:900;text-align:center;text-decoration:none">✅ APPROVE v15.7</a><a href="${rejectLink}" style="background:#ff3b30;color:white;padding:10px;border-radius:10px;font-weight:900;text-align:center;text-decoration:none">❌ REJECT</a></div></div>`;});}
+}
+function approvePayment(id){try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}let payment=payments.find(p=>p.id===id);if(!payment) return;payment.status='approved';localStorage.setItem('fg_payments',JSON.stringify(payments));try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(e){allUsers=[]}allUsers=allUsers.map(u=>{if(u.username.toLowerCase()===payment.username.toLowerCase()){return{...u,paidStatus:'approved',expiry:new Date(Date.now()+31*86400000).toLocaleDateString()}}return u});localStorage.setItem('fg_all_users',JSON.stringify(allUsers));const exp=new Date(Date.now()+31*86400000).toLocaleDateString();const unlockLink='https://maranela.github.io/?unlock='+btoa(payment.username+':'+payment.flashPin);alert(`✅ Approved! ${payment.username} — Voucher ${payment.flashPin} — 31 days until ${exp}`);renderPendingPayments();renderMyPayments();loadRecords();checkLogin();let clean=payment.phone.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);if(clean.length>9){const msg=`✅ APPROVED — Private — ${payment.username} PIN ${payment.flashPin} Expires ${exp} Link: ${unlockLink}`;window.open(`https://wa.me/${clean}?text=${encodeURIComponent(msg)}`,'_blank')}}
+function rejectPayment(id){const reason=prompt('Why reject?','Used voucher');if(reason===null) return;try{payments=JSON.parse(localStorage.getItem('fg_payments')||'[]')}catch(e){payments=[]}let payment=payments.find(p=>p.id===id);if(!payment) return;payment.status='rejected';localStorage.setItem('fg_payments',JSON.stringify(payments));alert(`❌ Rejected! ${payment.username}`);renderPendingPayments();renderMyPayments();checkLogin();}
+function renderSos(){const used=getSosUsed();const isActive=isActiveUser()||isOwnerUser();const lockMsg=document.getElementById('sosLockMsg');const activeDiv=document.getElementById('sosActive');if(!isActive&&used>=1){if(lockMsg) lockMsg.classList.remove('hidden');if(activeDiv) activeDiv.classList.add('hidden')}else{if(lockMsg) lockMsg.classList.add('hidden');if(activeDiv) activeDiv.classList.remove('hidden')}updateSosCounters();}
+function renderCircle(){const isActive=isActiveUser()||isOwnerUser();const lock=document.getElementById('circleLock');const content=document.getElementById('circleContent');if(!isActive){if(lock) lock.classList.remove('hidden');if(content) content.classList.add('hidden')}else{if(lock) lock.classList.add('hidden');if(content) content.classList.remove('hidden')}const c=document.getElementById('circleInputs');if(!c)return;c.innerHTML='';for(let i=0;i<7;i++){const n=circleData[i]?.name||'';const num=circleData[i]?.number||'';c.innerHTML+=`<div style="display:flex;gap:8px"><input id="cname${i}" value="${n}" placeholder="Name ${i+1}" style="flex:1"><input id="cnum${i}" value="${num}" placeholder="Phone ${i+1}" style="flex:1"></div>`}document.querySelectorAll('.circleCount').forEach(e=>e.innerText=circleData.filter(x=>x.number).length)}
+function saveCircle(){if(!isActiveUser()&&!isOwnerUser()){alert('🔒 LOCKED — Pay R50');showTab('pay');return}let a=[];for(let i=0;i<7;i++){a.push({name:document.getElementById(`cname${i}`).value,number:document.getElementById(`cnum${i}`).value})}circleData=a;localStorage.setItem('circle',JSON.stringify(a));document.getElementById('circleStatus').innerText='✅ Saved '+a.filter(x=>x.number).length+'/7';renderCircle()}
+function startHold(){if(!isActiveUser()&&!isOwnerUser()){const used=getSosUsed();if(used>=1){alert('🔒 SOS Limit Reached');showTab('pay');return}}holdTimer=setTimeout(()=>{triggerSOS()},2500);document.getElementById('sosStatus').innerHTML='Holding 2.5 sec...'}
+function endHold(){clearTimeout(holdTimer);document.getElementById('sosStatus').innerText=''}
+async function triggerSOS(){let batt='?';try{if(navigator.getBattery){const b=await navigator.getBattery();batt=Math.round(b.level*100)+'%'}}catch{}try{if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude},()=>{},{enableHighAccuracy:true,timeout:5000})}}catch{}await new Promise(r=>setTimeout(r,1200));const user=JSON.parse(localStorage.getItem('fg_user')||'{}');const name=user.fullName||user.username||'Queen';const time=new Date().toLocaleString();const mapsLink=`https://maps.google.com/?q=${currentLat},${currentLng}`;const message=`SOS! HELP! I am ${name} - ${time} - LIVE LOC: ${mapsLink} - Batt ${batt} - Help!`;const waMessage=encodeURIComponent(message);const smsMessage=encodeURIComponent(message);if(!isActiveUser()&&!isOwnerUser()){setSosUsed(getSosUsed()+1)}document.getElementById('sosStatus').innerHTML=`🚨 SOS READY<br><b>${message}</b><br><div id='sosLinks' style="margin-top:10px;display:grid;gap:8px"></div>`;const linksDiv=document.getElementById('sosLinks');const contacts=circleData.filter(x=>x.number);if(contacts.length===0){linksDiv.innerHTML=`<a href="https://wa.me/27672739660?text=${waMessage}" target="_blank" style="background:#25D366;color:#000;padding:10px;border-radius:20px;text-decoration:none;font-weight:900">🆘 WhatsApp Owner</a>`;return}contacts.forEach((c)=>{let clean=c.number.replace(/[^0-9]/g,'');if(clean.startsWith('0')) clean='27'+clean.slice(1);const waUrl=`https://wa.me/${clean}?text=${waMessage}`;const smsUrl=`sms:${c.number}?body=${smsMessage}`;linksDiv.innerHTML+=`<div style="background:rgba(0,0,0,0.4);padding:8px;border-radius:10px;display:flex;justify-content:space-between"><span>${c.name}: ${c.number}</span><div style="display:flex;gap:4px"><a href="${smsUrl}" style="background:#00d68f;color:#000;padding:6px 8px;border-radius:20px;text-decoration:none;font-weight:900">SMS</a><a href="${waUrl}" target="_blank" style="background:#25D366;color:#000;padding:6px 8px;border-radius:20px;text-decoration:none;font-weight:900">WA</a></div></div>`});}
+function unlockVault(){const pinInput=document.getElementById('vaultPinInput').value;const saved=localStorage.getItem('vaultPin');const entered=String(pinInput).trim();const stored=saved?String(saved).trim():'';if(!stored||entered===stored){document.getElementById('vaultLock').classList.add('hidden');document.getElementById('vaultContent').classList.remove('hidden');document.getElementById('vaultPinStatus').innerText='';renderVault();renderVaultMedia();}else{document.getElementById('vaultPinStatus').innerHTML='❌ Incorrect — You set: "'+stored+'" — Entered: "'+entered+'" — FIXED as string';}}
+function saveVault(){if(!isActiveUser()&&!isOwnerUser()){alert('🔒 LOCKED');showTab('pay');return}const note=document.getElementById('vaultNote').value.trim();if(!note)return;let item={id:Date.now(),note:note,date:new Date().toLocaleString(),type:'text'};vaultItems.push(item);localStorage.setItem('vault',JSON.stringify(vaultItems));document.getElementById('vaultNote').value='';renderVault()}
+function renderVault(){const isActive=isActiveUser()||isOwnerUser();const lock=document.getElementById('vaultLockMsg');const actual=document.getElementById('vaultActual');if(!isActive){if(lock) lock.classList.remove('hidden');if(actual) actual.classList.add('hidden')}else{if(lock) lock.classList.add('hidden');if(actual) actual.classList.remove('hidden')}document.querySelectorAll('.vaultCount').forEach(e=>e.innerText=vaultItems.length+vaultMedia.length);const l=document.getElementById('vaultList');if(!l)return;l.innerHTML='';vaultItems.slice().reverse().forEach(it=>{l.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px"><div style="display:flex;justify-content:space-between"><span>${it.date}</span><button onclick="deleteVault(${it.id})" style="font-size:10px;color:#ff7aa2;background:none;border:none">Delete</button></div><p>${it.note}</p></div>`})}
+function deleteVault(id){vaultItems=vaultItems.filter(x=>x.id!==id);localStorage.setItem('vault',JSON.stringify(vaultItems));renderVault()}
+function handlePhoto(e){const file=e.target.files[0];if(!file) return;const reader=new FileReader();reader.onload=function(ev){vaultMedia.push({id:Date.now(),type:'photo',data:ev.target.result,date:new Date().toLocaleString(),name:file.name});localStorage.setItem('fg_vault_media',JSON.stringify(vaultMedia));renderVaultMedia();renderVault();};reader.readAsDataURL(file);}
+function handleVideo(e){const file=e.target.files[0];if(!file) return;const reader=new FileReader();reader.onload=function(ev){vaultMedia.push({id:Date.now(),type:'video',data:ev.target.result,date:new Date().toLocaleString(),name:file.name});localStorage.setItem('fg_vault_media',JSON.stringify(vaultMedia));renderVaultMedia();renderVault();};reader.readAsDataURL(file);}
+function renderVaultMedia(){const c=document.getElementById('vaultMediaGrid');if(!c) return;c.innerHTML=vaultMedia.slice().reverse().map(m=>`<div class="media-item">${m.type==='photo'?`<img src="${m.data}">`:''}${m.type==='video'?`<video src="${m.data}" controls style="width:100%"></video>`:''}${m.type==='voice'?`<audio src="${m.data}" controls style="width:100%"></audio><small>Voice ${m.date}</small>`:''}<div style="display:flex;justify-content:space-between;margin-top:4px"><small>${m.type} ${m.date}</small><span onclick="deleteVaultMedia(${m.id})" style="color:#ff7aa2;cursor:pointer">Delete</span></div></div>`).join('')||'<small style="opacity:0.6">No media yet — Take photo/video/voice</small>';}
+function deleteVaultMedia(id){vaultMedia=vaultMedia.filter(x=>x.id!==id);localStorage.setItem('fg_vault_media',JSON.stringify(vaultMedia));renderVaultMedia();renderVault();}
+async function toggleRecord(){const btn=document.getElementById('recordBtn');if(!isRecording){try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(stream);audioChunks=[];mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{const blob=new Blob(audioChunks,{type:'audio/webm'});const reader=new FileReader();reader.onload=ev=>{vaultMedia.push({id:Date.now(),type:'voice',data:ev.target.result,date:new Date().toLocaleString(),name:'voice.webm'});localStorage.setItem('fg_vault_media',JSON.stringify(vaultMedia));renderVaultMedia();renderVault();};reader.readAsDataURL(blob);};mediaRecorder.start();isRecording=true;btn.innerText='⏹️ Stop Recording';btn.style.background='#ff3b30';}catch(e){alert('Mic permission needed');}}else{mediaRecorder.stop();isRecording=false;btn.innerText='🎤 Record Voice — Tap to Start / Stop';btn.style.background='#ff2e63';}}
+function renderSafe(){const isActive=isActiveUser()||isOwnerUser();const lock=document.getElementById('safeLock');const content=document.getElementById('safeContent');if(!isActive){if(lock) lock.classList.remove('hidden');if(content) content.classList.add('hidden')}else{if(lock) lock.classList.add('hidden');if(content) content.classList.remove('hidden')}const list=document.getElementById('safeList');if(!list)return;list.innerHTML='';if(safePlaces.length===0){list.innerHTML='<p style="opacity:0.5;font-size:11px">No safe places yet</p>'}safePlaces.slice().reverse().forEach((p,i)=>{list.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;display:flex;justify-content:space-between;align-items:center;margin-top:6px"><div><p style="font-weight:700">${p.name}</p><p style="font-size:10px;opacity:0.7">${p.address||''} — ${p.lat.toFixed(4)},${p.lng.toFixed(4)}</p></div><div style="display:flex;gap:4px"><a href="https://maps.google.com/?q=${p.lat},${p.lng}" target="_blank" style="background:rgba(255,255,255,0.1);padding:6px 8px;border-radius:8px;font-size:10px;text-decoration:none;color:white">Map</a><button onclick="deleteSafe(${i})" style="font-size:10px;color:#ff7aa2;background:none;border:none">Delete</button></div></div>`});document.getElementById('safeCount').innerText=safePlaces.length}
+function addSafePlace(){if(!isActiveUser()&&!isOwnerUser()){alert('🔒 LOCKED');showTab('pay');return}const name=document.getElementById('safeName').value.trim(),addr=document.getElementById('safeAddress').value.trim();if(!name){alert('Name required');return}safePlaces.push({name,address:addr,lat:currentLat,lng:currentLng,date:new Date().toLocaleString()});localStorage.setItem('safePlaces',JSON.stringify(safePlaces));document.getElementById('safeName').value='';document.getElementById('safeAddress').value='';renderSafe()}
+function useCurrentLocation(){if(!navigator.geolocation){alert('Geolocation not supported');return}navigator.geolocation.getCurrentPosition(p=>{currentLat=p.coords.latitude;currentLng=p.coords.longitude;alert('Live location set: '+currentLat.toFixed(5)+','+currentLng.toFixed(5))},()=>{alert('Could not get location')},{enableHighAccuracy:true,timeout:8000})}
+function deleteSafe(i){safePlaces.splice(i,1);localStorage.setItem('safePlaces',JSON.stringify(safePlaces));renderSafe()}
+function sendAI(){if(!isActiveUser()&&!isOwnerUser()){alert('🔒 LOCKED');showTab('pay');return}const inp=document.getElementById('aiInput');const raw=inp.value.trim();if(!raw)return;const chat=document.getElementById('aiChat');chat.innerHTML+=`<div style="background:#e8d48b;color:#000;padding:10px;border-radius:12px;margin-top:6px;align-self:flex-end;max-width:85%;margin-left:auto;font-size:13px"><b>You:</b> ${raw}</div>`;inp.value='';const tid='t'+Date.now();chat.innerHTML+=`<div id="${tid}" style="background:rgba(0,0,0,0.2);padding:10px;border-radius:12px;margin-top:6px;font-size:11px">💜 Thinking...</div>`;chat.scrollTop=chat.scrollHeight;setTimeout(()=>{const el=document.getElementById(tid);if(el) el.remove();chat.innerHTML+=`<div style="background:rgba(0,0,0,0.3);padding:10px;border-radius:12px;margin-top:6px;font-size:13px"><b>Queen — you said "${raw}" — I'm here for you 💜</b></div>`;chat.scrollTop=chat.scrollHeight},600)}
+async function loadRecords(){try{const r=await fetch(SCRIPT_URL);const d=await r.json();const totalEl=document.getElementById('totalVisitors');if(totalEl) totalEl.innerText=d.length;const list=document.getElementById('recordsList');if(list){list.innerHTML='';d.slice(-20).reverse().forEach(dd=>{list.innerHTML+=`<div style="display:flex;justify-content:space-between;background:rgba(0,0,0,0.2);padding:6px;border-radius:8px;margin-top:4px;font-size:11px"><span>${dd.fullName||dd.username} (${dd.phone})</span><span style="color:${dd.paidStatus==='approved'?'#00d68f':'#ff3b30'};font-weight:900">${dd.paidStatus||dd.paid||'R0'}</span></div>`});}}catch(e){try{allUsers=JSON.parse(localStorage.getItem('fg_all_users')||'[]')}catch(err){allUsers=[]}const totalEl=document.getElementById('totalVisitors');if(totalEl) totalEl.innerText=allUsers.length;}renderPendingPayments();}
+function clearAllData(){if(confirm('Clear all data? Professional reset')){localStorage.clear();location.reload();}}
+window.addEventListener('DOMContentLoaded',()=>{try{checkLogin();renderCircle();renderVault();renderSafe();renderMyPayments();renderSos();updateSosCounters();renderVaultMedia();}catch(e){document.getElementById('authStatus').innerHTML='<div class="msg err">JS Error: '+e.message+'</div>'}});
 </script>
 </body>
-                                     </html>
+  </html>
