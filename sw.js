@@ -1,39 +1,34 @@
-// Feminist-Guard v32 - PWA Service Worker
-const CACHE_NAME = 'fg-v32-cache';
-const FILES_TO_CACHE = [
-  '.',
-  'index.html',
-  'manifest.json',
-  'icon-192.png',
-  'icon-512.png'
-];
-
-self.addEventListener('install', event => {
-  console.log('v32 Service Worker installing');
-  event.waitUntil(
+// v33 PROFESSIONAL - NO BONGANE - Force clear old v31 cache
+const CACHE_NAME = 'fg-v33-PROFESSIONAL-NO-BONGANE-v3';
+self.addEventListener('install', e => {
+  console.log('v33 installing - clearing old');
+  self.skipWaiting();
+  e.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
+      return cache.addAll(['./index.html?v=33']);
     })
   );
-  self.skipWaiting();
 });
-
-self.addEventListener('activate', event => {
-  console.log('v32 Service Worker activating');
-  event.waitUntil(
+self.addEventListener('activate', e => {
+  console.log('v33 activating - deleting old caches');
+  e.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+        keys.filter(key => key !== CACHE_NAME).map(key => {
+          console.log('Deleting old cache:', key);
+          return caches.delete(key);
+        })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
+self.addEventListener('fetch', e => {
+  // Network first - always get new v33, not cache
+  e.respondWith(
+    fetch(e.request).then(response => {
+      return response;
+    }).catch(() => {
+      return caches.match(e.request);
     })
   );
 });
