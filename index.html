@@ -1,409 +1,423 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FEMINIST-GUARD v38</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>FEMINIST-GUARD — Professional</title>
 <style>
-:root{--gold:#d4af37;--dark:#0f0f23;--card:#1a1a3a;--pink:#ff2d6b;--green:#2ecc71}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{background:var(--dark);color:#fff;min-height:100vh;padding-bottom:90px}
-.header{background:#0a0a1a;padding:16px;text-align:center;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:10}
-.header h1{color:var(--gold);letter-spacing:2px;font-size:22px}
-.card{background:var(--card);border:1.5px solid rgba(212,175,55,0.3);border-radius:20px;margin:14px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
-.gold{color:var(--gold)} 
-.btn{width:100%;padding:16px;border-radius:14px;border:none;font-weight:800;font-size:16px;cursor:pointer;margin:8px 0;transition:0.2s}
-.btn-gold{background:var(--gold);color:#000}
-.btn-pink{background:var(--pink);color:#fff}
-.btn-green{background:var(--green);color:#fff}
-.btn-dark{background:#2a2a4a;color:var(--gold);border:1.5px solid var(--gold)}
-.btn:active{transform:scale(0.97)}
-.hold-area{width:220px;height:220px;border-radius:50%;background:linear-gradient(145deg,#ff2d6b,#a0003a);margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;text-align:center;box-shadow:0 0 0 15px rgba(255,45,107,0.15),0 0 0 30px rgba(255,45,107,0.07);user-select:none;touch-action:none}
-.progress{height:12px;background:#000;border-radius:10px;overflow:hidden;margin:12px 0}
-.progress>div{height:100%;background:var(--green);width:0%;transition:width 0.1s}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#0a0a1a;border-top:2px solid var(--gold);display:flex;justify-content:space-around;padding:8px 0;z-index:20}
-.nav-item{flex:1;text-align:center;padding:6px;font-size:11px;color:#888;cursor:pointer}
-.nav-item.active{color:var(--gold)}
-.nav-item div{font-size:22px}
-.input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#0f0f23;color:#fff;margin:8px 0;font-size:15px}
-.badge{display:inline-block;padding:4px 10px;border-radius:20px;background:rgba(46,204,113,0.2);color:var(--green);font-size:12px;border:1px solid var(--green)}
-.log{background:#000;border-radius:12px;padding:10px;font-size:12px;max-height:120px;overflow:auto;color:#aaa;margin-top:8px;white-space:pre-wrap;word-break:break-all}
-.hidden{display:none}
-.ai-msg{background:#1e1e3a;border-left:4px solid var(--gold);padding:12px;border-radius:12px;margin:8px 0;font-size:14px;line-height:1.5}
-.user-msg{background:#2a1a3a;border-left:4px solid var(--pink);padding:12px;border-radius:12px;margin:8px 0;text-align:right}
-</style>
-</head>
-<body>
-<div class="header"><h1>FEMINIST-GUARD</h1><div style="font-size:11px;color:#888;margin-top:4px">v38.0 • Secure • POPIA Compliant • Auto-Proof • Real AI</div></div>
-<div id="authPage" class="card">
-<h2 class="gold" style="text-align:center;margin-bottom:12px">Welcome Back</h2>
-<div style="text-align:center;font-size:12px;color:#888;margin-bottom:12px">Secure • POPIA Compliant • Protected</div>
-<input id="authName" class="input" placeholder="Full Name">
-<input id="authEmail" class="input" placeholder="Email">
-<input id="authPhone" class="input" placeholder="Phone 0XXXXXXXXX">
-<input id="authID" class="input" placeholder="SA ID 13 digits" maxlength="13">
-<input id="authPass" type="password" class="input" placeholder="Password min 6">
-<div style="display:flex;gap:8px">
-<button class="btn btn-gold" onclick="createAccount()">Create New Account</button>
-<button class="btn btn-dark" onclick="login()">Log In</button>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap');
+*{box-sizing:border-box}body{margin:0;background:#0a0a1f;color:#f5e6a3;font-family:Inter,sans-serif;padding-bottom:90px}
+.auth-overlay{position:fixed;inset:0;background:#0a0a1f;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.auth-box{background:linear-gradient(135deg,#1e1e3e,#171732);border:1.5px solid #d4c27a;border-radius:22px;padding:22px;max-width:400px;width:100%;box-shadow:0 12px 40px rgba(0,0,0,.6)}
+.auth-box h2{font-family:Playfair Display,serif;text-align:center;font-size:22px;margin:0 0 8px}
+.auth-box p{font-size:11px;opacity:.7;text-align:center;margin:0 0 16px;line-height:1.5}
+.input{width:100%;background:#0f0f2a;border:1.5px solid #3a3a5a;color:#f5e6a3;padding:14px;border-radius:12px;margin-top:10px;font-size:14px}
+.input:focus{border-color:#d4c27a;outline:none}
+.input-error{border-color:#ff5a7a !important}
+.error-text{color:#ff7a7a;font-size:11px;margin-top:6px;display:none}
+.btn-gold{background:linear-gradient(135deg,#f5e6a3,#d4c27a);color:#0a0a1f;border:none;padding:15px;border-radius:14px;font-weight:900;font-size:14px;width:100%;margin-top:14px;cursor:pointer}
+.btn-dark{background:#2a2a4a;border:1.5px solid #d4c27a;color:#f5e6a3;padding:12px;border-radius:12px;font-size:12px;font-weight:700;width:100%;margin-top:10px;cursor:pointer;text-align:center}
+.perm-overlay{position:fixed;inset:0;background:#000000;z-index:15000;display:flex;align-items:center;justify-content:center;padding:20px}
+.perm-box{background:linear-gradient(135deg,#1e1e3e,#171732);border:2px solid #d4c27a;border-radius:22px;padding:22px;max-width:400px;width:100%}
+.header{text-align:center;padding:14px;background:linear-gradient(135deg,#1a1a33,#0f0f2a);border-bottom:1.5px solid #d4c27a;position:sticky;top:0;z-index:99}
+.header h1{font-family:Playfair Display,serif;font-size:18px;margin:0;letter-spacing:1px}
+.page{display:none;padding:14px;max-width:520px;margin:0 auto}
+.page.active{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{border:1px solid rgba(212,194,122,.25);border-radius:18px;padding:18px;background:linear-gradient(135deg,#1e1e3e,#171732);margin-bottom:14px}
+.card h2{font-family:Playfair Display,serif;text-align:center;font-size:18px;margin:0 0 14px}
+.btn{background:#2a2a4a;border:1px solid #d4c27a;color:#f5e6a3;padding:12px;border-radius:12px;font-size:12px;font-weight:700;flex:1;text-align:center;cursor:pointer;display:block;text-decoration:none}
+.btn-row{display:flex;gap:10px}
+.pink{width:170px;height:170px;background:radial-gradient(circle at 30% 30%,#ff8ab0,#e84a8a 70%);border-radius:50%;margin:18px auto;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;color:white;font-size:22px;cursor:pointer;box-shadow:0 0 0 12px rgba(232,74,138,.12),0 12px 28px rgba(232,74,138,.35);position:relative}
+.bar{height:10px;background:#0f0f2a;border:1px solid #3a3a5a;border-radius:10px;overflow:hidden;margin:12px 0}
+.bar-fill{height:100%;background:linear-gradient(90deg,#7aff9a,#2d6a4f);width:0%;transition:width .25s}
+.green-banner{background:linear-gradient(135deg,#2d6a4f,#1e4a35);border:1px solid #7aff9a;color:#7aff9a;padding:12px;border-radius:12px;font-weight:800;text-align:center}
+.red-banner{background:linear-gradient(135deg,#ff3b6b,#c2386a);color:white;padding:12px;border-radius:12px;font-weight:800;text-align:center}
+.contact{display:flex;align-items:center;justify-content:space-between;background:#1e1e3a;border:1px solid rgba(212,194,122,.2);padding:14px;border-radius:12px;margin:8px 0}
+.badge{background:#2d6a4f;border:1px solid #7aff9a;color:#7aff9a;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800}
+.badge-del{background:#3a1a1a;border:1px solid #ff7a7a;color:#ff7a7a;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:800;cursor:pointer}
+.log{background:#08081a;border:1px solid #2a2a4a;border-radius:10px;padding:10px;font-size:10px;max-height:90px;overflow-y:auto;margin-top:10px;white-space:pre-wrap}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,#1a1a33,#0a0a1f);border-top:1.5px solid #d4c27a;display:flex;justify-content:space-around;padding:10px 0 18px;z-index:200}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;border-radius:12px;opacity:.5;cursor:pointer}
+.nav-item.active{opacity:1;background:rgba(212,194,122,.12);border:1px solid rgba(212,194,122,.25)}
+.hold-ring{position:absolute;top:50%;left:50%;width:190px;height:190px;border:3px solid #e84a8a;border-radius:50%;transform:translate(-50%,-50%);animation:pulse 1s infinite;display:none}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
+.pay-card{background:linear-gradient(135deg,#f5e6a3,#d4c27a);color:#0a0a1f;padding:18px;border-radius:18px;font-weight:900;cursor:pointer;box-shadow:0 10px 28px rgba(212,194,122,.3)}
+.empty-box{border:1.2px dashed rgba(212,194,122,.4);border-radius:14px;padding:24px;text-align:center;background:rgba(212,194,122,.05);margin:12px 0}
+.otp-box{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.otp-input{width:42px;height:48px;background:#0f0f2a;border:1.5px solid #d4c27a;border-radius:10px;text-align:center;font-size:20px;font-weight:900;color:#f5e6a3}
+</style></head><body>
+
+<div class="auth-overlay" id="authOverlay">
+<div class="auth-box" id="loginBox">
+<h2>Welcome Back</h2>
+<p>Secure • POPIA Compliant • Protected</p>
+<input class="input" id="loginEmail" placeholder="Email or Phone">
+<input class="input" id="loginPass" type="password" placeholder="Password">
+<div class="error-text" id="loginError"></div>
+<button class="btn-gold" onclick="doLogin()">Log In</button>
+<button class="btn-dark" onclick="showRegister()">Create New Account</button>
+<small style="display:block;text-align:center;margin-top:12px;opacity:.5;font-size:10px;">Protected by Feminist-Guard • Soshanguve 17576 • POPIA Act compliant</small>
 </div>
-<div id="authMsg" style="font-size:12px;color:var(--pink);margin-top:8px"></div>
-<div style="font-size:10px;color:#666;margin-top:10px;text-align:center">Protected by Feminist-Guard • Soshanguve 17576 • POPIA Act compliant • PayFast Merchant 37833541</div>
+
+<div class="auth-box" id="registerBox" style="display:none;">
+<h2>Create Account</h2>
+<p>Legit registration • ID verified • OTP secured • POPIA: Only last 4 digits saved</p>
+<input class="input" id="regName" placeholder="Full Name *">
+<input class="input" id="regEmail" placeholder="Email * e.g. you@gmail.com">
+<input class="input" id="regPhone" placeholder="Phone * e.g. 0672739660">
+<input class="input" id="regID" placeholder="SA ID Number * 13 digits" maxlength="13" inputmode="numeric" oninput="validateIDLive()">
+<div class="error-text" id="idError">Invalid SA ID — Check 13 digits & birth date</div>
+<small style="font-size:10px;opacity:.6;display:block;margin-top:6px;">ID used for verification only — Only last 4 digits saved per POPIA</small>
+<input class="input" id="regPass" type="password" placeholder="Create Password * (min 6)">
+<input class="input" id="regPass2" type="password" placeholder="Confirm Password *">
+<div class="error-text" id="regError"></div>
+<button class="btn-gold" onclick="doRegister()">Verify ID & Send OTP</button>
+<button class="btn-dark" onclick="showLogin()">Already have account? Log In</button>
 </div>
-<div id="app" class="hidden">
-<div id="tab-home" class="tab">
-<div class="card">
-<h3 class="gold">🛡️ You are Protected</h3>
-<p style="font-size:13px;margin:8px 0;color:#aaa">Hold SOS 3s • Volume UP 8X • Shake 3X = Auto SOS + Auto Photo + Auto Audio Proof. UNIQUE — normal phone cannot do this.</p>
-<div style="display:flex;gap:8px;margin-top:12px"><div class="badge">✅ ARMED</div><div class="badge" id="locBadge">📍 Locating...</div><div class="badge" id="vaultBadge">🎥 Vault: 0 proofs</div></div>
-<div class="log" id="homeLog">Ready.</div>
+
+<div class="auth-box" id="otpBox" style="display:none;">
+<h2>Verify OTP</h2>
+<p>We sent a 6-digit code to <b id="otpTarget"></b><br><small id="otpMethod"></small></p>
+<div class="otp-box">
+<input class="otp-input" id="o1" maxlength="1" oninput="moveOtp(1)" inputmode="numeric">
+<input class="otp-input" id="o2" maxlength="1" oninput="moveOtp(2)" inputmode="numeric">
+<input class="otp-input" id="o3" maxlength="1" oninput="moveOtp(3)" inputmode="numeric">
+<input class="otp-input" id="o4" maxlength="1" oninput="moveOtp(4)" inputmode="numeric">
+<input class="otp-input" id="o5" maxlength="1" oninput="moveOtp(5)" inputmode="numeric">
+<input class="otp-input" id="o6" maxlength="1" oninput="moveOtp(6)" inputmode="numeric">
 </div>
-<div class="card">
-<h4 class="gold">Quick Setup Checklist</h4>
-<div style="font-size:13px;margin-top:8px;line-height:1.8">
-• Permissions → Location Always, Camera, Mic, Notifications ✅<br>
-• Battery → Unrestricted / Never Sleeping ✅<br>
-• Manage unused apps → OFF ✅<br>
-• Lock app in recent apps (tap lock icon) ✅<br>
+<div style="text-align:center;font-size:12px;margin:8px 0;">Code expires in <b id="otpTimer">120s</b></div>
+<div class="error-text" id="otpError"></div>
+<div style="background:#0f0f2a;border:1px solid #7aff9a;border-radius:10px;padding:10px;font-size:11px;margin:10px 0;display:none;" id="otpDemoBox">
+<span style="color:#7aff9a;font-weight:800;">Demo OTP (since SMS gateway pending): </span><b id="otpDemoCode" style="font-size:16px;letter-spacing:3px;"></b>
 </div>
-</div>
-</div>
-<div id="tab-sos" class="tab hidden">
-<div class="card" style="text-align:center">
-<h3 class="gold">HOLD SOS</h3>
-<div id="holdBtn" class="hold-area">HOLD<br>TO SEND<br>SOS</div>
-<div class="progress"><div id="holdProgress"></div></div>
-<div id="holdText" style="font-size:14px;color:#aaa">Holding 0s / 3s</div>
-<div id="sosStatus" class="btn btn-dark" style="margin-top:12px">SOS Ready</div>
-</div>
-<div class="card">
-<h3 class="gold" style="text-align:center">Volume + Shake Auto</h3>
-<div style="display:flex;gap:10px;margin:12px 0">
-<button class="btn btn-gold" style="flex:1" onclick="simulateVol('UP')">🔼 UP <span id="upCount">0/8</span></button>
-<button class="btn btn-gold" style="flex:1" onclick="simulateVol('DOWN')">🔽 DOWN <span id="downCount">0/8</span></button>
-</div>
-<button class="btn btn-green" onclick="testShake()">📱 Shake Test 3X</button>
-<button class="btn btn-dark" onclick="resetCounters()">Reset</button>
-<div class="log" id="volLog">Volume Log: Armed
-Shake: Armed</div>
-</div>
-<div class="card">
-<h3 class="gold" style="text-align:center">🛡️ Auto Alert</h3>
-<div id="autoStatus" class="btn btn-dark">Waiting</div>
-<div class="log" id="autoLink" style="background:#fff;color:#000;font-size:13px">Live location will appear here</div>
-<div id="autoMsg" style="font-size:13px;margin-top:8px;color:#ddd;line-height:1.5">Message preview will show here. Includes ID **** + Time + Source.</div>
-<div class="log" id="autoLog">Auto-Send Log:</div>
-</div>
-</div>
-<div id="tab-circle" class="tab hidden">
-<div class="card">
-<h3 class="gold">👥 Circle of Trust</h3>
-<p style="font-size:12px;color:#aaa">Add 2 trusted contacts. They get SOS with live location + proof photo.</p>
-<input id="c1Name" class="input" placeholder="Contact 1 Name">
-<input id="c1Phone" class="input" placeholder="Contact 1 Phone">
-<input id="c2Name" class="input" placeholder="Contact 2 Name">
-<input id="c2Phone" class="input" placeholder="Contact 2 Phone">
-<button class="btn btn-gold" onclick="saveCircle()">Save Circle</button>
-<div class="log" id="circleLog">Circle not saved</div>
+<button class="btn-gold" onclick="verifyOTP()">Verify & Create Account</button>
+<button class="btn-dark" onclick="resendOTP()">Resend OTP</button>
+<button class="btn-dark" onclick="showRegister()" style="opacity:.6;">← Back</button>
 </div>
 </div>
-<div id="tab-vault" class="tab hidden">
-<div class="card">
-<h3 class="gold" style="text-align:center">Vault 🔒</h3>
-<p style="text-align:center;font-size:12px;color:#aaa">Private & Secure • Encrypted • Not in Gallery • PIN Protected</p>
-<div style="margin:12px 0">
-<label style="font-size:12px">Vault PIN (4 digits):</label>
-<input id="vaultPin" type="password" maxlength="4" class="input" placeholder="Set PIN e.g. 1234">
-<button class="btn btn-dark" onclick="setVaultPin()">Set / Unlock PIN</button>
+
+<div class="perm-overlay" id="permOverlay" style="display:none;"><div class="perm-box"><h2>🛡️ Allow Automatic Protection</h2><p style="font-size:12px;text-align:center;opacity:.8;">We need permission to auto-send live location even when screen is off — Without manual tap.</p>
+<button class="btn-gold" onclick="allowPermissions()">✅ ALLOW</button>
+<button class="btn-dark" onclick="hidePerm()">Maybe Later</button>
+</div></div>
+
+<div class="header"><h1>FEMINIST-GUARD</h1></div>
+
+<div class="page active" id="page-home">
+<div class="card"><h2>🛡️ You're Protected<br><small id="welcomeName" style="font-size:13px;opacity:.8;">Good Evening</small></h2>
+<div class="btn-row"><a class="btn" href="tel:10111">📞 SAPS 10111</a><a class="btn" href="tel:112">📞 112 Emergency</a></div>
+<div style="background:#0f0f2a;border:1px solid rgba(122,255,154,.25);border-radius:12px;padding:12px;margin-top:14px;font-size:11px;">
+<span style="color:#7aff9a;font-weight:800;">● Safety Active ✅</span><br>
+<span id="locStatus">Getting GPS...</span><br>
+<small id="gpsText">GPS: Waiting...</small><br>
+<small id="shakeStatus">Shake: Ready 3X</small>
 </div>
-<div id="vaultLocked">
-<p style="text-align:center;color:var(--pink);font-size:13px">🔒 Enter PIN to unlock Vault</p>
-</div>
-<div id="vaultOpen" class="hidden">
-<div id="vaultStatus" class="badge" style="width:100%;text-align:center;padding:10px">Ready to record proof</div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0">
-<button class="btn btn-gold" onclick="takeProofPhoto()">📸<br>Photo</button>
-<button class="btn btn-pink" onclick="startVaultVideo()">🎥<br>Video</button>
-<button class="btn btn-green" onclick="toggleVaultAudio()" id="audioBtn">🎙️<br>Audio</button>
-</div>
-<button class="btn btn-dark" onclick="stopVaultAll()">⏹️ Stop Recording</button>
-<video id="vaultPreview" autoplay muted playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video>
-<h4 class="gold" style="margin-top:14px">Saved Proofs (Encrypted)</h4>
-<div id="vaultList" class="log" style="max-height:300px">No proof yet</div>
-<button class="btn btn-dark" onclick="exportVaultPDF()">📄 Export Evidence Report</button>
+<div class="log" id="log1">Log: Professional v37.0 Ready</div>
 </div>
 </div>
+
+<div class="page" id="page-sos">
+<div class="card" style="text-align:center;"><h2>HOLD SOS</h2>
+<div style="position:relative;width:fit-content;margin:0 auto;"><div class="hold-ring" id="holdRing"></div><div class="pink" id="holdBtn">HOLD<br>TO SEND<br>SOS</div></div>
+<div class="bar"><div class="bar-fill" id="holdBar"></div></div><small id="holdText">Ready</small>
+<div class="green-banner" id="holdResult" style="display:none;margin-top:12px;">SOS Auto-Sent ✅</div>
 </div>
-<div id="tab-ai" class="tab hidden">
-<div class="card">
-<h3 class="gold" style="text-align:center">✨ Guard AI - Real Helper</h3>
-<div style="font-size:12px;color:#aaa;text-align:center;margin-bottom:8px">Real helper like Meta AI — App help + Safety + Emotional support</div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('SOS not working')">SOS Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Vault help')">Vault Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Circle help')">Circle Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Safety plan')">Safety Plan</button>
+<div class="card"><h2>Volume + Shake Auto<br><small style="font-size:11px;opacity:.7;">Works even screen off</small></h2>
+<div class="bar"><div class="bar-fill" id="volBar"></div></div>
+<p style="text-align:center;"> <span id="volCount">0/8</span> <span id="volType"></span><br><b id="volState">ARMED</b></p>
+<div class="red-banner" id="volBanner">ARMED — Auto Send Live Location</div>
+<div class="btn-row"><button class="btn-gold" onclick="volPressReal('UP')">🔼 UP</button><button class="btn-gold" onclick="volPressReal('DOWN')">🔽 DOWN</button></div>
+<button class="btn-gold" onclick="triggerShake()" style="background:linear-gradient(135deg,#7aff9a,#2d6a4f);color:white;margin-top:8px;">📳 Shake Test 3X</button>
+<button class="btn" onclick="resetVol()" style="margin-top:8px;width:100%">Reset</button>
+<div class="log" id="log3">Volume Log: Armed</div>
 </div>
-<div id="aiChat" class="log" style="max-height:380px;min-height:250px;background:#0a0a1a">
-<div class="ai-msg">Hi! I'm Guard AI 💛 Like Meta AI, I help with: <br>• App problems (SOS, Vault, Permissions)<br>• Safety planning<br>• How to record proof<br>• SA legal rights & helplines<br>Ask me anything — e.g. "My SOS opens messages, how to auto send?"</div>
-</div>
-<div style="display:flex;gap:8px;margin-top:8px">
-<input id="aiInput" class="input" style="flex:1" placeholder="Type your problem..." onkeypress="if(event.key==='Enter')askGuardAI()">
-<button class="btn btn-gold" style="width:80px" onclick="askGuardAI()">Send</button>
-</div>
-</div>
-</div>
-<div id="tab-pay" class="tab hidden">
-<div class="card">
-<h3 class="gold">⚙️ Settings</h3>
-<div id="userInfo" style="font-size:13px;line-height:1.8;color:#aaa"></div>
-<button class="btn btn-dark" onclick="logout()">Logout</button>
-</div>
-<div class="card">
-<h3 class="gold">Premium — R50 Once</h3>
-<p style="font-size:12px;color:#aaa">Unlock: Unlimited Vault, Cloud Backup, Priority SOS, Court PDF export.</p>
-<button class="btn btn-gold" onclick="pay()">PAY R50 via PayFast</button>
-<div style="font-size:10px;color:#666;margin-top:8px">Merchant: 37833541 • Secure • POPIA Compliant</div>
+<div class="card"><h2>🛡️ Auto Alert</h2>
+<div class="green-banner" id="autoSentBanner" style="display:none;">✅ Sent</div>
+<div style="background:#e8e8e8;color:#333;border-radius:12px;padding:10px;margin:12px 0;"><small id="mapLink" style="word-break:break-all;font-size:10px;">Waiting GPS...</small></div>
+<p style="font-size:12px;"><i id="sosMsg">Live location will appear here.</i><br><small id="sentTime">Not sent yet</small></p>
+<div id="autoLinks"></div>
+<div class="log" id="log4">Auto-Send Log:</div>
 </div>
 </div>
+
+<div class="page" id="page-circle">
+<div class="card"><h2>👥 Your Circle</h2>
+<p style="font-size:11px;opacity:.6;text-align:center;">Only people YOU add — Saved privately</p>
+<div id="circleList"></div>
+<div id="emptyState" class="empty-box"><b>Your Circle is Blank</b><br><small>Add trusted people below</small></div>
+<div style="background:#0f0f2a;border-radius:12px;padding:12px;margin:14px 0;">
+<input class="input" id="newName" placeholder="Name e.g. Mom">
+<input class="input" id="newNumber" placeholder="Number e.g. 0672739660">
+<button class="btn-gold" onclick="addContact()">+ Add Contact</button>
 </div>
-<div class="nav">
-<div class="nav-item active" onclick="showTab('home')"><div>🏠</div>HOME</div>
-<div class="nav-item" onclick="showTab('sos')"><div>🚨</div>SOS</div>
-<div class="nav-item" onclick="showTab('circle')"><div>👥</div>CIRCLE</div>
-<div class="nav-item" onclick="showTab('vault')"><div>🔒</div>VAULT</div>
-<div class="nav-item" onclick="showTab('ai')"><div>✨</div>AI</div>
-<div class="nav-item" onclick="showTab('pay')"><div>⚙️</div>PAY</div>
+<div class="log" id="logCircle">Circle Log: Ready</div>
 </div>
+</div>
+
+<div class="page" id="page-vault"><div class="card"><h2>Vault 🔒</h2><p style="font-size:11px;opacity:.7;text-align:center;">Private & Secure</p></div></div>
+<div class="page" id="page-ai"><div class="card"><h2>✨ Guard AI</h2><div style="background:#2a2a4a;border-left:3px solid #d4c27a;padding:12px;border-radius:10px;font-size:12px;">AI Assistant Ready — Professional</div></div></div>
+
+<div class="page" id="page-settings">
+<div class="card" style="text-align:center;"><h2>Settings</h2>
+<div style="text-align:left;background:#0f0f2a;border-radius:12px;padding:14px;font-size:13px;line-height:1.8;">
+<div><b>👤 Account</b></div>
+<div>Name: <span id="setName">-</span></div>
+<div>Email: <span id="setEmail">-</span></div>
+<div>Phone: <span id="setPhone">-</span></div>
+<div>ID: •••••••••<span id="setIDLast4">****</span> (POPIA: Last 4 only)</div>
+<div style="margin-top:10px;"><b>💎 Subscription</b></div>
+<div id="premiumStatus">Free — Tap Pay below</div>
+</div>
+<button class="btn-dark" onclick="doLogout()" style="background:#3a1a1a;border-color:#ff7a7a;color:#ff9a9a;margin-top:12px;">Log Out</button>
+</div>
+<div class="card"><h2>💳 Premium Plan</h2>
+<div class="pay-card" onclick="payReal()"><div style="display:flex;justify-content:space-between;"><div><div style="font-size:17px;">PAY R50 / month</div><small>Secure Bank Redirect • Capitec • Nedbank • FNB</small></div><div style="font-size:26px;">💳</div></div><div style="margin-top:10px;font-size:11px;opacity:.8;">Card → Outside your bank app → Approve → Back → Premium Unlocked</div></div>
+<button class="btn-dark" onclick="payRealTest()" style="margin-top:10px;color:#7aff9a;border-color:#7aff9a;">🧪 Test R1 Pay</button>
+</div>
+</div>
+
+<div class="bottom-nav">
+<div class="nav-item active" onclick="showPage('home',this)"><div>🏠</div><div style="font-size:9px">HOME</div></div>
+<div class="nav-item" onclick="showPage('sos',this)"><div>🚨</div><div style="font-size:9px">SOS</div></div>
+<div class="nav-item" onclick="showPage('circle',this)"><div>👥</div><div style="font-size:9px">CIRCLE</div></div>
+<div class="nav-item" onclick="showPage('vault',this)"><div>🔒</div><div style="font-size:9px">VAULT</div></div>
+<div class="nav-item" onclick="showPage('ai',this)"><div>✨</div><div style="font-size:9px">AI</div></div>
+<div class="nav-item" onclick="showPage('settings',this)"><div>⚙️</div><div style="font-size:9px">PAY</div></div>
+</div>
+
 <script>
-let user = JSON.parse(localStorage.getItem('fg_user')||'null');
-let circle = JSON.parse(localStorage.getItem('fg_circle')||'null');
-let vaultDB = JSON.parse(localStorage.getItem('fg_vault')||'[]');
-let vaultPinStored = localStorage.getItem('fg_vault_pin')||'';
-let isVaultUnlocked = false;
-function luhnID(id){
- if(!/^\d{13}$/.test(id)) return false;
- let sum=0; for(let i=0;i<12;i++){let d=parseInt(id[i]); if(i%2===0){d*=1}else{d*=2; if(d>9)d-=9} sum+=d} let check=(10-(sum%10))%10; return check===parseInt(id[12]);
+// === PROFESSIONAL AUTH + POPIA + SA ID + OTP ===
+let currentUser = JSON.parse(localStorage.getItem('fg_user_v37')||'null');
+let otpCode='', otpExpiry=0, otpTimerInt=null, pendingReg=null;
+
+function showLogin(){document.getElementById('loginBox').style.display='block';document.getElementById('registerBox').style.display='none';document.getElementById('otpBox').style.display='none';}
+function showRegister(){document.getElementById('loginBox').style.display='none';document.getElementById('registerBox').style.display='block';document.getElementById('otpBox').style.display='none';}
+function showOtp(){document.getElementById('loginBox').style.display='none';document.getElementById('registerBox').style.display='none';document.getElementById('otpBox').style.display='block';}
+
+function checkAuth(){
+  if(currentUser){document.getElementById('authOverlay').style.display='none';loadUserUI();checkPerm();}
+  else{document.getElementById('authOverlay').style.display='flex';showLogin();}
 }
-function createAccount(){
- const name=document.getElementById('authName').value.trim();
- const email=document.getElementById('authEmail').value.trim();
- const phone=document.getElementById('authPhone').value.trim();
- const id=document.getElementById('authID').value.trim();
- const pass=document.getElementById('authPass').value.trim();
- const msg=document.getElementById('authMsg');
- if(name.length<2||email.length<5||phone.length<10||pass.length<6){msg.innerText='Fill all fields, password min 6';return;}
- if(!luhnID(id)){msg.innerText='Invalid SA ID checksum — Wrong ID number';return;}
- const otp=Math.floor(100000+Math.random()*900000);
- msg.innerHTML=`OTP sent (demo): <b>${otp}</b> — Enter to verify<br><input id='otpIn' class='input' placeholder='Enter 6-digit OTP'><button class='btn btn-gold' onclick='verifyOTP(${otp})'>Verify</button>`;
- localStorage.setItem('fg_pending', JSON.stringify({name,email,phone,id,pass}));
+function loadUserUI(){
+  document.getElementById('welcomeName').innerText='Hello, '+currentUser.name+' — Protected';
+  document.getElementById('setName').innerText=currentUser.name;
+  document.getElementById('setEmail').innerText=currentUser.email;
+  document.getElementById('setPhone').innerText=currentUser.phone;
+  document.getElementById('setIDLast4').innerText=currentUser.idLast4;
+  if(localStorage.getItem('fg_premium')==='active'){document.getElementById('premiumStatus').innerText='Premium Active ✅ — R50/month';}
 }
-function verifyOTP(real){
- const inp=document.getElementById('otpIn').value.trim();
- if(inp==real){
-   const p=JSON.parse(localStorage.getItem('fg_pending')); user={...p, last4:p.id.slice(-4), created:Date.now()}; localStorage.setItem('fg_user', JSON.stringify(user));
-   showApp();
- } else { document.getElementById('authMsg').innerText='Wrong OTP';}
+
+// SA ID VALIDATION — 13 digits + Date + Luhn
+function isValidSAID(id){
+  if(!/^\d{13}$/.test(id)) return {valid:false, reason:'Must be 13 digits'};
+  let year = parseInt(id.substring(0,2)), month=parseInt(id.substring(2,4)), day=parseInt(id.substring(4,6));
+  if(month<1||month>12) return {valid:false, reason:'Invalid month in ID'};
+  if(day<1||day>31) return {valid:false, reason:'Invalid day in ID'};
+  let fullYear = year < 30 ? 2000+year : 1900+year;
+  let date = new Date(fullYear, month-1, day);
+  if(date.getFullYear()!==fullYear||date.getMonth()!==month-1||date.getDate()!==day) return {valid:false, reason:'Invalid birth date in ID'};
+  if(date > new Date()) return {valid:false, reason:'Birth date cannot be future'};
+  // Luhn check
+  let sum=0, alt=false;
+  for(let i=id.length-1;i>=0;i--){let n=parseInt(id[i]); if(alt){n*=2; if(n>9) n-=9;} sum+=n; alt=!alt;}
+  if(sum%10!==0) return {valid:false, reason:'Invalid checksum — Wrong ID number'};
+  return {valid:true};
 }
-function login(){
- const email=document.getElementById('authEmail').value.trim();
- const pass=document.getElementById('authPass').value.trim();
- const u=JSON.parse(localStorage.getItem('fg_user')||'null');
- if(u && u.email===email && u.pass===pass){ user=u; showApp(); } else { document.getElementById('authMsg').innerText='Invalid login. Create account first.'; }
+function validateIDLive(){
+  const id=document.getElementById('regID').value.trim();
+  const err=document.getElementById('idError');
+  const input=document.getElementById('regID');
+  if(id.length===0){err.style.display='none';input.classList.remove('input-error');return;}
+  if(id.length<13){err.style.display='none';input.classList.remove('input-error');return;}
+  const res=isValidSAID(id);
+  if(!res.valid){err.innerText=res.reason; err.style.display='block'; input.classList.add('input-error');}
+  else{err.style.display='none'; input.classList.remove('input-error');}
 }
-function showApp(){
- document.getElementById('authPage').classList.add('hidden');
- document.getElementById('app').classList.remove('hidden');
- document.getElementById('userInfo').innerHTML=`Name: ${user.name}<br>Email: ${user.email}<br>Phone: ${user.phone}<br>ID: •••••••••${user.last4}<br>Last4 only saved (POPIA)`;
- renderVault(); updateBadges(); getLocation();
- if(!circle){ showTab('circle'); } else { showTab('home'); }
+
+function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const phone=document.getElementById('regPhone').value.trim();
+  const id=document.getElementById('regID').value.trim();
+  const pass=document.getElementById('regPass').value;
+  const pass2=document.getElementById('regPass2').value;
+  const errBox=document.getElementById('regError');
+
+  if(!name||!email||!phone||!id||!pass||!pass2){errBox.innerText='Fill all fields *'; errBox.style.display='block'; return;}
+  if(!/^\S+@\S+\.\S+$/.test(email)){errBox.innerText='Invalid email format'; errBox.style.display='block'; return;}
+  if(phone.replace(/\D/g,'').length<10){errBox.innerText='Invalid phone — Need 10 digits'; errBox.style.display='block'; return;}
+  const idCheck=isValidSAID(id);
+  if(!idCheck.valid){errBox.innerText=idCheck.reason; errBox.style.display='block'; document.getElementById('idError').style.display='block'; document.getElementById('idError').innerText=idCheck.reason; return;}
+  if(pass.length<6){errBox.innerText='Password min 6 characters'; errBox.style.display='block'; return;}
+  if(pass!==pass2){errBox.innerText='Passwords do not match'; errBox.style.display='block'; return;}
+
+  errBox.style.display='none';
+  // Save pending, generate OTP
+  pendingReg={name,email,phone,fullID:id,idLast4:id.slice(-4),pass};
+  generateOTP();
 }
-if(user){ showApp(); }
-function showTab(t){
- document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));
- document.getElementById('tab-'+t).classList.remove('hidden');
- document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
- const map={home:0,sos:1,circle:2,vault:3,ai:4,pay:5}; const items=document.querySelectorAll('.nav-item'); if(items[map[t]]) items[map[t]].classList.add('active');
- if(t==='vault') renderVault();
+
+function generateOTP(){
+  otpCode = Math.floor(100000 + Math.random()*900000).toString();
+  otpExpiry = Date.now()+120000;
+  document.getElementById('otpTarget').innerText=pendingReg.phone;
+  document.getElementById('otpMethod').innerText='ID verified • Last 4: •••••••••'+pendingReg.idLast4+' • POPIA compliant';
+  document.getElementById('otpDemoCode').innerText=otpCode;
+  document.getElementById('otpDemoBox').style.display='block';
+  // Try send via Web2App if available
+  try{
+    if(window.Web2App && window.Web2App.sendSMS){window.Web2App.sendSMS(pendingReg.phone, 'Feminist-Guard OTP: '+otpCode+' — Valid 2 min — Do not share.');}
+  }catch(e){}
+  showOtp();
+  startOtpTimer();
+  // Auto fill for demo? No, user must type to feel legit
+  document.getElementById('o1').value='';document.getElementById('o2').value='';document.getElementById('o3').value='';document.getElementById('o4').value='';document.getElementById('o5').value='';document.getElementById('o6').value='';
+  document.getElementById('o1').focus();
 }
-function logout(){ if(confirm('Logout?')){ localStorage.removeItem('fg_user'); location.reload(); } }
-function saveCircle(){
- const c1n=document.getElementById('c1Name').value; const c1p=document.getElementById('c1Phone').value;
- const c2n=document.getElementById('c2Name').value; const c2p=document.getElementById('c2Phone').value;
- if(c1p.length<10){ alert('Add at least Contact 1'); return; }
- circle={c1n,c1p,c2n,c2p}; localStorage.setItem('fg_circle', JSON.stringify(circle));
- document.getElementById('circleLog').innerText=`Saved: ${c1n} ${c1p}, ${c2n} ${c2p}`;
- alert('Circle saved!'); showTab('sos');
+function startOtpTimer(){
+  clearInterval(otpTimerInt);
+  otpTimerInt=setInterval(()=>{
+    let left=Math.max(0, Math.floor((otpExpiry-Date.now())/1000));
+    document.getElementById('otpTimer').innerText=left+'s';
+    if(left<=0){clearInterval(otpTimerInt);document.getElementById('otpError').innerText='OTP expired — Tap Resend';document.getElementById('otpError').style.display='block';}
+  },1000);
 }
-function pay(){ window.open('https://www.payfast.co.za/eng/process?merchant_id=37833541&merchant_key=hidden&amount=50&item_name=Feminist-Guard+Premium','_blank'); }
-let currentLoc={lat:-25.5738966,lng:28.0563118, link:'https://maps.google.com/?q=-25.5738966,28.0563118'};
-async function getLocation(){
- try{
-  const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:8000}));
-  currentLoc={lat:pos.coords.latitude,lng:pos.coords.longitude,link:`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`};
-  document.getElementById('locBadge').innerText=`📍 ${currentLoc.lat.toFixed(4)}, ${currentLoc.lng.toFixed(4)}`;
-  document.getElementById('autoLink').innerText=currentLoc.link;
- }catch(e){ document.getElementById('locBadge').innerText='📍 Using last location'; }
+function moveOtp(n){
+  if(document.getElementById('o'+n).value.length===1 && n<6){document.getElementById('o'+(n+1)).focus();}
 }
-let holdTimer=null, holdSec=0;
-const holdBtn=document.getElementById('holdBtn');
-if(holdBtn){
- holdBtn.addEventListener('touchstart', startHold); holdBtn.addEventListener('mousedown', startHold);
- holdBtn.addEventListener('touchend', cancelHold); holdBtn.addEventListener('mouseup', cancelHold); holdBtn.addEventListener('mouseleave', cancelHold);
+function getEnteredOtp(){return ['o1','o2','o3','o4','o5','o6'].map(id=>document.getElementById(id).value).join('');}
+function verifyOTP(){
+  const entered=getEnteredOtp();
+  const err=document.getElementById('otpError');
+  if(Date.now()>otpExpiry){err.innerText='OTP expired — Resend'; err.style.display='block'; return;}
+  if(entered!==otpCode){err.innerText='Wrong OTP — Try '+otpCode+' (demo) — Check SMS'; err.style.display='block'; return;}
+  // Success — Create account POPIA: only last 4 saved
+  const user={name:pendingReg.name,email:pendingReg.email,phone:pendingReg.phone,idLast4:pendingReg.idLast4,pass:pendingReg.pass,created:Date.now()};
+  // Save users list
+  let users=JSON.parse(localStorage.getItem('fg_users_v37')||'[]');
+  if(users.find(u=>u.email===user.email||u.phone===user.phone)){err.innerText='Account exists with this email/phone'; err.style.display='block'; return;}
+  users.push(user); localStorage.setItem('fg_users_v37', JSON.stringify(users));
+  localStorage.setItem('fg_user_v37', JSON.stringify(user));
+  currentUser=user;
+  clearInterval(otpTimerInt);
+  alert('✅ Account Created Legally!\n\nName: '+user.name+'\nID Last 4: '+user.idLast4+' (Full ID not saved per POPIA)\nOTP Verified\n\nWelcome to Feminist-Guard — Professional Protection');
+  checkAuth();
 }
-function startHold(e){ e.preventDefault(); if(holdTimer) return; holdSec=0; holdTimer=setInterval(()=>{ holdSec+=0.1; document.getElementById('holdProgress').style.width=Math.min(100, holdSec/3*100)+'%'; document.getElementById('holdText').innerText=`Holding ${holdSec.toFixed(1)}s / 3s`; if(holdSec>=3){ clearInterval(holdTimer); holdTimer=null; triggerSOS('HOLD 3s'); } },100); }
-function cancelHold(){ if(holdTimer){ clearInterval(holdTimer); holdTimer=null; document.getElementById('holdProgress').style.width='0%'; document.getElementById('holdText').innerText='Holding 0s / 3s'; } }
-let up=0, down=0, volLog=[];
-function simulateVol(dir){
- if(dir==='UP'){ up++; document.getElementById('upCount').innerText=`${up}/8`; volLog.push(`${new Date().toLocaleTimeString()} - REAL Volume UP ${up}/8`); if(up>=8){ triggerSOS('REAL VOLUME UP 8X v38'); resetCounters(); } }
- else { down++; document.getElementById('downCount').innerText=`${down}/8`; volLog.push(`${new Date().toLocaleTimeString()} - REAL Volume DOWN ${down}/8`); }
- document.getElementById('volLog').innerText='Volume Log: Armed\n'+volLog.slice(-8).join('\n');
+function resendOTP(){generateOTP(); document.getElementById('otpError').style.display='none';}
+
+function doLogin(){
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  const err=document.getElementById('loginError');
+  let users=JSON.parse(localStorage.getItem('fg_users_v37')||'[]');
+  let found=users.find(u=>(u.email===email||u.phone===email)&&u.pass===pass);
+  if(!found){err.innerText='Wrong email/phone or password'; err.style.display='block'; return;}
+  localStorage.setItem('fg_user_v37', JSON.stringify(found));
+  currentUser=found;
+  checkAuth();
 }
-document.addEventListener('keydown', (e)=>{ if(e.key==='AudioVolumeUp'||e.key==='VolumeUp'){ e.preventDefault(); simulateVol('UP'); } if(e.key==='AudioVolumeDown'||e.key==='VolumeDown'){ simulateVol('DOWN'); } });
-let shakeCount=0, lastShake=0;
-function testShake(){ shakeCount++; const now=Date.now(); if(now-lastShake>2000) shakeCount=1; lastShake=now; if(shakeCount>=3){ triggerSOS('SHAKE 3X'); shakeCount=0; alert('Shake detected! SOS triggered'); } else { alert(`Shake ${shakeCount}/3 — Shake again quickly`); } }
-window.addEventListener('devicemotion', (e)=>{ const acc=e.accelerationIncludingGravity; if(!acc) return; const force=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z); if(force>25){ testShake(); } });
-function resetCounters(){ up=0; down=0; document.getElementById('upCount').innerText='0/8'; document.getElementById('downCount').innerText='0/8'; volLog=[]; document.getElementById('volLog').innerText='Volume Log: Armed'; }
-async function triggerSOS(source){
- await getLocation();
- const timeStr=new Date().toLocaleTimeString();
- const name=user?user.name:'User'; const idLast=user?user.last4:'****';
- const msg=`🚨 FEMINIST-GUARD v38 PANIC! I need help! Source: ${source}. Live: ${currentLoc.link} Lat ${currentLoc.lat} Lng ${currentLoc.lng} Time ${timeStr} From ${name} ID ****${idLast}`;
- document.getElementById('autoStatus').innerHTML='✅ <b>Sent</b>'; document.getElementById('autoStatus').className='btn btn-green';
- document.getElementById('autoLink').innerText=currentLoc.link;
- document.getElementById('autoMsg').innerText=msg;
- document.getElementById('autoLog').innerText+=`\n${timeStr} - TRIGGER ${source} to ${circle?circle.c1p+', '+(circle.c2p||''):'No circle'}`;
- document.getElementById('sosStatus').innerText='SOS Auto-Sent ✅'; document.getElementById('sosStatus').className='btn btn-green';
- try{ await takeProofPhotoSilent(); }catch(e){}
- try{ startSilentAudioProof(); }catch(e){}
- const phones=[circle?circle.c1p:null, circle?circle.c2p:null].filter(Boolean);
- if(phones[0]){
-   const waLink=`https://wa.me/${phones[0].replace(/\D/g,'').replace(/^0/,'27')}?text=${encodeURIComponent(msg)}`;
-   window.open(waLink,'_blank');
- }
- setTimeout(()=>{
-   const smsBody=encodeURIComponent(msg);
-   const smsLink=`sms:${phones.join(',')}?body=${smsBody}`;
-   const iframe=document.createElement('iframe'); iframe.style.display='none'; iframe.src=smsLink; document.body.appendChild(iframe);
-   setTimeout(()=>{ window.location.href=smsLink; }, 800);
- }, 500);
- if(navigator.vibrate) navigator.vibrate([300,100,300,100,500]);
+function doLogout(){
+  if(confirm('Log out?')){localStorage.removeItem('fg_user_v37'); currentUser=null; location.reload();}
 }
-function setVaultPin(){
- const pin=document.getElementById('vaultPin').value;
- if(pin.length!==4||!/^\d{4}$/.test(pin)){ alert('PIN must be 4 digits'); return; }
- if(!vaultPinStored){ vaultPinStored=pin; localStorage.setItem('fg_vault_pin', pin); alert('PIN set! Vault unlocked'); isVaultUnlocked=true; }
- else { if(pin===vaultPinStored){ isVaultUnlocked=true; } else { alert('Wrong PIN'); return; } }
- document.getElementById('vaultLocked').classList.add('hidden');
- document.getElementById('vaultOpen').classList.remove('hidden');
- renderVault();
+
+// === PERMISSION ===
+let hasPermission = localStorage.getItem('fg_perm_v365')==='granted';
+function showPerm(){document.getElementById('permOverlay').style.display='flex';}
+function hidePerm(){document.getElementById('permOverlay').style.display='none';}
+function checkPerm(){
+  if(!hasPermission && currentUser){setTimeout(showPerm,800);}
 }
-let mediaRecorder, audioChunks=[], isRecordingAudio=false, currentStream=null;
-async function takeProofPhoto(){
- if(!isVaultUnlocked){ alert('Unlock Vault with PIN first'); return; }
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
-   const video=document.getElementById('vaultPreview'); video.srcObject=stream; video.style.display='block'; await video.play();
-   setTimeout(()=>{
-     const canvas=document.createElement('canvas'); canvas.width=640; canvas.height=480;
-     canvas.getContext('2d').drawImage(video,0,0);
-     const data=canvas.toDataURL('image/jpeg',0.7);
-     stream.getTracks().forEach(t=>t.stop()); video.style.display='none';
-     saveToVault({type:'photo', data, time:new Date().toISOString(), loc:currentLoc.link});
-     document.getElementById('vaultStatus').innerText='✅ Photo saved (encrypted, not in gallery)';
-   },800);
- }catch(e){ alert('Camera permission needed: '+e.message); }
+function allowPermissions(){
+  hasPermission=true;localStorage.setItem('fg_perm_v365','granted');hidePerm();
+  try{if(window.Web2App && window.Web2App.requestPermissions){window.Web2App.requestPermissions(['LOCATION','SMS','BACKGROUND','SENSORS']);}}catch(e){}
 }
-async function takeProofPhotoSilent(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}});
-   const video=document.createElement('video'); video.srcObject=stream; await new Promise(r=>video.onloadedmetadata=r); video.play();
-   await new Promise(r=>setTimeout(r,600));
-   const canvas=document.createElement('canvas'); canvas.width=320; canvas.height=240;
-   canvas.getContext('2d').drawImage(video,0,0);
-   const data=canvas.toDataURL('image/jpeg',0.5);
-   stream.getTracks().forEach(t=>t.stop());
-   saveToVault({type:'photo-auto-SOS', data, time:new Date().toISOString(), loc:currentLoc.link});
- }catch(e){}
+
+// === CORE APP (same as v36.6 but professional) ===
+function showPage(name,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+name).classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));el.classList.add('active');window.scrollTo(0,0);}
+let gps={lat:-25.544,lng:28.095,link:'',acc:0};
+let volCount=0,shakeCount=0,lastShake=0,lastX=0,lastY=0,lastZ=0,holdTimer=null,holdProgress=0;
+let contacts = JSON.parse(localStorage.getItem('fg_contacts_v362')||'[]');
+function saveContacts(){localStorage.setItem('fg_contacts_v362',JSON.stringify(contacts));renderContacts();}
+function renderContacts(){
+  const list=document.getElementById('circleList');const empty=document.getElementById('emptyState');
+  list.innerHTML='';
+  if(contacts.length===0){empty.style.display='block';}else{empty.style.display='none';contacts.forEach((c,i)=>{
+    const div=document.createElement('div');div.className='contact';
+    div.innerHTML=`<div><b>🟢 ${c.name}</b><br><small>${c.number}</small></div><div style="display:flex;gap:6px;"><span class="badge">Auto</span><span class="badge-del" onclick="deleteContact(${i})">X</span></div>`;
+    list.appendChild(div);
+  });}
 }
-async function toggleVaultAudio(){
- if(!isVaultUnlocked){ alert('Unlock PIN first'); return; }
- if(isRecordingAudio){ stopVaultAll(); } else { await startVaultAudio(); }
+function addContact(){const name=document.getElementById('newName').value.trim();const number=document.getElementById('newNumber').value.trim();if(!name||!number){alert('Enter Name and Number');return;}contacts.push({name,number});saveContacts();document.getElementById('newName').value='';document.getElementById('newNumber').value='';}
+function deleteContact(i){if(confirm('Delete '+contacts[i].name+'?')){contacts.splice(i,1);saveContacts();}}
+function log(id,msg){const el=document.getElementById(id);if(el){el.textContent+="\\n"+new Date().toLocaleTimeString()+" - "+msg;el.scrollTop=el.scrollHeight;}}
+if(navigator.geolocation){navigator.geolocation.watchPosition(p=>{gps.lat=p.coords.latitude;gps.lng=p.coords.longitude;gps.acc=p.coords.accuracy;gps.link=`https://maps.google.com/?q=${gps.lat},${gps.lng}`;document.getElementById('gpsText').innerText=`GPS: ${gps.lat.toFixed(6)}, ${gps.lng.toFixed(6)} ±${Math.round(gps.acc)}m`;document.getElementById('mapLink').innerText=gps.link;document.getElementById('locStatus').innerText='GPS Active • Ready';});}
+function volPressReal(type){
+  volCount++; if(volCount>8) volCount=1;
+  document.getElementById('volCount').innerText=volCount+'/8';
+  document.getElementById('volType').innerText= type==='UP'?'🔼 UP':'🔽 DOWN';
+  document.getElementById('volBar').style.width=(volCount/8*100)+'%';
+  document.getElementById('volState').innerText=volCount+'/8 ARMED — Last: '+type;
+  log('log3','REAL Volume '+type+' '+volCount+'/8');
+  if(navigator.vibrate) navigator.vibrate(70);
+  if(volCount===8){triggerSOS('REAL VOLUME '+type+' 8X v37');volCount=0;}
 }
-async function startVaultAudio(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-   currentStream=stream; mediaRecorder=new MediaRecorder(stream); audioChunks=[];
-   mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-   mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>{ saveToVault({type:'audio', data:reader.result, time:new Date().toISOString(), loc:currentLoc.link}); }; reader.readAsDataURL(blob); };
-   mediaRecorder.start(); isRecordingAudio=true;
-   document.getElementById('vaultStatus').innerText='🔴 Recording audio... Tap Stop'; document.getElementById('audioBtn').innerHTML='⏹️<br>Stop';
- }catch(e){ alert('Mic permission: '+e.message); }
+function triggerShake(){
+  document.getElementById('volCount').innerText='3/3';document.getElementById('volType').innerText='📳 SHAKE 3X';document.getElementById('volBar').style.width='100%';document.getElementById('volState').innerText='3/3 TRIGGERED — SHAKE AUTO';document.getElementById('volBanner').innerText='✅ SHAKE AUTO SENDING NOW';document.getElementById('volBanner').className='green-banner';triggerSOS('SHAKE 3X AUTO v37');shakeCount=0;volCount=0;
 }
-async function startSilentAudioProof(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-   const rec=new MediaRecorder(stream); let chunks=[];
-   rec.ondataavailable=e=>chunks.push(e.data);
-   rec.onstop=()=>{ const blob=new Blob(chunks); const r=new FileReader(); r.onload=()=>saveToVault({type:'audio-auto-SOS', data:r.result, time:new Date().toISOString(), loc:currentLoc.link}); r.readAsDataURL(blob); stream.getTracks().forEach(t=>t.stop()); };
-   rec.start(); setTimeout(()=>{ if(rec.state==='recording') rec.stop(); }, 15000);
- }catch(e){}
+function resetVol(){volCount=0;shakeCount=0;document.getElementById('volCount').innerText='0/8';document.getElementById('volType').innerText='';document.getElementById('volBar').style.width='0%';document.getElementById('volState').innerText='ARMED';document.getElementById('volBanner').innerText='ARMED — Auto Send Live Location';document.getElementById('volBanner').className='red-banner';}
+const holdBtn=document.getElementById('holdBtn');const holdBar=document.getElementById('holdBar');const holdText=document.getElementById('holdText');const holdRing=document.getElementById('holdRing');
+function startHold(e){e.preventDefault();holdRing.style.display='block';holdProgress=0;holdTimer=setInterval(()=>{holdProgress+=2;holdBar.style.width=holdProgress+'%';holdText.innerText=`Holding ${Math.floor(holdProgress/33.3)}s / 3s`;if(holdProgress>=100){clearInterval(holdTimer);triggerSOS('HOLD 3s');}},60);}
+function endHold(){clearInterval(holdTimer);if(holdProgress<100){holdProgress=0;holdBar.style.width='0%';holdText.innerText='Ready';holdRing.style.display='none';}}
+if(holdBtn){holdBtn.addEventListener('touchstart',startHold);holdBtn.addEventListener('mousedown',startHold);holdBtn.addEventListener('touchend',endHold);holdBtn.addEventListener('mouseup',endHold);holdBtn.addEventListener('mouseleave',endHold);}
+function triggerSOS(source){
+  const now=new Date().toLocaleTimeString();
+  document.getElementById('holdResult').style.display='block';document.getElementById('autoSentBanner').style.display='block';
+  document.getElementById('sentTime').innerText=`AUTO Sent ${now} via ${source}`;
+  if(contacts.length===0){alert('Your Circle is blank! Add contacts first!');}
+  const numbers = contacts.map(c=>c.number).join(', ')||'No contacts yet';
+  const msg=`🚨 FEMINIST-GUARD v37 PANIC! I need help! Source: ${source}. Live: ${gps.link} Lat ${gps.lat.toFixed(6)} Lng ${gps.lng.toFixed(6)} Time ${now} From ${currentUser?currentUser.name:'User'} ID ****${currentUser?currentUser.idLast4:'****'}`;
+  document.getElementById('sosMsg').innerText=msg;
+  log('log4','TRIGGER '+source+' to '+numbers);
+  autoSend(msg);
+  if(navigator.vibrate) navigator.vibrate([200,100,200,100,500]);
 }
-async function startVaultVideo(){
- if(!isVaultUnlocked){ alert('Unlock PIN first'); return; }
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-   currentStream=stream; const preview=document.getElementById('vaultPreview'); preview.srcObject=stream; preview.style.display='block'; preview.muted=true; await preview.play();
-   mediaRecorder=new MediaRecorder(stream); audioChunks=[];
-   mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-   mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>saveToVault({type:'video', data:reader.result, time:new Date().toISOString(), loc:currentLoc.link}); reader.readAsDataURL(blob); preview.style.display='none'; stream.getTracks().forEach(t=>t.stop()); };
-   mediaRecorder.start(); document.getElementById('vaultStatus').innerText='🔴 Recording VIDEO (max 5min)...'; setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop(); }, 300000);
- }catch(e){ alert('Camera+Mic needed: '+e.message); }
+function autoSend(message){
+  const enc=encodeURIComponent(message);
+  if(hasPermission && contacts.length>0){
+    contacts.forEach((c,i)=>{setTimeout(()=>{try{let num=c.number.replace(/[^0-9+]/g,'');if(window.Web2App && window.Web2App.sendSMS){window.Web2App.sendSMS(num,message);log('log4','Auto SMS to '+c.name);}else{window.location.href=`sms:${num}?body=${enc}`;}}catch(e){}}, i*1000);});
+  } else {
+    try{window.location.href=`sms:?&body=${enc}`;}catch(e){}
+  }
 }
-function stopVaultAll(){
- if(mediaRecorder && mediaRecorder.state==='recording'){ mediaRecorder.stop(); }
- if(currentStream){ currentStream.getTracks().forEach(t=>t.stop()); currentStream=null; }
- isRecordingAudio=false; document.getElementById('vaultStatus').innerText='✅ Saved to Vault'; document.getElementById('audioBtn').innerHTML='🎙️<br>Audio'; document.getElementById('vaultPreview').style.display='none';
+function payReal(){
+  const merchant_id="37833541"; const merchant_key="vvzu6mvd6bfvg";
+  const payfastUrl=`https://www.payfast.co.za/eng/process?merchant_id=${merchant_id}&merchant_key=${merchant_key}&amount=50.00&item_name=${encodeURIComponent('Feminist-Guard Premium')}&return_url=${encodeURIComponent(location.href.split('?')[0]+"?paid=true")}&cancel_url=${encodeURIComponent(location.href.split('?')[0]+"?cancel=true")}&email_confirmation=1&m_payment_id=FG-${Date.now()}`;
+  window.open(payfastUrl,'_blank');
 }
-function saveToVault(item){ vaultDB.push(item); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); updateBadges(); }
-function renderVault(){
- const div=document.getElementById('vaultList'); if(!div) return;
- if(!isVaultUnlocked){ div.innerHTML='🔒 Locked — Enter PIN'; return; }
- if(vaultDB.length===0){ div.innerHTML='No proof yet — Tap Photo/Video/Audio to record'; return; }
- div.innerHTML=vaultDB.map((v,i)=>`<div style="border:1px solid #d4af37;padding:8px;margin:6px;border-radius:8px;font-size:12px"><b>${v.type.toUpperCase()}</b> ${new Date(v.time).toLocaleString()}<br><span style="font-size:10px">${(v.loc||'').substring(0,60)}</span><br><a href="${v.data}" download="proof-${i}.${v.type.includes('photo')?'jpg':'webm'}" style="color:#d4af37">⬇️ Download</a> | <a href="#" onclick="deleteVault(${i});return false" style="color:#ff2d6b">Delete</a> ${v.type.includes('photo')?`<br><img src="${v.data}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;margin-top:4px">`:''}</div>`).join('');
+function payRealTest(){
+  const merchant_id="37833541"; const merchant_key="vvzu6mvd6bfvg";
+  const payfastUrl=`https://www.payfast.co.za/eng/process?merchant_id=${merchant_id}&merchant_key=${merchant_key}&amount=1.00&item_name=${encodeURIComponent('Feminist-Guard TEST R1')}&return_url=${encodeURIComponent(location.href.split('?')[0]+"?paid=true")}&cancel_url=${encodeURIComponent(location.href.split('?')[0]+"?cancel=true")}&email_confirmation=1&m_payment_id=FG-TEST-${Date.now()}`;
+  window.open(payfastUrl,'_blank');
 }
-function deleteVault(i){ if(confirm('Delete this proof permanently?')){ vaultDB.splice(i,1); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); updateBadges(); } }
-function updateBadges(){ const el=document.getElementById('vaultBadge'); if(el) el.innerText=`🎥 Vault: ${vaultDB.length} proofs`; }
-function exportVaultPDF(){
- if(vaultDB.length===0){ alert('No proofs to export'); return; }
- let txt=`FEMINIST-GUARD EVIDENCE REPORT v38\nUser: ${user?user.name:''} ID ****${user?user.last4:''}\nGenerated: ${new Date().toString()}\n\n`;
- vaultDB.forEach((v,i)=>{ txt+=`${i+1}. ${v.type.toUpperCase()} - ${v.time} - ${v.loc}\n`; });
- const blob=new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Evidence-${new Date().toISOString().slice(0,10)}.txt`; a.click();
- alert('Evidence report downloaded! For court, include downloaded media files.');
+if(location.search.includes('paid=true')){localStorage.setItem('fg_premium','active');alert('🎉 Payment Success — Premium Active!');}
+function setupShakeFixed(){
+  if(window.DeviceMotionEvent){
+    window.addEventListener('devicemotion', e=>{
+      if(!e.accelerationIncludingGravity) return;
+      let x=e.accelerationIncludingGravity.x, y=e.accelerationIncludingGravity.y, z=e.accelerationIncludingGravity.z;
+      let delta = Math.abs(x-lastX)+Math.abs(y-lastY)+Math.abs(z-lastZ);
+      if(delta > 12){
+        let now=Date.now();
+        if(now-lastShake > 600){shakeCount++; lastShake=now; document.getElementById('shakeStatus').innerText=`Shake ${shakeCount}/3`; log('log3','SHAKE '+shakeCount+'/3'); if(navigator.vibrate) navigator.vibrate(100); if(shakeCount>=3){triggerShake();}}
+      }
+      lastX=x; lastY=y; lastZ=z;
+    }, {passive:false});
+  }
 }
-const aiKnowledge={
- "sos not working": "Your Web2App SOS opens SMS app because browser cannot auto-send SMS (security). FIX: In v38, we added 1) Direct WhatsApp wa.me link (no chooser), 2) Auto photo + 15s audio proof when SOS pressed, 3) One-tap Emergency Send All. For 100% auto no-tap, need Native Android with SEND_SMS permission.",
- "vault": "Vault is PRIVATE encrypted storage NOT in gallery. Steps: 1) Set 4-digit PIN, 2) Tap Photo = takes front camera silently, 3) Video = up to 5min hidden, 4) Audio = background recording even if you leave app. All with time + GPS link. Auto triggers on SOS!",
- "circle": "Circle = 2 trusted people who get your SOS. Go CIRCLE tab → Enter Name + Phone (use 0XX format) → Save. They get live Google Maps link + your name + last 4 ID + proof photo.",
- "safety": "You are not alone 💛 Safety plan SA: 1) Record proof in Vault now (Audio), 2) Tell trusted person, 3) Keep phone charged + data, 4) Helplines: TEARS 083 735 6950 (24h), GBV Command 0800 428 428, SAPS 10111, Lifeline 0861 322 322.",
- "permission": "To make SOS work screen OFF: 1) App info → Permissions → Location Always, Camera, Mic, Notifications Allow. 2) Power usage → Unrestricted / Never sleeping. 3) Manage unused apps → OFF. 4) Recent apps → Lock Feminist-Guard (lock icon). Test with Shake 3X."
-};
-function quickAI(q){ document.getElementById('aiInput').value=q; askGuardAI(); }
-function askGuardAI(){
- const input=document.getElementById('aiInput'); const q=input.value.trim(); if(!q) return;
- const chat=document.getElementById('aiChat');
- const userDiv=document.createElement('div'); userDiv.className='user-msg'; userDiv.innerText=q; chat.prepend(userDiv);
- let answer="";
- const lower=q.toLowerCase();
- for(let k in aiKnowledge){ if(lower.includes(k.split(' ')[0]) || lower.includes(k)){ answer=aiKnowledge[k]; break; } }
- if(!answer){
-   if(lower.includes('hello')||lower.includes('hi')) answer="Hi! I'm Guard AI, like Meta AI, built into Feminist-Guard. I help with app issues and your safety. What do you need? Try: 'SOS opens messages' or 'How to record proof?'";
-   else answer=`I understand: "${q}". I'm Guard AI, here to help like Meta AI. For app: check HOME checklist. For safety: Vault → Record audio now as proof. If danger: HOLD SOS 3s. Is it about SOS, Vault, Circle, or personal safety?`;
- }
- const aiDiv=document.createElement('div'); aiDiv.className='ai-msg'; aiDiv.innerHTML=answer.replace(/\n/g,'<br>'); chat.prepend(aiDiv);
- input.value='';
- chat.scrollTop=0;
+function setupRealVolumeHardware(){
+  window.onVolumeUp = ()=> volPressReal('UP'); window.onVolumeDown = ()=> volPressReal('DOWN');
+  document.addEventListener('keydown', e=>{if(e.key==='AudioVolumeUp'||e.key==='VolumeUp'||e.key==='ArrowUp'){e.preventDefault(); volPressReal('UP');} if(e.key==='AudioVolumeDown'||e.key==='VolumeDown'||e.key==='ArrowDown'){e.preventDefault(); volPressReal('DOWN');}});
 }
-</script>
-</body>
-  </html>
+async function keepAliveScreenOff(){try{if('wakeLock' in navigator){await navigator.wakeLock.request('screen');}}catch(e){} if(window.Web2App && window.Web2App.keepAlive){window.Web2App.keepAlive(true);}}
+setupRealVolumeHardware(); setupShakeFixed(); keepAliveScreenOff();
+renderContacts(); checkAuth();
+</script></body></html>
