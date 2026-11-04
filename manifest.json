@@ -1,21 +1,17 @@
 {
   "name": "Feminist-Guard",
   "short_name": "Feminist-Guard",
-  "description": "Safety app for women. Emergency help, safe contacts and protection.",
+  "description": "Safety app for women. Emergency help, silent SOS, live location, Vault evidence and Guard AI.",
+  "id": "./index.html",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0a0a1f",
-  "theme_color": "#d4af37",
+  "theme_color": "#0a0a1f",
   "icons": [
-    {
-      "src": "icon192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "icon192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
