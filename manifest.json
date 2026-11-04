@@ -1,12 +1,11 @@
 {
-  "name": "Feminist-Guard v33 PROFESSIONAL LUXURY",
-  "short_name": "F-Guard v33",
-  "description": "v33 PROFESSIONAL - v15.7 PAY MAGNIFICENT + VAULT MEDIA - No Bongane",
-  "start_url": "./?v=33",
+  "name": "Feminist-Guard",
+  "short_name": "Feminist-Guard",
+  "start_url": ".",
   "display": "standalone",
-  "background_color": "#0e0a1e",
-  "theme_color": "#e8d48b",
-  "orientation": "portrait",
+  "background_color": "#0a0a1f",
+  "theme_color": "#0a0a1f",
+  "description": "Feminist-Guard - iOS FREE PWA",
   "icons": [
     {
       "src": "icon192.png",
@@ -16,7 +15,8 @@
     {
       "src": "icon512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
