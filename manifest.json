@@ -1,16 +1,20 @@
 {
   "name": "Feminist-Guard",
   "short_name": "Feminist-Guard",
-  "start_url": ".",
+  "description": "Feminist-Guard - Safety app for women. Emergency help, safe contacts and protection.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0a0a1f",
-  "theme_color": "#0a0a1f",
-  "description": "Feminist-Guard - iOS FREE PWA",
+  "theme_color": "#d4af37",
   "icons": [
     {
       "src": "icon192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon512.png",
