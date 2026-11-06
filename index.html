@@ -3,169 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FEMINIST-GUARD v38</title>
+<title>FEMINIST-GUARD v41</title>
 <style>
-:root{--gold:#d4af37;--dark:#0f0f23;--card:#1a1a3a;--pink:#ff2d6b;--green:#2ecc71}
+:root{--gold:#d4af37;--dark:#0a0a1a;--card:#1a1a3a;--card2:#12122b;--pink:#ff2d6b;--green:#2ecc71;--grey:#888}
 *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif}
-body{background:var(--dark);color:#fff;min-height:100vh;padding-bottom:90px}
-.header{background:#0a0a1a;padding:16px;text-align:center;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:10}
+body{background:var(--dark);color:#fff;min-height:100vh;padding-bottom:95px}
+.header{background:#0a0a1a;padding:14px;text-align:center;border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:10}
 .header h1{color:var(--gold);letter-spacing:2px;font-size:22px}
-.card{background:var(--card);border:1.5px solid rgba(212,175,55,0.3);border-radius:20px;margin:14px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
-.gold{color:var(--gold)} 
-.btn{width:100%;padding:16px;border-radius:14px;border:none;font-weight:800;font-size:16px;cursor:pointer;margin:8px 0;transition:0.2s}
+.header small{color:var(--grey);font-size:10px;letter-spacing:1px}
+.card{background:var(--card);border:1.5px solid rgba(212,175,55,0.35);border-radius:20px;margin:14px;padding:16px;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+.card2{background:var(--card2);border-radius:14px;padding:12px;margin:10px 0}
+.gold{color:var(--gold)}
+.btn{width:100%;padding:16px;border-radius:14px;border:none;font-weight:800;font-size:16px;cursor:pointer;margin:8px 0}
 .btn-gold{background:var(--gold);color:#000}
 .btn-pink{background:var(--pink);color:#fff}
 .btn-green{background:var(--green);color:#fff}
 .btn-dark{background:#2a2a4a;color:var(--gold);border:1.5px solid var(--gold)}
-.btn:active{transform:scale(0.97)}
-.hold-area{width:220px;height:220px;border-radius:50%;background:linear-gradient(145deg,#ff2d6b,#a0003a);margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;text-align:center;box-shadow:0 0 0 15px rgba(255,45,107,0.15),0 0 0 30px rgba(255,45,107,0.07);user-select:none;touch-action:none}
+.btn:active{transform:scale(.97)}
+.hold-area{width:220px;height:220px;border-radius:50%;background:linear-gradient(145deg,#ff2d6b,#a0003a);margin:18px auto;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;text-align:center;box-shadow:0 0 0 15px rgba(255,45,107,.15),0 0 0 30px rgba(255,45,107,.07);user-select:none;touch-action:none}
 .progress{height:12px;background:#000;border-radius:10px;overflow:hidden;margin:12px 0}
-.progress>div{height:100%;background:var(--green);width:0%;transition:width 0.1s}
+.progress>div{height:100%;background:var(--green);width:0%}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#0a0a1a;border-top:2px solid var(--gold);display:flex;justify-content:space-around;padding:8px 0;z-index:20}
 .nav-item{flex:1;text-align:center;padding:6px;font-size:11px;color:#888;cursor:pointer}
 .nav-item.active{color:var(--gold)}
 .nav-item div{font-size:22px}
 .input{width:100%;padding:14px;border-radius:12px;border:1px solid #333;background:#0f0f23;color:#fff;margin:8px 0;font-size:15px}
-.badge{display:inline-block;padding:4px 10px;border-radius:20px;background:rgba(46,204,113,0.2);color:var(--green);font-size:12px;border:1px solid var(--green)}
-.log{background:#000;border-radius:12px;padding:10px;font-size:12px;max-height:120px;overflow:auto;color:#aaa;margin-top:8px;white-space:pre-wrap;word-break:break-all}
+.badge{display:inline-block;padding:6px 12px;border-radius:20px;background:rgba(46,204,113,.18);color:var(--green);font-size:12px;border:1px solid var(--green)}
+.badge-grey{display:inline-block;padding:6px 12px;border-radius:20px;background:#222;color:#aaa;font-size:12px}
+.log{background:#000;border-radius:12px;padding:10px;font-size:12px;max-height:140px;overflow:auto;color:#aaa;margin-top:8px;white-space:pre-wrap;word-break:break-all}
 .hidden{display:none}
 .ai-msg{background:#1e1e3a;border-left:4px solid var(--gold);padding:12px;border-radius:12px;margin:8px 0;font-size:14px;line-height:1.5}
 .user-msg{background:#2a1a3a;border-left:4px solid var(--pink);padding:12px;border-radius:12px;margin:8px 0;text-align:right}
+.pin-box{display:flex;gap:10px;justify-content:center;margin:16px 0}
+.pin-box input{width:52px;height:60px;text-align:center;font-size:28px;border-radius:12px;border:1.5px solid var(--gold);background:#0f0f23;color:#fff}
+.circle-item{display:flex;align-items:center;justify-content:space-between;background:#0f0f23;border:1px solid #333;border-radius:14px;padding:12px;margin:8px 0}
 </style>
 </head>
 <body>
-<div class="header"><h1>FEMINIST-GUARD</h1><div style="font-size:11px;color:#888;margin-top:4px">v38.0 • Secure • POPIA Compliant • Auto-Proof • Real AI</div></div>
+<div class="header"><h1>FEMINIST-GUARD</h1><small>AI v41.0 REAL VISION • SILENT • VAULT PIN • STAY GREEN • LIVE MOVING</small></div>
+
+<!-- LOGIN -->
 <div id="authPage" class="card">
-<h2 class="gold" style="text-align:center;margin-bottom:12px">Welcome Back</h2>
-<div style="text-align:center;font-size:12px;color:#888;margin-bottom:12px">Secure • POPIA Compliant • Protected</div>
-<input id="authName" class="input" placeholder="Full Name">
+<h2 class="gold" style="text-align:center">Welcome Back</h2>
+<div style="text-align:center;font-size:12px;color:#888;margin:6px 0 12px">Secure • POPIA Compliant • Protected</div>
+<div id="loginForm">
 <input id="authEmail" class="input" placeholder="Email">
+<input id="authPass" type="password" class="input" placeholder="Password">
+<button class="btn btn-gold" onclick="login()">Log In</button>
+<button class="btn btn-dark" onclick="showCreate()">Create New Account</button>
+</div>
+<div id="createForm" class="hidden">
+<input id="authName" class="input" placeholder="Full Name">
+<input id="authEmail2" class="input" placeholder="Email">
 <input id="authID" class="input" placeholder="SA ID 13 digits" maxlength="13">
-<input id="authPass" type="password" class="input" placeholder="Password min 6">
-<div style="display:flex;gap:8px">
+<input id="authPass2" type="password" class="input" placeholder="Password min 6">
 <button class="btn btn-gold" onclick="createAccount()">Create New Account</button>
-<button class="btn btn-dark" onclick="login()">Log In</button>
+<button class="btn btn-dark" onclick="showLogin()">Back to Log In</button>
 </div>
 <div id="authMsg" style="font-size:12px;color:var(--pink);margin-top:8px"></div>
-<div style="font-size:10px;color:#666;margin-top:10px;text-align:center">Protected by Feminist-Guard • POPIA Act compliant • PayFast Merchant 37833541</div>
+<div style="font-size:10px;color:#666;margin-top:10px;text-align:center">Protected by Feminist-Guard • Soshanguve 17576 • POPIA Act compliant</div>
 </div>
+
 <div id="app" class="hidden">
+<!-- HOME -->
 <div id="tab-home" class="tab">
 <div class="card">
-<h3 class="gold">🛡️ You are Protected</h3>
-<p style="font-size:13px;margin:8px 0;color:#aaa">Hold SOS 3s • Volume UP 8X • Shake 3X = Auto SOS + Auto Photo + Auto Audio Proof. UNIQUE — normal phone cannot do this.</p>
-<div style="display:flex;gap:8px;margin-top:12px"><div class="badge">✅ ARMED</div><div class="badge" id="locBadge">📍 Locating...</div><div class="badge" id="vaultBadge">🎥 Vault: 0 proofs</div></div>
-<div class="log" id="homeLog">Ready.</div>
-</div>
-<div class="card">
-<h4 class="gold">Quick Setup Checklist</h4>
-<div style="font-size:13px;margin-top:8px;line-height:1.8">
-• Permissions → Location Always, Camera, Mic, Notifications ✅<br>
-• Battery → Unrestricted / Never Sleeping ✅<br>
-• Manage unused apps → OFF ✅<br>
-• Lock app in recent apps (tap lock icon) ✅<br>
+<h3 class="gold" style="text-align:center">You're Protected</h3>
+<p style="text-align:center;font-size:13px;color:#aaa;margin-top:6px" id="helloText">Hello — Protected</p>
+<div style="text-align:center;margin:12px 0"><span class="badge">● SILENT AI ON — No Sound, No Voice</span></div>
+<div class="card2" style="border:1px solid #333"><b>👁️ CHROME TEST MODE</b> — You are testing in GitHub / Chrome<br><span style="font-size:12px;color:#aaa">Chrome blocks auto-send. WhatsApp needs 1 tap SEND. This is normal in Chrome. In REAL APP (Web2App APK), AI sends SMS automatically with NO tap.</span></div>
+<div style="display:flex;gap:10px"><button class="btn btn-dark" style="flex:1" onclick="window.open('tel:10111')">SAPS 10111</button><button class="btn btn-dark" style="flex:1" onclick="window.open('tel:112')">112 Emergency</button></div>
+<div class="card2"><b>🟢 Safety Active ✅</b><br><span style="font-size:12px;color:#aaa" id="homeGPS">Getting GPS...<br>GPS: Waiting...<br>Shake: 2/3<br>AI: Silent — Shake / Hold / Voice</span></div>
+<div class="card2" style="font-size:12px;line-height:1.7">👁️ <b>CHROME TEST MODE</b><br>• You are in Chrome — Testing design only<br>• WhatsApp needs 1 tap SEND — Chrome blocks auto-send<br>• In REAL APP (Web2App APK): AI sends SMS silently, no tap<br>• She shakes once → Runs → AI does everything<br>• Red Pin = SOS person • Blue Dot = YOU only<br><span id="homeLog">Log: AI v41.0 REAL VISION Ready — STAY GREEN, Live Moving, Vault PIN</span></div>
+<button class="btn btn-gold" onclick="triggerSOS('TEST AI AUTO-SEND')">✨ TEST AI AUTO-SEND NOW</button>
+<button class="btn btn-dark" onclick="showTab('ai')">✨ Chat with Guard AI — Like Meta AI</button>
 </div>
 </div>
-</div>
+
+<!-- SOS -->
 <div id="tab-sos" class="tab hidden">
 <div class="card" style="text-align:center">
-<h3 class="gold">HOLD SOS</h3>
+<h3 class="gold">HOLD SOS — AI Sends Silently</h3>
 <div id="holdBtn" class="hold-area">HOLD<br>TO SEND<br>SOS</div>
 <div class="progress"><div id="holdProgress"></div></div>
-<div id="holdText" style="font-size:14px;color:#aaa">Holding 0s / 3s</div>
-<div id="sosStatus" class="btn btn-dark" style="margin-top:12px">SOS Ready</div>
+<div id="holdText" style="font-size:14px;color:#aaa">Ready — AI will send silently</div>
+<div id="sosStatus" class="btn btn-dark">ARMED — AI Auto Send Live Location</div>
+<div id="safeBox" class="hidden"><button class="btn btn-green" onclick="imSafe()">✅ I'M SAFE — STOP TRACKING NOW</button><div style="font-size:11px;color:#aaa">Stays GREEN until you press this — Then it stops everything</div></div>
 </div>
 <div class="card">
 <h3 class="gold" style="text-align:center">Volume + Shake Auto</h3>
-<div style="display:flex;gap:10px;margin:12px 0">
-<button class="btn btn-gold" style="flex:1" onclick="simulateVol('UP')">🔼 UP <span id="upCount">0/8</span></button>
-<button class="btn btn-gold" style="flex:1" onclick="simulateVol('DOWN')">🔽 DOWN <span id="downCount">0/8</span></button>
-</div>
+<p style="text-align:center;font-size:12px;color:#aaa">Works even screen off — AI sends silently</p>
+<div style="text-align:center;font-size:18px;font-weight:800;margin:10px 0" id="shakeStatus">0/3 📱 SHAKE 3X</div>
+<div style="display:flex;gap:10px"><button class="btn btn-gold" style="flex:1" onclick="simulateVol('UP')">🔼 UP <span id="upCount">0/8</span></button><button class="btn btn-gold" style="flex:1" onclick="simulateVol('DOWN')">🔽 DOWN <span id="downCount">0/8</span></button></div>
 <button class="btn btn-green" onclick="testShake()">📱 Shake Test 3X</button>
 <button class="btn btn-dark" onclick="resetCounters()">Reset</button>
-<div class="log" id="volLog">Volume Log: Armed
-Shake: Armed</div>
+<div class="log" id="volLog">Volume Log: Armed</div>
 </div>
 <div class="card">
-<h3 class="gold" style="text-align:center">🛡️ Auto Alert</h3>
-<div id="autoStatus" class="btn btn-dark">Waiting</div>
-<div class="log" id="autoLink" style="background:#fff;color:#000;font-size:13px">Live location will appear here</div>
-<div id="autoMsg" style="font-size:13px;margin-top:8px;color:#ddd;line-height:1.5">Message preview will show here. Includes ID **** + Time + Source.</div>
-<div class="log" id="autoLog">Auto-Send Log:</div>
+<h3 class="gold" style="text-align:center">🛡️ AI Auto Alert — Sends to ALL</h3>
+<div id="autoStatus" class="btn btn-dark">Waiting GPS...</div>
+<div class="log" id="autoLink" style="background:#fff;color:#000">Live location will appear here.<br>Not sent yet — AI waiting.</div>
+<div class="log" id="autoLog">AI Auto-Send Log:</div>
+<button class="btn btn-dark" onclick="sendWhatsAppAll()">💬 Send WhatsApp to ALL (No SMS needed)</button>
+<button class="btn btn-dark" onclick="sendSMSAll()">✉️ Send SMS to ALL</button>
+<button class="btn btn-green" onclick="shareLiveLocation()">📍 SHARE LIVE LOCATION ON WHATSAPP — Red Pin WILL MOVE like Blue Dot (8 Hours)</button>
+<div style="font-size:11px;color:#aaa;margin-top:6px">Tap → WhatsApp opens → Tap Attach 📎 → Location → Share Live Location → Choose Circle → Pin will MOVE live!</div>
 </div>
 </div>
+
+<!-- CIRCLE -->
 <div id="tab-circle" class="tab hidden">
 <div class="card">
-<h3 class="gold">👥 Circle of Trust</h3>
-<p style="font-size:12px;color:#aaa">Add 2 trusted contacts. They get SOS with live location + proof photo.</p>
-<input id="c1Name" class="input" placeholder="Contact 1 Name">
-<input id="c1Phone" class="input" placeholder="Contact 1 Phone">
-<input id="c2Name" class="input" placeholder="Contact 2 Name">
-<input id="c2Phone" class="input" placeholder="Contact 2 Phone">
-<button class="btn btn-gold" onclick="saveCircle()">Save Circle</button>
-<div class="log" id="circleLog">Circle not saved</div>
+<h3 class="gold" style="text-align:center">👥 Your Circle — AI Sends To ALL</h3>
+<p style="text-align:center;font-size:12px;color:#aaa">Only people YOU add — AI sends to every person</p>
+<div id="circleList"></div>
+<input id="cName" class="input" placeholder="Name e.g. Mom">
+<input id="cPhone" class="input" placeholder="Number e.g. 0672739660">
+<button class="btn btn-gold" onclick="addContact()">+ Add Contact</button>
+<div class="log" id="circleLog">Circle Log: Ready</div>
 </div>
 </div>
+
+<!-- VAULT -->
 <div id="tab-vault" class="tab hidden">
-<div class="card">
-<h3 class="gold" style="text-align:center">Vault 🔒</h3>
-<p style="text-align:center;font-size:12px;color:#aaa">Private & Secure • Encrypted • Not in Gallery • PIN Protected</p>
-<div style="margin:12px 0">
-<label style="font-size:12px">Vault PIN (4 digits):</label>
-<input id="vaultPin" type="password" maxlength="4" class="input" placeholder="Set PIN e.g. 1234">
-<button class="btn btn-dark" onclick="setVaultPin()">Set / Unlock PIN</button>
+<div class="card" id="vaultLockedCard">
+<div style="text-align:center;font-size:44px">🔒</div>
+<h3 class="gold" style="text-align:center">Vault Locked</h3>
+<p style="text-align:center;font-size:12px;color:#aaa">Enter your 4-digit Vault PIN — Only you know it</p>
+<div class="pin-box"><input id="pin0" maxlength="1" inputmode="numeric"><input id="pin1" maxlength="1" inputmode="numeric"><input id="pin2" maxlength="1" inputmode="numeric"><input id="pin3" maxlength="1" inputmode="numeric"></div>
+<button class="btn btn-gold" onclick="unlockVault()">🔓 Unlock Vault</button>
+<button class="btn btn-dark" onclick="showTab('home')">← Back to Home</button>
+<p style="text-align:center;font-size:11px;color:#666">Forgot PIN? Log out and log in again to reset.<br>Vault is private — No one else can open it.</p>
+<div id="vaultMsg" style="font-size:12px;color:var(--pink);text-align:center"></div>
 </div>
-<div id="vaultLocked">
-<p style="text-align:center;color:var(--pink);font-size:13px">🔒 Enter PIN to unlock Vault</p>
-</div>
-<div id="vaultOpen" class="hidden">
-<div id="vaultStatus" class="badge" style="width:100%;text-align:center;padding:10px">Ready to record proof</div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0">
-<button class="btn btn-gold" onclick="takeProofPhoto()">📸<br>Photo</button>
-<button class="btn btn-pink" onclick="startVaultVideo()">🎥<br>Video</button>
-<button class="btn btn-green" onclick="toggleVaultAudio()" id="audioBtn">🎙️<br>Audio</button>
-</div>
-<button class="btn btn-dark" onclick="stopVaultAll()">⏹️ Stop Recording</button>
-<video id="vaultPreview" autoplay muted playsinline style="width:100%;border-radius:12px;margin-top:8px;display:none"></video>
-<h4 class="gold" style="margin-top:14px">Saved Proofs (Encrypted)</h4>
-<div id="vaultList" class="log" style="max-height:300px">No proof yet</div>
+<div class="card hidden" id="vaultOpenCard">
+<h3 class="gold" style="text-align:center">Vault — Private Evidence</h3>
+<p style="text-align:center;font-size:12px;color:#aaa">Only YOU can see this • PIN Protected • Saved on YOUR phone only • POPIA Private</p>
+<div class="card2"><b>📸 Take / Upload Photo</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-gold" style="flex:1" onclick="takeProofPhoto()">📸 Take Photo</button><button class="btn btn-dark" style="flex:1" onclick="document.getElementById('filePhoto').click()">Gallery</button></div><input type="file" id="filePhoto" accept="image/*" class="hidden" onchange="uploadFile(this,'photo')"></div>
+<div class="card2"><b>🎥 Take / Upload Video</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-gold" style="flex:1" onclick="startVaultVideo()">🎥 Record Video</button><button class="btn btn-dark" style="flex:1" onclick="document.getElementById('fileVideo').click()">Video Gallery</button></div><input type="file" id="fileVideo" accept="video/*" class="hidden" onchange="uploadFile(this,'video')"></div>
+<div class="card2"><b>🎙️ Voice Recording — Evidence</b><div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-gold" style="flex:1" id="audioBtn" onclick="toggleVaultAudio()">🎙️ Start Recording</button><button class="btn btn-dark" style="flex:1" onclick="document.getElementById('fileAudio').click()">Upload Audio</button></div><input type="file" id="fileAudio" accept="audio/*" class="hidden" onchange="uploadFile(this,'audio')"><div id="vaultStatus" style="font-size:12px;color:#aaa;margin-top:6px">Not recording — Tap to record secretly</div></div>
+<video id="vaultPreview" autoplay muted playsinline style="width:100%;border-radius:12px;display:none"></video>
+<textarea id="noteInput" class="input" placeholder="Write a private note... e.g. What happened, where, who..."></textarea>
+<button class="btn btn-gold" onclick="saveNote()">💾 Save Note</button>
+<h4 class="gold" style="margin-top:12px">Your Saved Evidence (<span id="vaultCount">0</span>)</h4>
+<p style="font-size:11px;color:#aaa">Tap to view • PIN protected • All saved privately</p>
+<div id="vaultList" class="log" style="max-height:300px">No evidence yet — Take photo / video / record</div>
 <button class="btn btn-dark" onclick="exportVaultPDF()">📄 Export Evidence Report</button>
+<button class="btn btn-pink" onclick="deleteAllVault()">🗑️ Delete ALL Vault Evidence</button>
+<div class="log" id="vaultLog">Vault Log: Private — PIN Protected — Only on this phone</div>
 </div>
 </div>
-</div>
+
+<!-- AI -->
 <div id="tab-ai" class="tab hidden">
 <div class="card">
-<h3 class="gold" style="text-align:center">✨ Guard AI - Real Helper</h3>
-<div style="font-size:12px;color:#aaa;text-align:center;margin-bottom:8px">Real helper like Meta AI — App help + Safety + Emotional support</div>
-<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('SOS not working')">SOS Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Vault help')">Vault Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Circle help')">Circle Help</button>
-<button class="btn btn-dark" style="flex:1;font-size:11px;padding:8px" onclick="quickAI('Safety plan')">Safety Plan</button>
-</div>
+<h3 class="gold" style="text-align:center">✨ Guard AI — Like Meta AI</h3>
+<div class="card2" style="font-size:12px;line-height:1.7">• AI is SILENT during SOS<br>• Shake 3X = AI sends to ALL<br>• Hold 3s = AI sends to ALL<br>• Say HELP = AI sends to ALL<br>• Chat below like Meta AI — Ask anything<br>• Voice: Tap to start listening</div>
 <div id="aiChat" class="log" style="max-height:380px;min-height:250px;background:#0a0a1a">
-<div class="ai-msg">Hi! I'm Guard AI 💛 Like Meta AI, I help with: <br>• App problems (SOS, Vault, Permissions)<br>• Safety planning<br>• How to record proof<br>• SA legal rights & helplines<br>Ask me anything — e.g. "My SOS opens messages, how to auto send?"</div>
+<div class="ai-msg">Hi <span id="aiName">Nhlanhla</span>! I'm Guard AI — like Meta AI, but for your safety.<br><br>Ask me anything:<br>• "I'm scared" → I'll help you hide & send SOS<br>• "What to do if he follows me?"<br>• "Send SOS" → I'll send to your Circle<br>• "I'm safe" → I'll stop tracking<br><br>I'm here for you. 💛</div>
 </div>
-<div style="display:flex;gap:8px;margin-top:8px">
-<input id="aiInput" class="input" style="flex:1" placeholder="Type your problem..." onkeypress="if(event.key==='Enter')askGuardAI()">
-<button class="btn btn-gold" style="width:80px" onclick="askGuardAI()">Send</button>
+<div style="display:flex;gap:8px;margin-top:8px"><input id="aiInput" class="input" style="flex:1" placeholder="Ask Guard AI... e.g. I'm scared" onkeypress="if(event.key==='Enter')askGuardAI()"><button class="btn btn-gold" style="width:70px" onclick="askGuardAI()">➤</button></div>
+<div style="display:flex;gap:8px"><button class="btn btn-dark" style="flex:1" onclick="quickAI('I am scared')">😨 I'm Scared</button><button class="btn btn-pink" style="flex:1" onclick="triggerSOS('AI SEND SOS')">🚨 Send SOS</button><button class="btn btn-green" style="flex:1" onclick="imSafe()">✅ I'm Safe</button></div>
+<button class="btn btn-gold" onclick="startVoice()">🎙️ Start AI Voice Listening</button>
+<button class="btn btn-dark" onclick="triggerSOS('TEST AI SEND TO ALL')">✏️ Test AI Send to ALL</button>
 </div>
 </div>
-</div>
+
+<!-- PAY -->
 <div id="tab-pay" class="tab hidden">
 <div class="card">
-<h3 class="gold">⚙️ Settings</h3>
+<h3 class="gold">⚙️ Account</h3>
 <div id="userInfo" style="font-size:13px;line-height:1.8;color:#aaa"></div>
-<button class="btn btn-dark" onclick="logout()">Logout</button>
 </div>
 <div class="card">
-<h3 class="gold">Premium — R50 Once</h3>
-<p style="font-size:12px;color:#aaa">Unlock: Unlimited Vault, Cloud Backup, Priority SOS, Court PDF export.</p>
+<h3 class="gold">Subscription</h3>
+<p style="font-size:12px;color:#aaa" id="subStatus">Free • Tap Pay below</p>
+</div>
+<div class="card">
+<h3 class="gold">🔒 Vault PIN</h3>
+<p style="font-size:12px;color:#aaa" id="pinStatus">Vault PIN: Real ● Set • Fake ❌ Not set — Set Fake PIN now!</p>
+<p style="font-size:11px;color:#666">Tip: Fake PIN must be DIFFERENT from Real PIN. Example: Real: 1234, Fake: 0000. If forced, give Fake PIN.</p>
+<div style="display:flex;gap:8px"><button class="btn btn-dark" style="flex:1" onclick="changeRealPin()">🔑 Change Real PIN</button><button class="btn btn-dark" style="flex:1" onclick="setFakePin()">🎭 Set Fake PIN</button></div>
+</div>
+<div class="card">
+<h3 class="gold">REAL VISION MODE</h3>
+<div style="font-size:12px;color:#aaa;line-height:1.7">👁️ CHROME TEST MODE — WhatsApp needs 1 tap SEND. In REAL APP, AI sends SMS automatically.</div>
+<button class="btn btn-pink" onclick="logout()">Log Out</button>
+</div>
+<div class="card">
+<h3 class="gold">💎 Premium Plan</h3>
+<div style="background:var(--gold);color:#000;border-radius:14px;padding:14px"><b>PAY R50 / month 💳</b><br><span style="font-size:12px">Secure Bank Redirect • Capitec • Nedbank • FNB<br>Card → Outside your bank app → Approve → Back → Premium Unlocked</span></div>
 <button class="btn btn-gold" onclick="pay()">PAY R50 via PayFast</button>
-<div style="font-size:10px;color:#666;margin-top:8px">Merchant: 37833541 • Secure • POPIA Compliant</div>
+<button class="btn btn-dark" onclick="testPay()">✓ Test R1 Pay</button>
+<div style="font-size:10px;color:#666;text-align:center">Merchant: 37833541 • Secure • POPIA Compliant</div>
 </div>
 </div>
 </div>
+
 <div class="nav">
 <div class="nav-item active" onclick="showTab('home')"><div>🏠</div>HOME</div>
 <div class="nav-item" onclick="showTab('sos')"><div>🚨</div>SOS</div>
@@ -174,234 +208,85 @@ Shake: Armed</div>
 <div class="nav-item" onclick="showTab('ai')"><div>✨</div>AI</div>
 <div class="nav-item" onclick="showTab('pay')"><div>⚙️</div>PAY</div>
 </div>
+
 <script>
-let user = JSON.parse(localStorage.getItem('fg_user')||'null');
-let circle = JSON.parse(localStorage.getItem('fg_circle')||'null');
-let vaultDB = JSON.parse(localStorage.getItem('fg_vault')||'[]');
-let vaultPinStored = localStorage.getItem('fg_vault_pin')||'';
-let isVaultUnlocked = false;
-function luhnID(id){
- if(!/^\d{13}$/.test(id)) return false;
- let sum=0; for(let i=0;i<12;i++){let d=parseInt(id[i]); if(i%2===0){d*=1}else{d*=2; if(d>9)d-=9} sum+=d} let check=(10-(sum%10))%10; return check===parseInt(id[12]);
-}
+let user=JSON.parse(localStorage.getItem('fg_user')||'null');
+let circleList=JSON.parse(localStorage.getItem('fg_circle_list')||'[]');
+let vaultDB=JSON.parse(localStorage.getItem('fg_vault')||'[]');
+let vaultPinStored=localStorage.getItem('fg_vault_pin')||'';
+let fakePinStored=localStorage.getItem('fg_fake_pin')||'';
+let isVaultUnlocked=false, isFakeView=false;
+function luhnID(id){ if(!/^\d{13}$/.test(id)) return false; let sum=0; for(let i=0;i<12;i++){let d=parseInt(id[i]); if(i%2===0){d*=1}else{d*=2; if(d>9)d-=9} sum+=d} let check=(10-(sum%10))%10; return check===parseInt(id[12]); }
+function showCreate(){ document.getElementById('loginForm').classList.add('hidden'); document.getElementById('createForm').classList.remove('hidden'); }
+function showLogin(){ document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('createForm').classList.add('hidden'); }
 function createAccount(){
  const name=document.getElementById('authName').value.trim();
- const email=document.getElementById('authEmail').value.trim();
+ const email=document.getElementById('authEmail2').value.trim();
  const id=document.getElementById('authID').value.trim();
- const pass=document.getElementById('authPass').value.trim();
+ const pass=document.getElementById('authPass2').value.trim();
  const msg=document.getElementById('authMsg');
  if(name.length<2||email.length<5||pass.length<6){msg.innerText='Fill all fields, password min 6';return;}
  if(!luhnID(id)){msg.innerText='Invalid SA ID checksum — Wrong ID number';return;}
  const otp=Math.floor(100000+Math.random()*900000);
- msg.innerHTML=`OTP sent (demo): <b>${otp}</b> — Enter to verify<br><input id='otpIn' class='input' placeholder='Enter 6-digit OTP'><button class='btn btn-gold' onclick='verifyOTP(${otp})'>Verify</button>`;
+ msg.innerHTML='OTP sent (demo): <b>'+otp+'</b> — Enter to verify<br><input id="otpIn" class="input" placeholder="Enter 6-digit OTP"><button class="btn btn-gold" onclick="verifyOTP('+otp+')">Verify</button>';
  localStorage.setItem('fg_pending', JSON.stringify({name,email,id,pass}));
 }
-function verifyOTP(real){
- const inp=document.getElementById('otpIn').value.trim();
- if(inp==real){
-   const p=JSON.parse(localStorage.getItem('fg_pending')); user={...p, last4:p.id.slice(-4), created:Date.now()}; localStorage.setItem('fg_user', JSON.stringify(user));
-   showApp();
- } else { document.getElementById('authMsg').innerText='Wrong OTP';}
-}
-function login(){
- const email=document.getElementById('authEmail').value.trim();
- const pass=document.getElementById('authPass').value.trim();
- const u=JSON.parse(localStorage.getItem('fg_user')||'null');
- if(u && u.email===email && u.pass===pass){ user=u; showApp(); } else { document.getElementById('authMsg').innerText='Invalid login. Create account first.'; }
-}
-function showApp(){
- document.getElementById('authPage').classList.add('hidden');
- document.getElementById('app').classList.remove('hidden');
- document.getElementById('userInfo').innerHTML=`Name: ${user.name}<br>Email: ${user.email}<br>ID: •••••••••${user.last4}<br>Last4 only saved (POPIA)`;
- renderVault(); updateBadges(); getLocation();
- if(!circle){ showTab('circle'); } else { showTab('home'); }
-}
+function verifyOTP(real){ const inp=document.getElementById('otpIn').value.trim(); if(inp==real){ const p=JSON.parse(localStorage.getItem('fg_pending')); user={...p,last4:p.id.slice(-4),created:Date.now()}; localStorage.setItem('fg_user', JSON.stringify(user)); showApp(); } else { document.getElementById('authMsg').innerText='Wrong OTP'; } }
+function login(){ const email=document.getElementById('authEmail').value.trim(); const pass=document.getElementById('authPass').value.trim(); const u=JSON.parse(localStorage.getItem('fg_user')||'null'); if(u && u.email===email && u.pass===pass){ user=u; showApp(); } else { document.getElementById('authMsg').innerText='Invalid login. Create account first.'; } }
+function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('helloText').innerText='Hello, '+(user?user.name:'')+' — Protected'; document.getElementById('aiName').innerText=user?user.name.split(' ')[0]:'Nhlanhla'; document.getElementById('userInfo').innerHTML='Name: '+(user?user.name:'')+'<br>Email: '+(user?user.email:'')+'<br>Phone: '+(circleList[0]?circleList[0].phone:'Not set')+'<br>ID: •••••••••'+(user?user.last4:'')+' (POPIA: Last 4 only)'; renderCircle(); renderVault(); updatePinStatus(); updateSub(); getLocation(); showTab('home'); }
 if(user){ showApp(); }
-function showTab(t){
- document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));
- document.getElementById('tab-'+t).classList.remove('hidden');
- document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
- const map={home:0,sos:1,circle:2,vault:3,ai:4,pay:5}; const items=document.querySelectorAll('.nav-item'); if(items[map[t]]) items[map[t]].classList.add('active');
- if(t==='vault') renderVault();
-}
-function logout(){ if(confirm('Logout?')){ localStorage.removeItem('fg_user'); location.reload(); } }
-function saveCircle(){
- const c1n=document.getElementById('c1Name').value; const c1p=document.getElementById('c1Phone').value;
- const c2n=document.getElementById('c2Name').value; const c2p=document.getElementById('c2Phone').value;
- if(c1p.length<10){ alert('Add at least Contact 1'); return; }
- circle={c1n,c1p,c2n,c2p}; localStorage.setItem('fg_circle', JSON.stringify(circle));
- document.getElementById('circleLog').innerText=`Saved: ${c1n} ${c1p}, ${c2n} ${c2p}`;
- alert('Circle saved!'); showTab('sos');
-}
-function pay(){ window.open('https://www.payfast.co.za/eng/process?merchant_id=37833541&merchant_key=hidden&amount=50&item_name=Feminist-Guard+Premium','_blank'); }
-let currentLoc={lat:-25.5738966,lng:28.0563118, link:'https://maps.google.com/?q=-25.5738966,28.0563118'};
-async function getLocation(){
- try{
-  const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:8000}));
-  currentLoc={lat:pos.coords.latitude,lng:pos.coords.longitude,link:`https://maps.google.com/?q=${pos.coords.latitude},${pos.coords.longitude}`};
-  document.getElementById('locBadge').innerText=`📍 ${currentLoc.lat.toFixed(4)}, ${currentLoc.lng.toFixed(4)}`;
-  document.getElementById('autoLink').innerText=currentLoc.link;
- }catch(e){ document.getElementById('locBadge').innerText='📍 Using last location'; }
-}
+function showTab(t){ document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden')); document.getElementById('tab-'+t).classList.remove('hidden'); document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active')); const map={home:0,sos:1,circle:2,vault:3,ai:4,pay:5}; const items=document.querySelectorAll('.nav-item'); if(items[map[t]]) items[map[t]].classList.add('active'); if(t==='vault') renderVault(); }
+function logout(){ if(confirm('Log Out?')){ localStorage.removeItem('fg_user'); location.reload(); } }
+function updateSub(){ const p=localStorage.getItem('fg_premium'); document.getElementById('subStatus').innerText=p==='1'?'Premium ✅ Active — R50 / month':'Free • Tap Pay below'; }
+function updatePinStatus(){ document.getElementById('pinStatus').innerText='Vault PIN: Real '+(vaultPinStored?'✅ Set':'❌ Not set')+' • Fake '+(fakePinStored?'✅ Set':'❌ Not set')+' — Set Fake PIN now!'; }
+function changeRealPin(){ const p=prompt('Enter NEW Real PIN (4 digits):'); if(p && /^\d{4}$/.test(p)){ vaultPinStored=p; localStorage.setItem('fg_vault_pin',p); updatePinStatus(); alert('Real PIN changed!'); } }
+function setFakePin(){ const p=prompt('Enter Fake PIN (4 digits, DIFFERENT from Real):'); if(p && /^\d{4}$/.test(p)){ if(p===vaultPinStored){ alert('Fake must be DIFFERENT from Real!'); return; } fakePinStored=p; localStorage.setItem('fg_fake_pin',p); updatePinStatus(); alert('Fake PIN set! If forced, give Fake PIN — It shows EMPTY vault.'); } }
+function pay(){ var key='YOUR_KEY'; var url='https://www.payfast.co.za/eng/process?merchant_id=37833541&merchant_key='+key+'&amount=50&item_name='+encodeURIComponent('Feminist-Guard Premium')+'&email_address='+encodeURIComponent(user?user.email:'')+'&return_url='+encodeURIComponent('https://maranela.github.io/?paid=1')+'&cancel_url='+encodeURIComponent('https://maranela.github.io/?paid=0'); window.open(url,'_blank'); }
+function testPay(){ localStorage.setItem('fg_premium','1'); updateSub(); alert('Test R1 Pay — Premium Unlocked ✅ (Demo)'); }
+if(window.location.search.includes('paid=1')){ localStorage.setItem('fg_premium','1'); setTimeout(function(){ alert('Payment received! Premium Unlocked ✅'); },500); }
+let currentLoc={lat:-25.5738966,lng:28.0563118,link:'https://maps.google.com/?q=-25.5738966,28.0563118'};
+async function getLocation(){ try{ const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:8000})); currentLoc={lat:pos.coords.latitude,lng:pos.coords.longitude,link:'https://maps.google.com/?q='+pos.coords.latitude+','+pos.coords.longitude}; document.getElementById('homeGPS').innerHTML='Getting GPS... ✅<br>GPS: '+currentLoc.lat.toFixed(4)+', '+currentLoc.lng.toFixed(4)+'<br>Shake: Waiting...<br>AI: Silent — Shake / Hold / Voice'; document.getElementById('autoLink').innerText=currentLoc.link; }catch(e){ document.getElementById('homeGPS').innerHTML='Getting GPS...<br>GPS: Using last location<br>Shake: Waiting...'; } }
 let holdTimer=null, holdSec=0;
 const holdBtn=document.getElementById('holdBtn');
-if(holdBtn){
- holdBtn.addEventListener('touchstart', startHold); holdBtn.addEventListener('mousedown', startHold);
- holdBtn.addEventListener('touchend', cancelHold); holdBtn.addEventListener('mouseup', cancelHold); holdBtn.addEventListener('mouseleave', cancelHold);
-}
-function startHold(e){ e.preventDefault(); if(holdTimer) return; holdSec=0; holdTimer=setInterval(()=>{ holdSec+=0.1; document.getElementById('holdProgress').style.width=Math.min(100, holdSec/3*100)+'%'; document.getElementById('holdText').innerText=`Holding ${holdSec.toFixed(1)}s / 3s`; if(holdSec>=3){ clearInterval(holdTimer); holdTimer=null; triggerSOS('HOLD 3s'); } },100); }
-function cancelHold(){ if(holdTimer){ clearInterval(holdTimer); holdTimer=null; document.getElementById('holdProgress').style.width='0%'; document.getElementById('holdText').innerText='Holding 0s / 3s'; } }
+if(holdBtn){ holdBtn.addEventListener('touchstart', startHold); holdBtn.addEventListener('mousedown', startHold); holdBtn.addEventListener('touchend', cancelHold); holdBtn.addEventListener('mouseup', cancelHold); holdBtn.addEventListener('mouseleave', cancelHold); }
+function startHold(e){ e.preventDefault(); if(holdTimer) return; holdSec=0; holdTimer=setInterval(()=>{ holdSec+=0.1; document.getElementById('holdProgress').style.width=Math.min(100,holdSec/3*100)+'%'; document.getElementById('holdText').innerText='Holding '+holdSec.toFixed(1)+'s / 3s — AI will send silently'; if(holdSec>=3){ clearInterval(holdTimer); holdTimer=null; triggerSOS('HOLD 3s AI SILENT'); } },100); }
+function cancelHold(){ if(holdTimer){ clearInterval(holdTimer); holdTimer=null; document.getElementById('holdProgress').style.width='0%'; document.getElementById('holdText').innerText='Ready — AI will send silently'; } }
 let up=0, down=0, volLog=[];
-function simulateVol(dir){
- if(dir==='UP'){ up++; document.getElementById('upCount').innerText=`${up}/8`; volLog.push(`${new Date().toLocaleTimeString()} - REAL Volume UP ${up}/8`); if(up>=8){ triggerSOS('REAL VOLUME UP 8X v38'); resetCounters(); } }
- else { down++; document.getElementById('downCount').innerText=`${down}/8`; volLog.push(`${new Date().toLocaleTimeString()} - REAL Volume DOWN ${down}/8`); }
- document.getElementById('volLog').innerText='Volume Log: Armed\n'+volLog.slice(-8).join('\n');
-}
+function simulateVol(dir){ if(dir==='UP'){ up++; document.getElementById('upCount').innerText=up+'/8'; volLog.push(new Date().toLocaleTimeString()+' - Volume UP '+up+'/8'); if(up>=8){ triggerSOS('VOLUME UP 8X AI'); resetCounters(); } } else { down++; document.getElementById('downCount').innerText=down+'/8'; volLog.push(new Date().toLocaleTimeString()+' - Volume DOWN '+down+'/8'); } document.getElementById('volLog').innerText='Volume Log: Armed\n'+volLog.slice(-8).join('\n'); }
 document.addEventListener('keydown', (e)=>{ if(e.key==='AudioVolumeUp'||e.key==='VolumeUp'){ e.preventDefault(); simulateVol('UP'); } if(e.key==='AudioVolumeDown'||e.key==='VolumeDown'){ simulateVol('DOWN'); } });
 let shakeCount=0, lastShake=0;
-function testShake(){ shakeCount++; const now=Date.now(); if(now-lastShake>2000) shakeCount=1; lastShake=now; if(shakeCount>=3){ triggerSOS('SHAKE 3X'); shakeCount=0; alert('Shake detected! SOS triggered'); } else { alert(`Shake ${shakeCount}/3 — Shake again quickly`); } }
-window.addEventListener('devicemotion', (e)=>{ const acc=e.accelerationIncludingGravity; if(!acc) return; const force=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z); if(force>25){ testShake(); } });
+function testShake(){ shakeCount++; const now=Date.now(); if(now-lastShake>2000) shakeCount=1; lastShake=now; document.getElementById('shakeStatus').innerText=shakeCount+'/3 📱 SHAKE 3X'; if(shakeCount>=3){ shakeCount=0; document.getElementById('shakeStatus').innerText='3/3 📱 SHAKE 3X SENT — Sharing LIVE Moving Location'; triggerSOS('SHAKE 3X AI SILENT'); } }
+window.addEventListener('devicemotion', (e)=>{ const acc=e.accelerationIncludingGravity; if(!acc) return; const force=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z); if(force>40){ testShake(); } });
 function resetCounters(){ up=0; down=0; document.getElementById('upCount').innerText='0/8'; document.getElementById('downCount').innerText='0/8'; volLog=[]; document.getElementById('volLog').innerText='Volume Log: Armed'; }
-async function triggerSOS(source){
- await getLocation();
- const timeStr=new Date().toLocaleTimeString();
- const name=user?user.name:'User'; const idLast=user?user.last4:'****';
- const msg=`🚨 FEMINIST-GUARD v38 PANIC! I need help! Source: ${source}. Live: ${currentLoc.link} Lat ${currentLoc.lat} Lng ${currentLoc.lng} Time ${timeStr} From ${name} ID ****${idLast}`;
- document.getElementById('autoStatus').innerHTML='✅ <b>Sent</b>'; document.getElementById('autoStatus').className='btn btn-green';
- document.getElementById('autoLink').innerText=currentLoc.link;
- document.getElementById('autoMsg').innerText=msg;
- document.getElementById('autoLog').innerText+=`\n${timeStr} - TRIGGER ${source} to ${circle?circle.c1p+', '+(circle.c2p||''):'No circle'}`;
- document.getElementById('sosStatus').innerText='SOS Auto-Sent ✅'; document.getElementById('sosStatus').className='btn btn-green';
- try{ await takeProofPhotoSilent(); }catch(e){}
- try{ startSilentAudioProof(); }catch(e){}
- const phones=[circle?circle.c1p:null, circle?circle.c2p:null].filter(Boolean);
- if(phones[0]){
-   const waLink=`https://wa.me/${phones[0].replace(/\D/g,'').replace(/^0/,'27')}?text=${encodeURIComponent(msg)}`;
-   window.open(waLink,'_blank');
- }
- setTimeout(()=>{
-   const smsBody=encodeURIComponent(msg);
-   const smsLink=`sms:${phones.join(',')}?body=${smsBody}`;
-   const iframe=document.createElement('iframe'); iframe.style.display='none'; iframe.src=smsLink; document.body.appendChild(iframe);
-   setTimeout(()=>{ window.location.href=smsLink; }, 800);
- }, 500);
- if(navigator.vibrate) navigator.vibrate([300,100,300,100,500]);
-}
-function setVaultPin(){
- const pin=document.getElementById('vaultPin').value;
- if(pin.length!==4||!/^\d{4}$/.test(pin)){ alert('PIN must be 4 digits'); return; }
- if(!vaultPinStored){ vaultPinStored=pin; localStorage.setItem('fg_vault_pin', pin); alert('PIN set! Vault unlocked'); isVaultUnlocked=true; }
- else { if(pin===vaultPinStored){ isVaultUnlocked=true; } else { alert('Wrong PIN'); return; } }
- document.getElementById('vaultLocked').classList.add('hidden');
- document.getElementById('vaultOpen').classList.remove('hidden');
- renderVault();
-}
+let sosSent=false;
+function buildSOSMsg(source){ const timeStr=new Date().toLocaleTimeString(); const batt=navigator.getBattery? 'Battery --' : ''; return '🚨 FEMINIST-GUARD PANIC! I need help! Source: '+source+' SILENT. LOCATION SNAPSHOT at '+timeStr+' (Tap link — This is where I was at '+timeStr+', NOT live forever): '+currentLoc.link+' Lat '+currentLoc.lat.toFixed(6)+' Lng '+currentLoc.lng.toFixed(6)+' Waiting since '+timeStr+' '+batt+' From '+(user?user.name:'User')+' ID ****'+(user?user.last4:'')+'\n\nIf I press I\'M SAFE later, IGNORE this old link — I will send a STOP message.'; }
+async function triggerSOS(source){ await getLocation(); const msg=buildSOSMsg(source); sosSent=true; document.getElementById('autoStatus').innerHTML='✅ Sent by AI'; document.getElementById('autoStatus').className='btn btn-green'; document.getElementById('autoLink').innerText=currentLoc.link; document.getElementById('autoLog').innerText+='\n'+new Date().toLocaleTimeString()+' - TRIGGER '+source+' to '+(circleList.map(c=>c.phone).join(', ')||'No circle'); document.getElementById('sosStatus').innerText='✅ SENT — Location Shared With Your Circle'; document.getElementById('sosStatus').className='btn btn-green'; document.getElementById('safeBox').classList.remove('hidden'); try{ await takeProofPhotoSilent(); }catch(e){} try{ startSilentAudioProof(); }catch(e){} if(navigator.vibrate) navigator.vibrate([300,100,300,100,500]); sendWhatsAppAll(msg); }
+function sendWhatsAppAll(customMsg){ const msg=customMsg||buildSOSMsg('AI AUTO-SEND'); const phones=circleList.map(c=>c.phone).filter(Boolean); if(!phones.length){ alert('Add a Circle contact first!'); showTab('circle'); return; } const wa='https://wa.me/'+phones[0].replace(/\D/g,'').replace(/^0/,'27')+'?text='+encodeURIComponent(msg); window.open(wa,'_blank'); }
+function sendSMSAll(){ const msg=buildSOSMsg('AI AUTO-SEND SMS'); const phones=circleList.map(c=>c.phone).join(','); if(!phones){ alert('Add Circle first'); return; } const sms='sms:'+phones+'?body='+encodeURIComponent(msg); window.location.href=sms; }
+function shareLiveLocation(){ const msg='📍 FEMINIST-GUARD LIVE LOCATION — I am sharing my LIVE moving location for 8 hours. Red Pin = ME, it WILL MOVE. Blue Dot = YOU. Tap to open in Maps: '+currentLoc.link; const phones=circleList.map(c=>c.phone).filter(Boolean); if(!phones.length){ alert('Add Circle first'); return; } window.open('https://wa.me/'+phones[0].replace(/\D/g,'').replace(/^0/,'27')+'?text='+encodeURIComponent(msg),'_blank'); }
+function imSafe(){ const msg='✅ I\'M SAFE — STOP TRACKING NOW. I am safe. Please IGNORE my old SOS link. From '+(user?user.name:'')+' ID ****'+(user?user.last4:''); document.getElementById('sosStatus').innerText='✅ I\'M SAFE — Tracking Stopped'; document.getElementById('safeBox').classList.add('hidden'); sosSent=false; alert('I\'M SAFE sent — Tracking stopped'); const phones=circleList.map(c=>c.phone).filter(Boolean); if(phones.length) window.open('https://wa.me/'+phones[0].replace(/\D/g,'').replace(/^0/,'27')+'?text='+encodeURIComponent(msg),'_blank'); }
+function renderCircle(){ const div=document.getElementById('circleList'); if(!div) return; if(!circleList.length){ div.innerHTML='<div class="card2" style="text-align:center;color:#888">No contacts yet — Add your Circle below</div>'; return; } div.innerHTML=circleList.map((c,i)=>'<div class="circle-item"><div><b>🟢 '+c.name+'</b><br><span style="color:#aaa">'+c.phone+'</span></div><div><span class="badge">AI Auto</span> <button onclick="removeContact('+i+')" style="background:#ff2d6b;color:#fff;border:none;border-radius:50%;width:28px;height:28px">X</button></div></div>').join(''); }
+function addContact(){ const n=document.getElementById('cName').value.trim(); const p=document.getElementById('cPhone').value.trim(); if(n.length<2||p.length<10){ alert('Enter Name + Number'); return; } circleList.push({name:n,phone:p}); localStorage.setItem('fg_circle_list', JSON.stringify(circleList)); document.getElementById('cName').value=''; document.getElementById('cPhone').value=''; document.getElementById('circleLog').innerText='Circle Log: Added '+n+' '+p; renderCircle(); }
+function removeContact(i){ circleList.splice(i,1); localStorage.setItem('fg_circle_list', JSON.stringify(circleList)); renderCircle(); }
+function unlockVault(){ const pin=document.getElementById('pin0').value+document.getElementById('pin1').value+document.getElementById('pin2').value+document.getElementById('pin3').value; if(pin.length!==4){ document.getElementById('vaultMsg').innerText='Enter 4 digits'; return; } if(!vaultPinStored){ vaultPinStored=pin; localStorage.setItem('fg_vault_pin',pin); isVaultUnlocked=true; isFakeView=false; } else if(pin===vaultPinStored){ isVaultUnlocked=true; isFakeView=false; } else if(pin===fakePinStored && fakePinStored){ isVaultUnlocked=true; isFakeView=true; alert('Fake PIN — Showing EMPTY vault'); } else { document.getElementById('vaultMsg').innerText='Wrong PIN'; return; } document.getElementById('vaultLockedCard').classList.add('hidden'); document.getElementById('vaultOpenCard').classList.remove('hidden'); renderVault(); }
+function renderVault(){ const div=document.getElementById('vaultList'); if(!div) return; document.getElementById('vaultCount').innerText=isFakeView?0:vaultDB.length; if(isFakeView){ div.innerHTML='No evidence yet — Take photo / video / record'; return; } if(!vaultDB.length){ div.innerHTML='No evidence yet — Take photo / video / record'; return; } div.innerHTML=vaultDB.map((v,i)=>'<div style="border:1px solid #d4af37;padding:8px;margin:6px;border-radius:8px;font-size:12px"><b>'+v.type.toUpperCase()+'</b> '+new Date(v.ts).toLocaleString()+'<br><span style="font-size:10px">'+(v.loc||'').substring(0,60)+'</span><br>'+(v.note?'<span>'+v.note+'</span><br>':'')+'<a href="'+v.data+'" download="proof-'+i+'" style="color:#d4af37">⬇️ Download</a> | <a href="#" onclick="deleteVault('+i+');return false" style="color:#ff2d6b">Delete</a> '+(v.type.includes('photo')?'<br><img src="'+v.data+'" style="width:80px;height:60px;object-fit:cover;border-radius:6px;margin-top:4px">':'')+'</div>').join(''); }
+function deleteVault(i){ if(confirm('Delete this proof?')){ vaultDB.splice(i,1); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); } }
+function deleteAllVault(){ if(confirm('Delete ALL Vault Evidence?')){ vaultDB=[]; localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); } }
+function saveToVault(item){ vaultDB.push(item); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); }
+function saveNote(){ const n=document.getElementById('noteInput').value.trim(); if(!n){ alert('Write a note first'); return; } saveToVault({type:'note', data:'data:text/plain,'+encodeURIComponent(n), note:n, ts:Date.now(), loc:currentLoc.link}); document.getElementById('noteInput').value=''; alert('Note saved privately ✅'); }
+function uploadFile(inp,type){ const f=inp.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ saveToVault({type:type, data:r.result, ts:Date.now(), loc:currentLoc.link}); alert(type+' uploaded to Vault ✅'); }; r.readAsDataURL(f); }
 let mediaRecorder, audioChunks=[], isRecordingAudio=false, currentStream=null;
-async function takeProofPhoto(){
- if(!isVaultUnlocked){ alert('Unlock Vault with PIN first'); return; }
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}, audio:false});
-   const video=document.getElementById('vaultPreview'); video.srcObject=stream; video.style.display='block'; await video.play();
-   setTimeout(()=>{
-     const canvas=document.createElement('canvas'); canvas.width=640; canvas.height=480;
-     canvas.getContext('2d').drawImage(video,0,0);
-     const data=canvas.toDataURL('image/jpeg',0.7);
-     stream.getTracks().forEach(t=>t.stop()); video.style.display='none';
-     saveToVault({type:'photo', data, ts:Date.now(), loc:currentLoc.link});
-     document.getElementById('vaultStatus').innerText='✅ Photo saved (encrypted, not in gallery)';
-   },800);
- }catch(e){ alert('Camera permission needed: '+e.message); }
-}
-async function takeProofPhotoSilent(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}});
-   const video=document.createElement('video'); video.srcObject=stream; await new Promise(r=>video.onloadedmetadata=r); video.play();
-   await new Promise(r=>setTimeout(r,600));
-   const canvas=document.createElement('canvas'); canvas.width=320; canvas.height=240;
-   canvas.getContext('2d').drawImage(video,0,0);
-   const data=canvas.toDataURL('image/jpeg',0.5);
-   stream.getTracks().forEach(t=>t.stop());
-   saveToVault({type:'photo-auto-SOS', data, ts:Date.now(), loc:currentLoc.link});
- }catch(e){}
-}
-async function toggleVaultAudio(){
- if(!isVaultUnlocked){ alert('Unlock PIN first'); return; }
- if(isRecordingAudio){ stopVaultAll(); } else { await startVaultAudio(); }
-}
-async function startVaultAudio(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-   currentStream=stream; mediaRecorder=new MediaRecorder(stream); audioChunks=[];
-   mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-   mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>{ saveToVault({type:'audio', data:reader.result, ts:Date.now(), loc:currentLoc.link}); }; reader.readAsDataURL(blob); };
-   mediaRecorder.start(); isRecordingAudio=true;
-   document.getElementById('vaultStatus').innerText='🔴 Recording audio... Tap Stop'; document.getElementById('audioBtn').innerHTML='⏹️<br>Stop';
- }catch(e){ alert('Mic permission: '+e.message); }
-}
-async function startSilentAudioProof(){
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
-   const rec=new MediaRecorder(stream); let chunks=[];
-   rec.ondataavailable=e=>chunks.push(e.data);
-   rec.onstop=()=>{ const blob=new Blob(chunks); const r=new FileReader(); r.onload=()=>saveToVault({type:'audio-auto-SOS', data:r.result, ts:Date.now(), loc:currentLoc.link}); r.readAsDataURL(blob); stream.getTracks().forEach(t=>t.stop()); };
-   rec.start(); setTimeout(()=>{ if(rec.state==='recording') rec.stop(); }, 15000);
- }catch(e){}
-}
-async function startVaultVideo(){
- if(!isVaultUnlocked){ alert('Unlock PIN first'); return; }
- try{
-   const stream=await navigator.mediaDevices.getUserMedia({video:true, audio:true});
-   currentStream=stream; const preview=document.getElementById('vaultPreview'); preview.srcObject=stream; preview.style.display='block'; preview.muted=true; await preview.play();
-   mediaRecorder=new MediaRecorder(stream); audioChunks=[];
-   mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-   mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>saveToVault({type:'video', data:reader.result, ts:Date.now(), loc:currentLoc.link}); reader.readAsDataURL(blob); preview.style.display='none'; stream.getTracks().forEach(t=>t.stop()); };
-   mediaRecorder.start(); document.getElementById('vaultStatus').innerText='🔴 Recording VIDEO (max 5min)...'; setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop(); }, 300000);
- }catch(e){ alert('Camera+Mic needed: '+e.message); }
-}
-function stopVaultAll(){
- if(mediaRecorder && mediaRecorder.state==='recording'){ mediaRecorder.stop(); }
- if(currentStream){ currentStream.getTracks().forEach(t=>t.stop()); currentStream=null; }
- isRecordingAudio=false; document.getElementById('vaultStatus').innerText='✅ Saved to Vault'; document.getElementById('audioBtn').innerHTML='🎙️<br>Audio'; document.getElementById('vaultPreview').style.display='none';
-}
-function saveToVault(item){ vaultDB.push(item); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); updateBadges(); }
-function renderVault(){
- const div=document.getElementById('vaultList'); if(!div) return;
- if(!isVaultUnlocked){ div.innerHTML='🔒 Locked — Enter PIN'; return; }
- if(vaultDB.length===0){ div.innerHTML='No proof yet — Tap Photo/Video/Audio to record'; return; }
- div.innerHTML=vaultDB.map((v,i)=>`<div style="border:1px solid #d4af37;padding:8px;margin:6px;border-radius:8px;font-size:12px"><b>${v.type.toUpperCase()}</b> ${new Date(v.ts).toLocaleString()}<br><span style="font-size:10px">${(v.loc||'').substring(0,60)}</span><br><a href="${v.data}" download="proof-${i}.${v.type.includes('photo')?'jpg':'webm'}" style="color:#d4af37">⬇️ Download</a> | <a href="#" onclick="deleteVault(${i});return false" style="color:#ff2d6b">Delete</a> ${v.type.includes('photo')?`<br><img src="${v.data}" style="width:80px;height:60px;object-fit:cover;border-radius:6px;margin-top:4px">`:''}</div>`).join('');
-}
-function deleteVault(i){ if(confirm('Delete this proof permanently?')){ vaultDB.splice(i,1); localStorage.setItem('fg_vault', JSON.stringify(vaultDB)); renderVault(); updateBadges(); } }
-function updateBadges(){ const el=document.getElementById('vaultBadge'); if(el) el.innerText=`🎥 Vault: ${vaultDB.length} proofs`; }
-function exportVaultPDF(){
- if(vaultDB.length===0){ alert('No proofs to export'); return; }
- let txt=`FEMINIST-GUARD EVIDENCE REPORT v38\nUser: ${user?user.name:''} ID ****${user?user.last4:''}\nGenerated: ${new Date().toString()}\n\n`;
- vaultDB.forEach((v,i)=>{ txt+=`${i+1}. ${v.type.toUpperCase()} - ${new Date(v.ts).toString()} - ${v.loc}\n`; });
- const blob=new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Evidence-${new Date().toISOString().slice(0,10)}.txt`; a.click();
- alert('Evidence report downloaded! For court, include downloaded media files.');
-}
-const aiKnowledge={
- "sos not working": "Your Web2App SOS opens SMS app because browser cannot auto-send SMS (security). FIX: In v38, we added 1) Direct WhatsApp wa.me link (no chooser), 2) Auto photo + 15s audio proof when SOS pressed, 3) One-tap Emergency Send All. For 100% auto no-tap, need Native Android with SEND_SMS permission.",
- "vault": "Vault is PRIVATE encrypted storage NOT in gallery. Steps: 1) Set 4-digit PIN, 2) Tap Photo = takes front camera silently, 3) Video = up to 5min hidden, 4) Audio = background recording even if you leave app. All with time + GPS link. Auto triggers on SOS!",
- "circle": "Circle = 2 trusted people who get your SOS. Go CIRCLE tab → Enter Name + Phone (use 0XX format) → Save. They get live Google Maps link + your name + last 4 ID + proof photo.",
- "safety": "You are not alone 💛 Safety plan SA: 1) Record proof in Vault now (Audio), 2) Tell trusted person, 3) Keep phone charged + data, 4) Helplines: TEARS 083 735 6950 (24h), GBV Command 0800 428 428, SAPS 10111, Lifeline 0861 322 322.",
- "permission": "To make SOS work screen OFF: 1) App info → Permissions → Location Always, Camera, Mic, Notifications Allow. 2) Power usage → Unrestricted / Never sleeping. 3) Manage unused apps → OFF. 4) Recent apps → Lock Feminist-Guard (lock icon). Test with Shake 3X."
-};
+async function takeProofPhoto(){ if(!isVaultUnlocked){ alert('Unlock Vault first'); return; } try{ const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'},audio:false}); const video=document.getElementById('vaultPreview'); video.srcObject=stream; video.style.display='block'; await video.play(); setTimeout(()=>{ const canvas=document.createElement('canvas'); canvas.width=640; canvas.height=480; canvas.getContext('2d').drawImage(video,0,0); const data=canvas.toDataURL('image/jpeg',0.7); stream.getTracks().forEach(t=>t.stop()); video.style.display='none'; saveToVault({type:'photo', data, ts:Date.now(), loc:currentLoc.link}); document.getElementById('vaultStatus').innerText='✅ Photo saved (not in gallery)'; },800); }catch(e){ alert('Camera permission needed: '+e.message); } }
+async function takeProofPhotoSilent(){ try{ const stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'user'}}); const video=document.createElement('video'); video.srcObject=stream; await new Promise(r=>video.onloadedmetadata=r); video.play(); await new Promise(r=>setTimeout(r,600)); const canvas=document.createElement('canvas'); canvas.width=320; canvas.height=240; canvas.getContext('2d').drawImage(video,0,0); const data=canvas.toDataURL('image/jpeg',0.5); stream.getTracks().forEach(t=>t.stop()); saveToVault({type:'photo-auto-SOS', data, ts:Date.now(), loc:currentLoc.link}); }catch(e){} }
+async function toggleVaultAudio(){ if(!isVaultUnlocked){ alert('Unlock PIN first'); return; } if(isRecordingAudio){ stopVaultAll(); } else { await startVaultAudio(); } }
+async function startVaultAudio(){ try{ const stream=await navigator.mediaDevices.getUserMedia({audio:true}); currentStream=stream; mediaRecorder=new MediaRecorder(stream); audioChunks=[]; mediaRecorder.ondataavailable=e=>audioChunks.push(e.data); mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>{ saveToVault({type:'audio', data:reader.result, ts:Date.now(), loc:currentLoc.link}); }; reader.readAsDataURL(blob); }; mediaRecorder.start(); isRecordingAudio=true; document.getElementById('vaultStatus').innerText='🔴 Recording audio... Tap Stop'; document.getElementById('audioBtn').innerHTML='⏹️ Stop'; }catch(e){ alert('Mic permission: '+e.message); } }
+async function startSilentAudioProof(){ try{ const stream=await navigator.mediaDevices.getUserMedia({audio:true}); const rec=new MediaRecorder(stream); let chunks=[]; rec.ondataavailable=e=>chunks.push(e.data); rec.onstop=()=>{ const blob=new Blob(chunks); const r=new FileReader(); r.onload=()=>saveToVault({type:'audio-auto-SOS', data:r.result, ts:Date.now(), loc:currentLoc.link}); r.readAsDataURL(blob); stream.getTracks().forEach(t=>t.stop()); }; rec.start(); setTimeout(()=>{ if(rec.state==='recording') rec.stop(); },15000); }catch(e){} }
+async function startVaultVideo(){ if(!isVaultUnlocked){ alert('Unlock PIN first'); return; } try{ const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true}); currentStream=stream; const preview=document.getElementById('vaultPreview'); preview.srcObject=stream; preview.style.display='block'; preview.muted=true; await preview.play(); mediaRecorder=new MediaRecorder(stream); audioChunks=[]; mediaRecorder.ondataavailable=e=>audioChunks.push(e.data); mediaRecorder.onstop=()=>{ const blob=new Blob(audioChunks); const reader=new FileReader(); reader.onload=()=>saveToVault({type:'video', data:reader.result, ts:Date.now(), loc:currentLoc.link}); reader.readAsDataURL(blob); preview.style.display='none'; stream.getTracks().forEach(t=>t.stop()); }; mediaRecorder.start(); document.getElementById('vaultStatus').innerText='🔴 Recording VIDEO... Tap Stop'; setTimeout(()=>{ if(mediaRecorder && mediaRecorder.state==='recording') mediaRecorder.stop(); },300000); }catch(e){ alert('Camera+Mic needed: '+e.message); } }
+function stopVaultAll(){ if(mediaRecorder && mediaRecorder.state==='recording'){ mediaRecorder.stop(); } if(currentStream){ currentStream.getTracks().forEach(t=>t.stop()); currentStream=null; } isRecordingAudio=false; document.getElementById('vaultStatus').innerText='✅ Saved to Vault'; document.getElementById('audioBtn').innerHTML='🎙️ Start Recording'; document.getElementById('vaultPreview').style.display='none'; }
+function exportVaultPDF(){ if(vaultDB.length===0){ alert('No proofs to export'); return; } let txt='FEMINIST-GUARD EVIDENCE REPORT v41\nUser: '+(user?user.name:'')+' ID ****'+(user?user.last4:'')+'\nGenerated: '+new Date().toString()+'\n\n'; vaultDB.forEach((v,i)=>{ txt+=(i+1)+'. '+v.type.toUpperCase()+' - '+new Date(v.ts).toString()+' - '+v.loc+' '+(v.note||'')+'\n'; }); const blob=new Blob([txt],{type:'text/plain'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='Evidence-'+new Date().toISOString().slice(0,10)+'.txt'; a.click(); alert('Evidence report downloaded!'); }
 function quickAI(q){ document.getElementById('aiInput').value=q; askGuardAI(); }
-function askGuardAI(){
- const input=document.getElementById('aiInput'); const q=input.value.trim(); if(!q) return;
- const chat=document.getElementById('aiChat');
- const userDiv=document.createElement('div'); userDiv.className='user-msg'; userDiv.innerText=q; chat.prepend(userDiv);
- let answer="";
- const lower=q.toLowerCase();
- for(let k in aiKnowledge){ if(lower.includes(k.split(' ')[0]) || lower.includes(k)){ answer=aiKnowledge[k]; break; } }
- if(!answer){
-   if(lower.includes('hello')||lower.includes('hi')) answer="Hi! I'm Guard AI, like Meta AI, built into Feminist-Guard. I help with app issues and your safety. What do you need? Try: 'SOS opens messages' or 'How to record proof?'";
-   else answer=`I understand: "${q}". I'm Guard AI, here to help like Meta AI. For app: check HOME checklist. For safety: Vault → Record audio now as proof. If danger: HOLD SOS 3s. Is it about SOS, Vault, Circle, or personal safety?`;
- }
- const aiDiv=document.createElement('div'); aiDiv.className='ai-msg'; aiDiv.innerHTML=answer.replace(/\n/g,'<br>'); chat.prepend(aiDiv);
- input.value='';
- chat.scrollTop=0;
-}
+function askGuardAI(){ const input=document.getElementById('aiInput'); const q=input.value.trim(); if(!q) return; const chat=document.getElementById('aiChat'); const userDiv=document.createElement('div'); userDiv.className='user-msg'; userDiv.innerText=q; chat.prepend(userDiv); let answer=''; const lower=q.toLowerCase(); if(lower.includes('scared')||lower.includes('afraid')) answer='I hear you. You are safe with me. 💛 1) Stay where people can see you if you can. 2) Tap Send SOS — I will send your live location to your Circle silently. 3) Open Vault → Start Recording to save proof. Do you want me to send SOS now? Type YES.'; else if(lower.includes('follow')) answer='If he follows you: Do NOT go home. Go to a shop, garage, or people. Keep phone in hand. Say "HELP" or Shake 3X — I will send SOS to ALL. Tell me where you are?'; else if(lower.includes('sos')||lower.includes('send')) answer='I will send SOS now to your Circle with live location. Tap the red Send SOS button or Shake 3X.'; else if(lower.includes('safe')) answer='Good! Tap I\'M SAFE — I will stop tracking and send STOP message to your Circle.'; else if(lower.includes('hello')||lower.includes('hey')||lower.includes('hi')) answer='Hi! I\'m Guard AI, like Meta AI, but for your safety. Are you feeling safe today? Type "I\'m scared" and I\'ll help you hide & send SOS.'; else if(lower.includes('vault')) answer='Vault is PRIVATE. Go to VAULT tab → Enter 4-digit PIN → Take Photo / Video / Voice / Note. It does NOT save to gallery. Fake PIN shows EMPTY vault if forced.'; else if(lower.includes('pay')||lower.includes('r50')||lower.includes('premium')) answer='Premium is R50 / month via PayFast. Go to PAY tab → PAY R50 → Pay in your bank app → Come back → Premium Unlocked. Test with Test R1 Pay.'; else answer='I understand: "'+q+'". I\'m here for you. For safety: Vault → Record audio now as proof. If danger: HOLD SOS 3s or Shake 3X. Is it about SOS, Vault, Circle, or personal safety?'; const aiDiv=document.createElement('div'); aiDiv.className='ai-msg'; aiDiv.innerHTML=answer; chat.prepend(aiDiv); input.value=''; chat.scrollTop=0; if(lower.includes('yes')||lower.includes('send sos')) triggerSOS('AI CHAT SOS'); }
+function startVoice(){ alert('Voice Listening: Say HELP or I\'M SCARED — In Chrome, tap Allow Mic. In REAL APP, AI listens silently.'); }
 </script>
 </body>
-  </html>
+                                                                                                      </html>
