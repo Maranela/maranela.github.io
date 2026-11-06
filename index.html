@@ -181,45 +181,35 @@ const holdBtn=document.getElementById('holdBtn');const holdBar=document.getEleme
 function startHold(e){e.preventDefault(); if(aiIsSOSActive()||isTracking){ alert('✅ ALREADY SENT! Press I\'M SAFE when safe.'); return; } holdRing.style.display='block';holdProgress=0;holdTimer=setInterval(()=>{holdProgress+=2;holdBar.style.width=holdProgress+'%';holdText.innerText=`Holding ${Math.floor(holdProgress/33.3)}s / 3s`;if(holdProgress>=100){clearInterval(holdTimer);triggerSOS('HOLD 3s');} },30); }
 function cancelHold(){ if(holdTimer){clearInterval(holdTimer);holdTimer=null;holdRing.style.display='none';holdBar.style.width='0%';holdText.innerText='Ready — AI will send silently';} }
 if(holdBtn){ holdBtn.addEventListener('touchstart',startHold); holdBtn.addEventListener('mousedown',startHold); holdBtn.addEventListener('touchend',cancelHold); holdBtn.addEventListener('mouseup',cancelHold); holdBtn.addEventListener('mouseleave',cancelHold); }
-window.addEventListener('devicemotion',(e)=>{ const acc=e.accelerationIncludingGravity; if(!acc) return; const f=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z); if(f>40){ const now=Date.now(); if(now-lastShake>2000) shakeCount=1; else shakeCount++; lastShake=now; document.getElementById('shakeStatus').innerText='Shake: '+shakeCount+'/3'; if(shakeCount>=3){ shakeCount=0; triggerShake(); } } });
-window.addEventListener('load',()=>{ checkAuth(); renderContacts(); vaultRender(); vaultUpdatePinStatus(); updateRealVisionUI(); if(aiIsSOSActive()){ let st=JSON.parse(localStorage.getItem('fg_sos_active')); sosStartTime=st.start; aiShowSOSGreen(); aiStartTracking(); aiStartLiveMoving(); aiUpdateLocationCard(); } });
+window.addEventListener('devicemotion',(e)=>{ const acc=e.accelerationIncludingGravity; if(!acc) return; const f=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z); if(f>40){ const now=Date.now(); if(now-lastShake>2000) shakeCount=1; else shakeCount++; lastShake=now; document.getElementById('shakeStatus').innerText='Shake: '+shakeCount+'/3'; if(shakeCount>=3){ triggerShake(); } } });
 
-// ===== PAYFAST API PAYMENT - v41 - R50 ONLY, NO R1 =====
-// No PayJoy, No WhatsApp contacts - Only PayFast
+// ===== PAYFAST - BEFORE VERSION THAT WORKED IN VIDEO - GET LINK - NO POST =====
 function payReal(){
   var merchant_id='37833541';
   var merchant_key='vvzu6mvd6bfvg';
   var amount='50.00';
-  if(!merchant_key || merchant_key.length!==13){
-    alert('PayFast key is not 13 characters yet.');
-    return;
-  }
+  if(!merchant_key || merchant_key.length!==13){ alert('PayFast key is not 13 characters yet.'); return; }
   var email = currentUser ? currentUser.email : 'test@test.com';
-  var f = document.createElement('form');
-  f.method='POST';
-  f.action='https://www.payfast.co.za/eng/process';
-  f.target='_blank';
-  var fields={
-    merchant_id: merchant_id,
-    merchant_key: merchant_key,
-    amount: amount,
-    item_name: 'Feminist-Guard Premium',
-    email_address: email,
-    return_url: 'https://maranela.github.io/?paid=1',
-    cancel_url: 'https://maranela.github.io/?cancel=1'
-  };
-  for(var k in fields){
-    var i=document.createElement('input');
-    i.type='hidden'; i.name=k; i.value=fields[k];
-    f.appendChild(i);
-  }
-  document.body.appendChild(f);
-  f.submit();
+  var url = 'https://www.payfast.co.za/eng/process?merchant_id=' + merchant_id + '&merchant_key=' + merchant_key + '&amount=' + amount + '&item_name=Feminist-Guard Premium&email_address=' + encodeURIComponent(email) + '&return_url=' + encodeURIComponent('https://maranela.github.io/?paid=1') + '&cancel_url=' + encodeURIComponent('https://maranela.github.io/?cancel=1');
+  window.open(url,'_blank');
 }
-if(window.location.search.includes('paid=1')){
-  localStorage.setItem('fg_premium','active');
-  setTimeout(function(){ alert('Payment received! Premium Unlocked ✅'); },600);
+function checkPaid(){
+  var p = new URLSearchParams(location.search);
+  if(p.get('paid')==='1'){ localStorage.setItem('fg_premium','active'); alert('✅ Payment received! Premium Active — R50/month'); history.replaceState({},'',location.pathname); }
+  if(p.get('cancel')==='1'){ alert('Payment cancelled — You can try again.'); history.replaceState({},'',location.pathname); }
 }
+function showPage(name,el){
+  if(name==='vault'){ vaultOpen(); return; }
+  showPageOriginal(name,el);
+}
+checkPaid();
+checkAuth();
+renderContacts();
+vaultRender();
+vaultUpdatePinStatus();
+updateRealVisionUI();
+aiUpdateBattery();
+if(aiIsSOSActive()){ aiShowSOSGreen(); aiStartTracking(); aiStartLiveMoving(); }
 </script>
 </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </html>
+  </html>
