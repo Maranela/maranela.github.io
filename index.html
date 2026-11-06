@@ -189,21 +189,32 @@ window.addEventListener('load',()=>{ checkAuth(); renderContacts(); vaultRender(
 function payReal(){
   var merchant_id='37833541';
   var merchant_key='vvzu6mvd6bfvg';
-  var amount='50';
+  var amount='50.00';
   if(!merchant_key || merchant_key.length!==13){
-    alert('PayFast key is not 13 characters yet.\n\nGo to GitHub > index.html > Find YOUR_KEY > Replace it with your 13-char key from your PayFast picture / PayFast Settings > Integration.\n\nDo NOT send your key in WhatsApp.');
+    alert('PayFast key is not 13 characters yet.');
     return;
   }
-  var email = currentUser ? currentUser.email : '';
-  var url = 'https://www.payfast.co.za/eng/process'
-    + '?merchant_id=' + merchant_id
-    + '&merchant_key=' + merchant_key
-    + '&amount=' + amount
-    + '&item_name=' + encodeURIComponent('Feminist-Guard Premium')
-    + '&email_address=' + encodeURIComponent(email)
-    + '&return_url=' + encodeURIComponent('https://maranela.github.io/?paid=1')
-    + '&cancel_url=' + encodeURIComponent('https://maranela.github.io/?paid=0');
-  window.open(url,'_blank');
+  var email = currentUser ? currentUser.email : 'test@test.com';
+  var f = document.createElement('form');
+  f.method='POST';
+  f.action='https://www.payfast.co.za/eng/process';
+  f.target='_blank';
+  var fields={
+    merchant_id: merchant_id,
+    merchant_key: merchant_key,
+    amount: amount,
+    item_name: 'Feminist-Guard Premium',
+    email_address: email,
+    return_url: 'https://maranela.github.io/?paid=1',
+    cancel_url: 'https://maranela.github.io/?cancel=1'
+  };
+  for(var k in fields){
+    var i=document.createElement('input');
+    i.type='hidden'; i.name=k; i.value=fields[k];
+    f.appendChild(i);
+  }
+  document.body.appendChild(f);
+  f.submit();
 }
 if(window.location.search.includes('paid=1')){
   localStorage.setItem('fg_premium','active');
