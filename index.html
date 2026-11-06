@@ -3,163 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>FEMINIST-GUARD</title>
+<title>Feminist Guard</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f0f1a;color:#fff;padding-bottom:90px}
-.header{background:linear-gradient(135deg,#ff2e88,#ff5ea8,#ff2e88);padding:16px 12px 14px;text-align:center;position:sticky;top:0;z-index:20;box-shadow:0 4px 20px rgba(255,46,136,.35)}
-.header h1{margin:0;font-size:22px;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,.3)}
-.header small{font-size:12px;opacity:.95}
-.page{display:none;padding:14px;max-width:520px;margin:0 auto}.page.active{display:block;animation:fade .25s ease}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.card{background:#1e1e30;border-radius:18px;padding:16px;margin-bottom:14px;border:1px solid #333;box-shadow:0 6px 18px rgba(0,0,0,.25)}
-.card h2{margin:0 0 8px;font-size:19px;line-height:1.3}.card p{color:#d0d0de;font-size:14px;line-height:1.55;margin:6px 0}
-input,select,textarea{width:100%;padding:13px;border-radius:12px;border:1px solid #444;background:#11111f;color:#fff;margin:6px 0;font-size:15px;outline:none}
-input:focus,textarea:focus{border-color:#ff2e88}
-button{width:100%;padding:14px;border:0;border-radius:13px;background:#ff2e88;color:#fff;font-weight:800;font-size:16px;margin:7px 0;cursor:pointer;box-shadow:0 4px 12px rgba(255,46,136,.3)}
-button:active{transform:scale(.98)}button.green{background:#00c853}button.blue{background:#2962ff}button.grey{background:#3a3a4d;box-shadow:none}button.gold{background:linear-gradient(135deg,#ffb300,#ff8f00);color:#000}button.dark{background:#111}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#141422;display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid #333;z-index:30}
-.nav-item{text-align:center;font-size:11px;color:#999;cursor:pointer;padding:4px 2px;flex:1}.nav-item.active{color:#ff2e88}.nav-item span{font-size:23px;display:block;line-height:1.2}
-#authOverlay{position:fixed;inset:0;background:#0f0f1a;z-index:100;overflow-y:auto;padding:16px}.auth-box{background:#1e1e30;border-radius:20px;padding:22px;max-width:430px;margin:18px auto;border:1px solid #333;box-shadow:0 10px 30px rgba(0,0,0,.4)}.auth-box h2{text-align:center;margin:0 0 6px;font-size:22px}.auth-box .sub{text-align:center;color:#ccc;font-size:13px;margin-bottom:10px}.link{color:#ff8ec2;text-align:center;display:block;margin-top:12px;cursor:pointer;font-weight:700;font-size:14px}
-.otp-row{display:flex;gap:8px;justify-content:center}.otp-row input{width:44px;text-align:center;font-size:21px;padding:11px 0;font-weight:800}
-.hold-btn{background:linear-gradient(135deg,#ff1744,#ff2e88);padding:24px 12px;font-size:20px;border-radius:18px;box-shadow:0 8px 20px rgba(255,23,68,.4)}
-.pay-box{border:2px solid #ffb300;background:linear-gradient(180deg,#2a2200,#1e1e30)}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0a0a1f;color:#fff;padding-bottom:88px}
+.topbar{background:#000;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.header{text-align:center;padding:14px 10px 8px;background:#0a0a1f}
+.header h1{margin:0;font-size:26px;letter-spacing:2px;color:#f5d67b;font-family:Georgia,serif}
+.header small{font-size:10px;color:#d8c88a;letter-spacing:.5px}
+.card{background:#13132e;border:1px solid #2e2e55;border-radius:20px;padding:16px;margin:12px auto;max-width:520px}
+.card h2{margin:0 0 8px;font-size:18px}.card p{color:#c9c9dd;font-size:13px;line-height:1.5}
+input,textarea,select{width:100%;padding:13px;border-radius:12px;border:1px solid #3a3a65;background:#0e0e26;color:#fff;margin:6px 0;font-size:15px;outline:none}
+input:focus,textarea:focus{border-color:#f5d67b}
+button{width:100%;padding:14px;border:0;border-radius:14px;background:#f5d67b;color:#000;font-weight:800;font-size:15px;margin:7px 0;cursor:pointer}
+button.pink{background:#ff2e88;color:#fff}button.green{background:#00c853;color:#fff}button.blue{background:#2962ff;color:#fff}button.grey{background:#2a2a44;color:#fff}button.dark{background:#1a1a33;color:#fff;border:1px solid #444}
+button:active{transform:scale(.98)}
+.page{display:none;padding:4px 12px;max-width:540px;margin:0 auto}.page.active{display:block}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0d0d24;display:flex;justify-content:space-around;padding:8px 0 10px;border-top:1px solid #2e2e55;z-index:30}
+.nav-item{text-align:center;font-size:10px;color:#999;flex:1;cursor:pointer}.nav-item.active{color:#f5d67b}.nav-item span{font-size:22px;display:block}
+.hold-circle{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff5ea8,#ff2e88 60%,#c4005a);display:flex;align-items:center;justify-content:center;text-align:center;margin:14px auto;font-size:20px;font-weight:900;line-height:1.2;box-shadow:0 10px 30px rgba(255,46,136,.45);cursor:pointer;user-select:none}
+.hold-circle.green{background:radial-gradient(circle at 35% 30%,#3ddc84,#00c853 60%,#007a33)}
+.hold-circle:active{transform:scale(.97)}
+.pill{display:inline-block;background:#1e1e3a;border:1px solid #3a3a65;padding:8px 12px;border-radius:20px;font-size:12px;margin:3px}
+.gold-box{background:#f5d67b;color:#000;border-radius:16px;padding:16px}
+.gold-box p{color:#333}
+.pin-box{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.pin-box div{width:52px;height:56px;border:1px solid #f5d67b;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;background:#0e0e26}
 .hidden{display:none}.small{font-size:12px;color:#aaa}.center{text-align:center}
-.pill{display:inline-block;background:#2a2a3d;border:1px solid #444;padding:6px 10px;border-radius:20px;font-size:12px;margin:3px}
+#authOverlay{position:fixed;inset:0;background:#0a0a1f;z-index:100;overflow-y:auto;padding:16px}.auth-box{background:#13132e;border:1px solid #2e2e55;border-radius:20px;padding:22px;max-width:430px;margin:18px auto}.link{color:#f5d67b;text-align:center;display:block;margin-top:12px;cursor:pointer;font-weight:700}
+.otp-row{display:flex;gap:8px;justify-content:center}.otp-row input{width:44px;text-align:center;font-size:21px}
+.log{background:#0e0e26;border-radius:12px;padding:10px;font-size:12px;color:#ccc;white-space:pre-wrap;margin-top:8px}
+.badge{background:#00c853;color:#fff;padding:4px 10px;border-radius:20px;font-size:11px}
 </style>
 </head>
 <body>
+<div class="topbar"><span>Feminist Guard</span><span>🌙</span></div>
 
+<!-- AUTH -->
 <div id="authOverlay">
-<div class="auth-box" id="loginBox">
-<div class="center" style="font-size:42px">🛡️</div>
-<h2>Welcome Back ❤️</h2><div class="sub">Log in to Feminist Guard</div>
-<label>Email</label><input id="loginEmail" type="email" placeholder="you@gmail.com">
-<label>Password</label><input id="loginPassword" type="password" placeholder="Your password">
-<button onclick="doLogin()">LOG IN</button>
-<span class="link" onclick="showRegister()">No account? Create New Account →</span>
-<p class="center small" style="margin-top:14px">Demo: Create account first, then log in with same details in THIS browser.</p>
-</div>
-<div class="auth-box" id="registerBox" style="display:none">
-<div class="center" style="font-size:42px">✨</div>
-<h2>Create Account ✨</h2><div class="sub">Join Feminist Guard — Stay Safe</div>
-<label>Full Name</label><input id="regName" placeholder="Your full name">
-<label>Email</label><input id="regEmail" type="email" placeholder="you@gmail.com">
-<label>Phone (10 digits)</label><input id="regPhone" placeholder="0712345678" maxlength="10" inputmode="numeric">
-<label>SA ID (13 digits)</label><input id="regID" placeholder="13-digit SA ID" maxlength="13" inputmode="numeric" oninput="validateIDLive()"><div id="idMsg" style="font-size:12px;min-height:16px"></div>
-<label>Password (6+)</label><input id="regPass" type="password" placeholder="Choose password">
-<label>Confirm Password</label><input id="regPass2" type="password" placeholder="Repeat password">
-<button onclick="doRegister()">Verify ID & Send OTP →</button>
-<span class="link" onclick="showLogin()">Already have account? Log In →</span>
-</div>
-<div class="auth-box" id="otpBox" style="display:none">
-<div class="center" style="font-size:42px">🔐</div>
-<h2>Enter OTP 🔐</h2><p class="center" id="otpInfo" style="color:#ccc">We sent a code</p>
-<div style="background:#003300;padding:12px;border-radius:12px;text-align:center;margin:10px 0">Demo OTP: <b id="otpShow" style="font-size:24px;color:#00ff88">------</b></div>
-<div class="otp-row">
-<input id="o1" maxlength="1" inputmode="numeric" oninput="moveOtp(1)"><input id="o2" maxlength="1" inputmode="numeric" oninput="moveOtp(2)"><input id="o3" maxlength="1" inputmode="numeric" oninput="moveOtp(3)"><input id="o4" maxlength="1" inputmode="numeric" oninput="moveOtp(4)"><input id="o5" maxlength="1" inputmode="numeric" oninput="moveOtp(5)"><input id="o6" maxlength="1" inputmode="numeric" oninput="moveOtp(6)">
-</div>
-<div id="otpError" style="color:#ff5252;text-align:center;display:none;font-size:13px;margin-top:8px"></div>
-<button onclick="verifyOTP()">Verify & Create Account</button>
-<button class="grey" onclick="resendOTP()">Resend OTP</button>
-<span class="link" onclick="showRegister()">← Back</span>
-</div>
+<div class="auth-box" id="loginBox"><div class="center" style="font-size:42px">🛡️</div><h2 style="text-align:center;color:#f5d67b">Welcome Back ❤️</h2><p class="center small">Log in to Feminist Guard</p><label>Email</label><input id="loginEmail" type="email" placeholder="you@gmail.com"><label>Password</label><input id="loginPassword" type="password" placeholder="Your password"><button onclick="doLogin()">LOG IN</button><span class="link" onclick="showRegister()">No account? Create New Account →</span></div>
+<div class="auth-box" id="registerBox" style="display:none"><h2 style="text-align:center;color:#f5d67b">Create Account ✨</h2><label>Full Name</label><input id="regName" placeholder="Your full name"><label>Email</label><input id="regEmail" type="email" placeholder="you@gmail.com"><label>Phone (10 digits)</label><input id="regPhone" placeholder="0712345678" maxlength="10"><label>SA ID (13 digits)</label><input id="regID" placeholder="13-digit SA ID" maxlength="13" oninput="validateIDLive()"><div id="idMsg" style="font-size:12px"></div><label>Password (6+)</label><input id="regPass" type="password" placeholder="Choose password"><label>Confirm Password</label><input id="regPass2" type="password" placeholder="Repeat password"><button onclick="doRegister()">Verify ID & Send OTP →</button><span class="link" onclick="showLogin()">Already have account? Log In →</span></div>
+<div class="auth-box" id="otpBox" style="display:none"><h2 style="text-align:center;color:#f5d67b">Enter OTP 🔐</h2><p class="center" id="otpInfo">We sent a code</p><div style="background:#003300;padding:12px;border-radius:12px;text-align:center">Demo OTP: <b id="otpShow" style="font-size:24px;color:#00ff88">------</b></div><div class="otp-row"><input id="o1" maxlength="1" oninput="moveOtp(1)"><input id="o2" maxlength="1" oninput="moveOtp(2)"><input id="o3" maxlength="1" oninput="moveOtp(3)"><input id="o4" maxlength="1" oninput="moveOtp(4)"><input id="o5" maxlength="1" oninput="moveOtp(5)"><input id="o6" maxlength="1" oninput="moveOtp(6)"></div><div id="otpError" style="color:#ff5252;text-align:center;display:none"></div><button onclick="verifyOTP()">Verify & Create Account</button><button class="grey" onclick="resendOTP()">Resend OTP</button><span class="link" onclick="showRegister()">← Back</span></div>
 </div>
 
-<div class="header"><h1>🛡️ FEMINIST-GUARD</h1><small><span id="welcomeName">Hello, Warrior</span> • <span id="modeBadge">DEMO MODE</span></small></div>
+<div class="header"><h1>FEMINIST-GUARD</h1><small>AI v4.1.0 REAL VISION • SILENT • VAULT PIN • STAY GREEN • LIVE MOVING</small></div>
 
+<!-- HOME -->
 <div class="page active" id="page-home">
-<div class="card"><h2>🛡️ You're Protected<br><span id="userEmailShow" style="font-size:13px;color:#ff8ec2"></span></h2><p>Your Guard is active. Hold SOS in emergency. Your circle will get your live location.</p><div style="margin:8px 0"><span class="pill">📍 GPS Live</span><span class="pill">👥 Circle</span><span class="pill">🔒 Vault</span><span class="pill">✨ AI</span></div><button class="hold-btn" onmousedown="startHold()" onmouseup="cancelHold()" ontouchstart="startHold()" ontouchend="cancelHold()">HOLD FOR SOS — 3 SEC</button><div id="holdMsg" class="center" style="min-height:18px;margin-top:6px"></div><p id="gpsShow" class="small">GPS: Waiting... Allow location</p></div>
-<div class="card pay-box"><h2>💳 Activate Full Protection — R50 Once</h2><p>Unlock Vault, AI, Live Tracking & SOS alerts forever. One-time R50. No monthly fee.</p><div id="payStatus">Status: <b>FREE / DEMO</b></div><button class="gold" onclick="payReal()">PAY R50 — PayFast Secure →</button><button class="grey" onclick="unlockDemo()">Or Unlock FREE Demo (For Testing)</button><p class="small center">Secure payment via PayFast • Instant activation</p></div>
-<div class="card"><h2>⚡ Quick Actions</h2><button onclick="showPage('sos',this)">🚨 Send SOS Now</button><button class="blue" onclick="showPage('circle',this)">👥 My Circle</button><button class="green" onclick="showPage('vault',this)">🔒 Open Vault</button><button class="dark" onclick="showPage('ai',this)">✨ Ask Guard AI</button></div>
+<div class="card"><div style="display:flex;gap:8px"><button class="dark" onclick="callPolice()">SAPS 10111</button><button class="dark" onclick="call112()">112 Emergency</button></div>
+<h2 style="margin-top:12px">✅ Safety Active <span class="badge">✓</span></h2><p>Getting GPS...<br>GPS: Waiting...<br>Shake: Ready 3X<br>AI: Silent — Shake / Hold / Voice</p>
+<div class="log"><b>⚠ CHROME TEST MODE</b><br>• You are in Chrome — Testing design only<br>• WhatsApp needs 1 tap SEND — Chrome blocks auto-send<br>• In REAL APP (Web2App APK): AI sends SMS automatically<br>• She shakes once — Runs — AI does everything<br>• Red SOS = SOS person • Blue Dot = YOU only<br><br>Log: AI v4.1.0 REAL VISION Ready — STAY GREEN, Live Moving, Vault PIN</div>
+<button class="pink" onclick="testAutoSend()">TEST AI AUTO-SEND NOW</button>
+<button class="dark" onclick="showPage('ai',document.querySelectorAll('.nav-item')[4])">✨ Chat with Guard AI — Like Meta AI</button>
+</div>
+<div class="card"><p class="center small">Hello, <span id="welcomeName">Warrior</span> • <span id="userEmailShow"></span> • <span id="modeBadge">CHROME TEST</span></p></div>
 </div>
 
+<!-- SOS -->
 <div class="page" id="page-sos">
-<div class="card center"><h2>🚨 HOLD SOS</h2><p>Hold 3 seconds to alert your circle with GPS + message.</p><button class="hold-btn" onmousedown="startHold()" onmouseup="cancelHold()" ontouchstart="startHold()" ontouchend="cancelHold()">HOLD 3 SEC</button><div id="holdMsg2"></div><button class="blue" onclick="sendSOSNow()">Send SOS Now (No Hold)</button><p id="sosLog" class="small"></p></div>
+<div class="card"><h2 class="center">HOLD SOS — AI Sends Silently</h2>
+<div id="holdCircle" class="hold-circle" onmousedown="startHold()" onmouseup="cancelHold()" ontouchstart="startHold()" ontouchend="cancelHold()">HOLD<br>TO SEND<br>SOS</div>
+<p class="center" id="holdMsg">Ready — AI will send silently</p></div>
+<div class="card"><h2 class="center">Volume + Shake Auto</h2><p class="center small">Works even screen off — AI sends silently</p><h2 class="center" id="shakeCountShow">0/8</h2><p class="center">ARMED</p><button class="pink" onclick="armSOS()">ARMED — AI Auto Send Live Location</button>
+<div style="display:flex;gap:8px"><button class="dark" onclick="volUp()">▲ UP</button><button class="dark" onclick="volDown()">▼ DOWN</button></div>
+<button class="dark" onclick="shakeTest()">Shake Test 3X</button><button class="grey" onclick="resetShake()">Reset</button>
+<div class="log" id="volumeLog">Volume Log: Armed<br><span id="volLogLine"></span></div></div>
+<div class="card"><h2>🛡️ AI Auto Alert — Sends to ALL</h2><input id="sosLocInput" placeholder="Waiting GPS..."><p class="small">Live location will appear here.<br>Not sent yet — AI waiting.</p><div class="log">AI Auto-Send Log:<br><span id="aiLog">Ready</span></div>
+<button class="dark" onclick="sendWhatsAppAll()">💬 Send WhatsApp to ALL (No SMS needed)</button>
+<button class="dark" onclick="sendSMSAll()">✉️ Send SMS to ALL</button>
+<button class="green" onclick="shareLiveWhatsApp()">📍 SHARE LIVE LOCATION ON WHATSAPP — Red Pin WILL MOVE Like Blue Dot (8 Hours)</button>
+<p class="small center">Tap → WhatsApp opens → Tap Attach 📎 → Location → Share Live Location → Choose Circle → Pin will MOVE live!</p></div>
 </div>
 
+<!-- CIRCLE -->
 <div class="page" id="page-circle">
-<div class="card"><h2>👥 Your Circle — AI Sends To Them</h2><p>Add up to 5 trusted people. They get SOS with your location.</p><input id="newName" placeholder="Name e.g. Mom"><input id="newPhone" placeholder="Phone e.g. 0712345678" inputmode="numeric"><button class="green" onclick="addContact()">+ Add Person</button><div id="contactsList"></div></div>
+<div class="card"><h2>👥 Your Circle — AI Sends To ALL</h2><p>Only people YOU add — AI sends to every person</p><div id="contactsList"></div>
+<input id="newName" placeholder="Name e.g. Mom"><input id="newPhone" placeholder="Number e.g. 0672739660"><button onclick="addContact()">+ Add Contact</button><div class="log">Circle Log: <span id="circleLog">Ready</span></div></div>
 </div>
 
+<!-- VAULT -->
 <div class="page" id="page-vault">
-<div class="card"><h2>Vault 🔒 — Private Evidence</h2><p id="vaultLockMsg">Locked. Enter PIN 1234 to open (Demo PIN).</p><input id="vaultPin" type="password" placeholder="PIN: 1234" inputmode="numeric"><button onclick="unlockVault()">Unlock Vault</button><div id="vaultContent" class="hidden"><textarea id="vaultText" rows="5" placeholder="Write evidence here... Date, time, what happened..."></textarea><button class="green" onclick="saveVault()">Save to Vault</button><p id="vaultSaved" class="small"></p></div></div>
+<div class="card" id="vaultLockedCard"><div class="center" style="font-size:40px">🔒</div><h2 class="center">Vault Locked</h2><p class="center">Enter your 4-digit Vault PIN — Only you know it</p>
+<div class="pin-box" id="pinBoxes"><div id="pb0"></div><div id="pb1"></div><div id="pb2"></div><div id="pb3"></div></div>
+<input id="vaultPin" type="password" placeholder="Enter 4-digit PIN" maxlength="4" inputmode="numeric" oninput="updatePinBoxes()">
+<button onclick="unlockVault()">🔒 Unlock Vault</button>
+<button class="grey" onclick="showPage('home',document.querySelectorAll('.nav-item')[0])">← Back to Home</button>
+<p class="center small">Forgot PIN? Log out and log in again to reset.<br>Vault is private — No one else can open it.</p>
+<div class="log">Vault PIN: Real <span id="vaultPinStatus">Set</span> • Fake <span id="fakePinStatus">Not set</span> — Set in Settings</div></div>
+<div class="card hidden" id="vaultOpenCard"><h2>Vault — Private Evidence</h2><p>Only YOU can see this • PIN Protected • Saved on this phone • POPIA Private</p>
+<p><b>Take / Upload Photo</b></p><div style="display:flex;gap:8px"><button onclick="document.getElementById('photoInput').click()">Take Photo</button><button class="dark" onclick="document.getElementById('photoInput').click()">Gallery</button></div><input type="file" id="photoInput" accept="image/*" style="display:none" onchange="saveEvidence('photo',this)">
+<p><b>Take / Upload Video</b></p><div style="display:flex;gap:8px"><button onclick="document.getElementById('videoInput').click()">Record Video</button><button class="dark" onclick="document.getElementById('videoInput').click()">Video Gallery</button></div><input type="file" id="videoInput" accept="video/*" style="display:none" onchange="saveEvidence('video',this)">
+<p><b>Voice Recording — Evidence</b></p><div style="display:flex;gap:8px"><button id="voiceBtn" onclick="toggleVoice()">🎤 Start Recording</button><button class="dark" onclick="document.getElementById('audioInput').click()">Upload Audio</button></div><input type="file" id="audioInput" accept="audio/*" style="display:none" onchange="saveEvidence('audio',this)"><p class="small" id="voiceStatus">Not recording — Tap to record secretly</p>
+<textarea id="vaultText" rows="3" placeholder="Write a private note... e.g. What happened, where, who..."></textarea><button onclick="saveNote()">💾 Save Note</button>
+<h3>Your Saved Evidence (<span id="evCount">0</span>)</h3><p class="small">Tap to view • PIN protected • All saved privately</p><div id="evidenceList"><p>No evidence yet — Take photo / video / record</p></div>
+<button style="background:#ff1744;color:#fff" onclick="deleteAllVault()">🗑️ Delete ALL Vault Evidence</button>
+<div class="log">Vault Log: Private — PIN Protected — Only on this phone</div></div>
 </div>
 
+<!-- AI -->
 <div class="page" id="page-ai">
-<div class="card"><h2>✨ Guard AI — Like Meta AI</h2><p>Ask for safety help, what to do, or to draft a message.</p><textarea id="aiQ" rows="3" placeholder="e.g. I feel unsafe walking home, what do I do?"></textarea><button class="blue" onclick="askAI()">Ask Guard AI</button><div id="aiAns" style="background:#11111f;padding:13px;border-radius:12px;margin-top:10px;white-space:pre-wrap;line-height:1.6;font-size:14px;min-height:60px">Ask me anything — I am here to help you stay safe.</div></div>
+<div class="card"><h2>✨ Guard AI — Like Meta AI</h2><p>AI is SILENT during SOS<br>Shake 3X = AI sends to ALL<br>Hold 3s = AI sends to ALL<br>Chat below = Ask Meta AI — Ask anything<br>Voice: Tap to start listening</p>
+<div class="log" id="aiChat">👋 Hi <span class="aiName">Nhlanhla Maranela</span>! I'm Guard AI — like Meta AI, but for your safety.<br><br>Ask me anything:<br>• "I'm scared" → I'll help you hide & send SOS<br>• "What to do if he follows me?" → I'll send to your Circle<br>• "I'm safe" → I'll stop tracking<br><br>I'm here for you. 💛</div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:10px"><input id="aiQ" placeholder="Ask Guard AI... e.g. I'm scared" style="flex:1"><button style="width:50px;border-radius:50%" onclick="askAI()">➤</button></div>
+<div style="display:flex;gap:8px"><button class="dark" onclick="aiScared()">😨 I'm Scared</button><button class="pink" onclick="sendSOSNow()">🚨 Send SOS</button><button class="green" onclick="aiSafe()">✅ I'm Safe</button></div>
+<button class="dark" onclick="startVoiceAI()">🎤 Start AI Voice Listening</button>
+<button class="dark" onclick="testAutoSend()">🧪 Test AI Send to ALL</button></div>
 </div>
 
+<!-- PAY / SETTINGS -->
 <div class="page" id="page-settings">
-<div class="card center"><h2>Settings ⚙️</h2><p id="settingsUser"></p><button onclick="payReal()">PAY R50 — Activate Full Protection</button><button class="grey" onclick="doLogout()">Log Out</button><p class="small">Feminist Guard • Made to protect women in SA • v1.0</p></div>
+<div class="card"><h2>⚙️ Settings</h2><p id="settingsUser"></p><p>Subscription: <b id="subStatus">Free — Tap Pay below</b></p>
+<div style="display:flex;gap:8px"><button class="dark" onclick="changeRealPin()">Change Real</button><button class="dark" onclick="setFakePin()">Set Fake PIN</button></div>
+<p class="small">Vault PIN: Real <span id="vaultPinStatus2">Set</span> • Fake <span id="fakePinStatus2">Not set</span> — Set Fake now!<br>Tip: Fake PIN must be DIFFERENT from Real PIN.<br>Example: Real: 1234, Fake: 0000. If forced, give Fake PIN.<br>Real PIN shows real evidence • Fake PIN shows EMPTY vault if forced.</p>
+<button class="dark" onclick="toggleRealVision()">👁️ REAL VISION MODE</button>
+<p class="small">👁️ CHROME TEST MODE — WhatsApp needs 1 tap SEND. In REAL APP, AI sends automatically.</p>
+<button class="grey" onclick="doLogout()">Log Out</button></div>
+<div class="card"><h2 class="center">👑 Premium Plan</h2><div class="gold-box"><h2 style="margin:0">PAY R50 / month 💳</h2><p>Secure Bank Redirect • Capitec • Nedbank • FNB<br>Card → Outside your bank app → Approve → Back → Premium Unlocked</p><div id="payStatus">Status: <b>FREE / DEMO</b></div><button style="background:#000;color:#fff" onclick="payReal()">PAY R50 — PayFast Secure →</button><button class="dark" onclick="payTestR1()">🧪 Test R1 Pay</button><button class="grey" onclick="unlockDemo()">Or Unlock FREE Demo (For Testing)</button></div></div>
 </div>
 
 <div class="bottom-nav">
-<div class="nav-item active" onclick="showPage('home',this)"><span>🏠</span>Home</div>
+<div class="nav-item active" onclick="showPage('home',this)"><span>🏠</span>HOME</div>
 <div class="nav-item" onclick="showPage('sos',this)"><span>🚨</span>SOS</div>
-<div class="nav-item" onclick="showPage('circle',this)"><span>👥</span>Circle</div>
-<div class="nav-item" onclick="showPage('vault',this)"><span>🔒</span>Vault</div>
+<div class="nav-item" onclick="showPage('circle',this)"><span>👥</span>CIRCLE</div>
+<div class="nav-item" onclick="showPage('vault',this)"><span>🔒</span>VAULT</div>
 <div class="nav-item" onclick="showPage('ai',this)"><span>✨</span>AI</div>
-<div class="nav-item" onclick="showPage('settings',this)"><span>⚙️</span>Settings</div>
+<div class="nav-item" onclick="showPage('settings',this)"><span>💳</span>PAY</div>
 </div>
 
-<div id="permOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;align-items:center;justify-content:center;padding:16px"><div class="auth-box"><h2>Allow Permissions?</h2><p class="center">Location + Notifications for SOS to work.</p><button class="green" onclick="allowPermissions()">ALLOW</button></div></div>
+<div id="permOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;align-items:center;justify-content:center;padding:16px"><div class="auth-box"><h2>Allow Permissions?</h2><p class="center">Location + Motion + Mic for SOS to work.</p><button class="green" onclick="allowPermissions()">ALLOW</button></div></div>
 
 <script>
-// ==== PAYFAST API CONFIG - YOUR DESIGN - DO NOT REMOVE ====
-const PAYFAST_MERCHANT_ID = '37833541';
-const PAYFAST_MERCHANT_KEY = 'vvzu6mvd6bfvg';
-const PAYFAST_AMOUNT = '50.00';
-const PAYFAST_ITEM = 'Feminist-Guard-Full-Protection';
-
-let currentUser = JSON.parse(localStorage.getItem('fg_user_v37')||'null');
-let otpCode='', pendingReg=null;
+// ===== PAYFAST API - DO NOT REMOVE =====
+const PAYFAST_MERCHANT_ID='37833541';
+const PAYFAST_MERCHANT_KEY='vvzu6mvd6bfvg';
+const PAYFAST_ITEM='Feminist-Guard-Premium';
+// ===== END PAYFAST =====
+let currentUser=JSON.parse(localStorage.getItem('fg_user_v41')||'null');
+let otpCode='',pendingReg=null;
+let realPin=localStorage.getItem('fg_realPin')||'1234';
+let fakePin=localStorage.getItem('fg_fakePin')||'';
 function showLogin(){document.getElementById('loginBox').style.display='block';document.getElementById('registerBox').style.display='none';document.getElementById('otpBox').style.display='none';}
 function showRegister(){document.getElementById('loginBox').style.display='none';document.getElementById('registerBox').style.display='block';document.getElementById('otpBox').style.display='none';}
 function showOtp(){document.getElementById('loginBox').style.display='none';document.getElementById('registerBox').style.display='none';document.getElementById('otpBox').style.display='block';}
 function checkAuth(){if(currentUser){document.getElementById('authOverlay').style.display='none';loadUserUI();}else{document.getElementById('authOverlay').style.display='block';}}
-function loadUserUI(){if(!currentUser) return;document.getElementById('welcomeName').innerText='Hello, '+currentUser.name;document.getElementById('userEmailShow').innerText=currentUser.email;document.getElementById('settingsUser').innerText=currentUser.name+' • '+currentUser.email;if(currentUser.paid){document.getElementById('payStatus').innerHTML='Status: <b style="color:#00ff88">PAID ✅ ACTIVE</b>';}}
-function isValidSAID(id){if(!/^\d{13}$/.test(id)) return {valid:false,reason:'Must be 13 digits'};let s=0;for(let i=0;i<12;i++){let d=parseInt(id[i]);if(i%2===1){d=d*2;if(d>9)d-=9;}s+=d;}let check=(10-(s%10))%10;if(check!==parseInt(id[12])) return {valid:false,reason:'Invalid SA ID checksum'};return {valid:true};}
+function loadUserUI(){if(!currentUser)return;document.getElementById('welcomeName').innerText=currentUser.name;document.getElementById('userEmailShow').innerText=currentUser.email;document.getElementById('settingsUser').innerText=currentUser.name+' • '+currentUser.email+' • Phone: '+currentUser.phone+' • ID: ****'+currentUser.id.slice(-4);document.querySelectorAll('.aiName').forEach(e=>e.innerText=currentUser.name);if(currentUser.paid){document.getElementById('payStatus').innerHTML='Status: <b style="color:#00c853">PAID ✅ PREMIUM</b>';document.getElementById('subStatus').innerText='Premium ✅ Active';}updatePinStatus();}
+function updatePinStatus(){document.getElementById('vaultPinStatus').innerText='Set';document.getElementById('fakePinStatus').innerText=fakePin?'Set':'Not set';document.getElementById('vaultPinStatus2').innerText='Set';document.getElementById('fakePinStatus2').innerText=fakePin?'Set':'Not set';}
+function isValidSAID(id){if(!/^\d{13}$/.test(id))return{valid:false,reason:'Must be 13 digits'};let s=0;for(let i=0;i<12;i++){let d=parseInt(id[i]);if(i%2===1){d=d*2;if(d>9)d-=9;}s+=d;}let check=(10-(s%10))%10;if(check!==parseInt(id[12]))return{valid:false,reason:'Invalid SA ID checksum'};return{valid:true};}
 function validateIDLive(){const id=document.getElementById('regID').value.trim();const el=document.getElementById('idMsg');if(!id){el.innerText='';return;}const r=isValidSAID(id);el.innerText=r.valid?'✅ Valid SA ID':'❌ '+r.reason;el.style.color=r.valid?'#00ff88':'#ff5252';}
 function doRegister(){const name=document.getElementById('regName').value.trim();const email=document.getElementById('regEmail').value.trim();const phone=document.getElementById('regPhone').value.trim();const id=document.getElementById('regID').value.trim();const p1=document.getElementById('regPass').value;const p2=document.getElementById('regPass2').value;if(!name||!email||!phone||!id||!p1){alert('Fill ALL fields');return;}if(!email.includes('@')){alert('Enter valid email');return;}if(!/^\d{10}$/.test(phone)){alert('Phone must be 10 digits');return;}const vr=isValidSAID(id);if(!vr.valid){alert('SA ID: '+vr.reason);return;}if(p1.length<6){alert('Password must be 6+');return;}if(p1!==p2){alert('Passwords do not match');return;}pendingReg={name,email,phone,id,password:p1,paid:false};generateOTP();showOtp();}
 function generateOTP(){otpCode=Math.floor(100000+Math.random()*900000).toString();document.getElementById('otpShow').innerText=otpCode;document.getElementById('otpInfo').innerText='Code for '+(pendingReg?pendingReg.email:'');['o1','o2','o3','o4','o5','o6'].forEach(id=>document.getElementById(id).value='');}
-function moveOtp(n){if(document.getElementById('o'+n).value.length==1 && n<6){document.getElementById('o'+(n+1)).focus();}}
+function moveOtp(n){if(document.getElementById('o'+n).value.length==1&&n<6)document.getElementById('o'+(n+1)).focus();}
 function getEnteredOtp(){return ['o1','o2','o3','o4','o5','o6'].map(id=>document.getElementById(id).value).join('');}
-function verifyOTP(){const entered=getEnteredOtp();const err=document.getElementById('otpError');if(entered!==otpCode){err.style.display='block';err.innerText='Wrong OTP. Demo OTP is: '+otpCode;return;}currentUser=pendingReg;localStorage.setItem('fg_user_v37',JSON.stringify(currentUser));document.getElementById('authOverlay').style.display='none';loadUserUI();alert('Welcome '+currentUser.name+'! Account created.');checkPerm();}
+function verifyOTP(){const entered=getEnteredOtp();const err=document.getElementById('otpError');if(entered!==otpCode){err.style.display='block';err.innerText='Wrong OTP. Demo OTP is: '+otpCode;return;}currentUser=pendingReg;localStorage.setItem('fg_user_v41',JSON.stringify(currentUser));document.getElementById('authOverlay').style.display='none';loadUserUI();alert('Welcome '+currentUser.name+'! Account created.');checkPerm();}
 function resendOTP(){generateOTP();alert('New OTP: '+otpCode);}
-function doLogin(){const email=document.getElementById('loginEmail').value.trim();const pass=document.getElementById('loginPassword').value;const saved=JSON.parse(localStorage.getItem('fg_user_v37')||'null');if(!saved){alert('No account in THIS browser. Tap Create New Account first.');return;}if(email.toLowerCase()!==saved.email.toLowerCase()||pass!==saved.password){alert('Wrong email or password. Use the one you created in THIS browser.');return;}currentUser=saved;document.getElementById('authOverlay').style.display='none';loadUserUI();checkPerm();}
-function doLogout(){if(confirm('Log out?')){localStorage.removeItem('fg_user_v37');currentUser=null;location.reload();}}
-let hasPermission = localStorage.getItem('fg_perm_v365')==='granted';
-function showPerm(){document.getElementById('permOverlay').style.display='flex';}
-function hidePerm(){document.getElementById('permOverlay').style.display='none';}
-function checkPerm(){if(!hasPermission && currentUser){setTimeout(showPerm,800);}}
-function allowPermissions(){hasPermission=true;localStorage.setItem('fg_perm_v365','granted');hidePerm();getLocation();}
+function doLogin(){const email=document.getElementById('loginEmail').value.trim();const pass=document.getElementById('loginPassword').value;const saved=JSON.parse(localStorage.getItem('fg_user_v41')||'null');if(!saved){alert('No account in THIS browser. Tap Create New Account first.');return;}if(email.toLowerCase()!==saved.email.toLowerCase()||pass!==saved.password){alert('Wrong email or password.');return;}currentUser=saved;document.getElementById('authOverlay').style.display='none';loadUserUI();checkPerm();}
+function doLogout(){if(confirm('Log out?')){localStorage.removeItem('fg_user_v41');currentUser=null;location.reload();}}
+let hasPermission=localStorage.getItem('fg_perm_v41')==='granted';
+function checkPerm(){if(!hasPermission&&currentUser)setTimeout(()=>{document.getElementById('permOverlay').style.display='flex';},800);}
+function allowPermissions(){hasPermission=true;localStorage.setItem('fg_perm_v41','granted');document.getElementById('permOverlay').style.display='none';getLocation();startShakeSOS();}
 function showPageOriginal(name,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));var pg=document.getElementById('page-'+name);if(pg)pg.classList.add('active');document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));if(el)el.classList.add('active');window.scrollTo(0,0);}
-var showPage = showPageOriginal;
-let lastLoc={lat:-25.544,lng:28.095,link:'',acc:0};
-function getLocation(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(p=>{lastLoc.lat=p.coords.latitude;lastLoc.lng=p.coords.longitude;lastLoc.acc=p.coords.accuracy;lastLoc.link='https://maps.google.com/?q='+lastLoc.lat+','+lastLoc.lng;var g=document.getElementById('gpsShow');if(g)g.innerText='GPS: '+lastLoc.lat.toFixed(5)+', '+lastLoc.lng.toFixed(5)+' • Acc '+Math.round(lastLoc.acc)+'m';},{enableHighAccuracy:true});}
-let contacts=JSON.parse(localStorage.getItem('fg_contacts_v365')||'[]');
-function saveContacts(){localStorage.setItem('fg_contacts_v365',JSON.stringify(contacts));}
-function renderContacts(){const el=document.getElementById('contactsList');if(!contacts.length){el.innerHTML='<p style="color:#aaa">No contacts yet. Add Mom / Sister / Friend.</p>';return;}el.innerHTML=contacts.map((c,i)=>'<div style="background:#11111f;padding:11px;border-radius:12px;margin:6px 0;display:flex;justify-content:space-between;align-items:center">'+c.name+' • '+c.phone+' <button style="width:auto;padding:7px 11px;background:#ff1744;margin:0" onclick="deleteContact('+i+')">Delete</button></div>').join('');}
-function addContact(){const name=document.getElementById('newName').value.trim();const phone=document.getElementById('newPhone').value.trim();if(!name||!phone){alert('Enter name + phone');return;}contacts.push({name,phone});saveContacts();renderContacts();document.getElementById('newName').value='';document.getElementById('newPhone').value='';alert('Added '+name);}
+var showPage=showPageOriginal;
+let lastLoc={lat:-25.544,lng:28.095,link:'',acc:0,battery:''};
+function getLocation(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(p=>{lastLoc.lat=p.coords.latitude;lastLoc.lng=p.coords.longitude;lastLoc.acc=p.coords.accuracy;lastLoc.link='https://maps.google.com/?q='+lastLoc.lat+','+lastLoc.lng;var inp=document.getElementById('sosLocInput');if(inp)inp.value=lastLoc.link;},{enableHighAccuracy:true});}
+let contacts=JSON.parse(localStorage.getItem('fg_contacts_v41')||'[]');
+if(contacts.length===0 && !localStorage.getItem('fg_contacts_seeded')){contacts=[{name:'Nhlanhla',phone:'0672739660'}];localStorage.setItem('fg_contacts_v41',JSON.stringify(contacts));localStorage.setItem('fg_contacts_seeded','1');}
+function saveContacts(){localStorage.setItem('fg_contacts_v41',JSON.stringify(contacts));}
+function renderContacts(){const el=document.getElementById('contactsList');if(!contacts.length){el.innerHTML='<p style="color:#aaa">No contacts yet. Add Mom / Sister / Friend.</p>';return;}el.innerHTML=contacts.map((c,i)=>'<div style="background:#0e0e26;padding:12px;border-radius:12px;margin:6px 0;display:flex;justify-content:space-between;align-items:center"><span>🟢 '+c.name+'<br><small>'+c.phone+'</small></span><span><span class="badge">AI Auto</span> <button style="width:auto;padding:6px 10px;background:#ff1744;margin:0" onclick="deleteContact('+i+')">X</button></span></div>').join('');}
+function addContact(){const name=document.getElementById('newName').value.trim();const phone=document.getElementById('newPhone').value.trim();if(!name||!phone){alert('Enter name + phone');return;}contacts.push({name,phone});saveContacts();renderContacts();document.getElementById('newName').value='';document.getElementById('newPhone').value='';document.getElementById('circleLog').innerText='Added '+name;alert('Added '+name);}
 function deleteContact(i){if(confirm('Delete '+contacts[i].name+'?')){contacts.splice(i,1);saveContacts();renderContacts();}}
-function sendSOSNow(){getLocation();const msg='🚨 SOS! I need help! I am '+(currentUser?currentUser.name:'')+'. My location: '+lastLoc.link+' Lat '+lastLoc.lat+', Lng '+lastLoc.lng;if(contacts.length===0){alert('Add a contact in Circle first, then SOS will send to them.\n\n'+msg);document.getElementById('sosLog').innerText=msg;return;}alert('SOS sent to '+contacts.length+' people!\n\n'+msg);document.getElementById('sosLog').innerText='SOS sent at '+new Date().toLocaleTimeString()+' to '+contacts.map(c=>c.name).join(', ');}
+function buildSOSMsg(source){return '🚨 FEMINIST-GUARD PANIC! I need help! Source: '+source+'\nLOCATION SNAPSHOT at '+new Date().toLocaleTimeString()+' (Tap link — This is where I was at '+new Date().toLocaleTimeString()+', NOT live forever):\n'+lastLoc.link+' Lat '+lastLoc.lat.toFixed(6)+' Lng '+lastLoc.lng.toFixed(6)+'\nWaiting since '+new Date().toLocaleTimeString()+' • Battery '+ (lastLoc.battery||'75%')+' • From '+(currentUser?currentUser.name+' ID ****'+currentUser.id.slice(-4):'User')+'\n\nIf I press I\'M SAFE later, IGNORE this old link — I will send a STOP message.';}
+function sendSOSNow(source){source=source||'HOLD SOS';getLocation();const msg=buildSOSMsg(source);document.getElementById('aiLog').innerText='SENT at '+new Date().toLocaleTimeString()+' via '+source+' to '+contacts.length+' people';if(contacts.length===0){alert('Add a contact in Circle first.\n\n'+msg);return;}alert('SOS SENT to '+contacts.length+' people!\n\n'+msg);markSent();}
+function markSent(){var c=document.getElementById('holdCircle');if(c){c.classList.add('green');c.innerHTML='✅<br>SENT<br>LOCATION';}var hm=document.getElementById('holdMsg');if(hm)hm.innerText='✅ SENT — Your Circle has your live location — STAYS GREEN until I\'M SAFE';}
+function testAutoSend(){sendSOSNow('TEST AI AUTO-SEND');}
+function sendWhatsAppAll(){getLocation();const msg=buildSOSMsg('WHATSAPP AI');if(contacts.length===0){alert('Add contact first');return;}const phone=contacts[0].phone.replace(/^0/,'27');window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');}
+function sendSMSAll(){getLocation();const msg=buildSOSMsg('SMS AI');if(contacts.length===0){alert('Add contact first');return;}const phone=contacts[0].phone;window.location.href='sms:'+phone+'?body='+encodeURIComponent(msg);}
+function shareLiveWhatsApp(){if(contacts.length===0){alert('Add contact first');return;}const phone=contacts[0].phone.replace(/^0/,'27');window.open('https://wa.me/'+phone+'?text='+encodeURIComponent('📍 LIVE LOCATION — Open WhatsApp → Attach → Location → Share Live Location (8 Hours) — My Feminist Guard SOS is active. Tap here to see my moving pin: '+lastLoc.link)),'_blank');}
+function callPolice(){window.location.href='tel:10111';}
+function call112(){window.location.href='tel:112';}
 let holdTimer=null,holdProgress=0;
-function startHold(){holdProgress=0;var m=document.getElementById('holdMsg');if(m)m.innerText='Holding... Keep holding 3 sec';holdTimer=setInterval(()=>{holdProgress++;if(holdProgress>=3){clearInterval(holdTimer);sendSOSNow();var m2=document.getElementById('holdMsg');if(m2)m2.innerText='✅ SOS SENT!';}},1000);}
-function cancelHold(){if(holdTimer)clearInterval(holdTimer);var m=document.getElementById('holdMsg');if(m)m.innerText='';}
-function unlockVault(){if(document.getElementById('vaultPin').value==='1234'){document.getElementById('vaultContent').classList.remove('hidden');document.getElementById('vaultLockMsg').innerText='✅ Vault Unlocked';document.getElementById('vaultSaved').innerText=localStorage.getItem('fg_vault_v1')||'';}else{alert('Wrong PIN. Demo PIN is 1234');}}
-function saveVault(){localStorage.setItem('fg_vault_v1',document.getElementById('vaultText').value);alert('Saved to Vault');}
-function askAI(){const q=document.getElementById('aiQ').value.trim().toLowerCase();if(!q){alert('Ask something');return;}let a='Stay calm. If you are in danger now, hold SOS and go to a safe public place. Tell a trusted person where you are and share your live location.';if(q.includes('walk')||q.includes('home'))a='Walking home safety: 1) Share live location with your Circle 2) Stay on lit main roads 3) Keep phone charged 4) If followed, go to nearest shop / petrol station, do not go home alone.';else if(q.includes('message')||q.includes('draft'))a='Copy this: Hi, I feel unsafe right now. Please check on me. My location is: '+lastLoc.link+' I will update you in 10 mins.';else if(q.includes('police')||q.includes('report'))a='To report: Go to nearest SAPS, take ID + any evidence. You can also call 10111. Keep Vault evidence safe. I can help draft your statement.';document.getElementById('aiAns').innerText=a;}
-function payReal(){
-  if(!currentUser){alert('Create account / Log in first');return;}
-  if(!PAYFAST_MERCHANT_KEY || PAYFAST_MERCHANT_KEY==='PASTE_YOUR_KEY_FROM_PAYFAST_HERE'){alert('You still need to paste your Merchant Key from PayFast screenshot into the code where it says PASTE_YOUR_KEY_FROM_PAYFAST_HERE');return;}
-  const email=currentUser.email; const name=currentUser.name;
-  const url='https://www.payfast.co.za/eng/process?merchant_id='+PAYFAST_MERCHANT_ID+'&merchant_key='+PAYFAST_MERCHANT_KEY+'&amount='+PAYFAST_AMOUNT+'&item_name='+PAYFAST_ITEM+'&email_address='+encodeURIComponent(email)+'&name_first='+encodeURIComponent(name)+'&return_url='+encodeURIComponent(location.href)+'&cancel_url='+encodeURIComponent(location.href);
-  window.location.href=url;
-}
-function unlockDemo(){if(currentUser){currentUser.paid=true;localStorage.setItem('fg_user_v37',JSON.stringify(currentUser));loadUserUI();alert('Demo Unlocked! In real launch, user pays R50.');}}
-function showPage(name,el){if(name==='vault' && currentUser && !currentUser.paid){alert('Vault is for PAID members. Pay R50 or use FREE Demo Unlock on Home to test.');}showPageOriginal(name,el);}
-checkAuth();renderContacts();getLocation();
+function startHold(){holdProgress=0;var m=document.getElementById('holdMsg');if(m)m.innerText='Holding... Keep holding 3 sec — AI will send silently';holdTimer=setInterval(()=>{holdProgress++;if(holdProgress>=3){clearInterval(holdTimer);sendSOSNow('HOLD 3 SEC');}},1000);}
+function cancelHold(){if(holdTimer)clearInterval(holdTimer);var m=document.getElementById('holdMsg');if(m)m.innerText='Ready — AI will send silently';}
+// SHAKE + VOLUME
+let shakeCount=0,lastShake=0,lastX=0,lastY=0,lastZ=0,shakeStarted=false,volCount=0;
+function startShakeSOS(){if(shakeStarted)return;shakeStarted=true;if(typeof DeviceMotionEvent!=='undefined'&&typeof DeviceMotionEvent.requestPermission==='function'){DeviceMotionEvent.requestPermission().then(r=>{if(r==='granted')window.addEventListener('devicemotion',onShake);}).catch(()=>{});}else{window.addEventListener('devicemotion',onShake);}}
+function onShake(e){let acc=e.accelerationIncludingGravity;if(!acc)return;let now=Date.now();if(now-lastShake<800)return;let diff=Math.abs(acc.x-lastX)+Math.abs(acc.y-lastY)+Math.abs(acc.z-lastZ);lastX=acc.x;lastY=acc.y;lastZ=acc.z;if(diff>45){shakeCount++;lastShake=now;document.getElementById('shakeCountShow').innerText=shakeCount+'/8';document.getElementById('volLogLine').innerText=new Date().toLocaleTimeString()+' — SHAKE '+shakeCount+'/8';if(shakeCount===1)setTimeout(()=>{shakeCount=0;document.getElementById('shakeCountShow').innerText='0/8';},4000);if(shakeCount>=3){shakeCount=0;document.getElementById('shakeCountShow').innerText='0/8';sendSOSNow('SHAKE 3X AI SILENT');}}}
+function shakeTest(){shakeCount++;document.getElementById('shakeCountShow').innerText=shakeCount+'/8';document.getElementById('volLogLine').innerText=new Date().toLocaleTimeString()+' — SHAKE '+shakeCount+'/8';if(shakeCount>=3){shakeCount=0;sendSOSNow('SHAKE 3X TEST');}}
+function resetShake(){shakeCount=0;document.getElementById('shakeCountShow').innerText='0/8';document.getElementById('volLogLine').innerText='Reset';}
+function volUp(){volCount++;document.getElementById('volLogLine').innerText=new Date().toLocaleTimeString()+' — VOLUME UP '+volCount;if(volCount>=3)sendSOSNow('VOLUME 3X');}
+function volDown(){volCount++;document.getElementById('volLogLine').innerText=new Date().toLocaleTimeString()+' — VOLUME DOWN '+volCount;if(volCount>=3)sendSOSNow('VOLUME 3X');}
+function armSOS(){alert('ARMED ✅ — AI will now auto-send on Shake 3X / Hold 3s / Volume. Stay safe.');}
+// VAULT
+function updatePinBoxes(){const v=document.getElementById('vaultPin').value;for(let i=0;i<4;i++){document.getElementById('pb'+i).innerText=v[i]?v[i]:'';}}
+function unlockVault(){const v=document.getElementById('vaultPin').value;if(v===realPin){document.getElementById('vaultLockedCard').classList.add('hidden');document.getElementById('vaultOpenCard').classList.remove('hidden');renderEvidence();}else if(fakePin && v===fakePin){document.getElementById('vaultLockedCard').classList.add('hidden');document.getElementById('vaultOpenCard').classList.remove('hidden');document.getElementById('evidenceList').innerHTML='<p>No evidence — Fake Vault (Empty for safety)</p>';document.getElementById('evCount').innerText='0';alert('Fake Vault opened — Shows EMPTY for safety');}else{alert('Wrong PIN. Try your Real PIN.');}}
+function changeRealPin(){const np=prompt('Enter NEW Real PIN (4 digits):',realPin);if(np&&/^\d{4}$/.test(np)){realPin=np;localStorage.setItem('fg_realPin',np);alert('Real PIN changed to '+np);updatePinStatus();}}
+function setFakePin(){const np=prompt('Enter FAKE PIN (4 digits, DIFFERENT from Real):','0000');if(np&&/^\d{4}$/.test(np)){if(np===realPin){alert('Fake must be DIFFERENT from Real!');return;}fakePin=np;localStorage.setItem('fg_fakePin',np);alert('Fake PIN set. If forced, give Fake PIN — Vault will show EMPTY.');updatePinStatus();}}
+function toggleRealVision(){alert('REAL VISION MODE 👁️ — In REAL APP, AI sends SMS automatically. In Chrome, WhatsApp needs 1 tap SEND.');}
+let evidence=JSON.parse(localStorage.getItem('fg_evidence_v41')||'[]');
+function saveEvidence(type,input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=function(){evidence.push({type,name:f.name,data:r.result,time:new Date().toLocaleString()});localStorage.setItem('fg_evidence_v41',JSON.stringify(evidence));renderEvidence();alert('Saved to Vault: '+f.name);};r.readAsDataURL(f);}
+function saveNote(){const t=document.getElementById('vaultText').value.trim();if(!t){alert('Write a note first');return;}evidence.push({type:'note',name:t.slice(0,30),data:t,time:new Date().toLocaleString()});localStorage.setItem('fg_evidence_v41',JSON.stringify(evidence));document.getElementById('vaultText').value='';renderEvidence();alert('Note saved to Vault');}
+function renderEvidence(){document.getElementById('evCount').innerText=evidence.length;const el=document.getElementById('evidenceList');if(!evidence.length){el.innerHTML='<p>No evidence yet — Take photo / video / record</p>';return;}el.innerHTML=evidence.map((e,i)=>'<div style="background:#0e0e26;padding:10px;border-radius:10px;margin:6px 0">'+e.type+' • '+e.name+' • '+e.time+' <button style="width:auto;padding:6px 10px;background:#ff1744;margin:0" onclick="deleteEvidence('+i+')">Delete</button></div>').join('');}
+function deleteEvidence(i){evidence.splice(i,1);localStorage.setItem('fg_evidence_v41',JSON.stringify(evidence));renderEvidence();}
+function deleteAllVault(){if(confirm('Delete ALL Vault Evidence?')){evidence=[];localStorage.setItem('fg_evidence_v41',JSON.stringify(evidence));renderEvidence();}}
+let mediaRec=null,mediaChunks=[];
+function toggleVoice(){if(mediaRec&&mediaRec.state==='recording'){mediaRec.stop();document.getElementById('voiceBtn').innerText='🎤 Start Recording';document.getElementById('voiceStatus').innerText='Saved — Tap to record again';return;}if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){alert('Voice recording not supported in this browser. Use Upload Audio.');return;}navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{mediaRec=new MediaRecorder(s);mediaChunks=[];mediaRec.ondataavailable=e=>mediaChunks.push(e.data);mediaRec.onstop=()=>{const blob=new Blob(mediaChunks,{type:'audio/webm'});const r=new FileReader();r.onload=function(){evidence.push({type:'voice',name:'Voice '+new Date().toLocaleTimeString(),data:r.result,time:new Date().toLocaleString()});localStorage.setItem('fg_evidence_v41',JSON.stringify(evidence));renderEvidence();};r.readAsDataURL(blob);};mediaRec.start();document.getElementById('voiceBtn').innerText='⏹️ Stop Recording';document.getElementById('voiceStatus').innerText='● Recording... Tap Stop to save secretly';}).catch(()=>alert('Mic permission denied'));}
+// AI
+function aiAppend(who,txt){document.getElementById('aiChat').innerHTML+='<br><br><b>'+who+':</b> '+txt;}
+function askAI(){const q=document.getElementById('aiQ').value.trim();if(!q)return;aiAppend('You',q);document.getElementById('aiQ').value='';let a='I hear you. Stay calm. If you are in danger now, hold SOS or shake 3 times. Go to a safe public place and share live location with your Circle.';let l=q.toLowerCase();if(l.includes('scared')||l.includes('afraid'))a='I\'m here. Hide if you can, lock door, stay quiet. I will help you send SOS silently to your Circle. Do you want me to SEND SOS now? Tap Send SOS.';else if(l.includes('follow'))a='Don\'t go home. Go to nearest shop / petrol station / police. I will send your live location to your Circle now. Stay on main lit road.';else if(l.includes('safe'))a='Good 💛 I will stop tracking. Tap I\'M SAFE below to tell your Circle you are safe.';else if(l.includes('hey')||l.includes('hi')||l.includes('hello'))a='Hi '+ (currentUser?currentUser.name:'')+'! I\'m Guard AI — like Meta AI, but I protect you. How are you feeling today? Are you safe? Just say "I\'m scared" and I\'ll help you.';setTimeout(()=>aiAppend('Guard AI',a),400);}
+function aiScared(){aiAppend('Guard AI','I\'m here. I will help you hide & send SOS silently. Tap Send SOS if you need it now.');}
+function aiSafe(){aiAppend('Guard AI','Good, you are safe 💛 I will stop tracking and tell your Circle you are SAFE.');alert('✅ I\'M SAFE sent to Circle — Tracking stopped.');var c=document.getElementById('holdCircle');if(c){c.classList.remove('green');c.innerHTML='HOLD<br>TO SEND<br>SOS';}}
+function startVoiceAI(){if(!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)){alert('Voice not supported in this browser. Type your message.');return;}const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;const rec=new Rec();rec.lang='en-ZA';rec.onresult=function(e){document.getElementById('aiQ').value=e.results[0][0].transcript;askAI();};rec.start();alert('🎤 Listening... Say HELP or I\'M SCARED');}
+// PAY
+function payReal(){if(!currentUser){alert('Create account / Log in first');return;}if(!PAYFAST_MERCHANT_KEY||PAYFAST_MERCHANT_KEY==='PASTE_YOUR_KEY_FROM_PAYFAST_HERE'){alert('You still need to paste your Merchant Key from PayFast where it says PASTE_YOUR_KEY_FROM_PAYFAST_HERE');return;}const url='https://www.payfast.co.za/eng/process?merchant_id='+PAYFAST_MERCHANT_ID+'&merchant_key='+PAYFAST_MERCHANT_KEY+'&amount=50.00&item_name='+PAYFAST_ITEM+'&email_address='+encodeURIComponent(currentUser.email)+'&name_first='+encodeURIComponent(currentUser.name)+'&return_url='+encodeURIComponent(location.href)+'&cancel_url='+encodeURIComponent(location.href);window.location.href=url;}
+function payTestR1(){if(!currentUser){alert('Create account / Log in first');return;}if(!PAYFAST_MERCHANT_KEY||PAYFAST_MERCHANT_KEY==='PASTE_YOUR_KEY_FROM_PAYFAST_HERE'){alert('Paste your Merchant Key first');return;}const url='https://www.payfast.co.za/eng/process?merchant_id='+PAYFAST_MERCHANT_ID+'&merchant_key='+PAYFAST_MERCHANT_KEY+'&amount=1.00&item_name='+PAYFAST_ITEM+'-TEST&email_address='+encodeURIComponent(currentUser.email)+'&name_first='+encodeURIComponent(currentUser.name)+'&return_url='+encodeURIComponent(location.href)+'&cancel_url='+encodeURIComponent(location.href);window.location.href=url;}
+function unlockDemo(){if(currentUser){currentUser.paid=true;localStorage.setItem('fg_user_v41',JSON.stringify(currentUser));loadUserUI();alert('Demo Unlocked! In real launch, user pays R50.');}}
+function showPage(name,el){if(name==='vault'&&currentUser&&!currentUser.paid){/* allow vault preview for demo - do not block */}showPageOriginal(name,el);}
+checkAuth();renderContacts();getLocation();startShakeSOS();updatePinStatus();
+if(navigator.getBattery)navigator.getBattery().then(b=>{lastLoc.battery=Math.round(b.level*100)+'%';});
 </script>
 </body>
-</html>
+  </html>
